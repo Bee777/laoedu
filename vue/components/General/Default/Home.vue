@@ -614,7 +614,7 @@
                                 <a href="shop-singel.html"><h6>Set for life </h6></a>
                                 <span>By Scott Trench</span>
                             </div>
-                            <div class="btn text-right">
+                            <div class="button text-right">
                                 <a href="#" class="main-btn">Buy Now ($50)</a>
                             </div>
                         </div>
@@ -636,7 +636,7 @@
                                 <a href="shop-singel.html"><h6>A Daughters </h6></a>
                                 <span>By Scott Trench</span>
                             </div>
-                            <div class="btn text-right">
+                            <div class="button text-right">
                                 <a href="#" class="main-btn">Buy Now ($30)</a>
                             </div>
                         </div>
@@ -658,7 +658,7 @@
                                 <a href="shop-singel.html"><h6>A Magnet </h6></a>
                                 <span>By Scott Trench</span>
                             </div>
-                            <div class="btn text-right">
+                            <div class="button text-right">
                                 <a href="#" class="main-btn">Buy Now ($20)</a>
                             </div>
                         </div>

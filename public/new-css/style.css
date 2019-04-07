@@ -47,8 +47,6 @@
 /*===========================
     1. Theme default css 
 ===========================*/
-
-@import url('roboto.css');
 @import url('https://fonts.googleapis.com/icon?family=Material+Icons');
 @import url('https://fonts.googleapis.com/css?family=Google+Sans:100,300,400,500,700,900,100i,300i,400i,500i,700i,900i');
 
@@ -61,7 +59,9 @@
     font-family: 'noto-bold';
     src: url(../fonts/NotoSansLaoUI-Bold.ttf) format("truetype");
 }
-
+*{
+ 
+}
 h1, h2, h3, h4, h5, h6, p ,nav, header{
     font-family: 'Roboto', 'noto-regular' !important;
 }
@@ -484,7 +484,7 @@ p {
     font-weight: 700;
 }
 
-.support-button .btn{
+.support-button .button{
     margin-left: 60px;
 }
 
@@ -536,7 +536,7 @@ p {
 
 .navigation .navbar .navbar-nav{}
 .navigation .navbar .navbar-nav li{
-    margin-right: 40px;
+    margin-right: 30px;
     position: relative;
 }
 .navigation .navbar .navbar-nav li:last-child{
@@ -544,9 +544,8 @@ p {
 }
 
 .navigation .navbar .navbar-nav li a{
-    font-size: 14px;
-    font-family: 'Montserrat', sans-serif;
-    font-weight: 700;
+    font-size: 16px;
+    font-weight: 900;
     color: #07294d;
     text-transform: uppercase;
     -webkit-transition: all 0.4s linear;
@@ -1560,10 +1559,10 @@ p {
     font-size: 13px;
     color: #8a8a8a;
 }
-.singel-publication .cont .btn{
+.singel-publication .cont .button{
     width: 50%;
 }
-.singel-publication .cont .btn a{
+.singel-publication .cont .button a{
     padding: 0 10px;
     font-size: 12px;
     line-height: 35px;
@@ -1754,7 +1753,9 @@ p {
     transition: all 0.4s linear;
     
 }
-
+.footer-copyright a:hover{
+    color: #ffc600;
+  }
 
 .footer-title h6{
     font-size: 18px;
@@ -3801,6 +3802,11 @@ p.form-message.error {
 	padding-bottom: 15px;
 }
 
+@media (min-width: 1100px){
+    .container {
+        max-width: 1100px;
+    }
+}
 
 
 

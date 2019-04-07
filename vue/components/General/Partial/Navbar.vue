@@ -41,6 +41,7 @@
                     class="logoImage"
                     :src="`${baseUrl}/images/${s.website_logo}${s.fresh_version}`"
                   >
+                  <span>Ministry of Education and Sports of Laos</span>
                 </router-link>
               </div>
             </div>
@@ -55,7 +56,7 @@
                     <span>321 325 5678</span>
                   </div>
                 </div>
-                <div class="btn float-left">
+                <div class="button float-left">
                   <a href="#" class="main-btn">Apply Now</a>
                 </div>
               </div>
@@ -98,21 +99,13 @@
                       <router-link :to="{name: 'events'}" active-class="active" exact>ສະຖາບັນ</router-link>
                     </li>
                     <li class="nav-item">
-                      <router-link :to="{name: 'news'}" active-class="active" exact>ຂ່່າວ</router-link>
+                      <router-link :to="{name: 'news'}" active-class="active" exact>ຂ່າວ</router-link>
                     </li>
                     <li class="nav-item">
-                      <router-link
-                        :to="{name: 'activities'}"
-                        active-class="is-active"
-                        exact
-                      >ກິດຈະກຳ</router-link>
+                      <router-link :to="{name: 'activities'}" active-class="is-active" exact>ກິດຈະກຳ</router-link>
                     </li>
                     <li class="nav-item">
-                      <router-link
-                        to="/about"
-                        active-class="active"
-                        exact
-                      >ກ່ຽວກັບສູນ</router-link>
+                      <router-link to="/about" active-class="active" exact>ກ່ຽວກັບສູນ</router-link>
                     </li>
                     <li class="nav-item">
                       <router-link to="/contact" active-class="active" exact>ຕິດຕໍ່ພວກເຮົາ</router-link>

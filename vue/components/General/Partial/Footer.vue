@@ -181,7 +181,7 @@
         <div class="container">
           <div class="row">
             <div class="col-md-8">
-              <div class="copyright text-center pt-12">
+              <div class="copyright text-md-left text-center pt-15">
                 <p>
                   Copyright ©
                   {{$utils.getDateTime(new Date()).years}} All rights reserved | Powered by

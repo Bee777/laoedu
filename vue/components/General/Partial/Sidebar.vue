@@ -7,17 +7,17 @@
                 <div class="my-sidebar-drawer-loginInfo">
                     <div class="sidebar-container" @click="GoToHomePage()">
                         <img class="i-sidebar-content-fill-content i-sidebar-content-replaced-content"
-                             :src="`${baseUrl}/assets/images/${s.website_logo}${s.fresh_version}`">
+                             :src="`${baseUrl}/images/${s.website_logo}${s.fresh_version}`">
                     </div>
                     <div class="drawer-unlogin" v-if="!LoggedIn()">
                         <router-link @click.native.prevent="maskClick()" :to="{ name: 'home' }">
                             <a class="drawer-seeker">
-                                <span class="line-bottom">Welcome to JAOL</span>
+                                <span class="line-bottom">ສູນປະກັນຄຸນນະພາບການສຶກສາ ສປປ ລາວ</span>
                             </a>
                         </router-link>
                         <router-link @click.native.prevent="maskClick()" :to="{ name: 'login' }">
                             <a class="drawer-employer">
-                                <span>Sign In</span>
+                                <span>ເຂົ້າສູ່ລະບົບ</span>
                             </a>
                         </router-link>
                     </div>
@@ -41,7 +41,7 @@
                                 <i class="sidebar-icon-md material-icons">
                                     home
                                 </i>
-                                <span>Home</span>
+                                <span>ໜ້າຫຼັກ</span>
                             </router-link>
                         </li>
                         <li :class="isRoute('news')">
@@ -49,7 +49,7 @@
                                 <i class="sidebar-icon-md material-icons">
                                     rss_feed
                                 </i>
-                                <span>News</span>
+                                <span>ຂ່າວ</span>
                             </router-link>
                         </li>
                         <li :class="isRoute('scholarships')">
@@ -63,7 +63,7 @@
                                 <i class="sidebar-icon-md material-icons">
                                     list_alt
                                 </i>
-                                <span>Activities</span>
+                                <span>ກິດຈະກຳ</span>
                             </router-link>
                         </li>
                         <li :class="isRoute('events')">
@@ -71,7 +71,7 @@
                                 <i class="sidebar-icon-md material-icons">
                                     today
                                 </i>
-                                <span>Event</span>
+                                <span>ສະຖາບັນ</span>
                             </router-link>
                         </li>
                         <!--<li :class="isRoute('forum')">-->
@@ -94,20 +94,12 @@
                 </ul>
 
                 <ul class="sidebar-drawer-box">
-                    <li :class="isRoute('organize-charts')">
-                        <router-link :to="{ name: 'organize-charts' }" @click.native.prevent="maskClick()">
-                            <i class="sidebar-icon-md material-icons">
-                                bubble_chart
-                            </i>
-                            <span>Board Committee</span>
-                        </router-link>
-                    </li>
                     <li :class="isRoute('contact')">
                         <router-link :to="{ name: 'contact' }" @click.native.prevent="maskClick()">
                             <i class="sidebar-icon-md material-icons">
                                 call
                             </i>
-                            <span>Contact Us</span>
+                            <span>ຕິດຕໍ່ພວກເຮົາ</span>
                         </router-link>
                     </li>
                     <li :class="isRoute('about')">
@@ -115,7 +107,7 @@
                             <i class="sidebar-icon-md material-icons">
                                 info
                             </i>
-                            <span>About</span>
+                            <span>ກ່ຽວກັບສູນ</span>
                         </router-link>
                     </li>
                     <li class="drawer-help" v-if="LoggedIn()">
@@ -195,7 +187,9 @@
     li.is-active {
         background-color: #ECECEC !important;
     }
-
+.drawer-unlogin a:hover{
+color:#ffc600;
+}
     .sidebar {
         position: fixed !important;
         top: 0;
@@ -233,9 +227,10 @@
         -webkit-box-sizing: border-box;
         -moz-box-sizing: border-box;
         box-sizing: border-box;
-        background-color: #ed1f24;
+        background-color: #07294d;
         overflow: hidden;
-        background-image: linear-gradient(to bottom right, #ed1424, #ed1f24);
+        /* background-image: linear-gradient(to bottom right, #ed1424, #ed1f24); */
+        background-image: linear-gradient(to right bottom, rgba(10, 33, 163, 0.8), #07294d);
         background-repeat: no-repeat;
         background-size: cover;
     }
@@ -268,7 +263,7 @@
 
     .sidebar-drawer-box li span {
         font-weight: 600;
-        color: #3A3E4A;
+        color: #07294d;
     }
 
     .sidebar-drawer-box li .sidebar-icon-md {
@@ -276,7 +271,7 @@
         margin-right: 16px;
         float: left;
         font-size: 26px !important;
-        color: #898B92;
+        color: #06386d;
         min-width: 56px;
         max-width: 56px;
     }
@@ -304,9 +299,6 @@
 
     .my-sidebar-drawer-loginInfo .sidebar-container img {
         display: block;
-        border-radius: 50%;
-        -moz-border-radius: 50%;
-        -webkit-border-radius: 50%;
     }
 
     .i-sidebar-content-layout-size-defined .i-sidebar-content-fill-content {
@@ -321,11 +313,12 @@
         display: block;
         height: 0;
         max-height: 100%;
-        max-width: 100%;
+        max-width: 80%;
         min-height: 100%;
-        min-width: 100%;
+        min-width: 80%;
         width: 0;
         margin: auto;
+        
     }
 
     .i-sidebar-content-replaced-content, .i-sidebar-content-screen-reader {
