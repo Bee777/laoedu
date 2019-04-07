@@ -1,0 +1,156 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta name="viewport"
+        content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, user-scalable=no, user-scalable=0">
+
+    <!-- Style New -->
+    <!--====== Slick css ======-->
+    <link rel="stylesheet" href="/public/new-css/slick.css">
+
+    <!--====== Animate css ======-->
+    <link rel="stylesheet" href="/public/new-css/animate.css">
+
+    <!--====== Nice Select css ======-->
+    <link rel="stylesheet" href="/public/new-css/nice-select.css">
+
+    <!--====== Nice Number css ======-->
+    <link rel="stylesheet" href="/public/new-css/jquery.nice-number.min.css">
+
+    <!--====== Magnific Popup css ======-->
+    <link rel="stylesheet" href="/public/new-css/magnific-popup.css">
+
+    <!--====== Bootstrap css ======-->
+    <link rel="stylesheet" href="/public/new-css/bootstrap.min.css">
+
+    <!--====== Fontawesome css ======-->
+    <!-- <link rel="stylesheet" href="/public/new-css/font-awesome.min.css"> -->
+    <link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.2.0/css/font-awesome.min.css" rel="stylesheet">
+
+    <!--====== Default css ======-->
+    <link rel="stylesheet" href="/public/new-css/default.css">
+
+    <!--====== Style css ======-->
+    <link rel="stylesheet" href="/public/new-css/style.css">
+    <!--====== Responsive css ======-->
+    <link rel="stylesheet" href="/public/new-css/responsive.css">
+
+<!-- Bulma style -->
+        <!-- <link rel="stylesheet" href="/public/css/fontawesome-all.min.css"> -->
+        <link rel="stylesheet" href="/public/css/bulma.css">
+        <!--<link rel="stylesheet" href="/public/css/main.css">-->
+    
+        <!-- <link rel="stylesheet" href="/public/css/admin.css"> -->
+    
+        <link rel="stylesheet" href="/public/css/general.css">
+        <link rel="stylesheet" href="/public/css/style.css">
+    
+        <link rel="stylesheet" href="/public/css/vue-multiselect.min.css">
+        <!--Multi select Toast-->
+        <link rel="stylesheet" href="/public/css/vue-datetime.min.css">
+        <!--vue date time-->
+        <link rel="stylesheet" href="/public/css/vue-toasted.min.css">
+        <!--Toast-->
+        <link rel="stylesheet" href="/public/css/bolloon.css">
+    <title>Home | Lao Education</title>
+</head>
+
+<body>
+    <div id="app">
+    </div>
+    <script type="text/javascript">
+        var baseUrl = 'http://localhost:8000';
+        var pathPrefix = '/public/';
+
+        var settings = JSON.parse(JSON.stringify({
+            "website_logo": "logo.png",
+            "site_name": "ledu.la",
+            "fresh_version": "?v5bfaeb853bc634a830a28575dc406b01"
+        }));
+
+        var banners = [{
+            "link": null,
+            "image": "bannerone.png7e6a2afe551e067a75fafacf47a6d98113612690edb0417ab34d14518560cd931551749469_posts.png"
+        }, {
+            "link": null,
+            "image": "bannertwo.png7e6a2afe551e067a75fafacf47a6d9817d038e0fdb0269c867f79277f1891d1a1551690405_posts.png"
+        }, {
+            "link": null,
+            "image": "activity2.png7e6a2afe551e067a75fafacf47a6d98175a3573469502b35837cd42df980ee5b1551659485_posts.png"
+        }, {
+            "link": null,
+            "image": "blog2.jpg7e6a2afe551e067a75fafacf47a6d9810311fe1b9359a21ed9a4314030f978301551688754_posts.jpg"
+        }];
+        var latest_news = [];
+
+        var items = { posts: {}, mostViews: [], comingEvents: [] };
+        var news = items;
+        var activities = items;
+        var events = items;
+        var scholarships = items;
+        var dictionaries = items;
+
+        var contactInfo = {
+            "phone": "+852 20 557685867",
+            "email": "info@jaol.com",
+            "address": "The Japaneses and Lao students website in Laos PDR.",
+            "facebook": null,
+            "googleplus": null,
+            "twitter": null
+        };
+        var aboutInfo = {};
+    </script>
+    <script src="/public/js/jquery-1.11.2.min.js"></script>
+    <script type="text/javascript" src="/public/js/tiny/jquery.tinymce.min.js "></script>
+    <script type="text/javascript" src="/public/js/tiny/tinymce.min.js"></script>
+    <script type="text/javascript" src="/public/js/tiny/tinymce.setting.js"></script>
+    <script type="text/javascript" src="/public/js/vue-toasted.min.js"></script>
+    <!--Toast-->
+    <script type="text/javascript" src="/public/js/luxon/luxon.min.js"></script>
+    <!--Luxon-->
+    <script type="text/javascript" src="/public/js/vue-datetime.min.js"></script>
+    <!--Datetime-->
+    <script src="/public/bundle.js"></script>
+
+
+    <!-- Script New -->
+    <!--====== jquery js ======-->
+    <script type="text/javascript" src="/public/new-js/vendor/modernizr-3.6.0.min.js"></script>
+    <script type="text/javascript" src="/public/new-js/vendor/jquery-1.12.4.min.js"></script>
+
+    <!--====== Bootstrap js ======-->
+    <script type="text/javascript" src="/public/new-js/bootstrap.min.js"></script>
+
+    <!--====== Slick js ======-->
+    <script type="text/javascript" src="/public/new-js/slick.min.js"></script>
+
+    <!--====== Magnific Popup js ======-->
+    <script type="text/javascript" src="/public/new-js/jquery.magnific-popup.min.js"></script>
+
+    <!--====== Counter Up js ======-->
+    <script type="text/javascript" src="/public/new-js/waypoints.min.js"></script>
+    <script type="text/javascript" src="/public/new-js/jquery.counterup.min.js"></script>
+
+    <!--====== Nice Select js ======-->
+    <script type="text/javascript" src="/public/new-js/jquery.nice-select.min.js"></script>
+
+    <!--====== Nice Number js ======-->
+    <script type="text/javascript" src="/public/new-js/jquery.nice-number.min.js"></script>
+
+    <!--====== Count Down js ======-->
+    <script type="text/javascript" src="/public/new-js/jquery.countdown.min.js"></script>
+
+    <!--====== Validator js ======-->
+    <script type="text/javascript" src="/public/new-js/validator.min.js"></script>
+
+    <!--====== Ajax Contact js ======-->
+    <script type="text/javascript" src="/public/new-js/ajax-contact.js"></script>
+
+    <!--====== Main js ======-->
+    <script type="text/javascript" src="/public/new-js/main.js"></script>
+
+    <!--====== Map js ======-->
+    <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDC3Ip9iVC0nIxC6V14CKLQ1HZNF_65qEQ"></script>
+    <script type="text/javascript" src="/public/new-js/map-script.js"></script>
+</body>
+</html>

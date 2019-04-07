@@ -1,0 +1,33 @@
+$Primary-color : #0067BC;
+$Secondary-color : #00E2E2;
+
+
+$mobile : 768px;
+$tablet : 769px;
+$desktop: 1024px;
+$widescreen: 1216px;
+$fullhd: 1408px;
+
+.section-container{
+    padding: 6rem 0 3rem;
+}
+//.container{
+//    padding-left: 15px;
+//    padding-right: 15px;
+//    position: relative;
+//
+//    @media screen and (min-width: $desktop) {
+//    max-width: 1088px;
+//    width: 1088px;
+//    }
+//
+//    @media screen and (min-width: $widescreen) {
+//        max-width: 1088px;
+//        width: 1088px;
+//    }
+//
+//    @media screen and (min-width: $fullhd) {
+//        max-width: 1088px;
+//        width: 1088px;
+//        }
+//}
