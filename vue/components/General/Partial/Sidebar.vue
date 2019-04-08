@@ -7,7 +7,7 @@
                 <div class="my-sidebar-drawer-loginInfo">
                     <div class="sidebar-container" @click="GoToHomePage()">
                         <img class="i-sidebar-content-fill-content i-sidebar-content-replaced-content"
-                             :src="`${baseUrl}/images/${s.website_logo}${s.fresh_version}`">
+                             :src="`${baseUrl}/assets/images/${s.website_logo}${s.fresh_version}`">
                     </div>
                     <div class="drawer-unlogin" v-if="!LoggedIn()">
                         <router-link @click.native.prevent="maskClick()" :to="{ name: 'home' }">

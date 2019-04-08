@@ -1,4 +1,4 @@
-import {createAxiosClient} from "../api/axios-client";
+import {createAxiosClient} from "@vue/initial/api/axios-client";
 
 let {client, ajaxConfig, apiUrl} = createAxiosClient();
 const ajaxToken = (c, formData = false) => {

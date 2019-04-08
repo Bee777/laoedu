@@ -1,6 +1,6 @@
 <?php
 
-use App\TypeUser;
+use App\Models\TypeUser;
 use Illuminate\Database\Seeder;
 
 class TypeUserSeeder extends Seeder
@@ -14,6 +14,8 @@ class TypeUserSeeder extends Seeder
     {
         TypeUser::create(['name' => 'super_admin']);
         TypeUser::create(['name' => 'admin']);
-        TypeUser::create(['name' => 'user']);
+        TypeUser::create(['name' => 'checker']);
+        TypeUser::create(['name' => 'institute']);
+        TypeUser::create(['name' => 'field_inspector']);
     }
 }

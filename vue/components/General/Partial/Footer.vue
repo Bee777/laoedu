@@ -10,7 +10,7 @@
               <div class="footer-about mt-40">
                 <div class="logo">
                   <a href="#">
-                    <img :src="`${baseUrl}/images/logo.png`" alt="Logo">
+                    <img :src="`${baseUrl}/assets/images/${s.website_logo}${s.fresh_version}`" alt="Logo">
                   </a>
                 </div>
                 <p>Gravida nibh vel velit auctor aliquetn quibibendum auci elit cons equat ipsutis sem nibh id elit. Duis sed odio sit amet nibh vulputate.</p>

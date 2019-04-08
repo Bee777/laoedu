@@ -3,9 +3,9 @@
 namespace App\Http\Controllers;
 
 use App\Http\Controllers\Helpers\Helpers;
+use App\Models\PostImage;
 use Illuminate\Http\Request;
 use Validator, Image;
-use App\PostImage;
 
 class PostImageController extends Controller
 {

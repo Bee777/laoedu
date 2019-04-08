@@ -24,7 +24,7 @@
         props: ['items'],
         data() {
             return {
-                path: `${this.baseUrl}/assets/images/banners/`,
+                path: `${this.baseUrl}${this.baseRes}/assets/images/banners/`,
             }
         },
         components: {

@@ -3,13 +3,15 @@
 namespace App;
 
 use App\Http\Controllers\Helpers\Helpers;
+use App\Models\Role;
+use App\Models\UserType;
 use App\Traits\UserRoleTrait;
 use App\Traits\PersonalAccessTokenTrait;
 use Illuminate\Notifications\Notifiable;
 use Illuminate\Contracts\Auth\MustVerifyEmail;
 use Illuminate\Foundation\Auth\User as Authenticatable;
+use Illuminate\Support\Facades\Auth;
 use Laravel\Passport\HasApiTokens;
-use Auth;
 use Laravel\Passport\Passport;
 use \Illuminate\Database\Eloquent\Relations\HasMany,
     \Illuminate\Database\Eloquent\Relations\BelongsToMany,
@@ -38,8 +40,18 @@ class User extends Authenticatable
     protected $hidden = [
         'password', 'remember_token',
     ];
+
+    /**
+     * The attributes that should be cast to native types.
+     *
+     * @var array
+     */
+    protected $casts = [
+        'email_verified_at' => 'datetime',
+    ];
+
     public $userInfo = ['imagePath' => '/assets/images/user_profiles/', 'preThumb' => '96x96-'];
-    protected $defaultStatus = ['pending', 'approved', 'disabled'];
+    protected static $defaultStatus = ['pending', 'approved', 'disabled'];
 
     /**
      * @StartActions
@@ -83,85 +95,12 @@ class User extends Authenticatable
      */
 
     /**
-     * @User Educations, Careers
-     */
-    public function member_educations()
-    {
-        $educations = $this->educations;
-        $educations->map(function ($education) {
-            $degree = $education->degree;
-            $year = $education->year_of_graduation;
-            unset($education->degree);
-            $education->degree = ['label' => $degree->name, 'value' => $degree->id];
-            $education->year_of_graduated = ['text' => $year, 'value' => (int)$year];
-            $education->university = $education->university_graduation;
-            $education->validate = json_decode(json_encode([], JSON_FORCE_OBJECT));
-            $this->removeEducationUnnecessary($education);
-            return $education;
-        });
-        $shorted = $educations->sortByDesc(function ($education, $key) {
-            return $education['year_of_graduated']['value'];
-        });
-        return $shorted->values();
-    }
-
-    public function removeEducationUnnecessary($education): void
-    {
-        unset($education->user_id, $education->year_of_graduation, $education->university_graduation, $education->created_at, $education->updated_at, $education->education_degree_id);
-    }
-
-    public function member_careers()
-    {
-        $careers = $this->careers;
-        $careers->map(function ($career) {
-            $career->type_of_organize = $career->organizeData();
-            unset($career->organize);
-            $start_year = Helpers::toFormatDateString($career->start_date, 'Y');
-            $end_year = Helpers::toFormatDateString($career->end_date, 'Y');
-            $career->start_year = ['text' => $start_year, 'value' => (int)$start_year];
-            $career->end_year = ['text' => $end_year, 'value' => (int)$end_year];
-            $career->member_of_state = $career->member_of_state === 'yes';
-            $career->work_categories = $career->workCategoriesData();
-            $career->validate = json_decode(json_encode([], JSON_FORCE_OBJECT));
-            $this->removeCareerUnnecessary($career);
-            return $career;
-        });
-        $shorted = $careers->sortByDesc(function ($career, $key) {
-            return $career['end_year']['value'];
-        });
-        return $shorted->values();
-    }
-
-    public function removeCareerUnnecessary($career): void
-    {
-        unset($career->user_id, $career->created_at, $career->updated_at, $career->start_date, $career->end_date, $career->organize_id);
-    }
-
-    /**
-     * @User Educations, Careers
-     */
-
-    /**
      * @Model relationship
      */
-    public function profile(): HasOne
-    {
-        return $this->hasOne(UserProfile::class);
-    }
 
     /**@Department */
 
     /**@Relationship */
-    public function careers(): HasMany
-    {
-        return $this->hasMany(MemberCareer::class);
-    }
-
-    public function educations(): HasMany
-    {
-        return $this->hasMany(MemberEducation::class);
-    }
-
     public function roles(): BelongsToMany
     {
         return $this->belongsToMany(Role::class);

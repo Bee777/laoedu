@@ -14,7 +14,7 @@
     </div> -->
     
     <section id="slider-part" class="slider-active">
-        <div class="single-slider bg_cover pt-150" style="background-image: url(public/images/slider/s-1.jpg)" data-overlay="4">
+        <div class="single-slider bg_cover pt-150" :style="`background-image: url(${baseUrl}${baseRes}/assets/images/slider/s-1.jpg)`" data-overlay="4">
             <div class="container">
                 <div class="row">
                     <div class="col-xl-7 col-lg-9">
@@ -31,7 +31,7 @@
             </div> <!-- container -->
         </div> <!-- single slider -->
         
-        <div class="single-slider bg_cover pt-150" style="background-image: url(public/images/slider/s-2.jpg)" data-overlay="4">
+        <div class="single-slider bg_cover pt-150" :style="`background-image: url(${baseUrl}${baseRes}/assets/images/slider/s-2.jpg)`" data-overlay="4">
             <div class="container">
                 <div class="row">
                     <div class="col-xl-7 col-lg-9">
@@ -48,7 +48,7 @@
             </div> <!-- container -->
         </div> <!-- single slider -->
         
-        <div class="single-slider bg_cover pt-150" style="background-image: url(public/images/slider/s-3.jpg)" data-overlay="4">
+        <div class="single-slider bg_cover pt-150" :style="`background-image: url(${baseUrl}${baseRes}/assets/images/slider/s-3.jpg)`" data-overlay="4">
             <div class="container">
                 <div class="row">
                     <div class="col-xl-7 col-lg-9">
@@ -85,7 +85,7 @@
                                 <a href="#">
                                     <span class="singel-category text-center color-1">
                                         <span class="icon">
-                                            <img :src="`${baseUrl}/images/all-icon/ctg-1.png`" alt="Icon">
+                                            <img :src="`${baseUrl}${baseRes}/assets/images/all-icon/ctg-1.png`" alt="Icon">
                                         </span>
                                         <span class="cont">
                                             <span>Language</span>
@@ -97,7 +97,7 @@
                                 <a href="#">
                                     <span class="singel-category text-center color-2">
                                         <span class="icon">
-                                            <img :src="`${baseUrl}/images/all-icon/ctg-2.png`" alt="Icon">
+                                            <img :src="`${baseUrl}${baseRes}/assets/images/all-icon/ctg-2.png`" alt="Icon">
                                         </span>
                                         <span class="cont">
                                             <span>Business</span>
@@ -109,7 +109,7 @@
                                 <a href="#">
                                     <span class="singel-category text-center color-3">
                                         <span class="icon">
-                                            <img :src="`${baseUrl}/images/all-icon/ctg-3.png`" alt="Icon">
+                                            <img :src="`${baseUrl}${baseRes}/assets/images/all-icon/ctg-3.png`" alt="Icon">
                                         </span>
                                         <span class="cont">
                                             <span>Literature</span>
@@ -121,7 +121,7 @@
                                 <a href="#">
                                     <span class="singel-category text-center color-1">
                                         <span class="icon">
-                                            <img :src="`${baseUrl}/images/all-icon/ctg-1.png`" alt="Icon">
+                                            <img :src="`${baseUrl}${baseRes}/assets/images/all-icon/ctg-1.png`" alt="Icon">
                                         </span>
                                         <span class="cont">
                                             <span>Language</span>
@@ -133,7 +133,7 @@
                                 <a href="#">
                                     <span class="singel-category text-center color-2">
                                         <span class="icon">
-                                            <img :src="`${baseUrl}/images/all-icon/ctg-2.png`" alt="Icon">
+                                            <img :src="`${baseUrl}${baseRes}/assets/images/all-icon/ctg-2.png`" alt="Icon">
                                         </span>
                                         <span class="cont">
                                             <span>Business</span>
@@ -145,7 +145,7 @@
                                 <a href="#">
                                     <span class="singel-category text-center color-3">
                                         <span class="icon">
-                                            <img :src="`${baseUrl}/images/all-icon/ctg-3.png`" alt="Icon">
+                                            <img :src="`${baseUrl}${baseRes}/assets/images/all-icon/ctg-3.png`" alt="Icon">
                                         </span>
                                         <span class="cont">
                                             <span>Literature</span>
@@ -213,7 +213,7 @@
             </div> <!-- row -->
         </div> <!-- container -->
         <div class="about-bg">
-            <img :src="`${baseUrl}/images/about/bg-1.png`" alt="About">
+            <img :src="`${baseUrl}${baseRes}/assets/images/about/bg-1.png`" alt="About">
         </div>
     </section>
     
@@ -263,7 +263,7 @@
                     <div class="singel-course">
                         <div class="thum">
                             <div class="image">
-                                <img :src="`${baseUrl}/images/course/cu-1.jpg`" alt="Course">
+                                <img :src="`${baseUrl}${baseRes}/assets/images/course/cu-1.jpg`" alt="Course">
                             </div>
                             <div class="price">
                                 <span>Free</span>
@@ -281,7 +281,7 @@
                             <a href="courses-singel.html"><h4>Learn basis javascirpt from start for beginner</h4></a>
                             <div class="course-teacher">
                                 <div class="thum">
-                                    <a href="#"><img :src="`${baseUrl}/images/course/teacher/t-1.jpg`" alt="teacher"></a>
+                                    <a href="#"><img :src="`${baseUrl}${baseRes}/assets/images/course/teacher/t-1.jpg`" alt="teacher"></a>
                                 </div>
                                 <div class="name">
                                     <a href="#"><h6>Mark anthem</h6></a>
@@ -300,7 +300,7 @@
                     <div class="singel-course">
                         <div class="thum">
                             <div class="image">
-                                <img :src="`${baseUrl}/images/course/cu-2.jpg`" alt="Course">
+                                <img :src="`${baseUrl}${baseRes}/assets/images/course/cu-2.jpg`" alt="Course">
                             </div>
                             <div class="price">
                                 <span>Free</span>
@@ -318,7 +318,7 @@
                             <a href="courses-singel.html"><h4>Learn basis javascirpt from start for beginner</h4></a>
                             <div class="course-teacher">
                                 <div class="thum">
-                                    <a href="#"><img :src="`${baseUrl}/images/course/teacher/t-2.jpg`" alt="teacher"></a>
+                                    <a href="#"><img :src="`${baseUrl}${baseRes}/assets/images/course/teacher/t-2.jpg`" alt="teacher"></a>
                                 </div>
                                 <div class="name">
                                     <a href="#"><h6>Mark anthem</h6></a>
@@ -337,7 +337,7 @@
                     <div class="singel-course">
                         <div class="thum">
                             <div class="image">
-                                <img :src="`${baseUrl}/images/course/cu-3.jpg`" alt="Course">
+                                <img :src="`${baseUrl}${baseRes}/assets/images/course/cu-3.jpg`" alt="Course">
                             </div>
                             <div class="price">
                                 <span>Free</span>
@@ -355,7 +355,7 @@
                             <a href="courses-singel.html"><h4>Learn basis javascirpt from start for beginner</h4></a>
                             <div class="course-teacher">
                                 <div class="thum">
-                                    <a href="#"><img :src="`${baseUrl}/images/course/teacher/t-3.jpg`" alt="teacher"></a>
+                                    <a href="#"><img :src="`${baseUrl}${baseRes}/assets/images/course/teacher/t-3.jpg`" alt="teacher"></a>
                                 </div>
                                 <div class="name">
                                     <a href="#"><h6>Mark anthem</h6></a>
@@ -374,7 +374,7 @@
                     <div class="singel-course">
                         <div class="thum">
                             <div class="image">
-                                <img :src="`${baseUrl}/images/course/cu-4.jpg`" alt="Course">
+                                <img :src="`${baseUrl}${baseRes}/assets/images/course/cu-4.jpg`" alt="Course">
                             </div>
                             <div class="price">
                                 <span>Free</span>
@@ -392,7 +392,7 @@
                             <a href="courses-singel.html"><h4>Learn basis javascirpt from start for beginner</h4></a>
                             <div class="course-teacher">
                                 <div class="thum">
-                                    <a href="#"><img :src="`${baseUrl}/images/course/teacher/t-4.jpg`" alt="teacher"></a>
+                                    <a href="#"><img :src="`${baseUrl}${baseRes}/assets/images/course/teacher/t-4.jpg`" alt="teacher"></a>
                                 </div>
                                 <div class="name">
                                     <a href="#"><h6>Mark anthem</h6></a>
@@ -411,7 +411,7 @@
                     <div class="singel-course">
                         <div class="thum">
                             <div class="image">
-                                <img :src="`${baseUrl}/images/course/cu-5.jpg`" alt="Course">
+                                <img :src="`${baseUrl}${baseRes}/assets/images/course/cu-5.jpg`" alt="Course">
                             </div>
                             <div class="price">
                                 <span>Free</span>
@@ -429,7 +429,7 @@
                             <a href="courses-singel.html"><h4>Learn basis javascirpt from start for beginner</h4></a>
                             <div class="course-teacher">
                                 <div class="thum">
-                                    <a href="#"><img :src="`${baseUrl}/images/course/teacher/t-5.jpg`" alt="teacher"></a>
+                                    <a href="#"><img :src="`${baseUrl}${baseRes}/assets/images/course/teacher/t-5.jpg`" alt="teacher"></a>
                                 </div>
                                 <div class="name">
                                     <a href="#"><h6>Mark anthem</h6></a>
@@ -452,7 +452,7 @@
    
     <!--====== VIDEO FEATURE PART START ======-->
     
-    <section id="video-feature" class="bg_cover pt-60 pb-110" style="background-image: url(public/images/bg-1.jpg)">
+    <section id="video-feature" class="bg_cover pt-60 pb-110" :style="`background-image: url(${baseUrl}${baseRes}/assets/images/bg-1.jpg)`">
         <div class="container">
             <div class="row align-items-center">
                 <div class="col-lg-6 order-last order-lg-first">
@@ -469,7 +469,7 @@
                             <li>
                                 <div class="singel-feature">
                                     <div class="icon">
-                                        <img :src="`${baseUrl}/images/all-icon/f-1.png`" alt="icon">
+                                        <img :src="`${baseUrl}${baseRes}/assets/images/all-icon/f-1.png`" alt="icon">
                                     </div>
                                     <div class="cont">
                                         <h4>Global Certificate</h4>
@@ -480,7 +480,7 @@
                             <li>
                                 <div class="singel-feature">
                                     <div class="icon">
-                                        <img :src="`${baseUrl}/images/all-icon/f-2.png`" alt="icon">
+                                        <img :src="`${baseUrl}${baseRes}/assets/images/all-icon/f-2.png`" alt="icon">
                                     </div>
                                     <div class="cont">
                                         <h4>Alumni Support</h4>
@@ -491,7 +491,7 @@
                             <li>
                                 <div class="singel-feature">
                                     <div class="icon">
-                                        <img :src="`${baseUrl}/images/all-icon/f-3.png`" alt="icon">
+                                        <img :src="`${baseUrl}${baseRes}/assets/images/all-icon/f-3.png`" alt="icon">
                                     </div>
                                     <div class="cont">
                                         <h4>Books & Library</h4>
@@ -530,7 +530,7 @@
                             <div class="col-sm-6">
                                 <div class="singel-teachers mt-30 text-center">
                                     <div class="image">
-                                        <img :src="`${baseUrl}/images/teachers/t-1.jpg`" alt="Teachers">
+                                        <img :src="`${baseUrl}${baseRes}/assets/images/teachers/t-1.jpg`" alt="Teachers">
                                     </div>
                                     <div class="cont">
                                         <a href="teachers-singel.html"><h6>Mark alen</h6></a>
@@ -541,7 +541,7 @@
                             <div class="col-sm-6">
                                 <div class="singel-teachers mt-30 text-center">
                                     <div class="image">
-                                        <img :src="`${baseUrl}/images/teachers/t-2.jpg`" alt="Teachers">
+                                        <img :src="`${baseUrl}${baseRes}/assets/images/teachers/t-2.jpg`" alt="Teachers">
                                     </div>
                                     <div class="cont">
                                         <a href="teachers-singel.html"><h6>David card</h6></a>
@@ -552,7 +552,7 @@
                             <div class="col-sm-6">
                                 <div class="singel-teachers mt-30 text-center">
                                     <div class="image">
-                                        <img :src="`${baseUrl}/images/teachers/t-3.jpg`" alt="Teachers">
+                                        <img :src="`${baseUrl}${baseRes}/assets/images/teachers/t-3.jpg`" alt="Teachers">
                                     </div>
                                     <div class="cont">
                                         <a href="teachers-singel.html"><h6>Rebeka alig</h6></a>
@@ -563,7 +563,7 @@
                             <div class="col-sm-6">
                                 <div class="singel-teachers mt-30 text-center">
                                     <div class="image">
-                                        <img :src="`${baseUrl}/images/teachers/t-4.jpg`" alt="Teachers">
+                                        <img :src="`${baseUrl}${baseRes}/assets/images/teachers/t-4.jpg`" alt="Teachers">
                                     </div>
                                     <div class="cont">
                                         <a href="teachers-singel.html"><h6>Hanna bein</h6></a>
@@ -601,7 +601,7 @@
                 <div class="col-lg-3 col-md-6 col-sm-8">
                     <div class="singel-publication mt-30">
                         <div class="image">
-                            <img :src="`${baseUrl}/images/publication/p-1.jpg`" alt="Publication">
+                            <img :src="`${baseUrl}${baseRes}/assets/images/publication/p-1.jpg`" alt="Publication">
                             <div class="add-cart">
                                 <ul>
                                     <li><a href="#"><i class="fa fa-shopping-cart"></i></a></li>
@@ -623,7 +623,7 @@
                 <div class="col-lg-3 col-md-6 col-sm-8">
                     <div class="singel-publication mt-30">
                         <div class="image">
-                            <img :src="`${baseUrl}/images/publication/p-2.jpg`" alt="Publication">
+                            <img :src="`${baseUrl}${baseRes}/assets/images/publication/p-2.jpg`" alt="Publication">
                             <div class="add-cart">
                                 <ul>
                                     <li><a href="#"><i class="fa fa-shopping-cart"></i></a></li>
@@ -645,7 +645,7 @@
                 <div class="col-lg-3 col-md-6 col-sm-8">
                     <div class="singel-publication mt-30">
                         <div class="image">
-                            <img :src="`${baseUrl}/images/publication/p-3.jpg`" alt="Publication">
+                            <img :src="`${baseUrl}${baseRes}/assets/images/publication/p-3.jpg`" alt="Publication">
                             <div class="add-cart">
                                 <ul>
                                     <li><a href="#"><i class="fa fa-shopping-cart"></i></a></li>
@@ -667,7 +667,7 @@
                 <div class="col-lg-3 col-md-6 col-sm-8">
                     <div class="singel-publication mt-30">
                         <div class="image">
-                            <img :src="`${baseUrl}/images/publication/p-4.jpg`" alt="Publication">
+                            <img :src="`${baseUrl}${baseRes}/assets/images/publication/p-4.jpg`" alt="Publication">
                             <div class="add-cart">
                                 <ul>
                                     <li><a href="#"><i class="fa fa-shopping-cart"></i></a></li>
@@ -694,7 +694,7 @@
    
     <!--====== TEASTIMONIAL PART START ======-->
     
-    <section id="testimonial" class="bg_cover pt-115 pb-115" data-overlay="8" style="background-image: url(public/images/bg-2.jpg)">
+    <section id="testimonial" class="bg_cover pt-115 pb-115" data-overlay="8" :style="`background-image: url(${baseUrl}${baseRes}/assets/images/bg-2.jpg)`">
         <div class="container">
             <div class="row">
                 <div class="col-lg-6">
@@ -708,7 +708,7 @@
                 <div class="col-lg-6">
                     <div class="singel-testimonial">
                         <div class="testimonial-thum">
-                            <img :src="`${baseUrl}/images/testimonial/t-1.jpg`" alt="Testimonial">
+                            <img :src="`${baseUrl}${baseRes}/assets/images/testimonial/t-1.jpg`" alt="Testimonial">
                             <div class="quote">
                                 <i class="fa fa-quote-right"></i>
                             </div>
@@ -723,7 +723,7 @@
                 <div class="col-lg-6">
                     <div class="singel-testimonial">
                         <div class="testimonial-thum">
-                            <img :src="`${baseUrl}/images/testimonial/t-2.jpg`" alt="Testimonial">
+                            <img :src="`${baseUrl}${baseRes}/assets/images/testimonial/t-2.jpg`" alt="Testimonial">
                             <div class="quote">
                                 <i class="fa fa-quote-right"></i>
                             </div>
@@ -738,7 +738,7 @@
                 <div class="col-lg-6">
                     <div class="singel-testimonial">
                         <div class="testimonial-thum">
-                            <img :src="`${baseUrl}/images/testimonial/t-3.jpg`" alt="Testimonial">
+                            <img :src="`${baseUrl}${baseRes}/assets/images/testimonial/t-3.jpg`" alt="Testimonial">
                             <div class="quote">
                                 <i class="fa fa-quote-right"></i>
                             </div>
@@ -772,7 +772,7 @@
                 <div class="col-lg-6">
                     <div class="singel-news mt-30">
                         <div class="news-thum pb-25">
-                            <img :src="`${baseUrl}/images/news/n-1.jpg`" alt="News">
+                            <img :src="`${baseUrl}${baseRes}/assets/images/news/n-1.jpg`" alt="News">
                         </div>
                         <div class="news-cont">
                             <ul>
@@ -789,7 +789,7 @@
                         <div class="row">
                             <div class="col-sm-4">
                                 <div class="news-thum mt-30">
-                                    <img :src="`${baseUrl}/images/news/ns-1.jpg`" alt="News">
+                                    <img :src="`${baseUrl}${baseRes}/assets/images/news/ns-1.jpg`" alt="News">
                                 </div>
                             </div>
                             <div class="col-sm-8">
@@ -808,7 +808,7 @@
                         <div class="row">
                             <div class="col-sm-4">
                                 <div class="news-thum mt-30">
-                                    <img :src="`${baseUrl}/images/news/ns-2.jpg`" alt="News">
+                                    <img :src="`${baseUrl}${baseRes}/assets/images/news/ns-2.jpg`" alt="News">
                                 </div>
                             </div>
                             <div class="col-sm-8">
@@ -827,7 +827,7 @@
                         <div class="row">
                             <div class="col-sm-4">
                                 <div class="news-thum mt-30">
-                                    <img :src="`${baseUrl}/images/news/ns-3.jpg`" alt="News">
+                                    <img :src="`${baseUrl}${baseRes}/assets/images/news/ns-3.jpg`" alt="News">
                                 </div>
                             </div>
                             <div class="col-sm-8">
@@ -856,32 +856,32 @@
             <div class="row patnar-slied">
                 <div class="col-lg-12">
                     <div class="singel-patnar text-center mt-40">
-                        <img :src="`${baseUrl}/images/patnar-logo/p-1.png`" alt="Logo">
+                        <img :src="`${baseUrl}${baseRes}/assets/images/patnar-logo/p-1.png`" alt="Logo">
                     </div>
                 </div>
                 <div class="col-lg-12">
                     <div class="singel-patnar text-center mt-40">
-                        <img :src="`${baseUrl}/images/patnar-logo/p-2.png`" alt="Logo">
+                        <img :src="`${baseUrl}${baseRes}/assets/images/patnar-logo/p-2.png`" alt="Logo">
                     </div>
                 </div>
                 <div class="col-lg-12">
                     <div class="singel-patnar text-center mt-40">
-                        <img :src="`${baseUrl}/images/patnar-logo/p-3.png`" alt="Logo">
+                        <img :src="`${baseUrl}${baseRes}/assets/images/patnar-logo/p-3.png`" alt="Logo">
                     </div>
                 </div>
                 <div class="col-lg-12">
                     <div class="singel-patnar text-center mt-40">
-                        <img :src="`${baseUrl}/images/patnar-logo/p-4.png`" alt="Logo">
+                        <img :src="`${baseUrl}${baseRes}/assets/images/patnar-logo/p-4.png`" alt="Logo">
                     </div>
                 </div>
                 <div class="col-lg-12">
                     <div class="singel-patnar text-center mt-40">
-                        <img :src="`${baseUrl}/images/patnar-logo/p-2.png`" alt="Logo">
+                        <img :src="`${baseUrl}${baseRes}/assets/images/patnar-logo/p-2.png`" alt="Logo">
                     </div>
                 </div>
                 <div class="col-lg-12">
                     <div class="singel-patnar text-center mt-40">
-                        <img :src="`${baseUrl}/images/patnar-logo/p-3.png`" alt="Logo">
+                        <img :src="`${baseUrl}${baseRes}/assets/images/patnar-logo/p-3.png`" alt="Logo">
                     </div>
                 </div>
             </div> <!-- row -->
