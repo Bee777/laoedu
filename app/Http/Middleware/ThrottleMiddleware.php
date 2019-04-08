@@ -54,7 +54,7 @@ class ThrottleMiddleware
             return $this->buildResponse($key, $maxAttempts);
         }
 
-        $this->limiter->hit($key, $decayMinutes);
+        $this->limiter->hit($key, (int)$decayMinutes);
 
         $response = $next($request);
 

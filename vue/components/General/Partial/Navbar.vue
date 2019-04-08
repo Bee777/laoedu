@@ -34,18 +34,18 @@
       <div class="header-logo-support pt-30 pb-30">
         <div class="container">
           <div class="row">
-            <div class="col-lg-4 col-md-4">
+            <div class="col-lg-6 col-md-6">
               <div class="logo">
                 <router-link class="logo" to="/">
                   <img
                     class="logoImage"
                     :src="`${baseUrl}/images/${s.website_logo}${s.fresh_version}`"
                   >
-                  <span>Ministry of Education and Sports of Laos</span>
+                  <span>ສູນປະກັນຄຸນນະພາບການສຶກສາ ສປປ ລາວ</span>
                 </router-link>
               </div>
             </div>
-            <div class="col-lg-8 col-md-8">
+            <div class="col-lg-6 col-md-6">
               <div class="support-button float-right d-none d-md-block">
                 <div class="support float-left">
                   <div class="icon">
