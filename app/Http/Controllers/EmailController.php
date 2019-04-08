@@ -3,8 +3,8 @@
 namespace App\Http\Controllers;
 
 use App\Mail\UserActionsEmailNotify;
-use App\Posts;
-use App\Site;
+use App\Models\Posts;
+use App\Models\Site;
 use App\User;
 use Carbon\Carbon;
 use Illuminate\Support\Facades\Mail;

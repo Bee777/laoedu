@@ -2,8 +2,6 @@
 
 namespace App\Http\Controllers;
 
-use App\Dictionary;
-use App\Posts;
 use App\Responses\Admin\DashboardResponse;
 use App\Responses\FileResponse;
 use App\Responses\IndexUserResponse;
@@ -18,11 +16,9 @@ use App\Responses\User\UserProfileManage;
 use App\Responses\User\UserProfileOptions;
 use App\Responses\User\UserProfileSingle;
 use App\Responses\User\UserScholarshipResponse;
-use App\Site;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Helpers\Helpers;
 use Illuminate\Http\JsonResponse;
-use Illuminate\Support\Facades\DB;
 use App\User;
 use Illuminate\Support\Facades\Hash;
 
@@ -60,7 +56,10 @@ class UserController extends Controller
      * @Responses and Actions api|web
      */
 
-    /****@Responses  api only *** */
+    /****@Responses  api only ***
+     * @param Request $request
+     * @return JsonResponse
+     */
     public function me(Request $request)
     {
         $authUser = auth()->user();
@@ -69,51 +68,6 @@ class UserController extends Controller
         }
         return response()->json(['success' => true, 'auth' => $authUser->transformUser()]);
     }
-
-    /**
-     * @Responses DictionaryAction
-     */
-
-    public function SaveDictionary(Request $request)
-    {
-        $this->validate($request, [
-            'lao' => 'required|string|max:191',
-            'japanese' => 'required|string|max:191',
-            'description' => 'required|string|max:191',
-        ]);
-        $dictionary = new Dictionary();
-        $dictionary->lao = $request->get('lao');
-        $dictionary->japanese = $request->get('japanese');
-        $dictionary->description = $request->get('description');
-        $dictionary->save();
-
-        return response()->json(['success' => true, 'msg' => 'The dictionary saved successfully!.', 'data' => $dictionary]);
-    }
-
-    public function UpdateDictionary(Request $request, $id)
-    {
-        $this->validate($request, [
-            'lao' => 'required|string|max:191',
-            'japanese' => 'required|string|max:191',
-            'description' => 'required|string|max:191',
-        ]);
-        $dictionary = Dictionary::find($id);
-        $dictionary->lao = $request->get('lao');
-        $dictionary->japanese = $request->get('japanese');
-        $dictionary->description = $request->get('description');
-        $dictionary->save();
-        return response()->json(['success' => true, 'msg' => 'The dictionary updated successfully!.', 'data' => $dictionary]);
-    }
-
-    public function DeleteDictionary($id)
-    {
-        $dictionary = Dictionary::find($id);
-        $dictionary->delete();
-        return response()->json(['success' => true, 'msg' => 'The dictionary deleted successfully!.']);
-    }
-    /**
-     * @Responses DictionaryAction
-     */
 
     /**
      * @Responses NewsAction

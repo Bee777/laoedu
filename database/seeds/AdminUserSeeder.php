@@ -1,9 +1,9 @@
 <?php
 
+use App\Models\TypeUser;
+use App\Models\UserType;
 use Illuminate\Database\Seeder;
 use App\User;
-use App\UserType;
-use App\TypeUser;
 use Illuminate\Support\Facades\Hash;
 
 class AdminUserSeeder extends Seeder
@@ -18,10 +18,8 @@ class AdminUserSeeder extends Seeder
         //super admin
         $user = new User([
             'name' => 'Super Admin',
-            'last_name' => 'Jaol',
-            'email' => 'admin@jaol.org',
-            'password' => Hash::make('@jaol@2019'),
-            'status' => 'approved',
+            'email' => 'supepr_admin@laoedu.la',
+            'password' => Hash::make('admin123'),
         ]);
         $user->save();
         $userType = new UserType(['type_user_id' => $this->getTypeUserId('super_admin')]);

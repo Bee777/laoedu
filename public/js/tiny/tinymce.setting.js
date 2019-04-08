@@ -112,38 +112,4 @@ var tinyMceOptions = {
         // { title: 'Image Right', selector: 'p,h1,h2,h3,h4,h5,h6,td,th,div,ul,ol,li,table,img', classes: 'clearfix', styles: {margin: '0px auto 0px 50%'} }
     ],
 };
-var $editor = null, firstInsert = true;
-window.tinyReady = false;
 
-function callback() {
-    setTimeout(() => {
-        if (tinymce.get('editor_tiny').dom === undefined) {
-            callback();
-        } else {
-            tinyMCE.activeEditor.dom.addClass(tinyMCE.activeEditor.dom.select('p'), 'content_texts');
-            window.tinyReady = true;
-            $(".mce-branding.mce-widget.mce-label.mce-flow-layout-item.mce-last").remove();
-        }
-    }, 50);
-}
-
-function beeUpload(editor) {
-    $editor = editor;
-    editor.addButton('myimageupload', {
-        text: "",
-        icon: "browse",
-        onclick: function (e) {
-            showModal();
-        }
-    });
-    callback();
-}
-
-function setImage(e) {
-    var l = $editor.dom.select('img').length;
-    $editor.insertContent('<img class="my-img-tiny" src="' + e + '" data-mce-src="' + e + '" data-mce-selected="1" />');
-    if (firstInsert) {
-        $editor.selection.select($editor.dom.select('img')[l]);
-        firstInsert = false;
-    }
-}

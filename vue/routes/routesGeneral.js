@@ -3,28 +3,16 @@ import ResetPassword from '@com/General/ResetPassword.vue'
 import Register from '@com/General/Register.vue'
 import Registered from '@com/General/Registered.vue'
 import FinishedResetPassword from '@com/General/FinishedResetPassword.vue'
-
-/**
- * @Author Xone
- */
 import Home from '@com/General/Default/Home.vue'
 import About from '@com/General/Default/about.vue'
 import News from '@com/General/Default/News.vue'
 import Contact from '@com/General/Default/contact.vue'
 import Activity from '@com/General/Default/activity.vue'
-import Scholarship from '@com/General/Default/scholarship.vue'
 import Event from '@com/General/Default/event.vue'
-import OrganizeChart from '@com/General/Default/OrganizeChart.vue'
-import Dictionary from '@com/General/Pages/Dictionary.vue'
 import NewsSingle from '@com/General/Default/Single/NewsSingle.vue'
 import ActivitySingle from '@com/General/Default/Single/ActivitySingle.vue'
 import EventSingle from '@com/General/Default/Single/EventSingle.vue'
-import ScholarshipSingle from '@com/General/Default/Single/ScholarshipSingle.vue'
-import SingleDictionary from '@com/General/Pages/Single/SingleDictionary.vue'
 
-/**
- * @Author Xone
- */
 const metas = {
     guestMeta: {
         requiresVisitor: true,
@@ -61,7 +49,7 @@ export default [
         },
     },
     {
-        path: "/aGlkZGVuLXJlZ2lzdGVyLXBhZ2UtQGphb2w",
+        path: "/register",
         component: Register,
         name: 'register',
         meta: {
@@ -100,7 +88,6 @@ export default [
             })
         },
     },
-    //xone router
     {
         path: '/',
         name: 'home',
@@ -169,26 +156,6 @@ export default [
         },
     },
     {
-        path: '/posts/scholarships',
-        name: 'scholarships',
-        component: Scholarship,
-        meta: {
-            ...metas.df({
-                hideNavFooter: false,
-            })
-        },
-    },
-    {
-        path: '/posts/scholarships/single/:id',
-        name: 'scholarship-single',
-        component: ScholarshipSingle,
-        meta: {
-            ...metas.df({
-                hideNavFooter: false,
-            })
-        },
-    },
-    {
         path: '/posts/events',
         name: 'events',
         component: Event,
@@ -212,36 +179,6 @@ export default [
         path: '/contact',
         name: 'contact',
         component: Contact,
-        meta: {
-            ...metas.df({
-                hideNavFooter: false,
-            })
-        },
-    },
-    {
-        path: '/organization-charts',
-        name: 'organize-charts',
-        component: OrganizeChart,
-        meta: {
-            ...metas.df({
-                hideNavFooter: false,
-            })
-        },
-    },
-    {
-        path: '/dictionary',
-        name: 'dictionary',
-        component: Dictionary,
-        meta: {
-            ...metas.df({
-                hideNavFooter: false,
-            })
-        },
-    },
-    {
-        path: '/dictionary/single/:id',
-        name: 'single-dictionary',
-        component: SingleDictionary,
         meta: {
             ...metas.df({
                 hideNavFooter: false,

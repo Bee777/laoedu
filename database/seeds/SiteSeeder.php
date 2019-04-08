@@ -1,7 +1,7 @@
 <?php
 
 use Illuminate\Database\Seeder;
-use App\Site;
+use App\Models\Site;
 
 class SiteSeeder extends Seeder
 {
@@ -12,13 +12,13 @@ class SiteSeeder extends Seeder
      */
     public function run()
     {
-        Site::create(['key' => 'site_name', 'value' => 'Jaol']);
+        Site::create(['key' => 'site_name', 'value' => 'Lao Education Quality Assurance Collection and Management Website']);
 
-        Site::create(['key' => 'email', 'value' => 'info@jaol.com']);
+        Site::create(['key' => 'email', 'value' => 'info@laoedu.la']);
 
         Site::create(['key' => 'email_logo', 'value' => 'email_logo.png']);
 
-        Site::create(['key' => 'fav_icon', 'value' => 'fav.png']);
+        Site::create(['key' => 'fav_icon', 'value' => 'favicon.png']);
 
         Site::create(['key' => 'website_logo', 'value' => 'logo.png']);
 

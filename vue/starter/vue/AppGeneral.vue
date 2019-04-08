@@ -1,20 +1,19 @@
 <template>
     <div>
         <Navbar v-if="!$route.meta.hideNavFooter"/>
-        <div id="general-main-container" :class="[(isMobile && $route.meta.navFixed)]">
+        <div id="general-main-container" :class="[(isMobile && $route.meta.navFixed) ? 'add-padding-top-content': '']">
             <router-view></router-view>
         </div>
         <Footer v-if="!$route.meta.hideNavFooter"/>
-       <a href="#" class="back-to-top"><i class="fa fa-angle-up"></i></a>
+
         <Sidebar/>
         <!--Tooltip-->
         <!--<ToolTip :id="'identifierShowPassword'"/>-->
         <!--Tooltip-->
-     
     </div>
 </template>
 <script>
-    import {mapState, mapGetters, mapActions, mapMutations} from 'vuex'
+    import {mapState, mapActions, mapMutations} from 'vuex'
     import Navbar from '@com/General/Partial/Navbar.vue';
     import Sidebar from '@com/General/Partial/Sidebar.vue';
     import Footer from '@com/General/Partial/Footer.vue';

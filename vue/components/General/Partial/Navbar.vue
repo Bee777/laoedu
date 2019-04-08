@@ -9,11 +9,11 @@
               <div class="header-contact text-lg-left text-center">
                 <ul>
                   <li>
-                    <img :src="`${baseUrl}/images/all-icon/map.png`" alt="icon">
+                    <img :src="`${baseUrl}${baseRes}/assets/images/all-icon/map.png`" alt="icon">
                     <span>127/5 Mark street, New york</span>
                   </li>
                   <li>
-                    <img :src="`${baseUrl}/images/all-icon/email.png`" alt="icon">
+                    <img :src="`${baseUrl}${baseRes}/assets/images/all-icon/email.png`" alt="icon">
                     <span>info@yourmail.com</span>
                   </li>
                 </ul>
@@ -39,7 +39,7 @@
                 <router-link class="logo" to="/">
                   <img
                     class="logoImage"
-                    :src="`${baseUrl}/images/${s.website_logo}${s.fresh_version}`"
+                    :src="`${baseUrl}${baseRes}/assets/images/${s.website_logo}${s.fresh_version}`"
                   >
                   <span>Ministry of Education and Sports of Laos</span>
                 </router-link>
@@ -49,7 +49,7 @@
               <div class="support-button float-right d-none d-md-block">
                 <div class="support float-left">
                   <div class="icon">
-                    <img :src="`${baseUrl}/images/all-icon/support.png`" alt="icon">
+                    <img :src="`${baseUrl}${baseRes}/assets/images/all-icon/support.png`" alt="icon">
                   </div>
                   <div class="cont">
                     <p>Need Help? call us free</p>

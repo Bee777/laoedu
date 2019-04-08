@@ -18,7 +18,7 @@ h3,
 h4,
 h5,
 h6 {
-
+    font-family: 'Roboto', 'noto-regular', 'Google Sans', arial, serif, sans-serif;
 }
 
 body, input, textarea, select, button {
@@ -401,8 +401,6 @@ body {
     margin-bottom: 0;
     margin-top: 0;
     font-family: 'Google Sans', arial, sans-serif !important;
-}
-
 }
 
 .form-represent-form-header-caption h1.is-left, .contact-from h1.is-left, .headingSubtext.is-left {

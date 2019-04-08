@@ -467,6 +467,12 @@ h4 {
     color: white;
 }
 
+.footer-link a:hover {
+    background-color: whitesmoke;
+    text-decoration: none;
+    color: black;
+}
+
 .subscribe {
     margin-top: 20px;
 }
@@ -716,7 +722,6 @@ a {
 /* Navbar */
 .navbar-burger.burger {
     margin: auto;
-    margin-top: 10px;
 }
 
 .is-active {
@@ -847,6 +852,12 @@ a {
 
 .contact-content {
     margin-top: 10px;
+}
+
+.fa, .fas {
+    margin-right: 10px;
+    font-size: 16px;
+    color: #3273dc;
 }
 
 .social-media {
@@ -1482,6 +1493,11 @@ img {
     margin-bottom: 5px;
     font-family: Tahoma;
 }
+
+a {
+    color: rgb(27, 66, 151);
+}
+
 .contact-content {
     margin-top: 10px;
 }

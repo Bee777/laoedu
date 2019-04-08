@@ -34,7 +34,7 @@ class CreateUserRolesTable extends Migration
     {
         Schema::table('user_roles', function($table){
             $table->dropForeign(['role_id']);
-            $table->dropForeign(['admin_id']);
+            $table->dropForeign(['user_id']);
         });
         Schema::dropIfExists('user_roles');
     }
