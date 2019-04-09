@@ -4,7 +4,6 @@
 @section('g_keywords')Lao Education Quality, Assurance, Collection and Management Website, ເວບໄຊເກັບກຳ ແລະຈັດການຂໍ້ມູນ ປະກັນຄຸນນະພາບການສຶກສາລາວ
 @stop
 @section('meta_search')
-
     <link rel="canonical" href="{{ urldecode(url()->full()) }}">
     <meta property="og:url" content="{{ urldecode(url()->full()) }}"/>
     <meta property="og:type" content="article"/>
