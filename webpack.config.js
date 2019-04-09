@@ -145,6 +145,7 @@ if (process.env.NODE_ENV === 'development') {
                     proxy: 'http://localhost:' + devSeverPort + '/',
                     files: [
                         "./public/**/*.css",
+                        "./public/bundles/" + type + "/assets/css/*.css",
                         {
                             match: ['./public/bundles/' + type + '/index.html'],
                             fn: function (event, file) {
