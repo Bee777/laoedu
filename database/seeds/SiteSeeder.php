@@ -12,7 +12,9 @@ class SiteSeeder extends Seeder
      */
     public function run()
     {
-        Site::create(['key' => 'site_name', 'value' => 'Lao Education Quality Assurance Collection and Management Website']);
+        Site::create(['key' => 'site_name', 'value' => 'Lao Education Quality Assurance Collection and Management Website.']);
+
+        Site::create(['key' => 'address', 'value' => 'Ministry of Education and Sports, Street Lekyheuang, Ban Anou, District Chanthabouly, Vientiane Laos PDR.']);
 
         Site::create(['key' => 'email', 'value' => 'info@laoedu.la']);
 
