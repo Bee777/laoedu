@@ -2,11 +2,9 @@ import Dashboard from '@com/User/Dashboard.vue'
 import UserProfileSettings from '@com/User/Member/ProfileSettings.vue'
 import MembersProfile from '@com/User/Member/MembersProfile.vue'
 import SingleMemberProfile from '@com/User/Member/SingleMemberProfile.vue'
-import Dictionary from '@com/User/Posts/Dictionary.vue'
 import News from '@com/User/Posts/News.vue'
 import Activity from '@com/User/Posts/Activity.vue'
 import Event from '@com/User/Posts/Event.vue'
-import Scholarship from '@com/User/Posts/Scholarship.vue'
 import DownloadFile from '@com/User/Posts/DownloadFile.vue'
 
 const prefix = '/users/me';
@@ -48,12 +46,6 @@ export default [
         meta: metas.authMeta,
     },
     {
-        path: `${prefix}/dictionary`,
-        name: 'dictionary',
-        component: Dictionary,
-        meta: metas.authMeta,
-    },
-    {
         path: `${prefix}/news`,
         name: 'news',
         component: News,
@@ -69,12 +61,6 @@ export default [
         path: `${prefix}/event`,
         name: 'event',
         component: Event,
-        meta: metas.authMeta,
-    },
-    {
-        path: `${prefix}/scholarship`,
-        name: 'scholarship',
-        component: Scholarship,
         meta: metas.authMeta,
     },
     {

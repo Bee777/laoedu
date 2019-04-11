@@ -86,7 +86,7 @@
                                                         <!--href="#"-->
                                                         <!--target="_blank">Privacy</a></div>-->
                                                         <a @click="goTo($event, 'members-profile')"
-                                                           class="user-square-top-right-account">Jaol Account</a>
+                                                           class="user-square-top-right-account">Account</a>
                                                     </div>
                                                 </div>
                                                 <div class="splitter-loading"

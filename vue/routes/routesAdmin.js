@@ -1,18 +1,14 @@
 import Dashboard from '@com/Admin/Dashboard.vue'
 import Members from '@com/Admin/Members/All.vue'
 import SingleMemberProfile from '@com/Admin/Members/SingleMemberProfile.vue'
-import Organize from '@com/Admin/Members/Organize.vue'
 import Department from '@com/Admin/Members/Department.vue'
 import MembersProfile from '@com/Admin/Members/MembersProfile.vue'
 import SiteSetting from '../components/Admin/Default/SiteSetting.vue'
-import Dictionary from '@com/Admin/Posts/Dictionary.vue'
 import ContactInfo from '@com/Admin/Posts/ContactInfo.vue'
 import AboutJaol from '@com/Admin/Posts/AboutJaol.vue'
 import News from '@com/Admin/Posts/News.vue'
 import Activity from '@com/Admin/Posts/Activity.vue'
 import Event from '@com/Admin/Posts/Event.vue'
-import Scholarship from '@com/Admin/Posts/Scholarship.vue'
-import OrganizeChartRange from '@com/Admin/Posts/OrganizeChartRange.vue'
 import UploadFile from '@com/Admin/Posts/Uploadfile.vue'
 import Sponsor from '@com/Admin/Posts/Sponsor.vue'
 
@@ -48,12 +44,6 @@ export default [{
         meta: metas.authMeta,
     },
     {
-        name: 'organization',
-        path: `${prefix}/organizations`,
-        component: Organize,
-        meta: metas.authMeta,
-    },
-    {
         name: 'department',
         path: `${prefix}/departments`,
         component: Department,
@@ -72,12 +62,6 @@ export default [{
         meta: metas.authMeta,
     },
     // Xone Route
-    {
-        path: `${prefix}/dictionary`,
-        name: 'dictionary',
-        component: Dictionary,
-        meta: metas.authMeta,
-    },
     {
         path: `${prefix}/contactinfo`,
         name: 'contactinfo',
@@ -105,18 +89,6 @@ export default [{
         path: `${prefix}/event`,
         name: 'event',
         component: Event,
-        meta: metas.authMeta,
-    },
-    {
-        path: `${prefix}/scholarship`,
-        name: 'scholarship',
-        component: Scholarship,
-        meta: metas.authMeta,
-    },
-    {
-        path: `${prefix}/organize-chart-ranges`,
-        name: 'organize-chart-range',
-        component: OrganizeChartRange,
         meta: metas.authMeta,
     },
     {

@@ -7,13 +7,13 @@
                         class="app-sidebar-logo-lockup-icon"
                         :src="`${baseUrl}/assets/images/${s.website_logo}${s.fresh_version}`"
                         alt="Admin Icon Logo"
-                    >
+                    > ສປຄ
                     <!--   src="https://www.gstatic.com/mobilesdk/160503_mobilesdk/logo/2x/firebase_28dp.png"-->
-                    <img
+                    <!-- <img
                         class="app-sidebar-logo-lockup-logotype logotype-white"
                         :src="`${baseUrl}/assets/images/admin-logo.svg${s.fresh_version}`"
                         alt="Admin Text Logo"
-                    >
+                    > -->
                     <!--
                     src="//www.gstatic.com/mobilesdk/160323_mobilesdk/images/firebase_logotype_white_18dp.svg"-->
                 </div>
@@ -98,7 +98,7 @@
                     {
                         contentHeader: {
                             expanded: true,
-                            name: "Jaol Memebers",
+                            name: "Esqac Memebers",
                             description: "Manage, Authentication, Approval, Searching",
                             icon: "keyboard_arrow_up"
                         },
@@ -116,12 +116,6 @@
                                 params: {name: "members-profile"} //required
                             },
                             {
-                                name: "Organization",
-                                icon: "bubble_chart",
-                                action: this.Route,
-                                params: {name: "organization"}
-                            },
-                            {
                                 name: "Department",
                                 icon: "chrome_reader_mode",
                                 action: this.Route,
@@ -133,8 +127,8 @@
                     {
                         contentHeader: {
                             expanded: true,
-                            name: "Jaol Posts",
-                            description: "Manage Jaol posts information",
+                            name: "Esqac Posts",
+                            description: "Manage Esqac posts information",
                             icon: "keyboard_arrow_up"
                         },
                         items: [
@@ -156,39 +150,22 @@
                                 action: this.Route, //required
                                 params: {name: "event"} //required
                             },
-                            {
-                                name: "Scholarship", //required
-                                icon: "school", //required
-                                action: this.Route, //required
-                                params: {name: "scholarship"} //required
-                            },
-                            {
-                                name: "All Dictionaries", //required
-                                icon: "g_translate", //required
-                                action: this.Route, //required
-                                params: {name: "dictionary"} //required
-                            },
+
                         ]
                     },
                     {
                         contentHeader: {
                             expanded: true,
-                            name: "Jaol Info",
-                            description: "Manage Jaol organize chart information and jaol self information.",
+                            name: "Esqac Info",
+                            description: "Manage Esqac information.",
                             icon: "keyboard_arrow_up"
                         },
                         items: [
                             {
-                                name: "About Jaol Info", //required
+                                name: "About Esqac Info", //required
                                 icon: "business", //required
                                 action: this.Route, //required
                                 params: {name: "aboutjaol"} //required
-                            },
-                            {
-                                name: "Board Committee", //required
-                                icon: "bubble_chart", //required
-                                action: this.Route, //required
-                                params: {name: "organize-chart-range"} //required
                             },
                             {
                                 name: "Contact Info", //required

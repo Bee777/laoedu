@@ -1,27 +1,29 @@
 <template>
   <div>
     <!--====== FOOTER PART START ======-->
-
     <footer id="footer-part">
-      <div class="footer-top pt-40 pb-70">
+      <div class="footer-top pt-10 pb-40">
         <div class="container">
           <div class="row">
             <div class="col-lg-4 col-md-6">
               <div class="footer-about mt-40">
                 <div class="logo">
                   <a href="#">
-                    <img :src="`${baseUrl}/assets/images/${s.website_logo}${s.fresh_version}`" alt="Logo">
+                    <img
+                      :src="`${baseUrl}/assets/images/${s.website_logo}${s.fresh_version}`"
+                      alt="Logo"
+                    >
                   </a>
                 </div>
-                <p>Gravida nibh vel velit auctor aliquetn quibibendum auci elit cons equat ipsutis sem nibh id elit. Duis sed odio sit amet nibh vulputate.</p>
-                <ul class="mt-20">
+                <p>ສູນປະກັນຄຸນນະພາບການສຶກສາ</p>
+                <ul class="mt-20" v-if="!$utils.isEmptyVar( homeData.ContactInfo )">
                   <li>
-                    <a href="#">
+                    <a :href="homeData.ContactInfo.facebook" target="_blank" >
                       <i class="fab fa-facebook-f"></i>
                     </a>
                   </li>
                   <li>
-                    <a href="#">
+                    <a v-if="!$utils.isEmptyVar(homeData.ContactInfo.twitter)" :href="homeData.ContactInfo.twitter" target="_blank">
                       <i class="fab fa-twitter"></i>
                     </a>
                   </li>
@@ -36,41 +38,34 @@
             </div>
             <div class="col-lg-3 col-md-6 col-sm-6">
               <div class="footer-link mt-40">
-                <div class="footer-title pb-25">
+                <div class="footer-title pb-20">
                   <h6>Sitemap</h6>
                 </div>
                 <ul>
                   <li>
-                    <a href="index-2.html">
-                      <i class="fa fa-angle-right"></i>Home
-                    </a>
+                    <router-link :to="{name:'home'}">
+                      <i class="fa fa-angle-right"></i>ໜ້າຫຼັກ
+                    </router-link>
                   </li>
                   <li>
-                    <a href="about.html">
-                      <i class="fa fa-angle-right"></i>About us
-                    </a>
+                   <router-link :to="{name:'home'}">
+                      <i class="fa fa-angle-right"></i>ຫຼັກສູດ
+                   </router-link>
                   </li>
-                  <li>
-                    <a href="courses.html">
-                      <i class="fa fa-angle-right"></i>Courses
-                    </a>
-                  </li>
-                  <li>
-                    <a href="blog.html">
-                      <i class="fa fa-angle-right"></i>News
-                    </a>
-                  </li>
-                </ul>
-                <ul>
                   <li>
                     <a href="#">
-                      <i class="fa fa-angle-right"></i>Support
+                      <i class="fa fa-angle-right"></i>ສະຖານການສຶກສາ
                     </a>
                   </li>
                   <li>
-                    <a href="contact.html">
-                      <i class="fa fa-angle-right"></i>Contact
-                    </a>
+                    <router-link :to="{name:'news'}">
+                      <i class="fa fa-angle-right"></i>ຂ່າວສານ
+                    </router-link>
+                  </li>
+                  <li>
+                   <router-link :to="{name:'news'}">
+                      <i class="fa fa-angle-right"></i>ແຈ້ງການ
+                   </router-link>
                   </li>
                 </ul>
               </div>
@@ -78,10 +73,20 @@
             </div>
             <div class="col-lg-2 col-md-6 col-sm-6">
               <div class="footer-link support mt-40">
-                <div class="footer-title pb-25">
+                <div class="footer-title pb-20">
                   <h6>Support</h6>
                 </div>
                 <ul>
+                  <li>
+                  <router-link :to="{name:'contact'}">
+                      <i class="fa fa-angle-right"></i>ຂໍ້ມູນຕິດຕໍ່
+                  </router-link>
+                  </li>
+                  <li>
+                    <router-link :to="{name:'about'}">
+                      <i class="fa fa-angle-right"></i>ກ່ຽວກັບສູນ
+                    </router-link>
+                  </li>
                   <li>
                     <a href="#">
                       <i class="fa fa-angle-right"></i>FAQS
@@ -89,12 +94,12 @@
                   </li>
                   <li>
                     <a href="#">
-                      <i class="fa fa-angle-right"></i>Privacy
+                      <i class="fa fa-angle-right"></i>ຜົນສອບເສັງ
                     </a>
                   </li>
                   <li>
                     <a href="#">
-                      <i class="fa fa-angle-right"></i>Documentation
+                      <i class="fa fa-angle-right"></i>ເອກະສານ
                     </a>
                   </li>
                 </ul>
@@ -103,16 +108,16 @@
             </div>
             <div class="col-lg-3 col-md-6">
               <div class="footer-address mt-40">
-                <div class="footer-title pb-25">
+                <div class="footer-title pb-20">
                   <h6>Contact Us</h6>
                 </div>
-                <ul>
+                <ul v-if="!$utils.isEmptyVar( homeData.ContactInfo )">
                   <li>
                     <div class="icon">
                       <i class="fa fa-home"></i>
                     </div>
                     <div class="cont">
-                      <p>143 castle road 517 district, kiyev port south Canada</p>
+                      <p>{{homeData.ContactInfo.address}}</p>
                     </div>
                   </li>
                   <li>
@@ -120,7 +125,7 @@
                       <i class="fa fa-phone"></i>
                     </div>
                     <div class="cont">
-                      <p>+3 123 456 789</p>
+                      <p>{{homeData.ContactInfo.phone}}</p>
                     </div>
                   </li>
                   <li>
@@ -128,7 +133,7 @@
                       <i class="far fa-envelope"></i>
                     </div>
                     <div class="cont">
-                      <p>info@yourmail.com</p>
+                      <p>{{homeData.ContactInfo.email}}</p>
                     </div>
                   </li>
                 </ul>
@@ -174,6 +179,6 @@
 <style>
 </style>
 <script>
-import Base from "@com/Bases/GeneralBase.js";
-export default Base.extend({});
+    import Base from "@com/Bases/GeneralBase.js";
+    export default Base.extend({});
 </script>
