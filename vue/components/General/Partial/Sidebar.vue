@@ -24,7 +24,7 @@
                     <div class="drawer-unlogin" v-else>
                         <router-link @click.native.prevent="maskClick()" :to="{ name: 'home' }">
                             <a class="drawer-seeker">
-                                <span class="line-bottom">Welcome to JAOL</span>
+                                <span class="line-bottom">ສູນປະກັນຄຸນນະພາບການສຶກສາ ສປປ ລາວ</span>
                             </a>
                         </router-link>
                         <router-link @click.native.prevent="maskClick()" :to="{ name: 'home' }">

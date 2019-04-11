@@ -17,22 +17,17 @@
                 <ul class="mt-20">
                   <li>
                     <a href="#">
-                      <i class="fa fa-facebook-f"></i>
+                      <i class="fab fa-facebook-f"></i>
                     </a>
                   </li>
                   <li>
                     <a href="#">
-                      <i class="fa fa-twitter"></i>
+                      <i class="fab fa-twitter"></i>
                     </a>
                   </li>
                   <li>
                     <a href="#">
-                      <i class="fa fa-google-plus"></i>
-                    </a>
-                  </li>
-                  <li>
-                    <a href="#">
-                      <i class="fa fa-instagram"></i>
+                      <i class="fab fa-instagram"></i>
                     </a>
                   </li>
                 </ul>
@@ -65,28 +60,8 @@
                       <i class="fa fa-angle-right"></i>News
                     </a>
                   </li>
-                  <li>
-                    <a href="events.html">
-                      <i class="fa fa-angle-right"></i>Event
-                    </a>
-                  </li>
                 </ul>
                 <ul>
-                  <li>
-                    <a href="#">
-                      <i class="fa fa-angle-right"></i>Gallery
-                    </a>
-                  </li>
-                  <li>
-                    <a href="shop.html">
-                      <i class="fa fa-angle-right"></i>Shop
-                    </a>
-                  </li>
-                  <li>
-                    <a href="teachers.html">
-                      <i class="fa fa-angle-right"></i>Teachers
-                    </a>
-                  </li>
                   <li>
                     <a href="#">
                       <i class="fa fa-angle-right"></i>Support
@@ -115,16 +90,6 @@
                   <li>
                     <a href="#">
                       <i class="fa fa-angle-right"></i>Privacy
-                    </a>
-                  </li>
-                  <li>
-                    <a href="#">
-                      <i class="fa fa-angle-right"></i>Policy
-                    </a>
-                  </li>
-                  <li>
-                    <a href="#">
-                      <i class="fa fa-angle-right"></i>Support
                     </a>
                   </li>
                   <li>
@@ -160,7 +125,7 @@
                   </li>
                   <li>
                     <div class="icon">
-                      <i class="fa fa-envelope-o"></i>
+                      <i class="far fa-envelope"></i>
                     </div>
                     <div class="cont">
                       <p>info@yourmail.com</p>
@@ -181,7 +146,7 @@
         <div class="container">
           <div class="row">
             <div class="col-md-8">
-              <div class="copyright text-md-left text-center pt-15">
+              <div class="copyright text-center pt-15">
                 <p>
                   Copyright ©
                   {{$utils.getDateTime(new Date()).years}} All rights reserved | Powered by
@@ -210,6 +175,5 @@
 </style>
 <script>
 import Base from "@com/Bases/GeneralBase.js";
-
 export default Base.extend({});
 </script>

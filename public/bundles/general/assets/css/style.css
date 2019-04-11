@@ -149,11 +149,10 @@ p {
 	-ms-user-select: none;
 	user-select: none;
 	border: 1px solid #ffc600;
-	padding: 0 35px;
-	font-size: 16px;
-    font-family: 'Montserrat', sans-serif;
+	padding: 0 16px;
+    font-size: 16px;
     font-weight: 700;
-	line-height: 50px;
+	line-height: 35px;
 	border-radius: 5px;
     color: #07294d;
     cursor: pointer;
@@ -168,6 +167,9 @@ p {
     color: #ffc600;
     border-color: #07294d;
     background-color: #07294d;
+}
+a.main-btn:hover, a.main-btn:not([href]):hover{
+    color: #ffc600;
 }
 
 
@@ -473,7 +475,7 @@ p {
 }
 
 .support-button .button{
-    margin-left: 60px;
+    margin-left: 30px;
 }
 
 /*===== Header Menu =====*/
@@ -1512,7 +1514,7 @@ p {
 }
 .singel-publication .image .add-cart ul li a:hover{
     background-color: #ffc600;
-    color: #07294d;
+    /* color: #07294d; */
 }
 
 
@@ -3795,6 +3797,29 @@ p.form-message.error {
         max-width: 1100px;
     }
 }
+.logoImage{
+    width: 44px;
+    height: 48px;
+}
+.navbar-burger.burger{
+    padding: 20px 0;
+    cursor: pointer;
+    color: #07294d;
+}
+.navbar-burger.burger .menu{
+    color: #07294d;
+}
+.site-title{
+    font-size: 18px;
+    font-weight: 600;
+    color: #07294d;
+}
+a{
+    cursor: pointer;
+}
+
+
+
 
 
 

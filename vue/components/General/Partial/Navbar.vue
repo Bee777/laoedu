@@ -21,7 +21,8 @@
             </div>
             <div class="col-lg-6">
               <div class="header-opening-time text-lg-right text-center">
-                <p>Opening Hours : Monday to Saturay - 8 Am to 5 Pm</p>
+                
+                <p><i class="far fa-clock"></i> Monday to Saturay - 8 Am to 5 Pm</p>
               </div>
             </div>
           </div>
@@ -41,15 +42,18 @@
                     class="logoImage"
                     :src="`${baseUrl}${baseRes}/assets/images/${s.website_logo}${s.fresh_version}`"
                   >
-                  <span>ສູນປະກັນຄຸນນະພາບການສຶກສາ ສປປ ລາວ</span>
                 </router-link>
+                <span class="site-title">ສູນປະກັນຄຸນນະພາບການສຶກສາ ສປປ ລາວ</span>
               </div>
             </div>
             <div class="col-lg-6 col-md-6">
               <div class="support-button float-right d-none d-md-block">
                 <div class="support float-left">
                   <div class="icon">
-                    <img :src="`${baseUrl}${baseRes}/assets/images/all-icon/support.png`" alt="icon">
+                    <img
+                      :src="`${baseUrl}${baseRes}/assets/images/all-icon/support.png`"
+                      alt="icon"
+                    >
                   </div>
                   <div class="cont">
                     <p>Need Help? call us free</p>
@@ -57,7 +61,27 @@
                   </div>
                 </div>
                 <div class="button float-left">
-                  <a href="#" class="main-btn">Apply Now</a>
+                  <template v-if="!LoggedIn()">
+                    <!--<a @click="Route({name: 'register'})" data-target="modal-signup" class="btn">-->
+                    <!--<strong>Sign up</strong>-->
+                    <!--</a>-->
+                    <a @click="Route({name: 'login'})" class="main-btn">
+                      <strong>ເຂົ້າໃຊ້ລະບົບ</strong>
+                    </a>
+                  </template>
+                  <template v-else>
+                    <a @click="$utils.Location('/admin/me')" class="main-btn">
+                      <strong>Dashboard</strong>
+                    </a>
+
+                    <a
+                      @click="Logout"
+                      class="main-btn"
+                      :class="[ validated().loading ? 'button is-loading' : '']"
+                    >
+                      <strong>Sign out</strong>
+                    </a>
+                  </template>
                 </div>
               </div>
             </div>
@@ -74,10 +98,9 @@
               <nav class="navbar navbar-expand-lg">
                 <!-- Mobile menu -->
                 <a v-if="isMobile" class="navbar-burger burger" @click="showMobileNav()">
-                  <span></span>
-                  <span></span>
-                  <span></span>
+                  <i class="menu material-icons">menu</i>
                 </a>
+
                 <!-- Navbar menu -->
                 <div class="collapse navbar-collapse sub-menu-bar" id="navbarSupportedContent">
                   <ul class="navbar-nav mr-auto">
