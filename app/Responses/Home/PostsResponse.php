@@ -121,8 +121,6 @@ class PostsResponse implements Responsable
     {
         $types = [
             'activities' => 'activity', 'news' => 'news',
-            'events' => 'event', 'scholarships' => 'scholarship',
-            'dictionaries' => 'dictionary',
         ];
         return $types[$title] ?? '';
     }
@@ -144,9 +142,6 @@ class PostsResponse implements Responsable
                 $d->during_time .= Helpers::toFormatDateString($d->deadline, 'H:i A');
                 $d->formatted_start_date = Helpers::toFormatDateString($d->start_date, 'M d Y');
                 $d->formatted_deadline = Helpers::toFormatDateString($d->deadline, 'M d Y');
-            }
-            if ($d->type === 'scholarship') {
-                $d->formatted_deadline = date('H:i A, M d Y', strtotime($d->deadline));
             }
             //remove relationship
             unset($d->user, $d->type);

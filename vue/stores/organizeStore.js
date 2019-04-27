@@ -37,17 +37,13 @@ export default new Vuex.Store({
             activities_count: 0,
             latest_members_count: 0,
             events_count: {active: 0, all: 0},
-            scholarships_count: {active: 0, all: 0},
             news_count: 0,
-            dictionaries_count: 0
         },
         searchesData: {
             members: {},
-            dictionaries: {},
             news: {},
             activity: {},
             event: {},
-            scholarship: {},
             downloadFiles: {},
         },
         searchesAllowed: {
@@ -55,7 +51,6 @@ export default new Vuex.Store({
             news: true,
             activity: true,
             event: true,
-            scholarship: true,
             members: true,
             downloadFiles: true,
         },

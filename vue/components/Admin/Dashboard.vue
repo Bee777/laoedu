@@ -38,11 +38,6 @@
                                     <div class="items-row sidekick items-hero">
                                         <div class="p-card">
                                             <div class="admin-mat-card">
-                                                <div class="p-card-header">
-                                                    <i class="material-icons"> chrome_reader_mode </i>
-                                                    <h3 @click="goTo('event')" class="p-card-title"> Events,
-                                                        Scholarship. </h3>
-                                                </div>
                                                 <SpinnerLoading v-if="validated().loading_dashboard_data"/>
                                                 <div class="p-posts-card">
                                                     <div class="p-columns">
@@ -65,26 +60,7 @@
                                                             </div>
                                                         </div>
                                                         <!--End Events Count-->
-                                                        <!--Scholarships Count-->
-                                                        <div class="p-column">
-                                                            <div @click="goTo('scholarship')" style="cursor: pointer;"
-                                                                 class="items-counter align-horizontal-center target-host">
-                                                                <div class="counter-header">
-                                                                    <div class="counter-title-label">
-                                                                        <h4 class="counter-title">Active Scholarships
-                                                                            Count</h4>
-                                                                        <div class="p-label">(Current)</div>
-                                                                    </div>
                                                                 </div>
-                                                                <div class="value-delta">
-                                                                    <div class="value">
-                                                                        <span class="value-container">{{dashboardData.scholarships_count.active}} Posts</span>
-                                                                    </div>
-                                                                </div>
-                                                            </div>
-                                                        </div>
-                                                        <!--End Scholarships Count-->
-                                                    </div>
                                                 </div>
                                             </div>
                                         </div>
@@ -158,12 +134,7 @@
                                                      @onCardClick="goTo('event')" title="Events" icon="today"
                                                      :count="{text: 'Posts', value: dashboardData.events_count.all }"/>
                                         <!--Event Card-->
-                                        <!--Scholarships Card-->
-                                        <CounterCard :isLoading="validated().loading_dashboard_data"
-                                                     @onCardClick="goTo('dictionary')" title="Dictionaries"
-                                                     icon="g_translate"
-                                                     :count="{text: 'Word(s)', value: dashboardData.dictionaries_count }"/>
-                                        <!--Scholarships Card-->
+
                                     </div>
                                 </section>
                             </div>

@@ -9,7 +9,7 @@
                         <TablePaginate
                             v-model="query"
                             :searchPlaceholder="'Search by title, description'"
-                            :searchButtonText="'Add News'"
+                            :searchButtonText="'Add Scholarship'"
                             :headers="headers"
                             :notFoundText="'Please make sure you type or spell information correctly.'"
                             :isSearch="isSearch"
@@ -22,27 +22,66 @@
                             @onSearchInputClose="getItems"
                             @onRemoveChipText="getItems"
                             :paginateData="paginate"
-                            @paginateNavigate="paginateNavigator"
-                        >
+                            @paginateNavigate="paginateNavigator">
                             <!--Slot Form Top -->
                             <template slot="form-top" v-if="formTopState.show">
                                 <form class="admin-form-card user-form" @submit.prevent>
-                                    <div class="user-form-title">ໂພສຂ່າວ</div>
+                                    <div class="user-form-title">Create new Scholarship</div>
                                     <div class="layout-align-space-around-start layout-row">
                                         <AdminInput
                                             v-model="models.formTop.title"
                                             :focus="true"
                                             :validateText="validated().title"
-                                            :label="'ຫົວຂໍ້ຂ່າວ'"
+                                            :label="'Scholarship name *'"
                                             :inputType="'text'"
                                         />
+                                    </div>
+                                    <div class="layout-align-space-around-start layout-row">
+                                        <AdminInput
+                                            v-model="models.formTop.place"
+                                            :validateText="validated().place"
+                                            :label="'Scholarship place *'"
+                                            :inputType="'text'"
+                                        />
+                                    </div>
+                                    <div class="layout-align-space-around-start layout-row">
+                                        <AdminInput
+                                            v-model="models.formTop.scholarship_type"
+                                            :validateText="validated().scholarship_type"
+                                            :label="'Scholarship type *'"
+                                            :inputType="'select'"
+                                            :options="scholarshipTypes"
+                                        />
+                                    </div>
+                                    <div class="layout-align-space-around-start layout-row">
+                                        <div class="form-input-container flex" full>
+                                            <label>Deadline *</label>
+                                            <Datetime
+                                                @onOpenPopup="onDateTimeOpen"
+                                                @close="onDateTimeClose"
+                                                format="dd-MM-yyyy HH:mm"
+                                                type="datetime"
+                                                value-zone="Asia/Vientiane"
+                                                zone="Asia/Vientiane"
+                                                v-model="models.formTop.deadline"
+                                                input-id="activity_date"
+                                                :input-class="'admin-input-datepicker'"
+                                            />
+                                            <template v-if="validated().deadline">
+                                                <div admin-messages>
+                                                    <div admin-message class="message-required">{{ validated().deadline
+                                                        }}
+                                                    </div>
+                                                </div>
+                                            </template>
+                                        </div>
                                     </div>
                                     <div class="layout-align-space-around-start layout-row">
                                         <AdminInput
                                             @inputImageBase64="(d)=> models.formTop.imageSrc=d"
                                             @inputFile="(d)=> models.formTop.image=d"
                                             :validateText="validated().image"
-                                            :label="'Feature Image'"
+                                            :label="'Feature Image *'"
                                             :inputType="'file'"
                                             placeholder="Choose feature image"
                                         ></AdminInput>
@@ -61,7 +100,7 @@
                                         <Editor
                                             v-model="models.formTop.description"
                                             style="padding-bottom: 24px;"
-                                            :label="'ເນື້ອໃນຂ່າວ'"
+                                            :label="'Scholarship description *'"
                                             :validateText="validated().description"
                                         />
                                     </div>
@@ -71,7 +110,7 @@
                                             class="v-md-button secondary theme-blue"
                                         >Cancel
                                         </button>
-                                        <button @click="addNews" class="v-md-button primary theme-blue">Create</button>
+                                        <button @click="add" class="v-md-button primary theme-blue">Create</button>
                                     </div>
                                 </form>
                             </template>
@@ -92,26 +131,68 @@
                             <!--Slot Row Detail Content-->
                             <template slot-scope="{fireEvent, position, rowContent}" slot="form-row-detail">
                                 <div class="layout-align-space-around-start layout-row">
-
                                     <AdminInput
                                         v-model="rowContent.data.title"
                                         :validateText="rowContent.validated.title"
-                                        :label="'Title'"
+                                        :label="'Scholarship name *'"
                                         :inputType="'text'"
-                                        @onInputEnter="editNews(fireEvent, rowContent.data, position)"
+                                        @onInputEnter="edit(fireEvent, rowContent.data, position)"
                                     />
-
+                                </div>
+                                <div class="layout-align-space-around-start layout-row">
+                                    <AdminInput
+                                        v-model="rowContent.data.place"
+                                        :validateText="rowContent.validated.place"
+                                        :label="'Scholarship Place *'"
+                                        :inputType="'text'"
+                                        @onInputEnter="edit(fireEvent, rowContent.data, position)"
+                                    />
+                                </div>
+                                <div class="layout-align-space-around-start layout-row">
+                                    <AdminInput
+                                        v-model="rowContent.data.scholarship_type"
+                                        :validateText="rowContent.validated.scholarship_type"
+                                        :label="'Scholarship type *'"
+                                        :inputType="'select'"
+                                        :options="scholarshipTypes"
+                                        @onInputEnter="edit(fireEvent, rowContent.data, position)"
+                                    />
+                                </div>
+                                <div class="layout-align-space-around-start layout-row">
+                                    <div class="form-input-container flex" full>
+                                        <label>Deadline *</label>
+                                        <Datetime
+                                            v-model="rowContent.data.scholarship_deadline"
+                                            @onOpenPopup="onDateTimeOpen"
+                                            @close="onDateTimeClose"
+                                            value-zone="Asia/Vientiane"
+                                            zone="Asia/Vientiane"
+                                            format="dd-MM-yyyy HH:mm"
+                                            type="datetime"
+                                            :input-id="`activity-date${rowContent.data.id}`"
+                                            :input-class="'admin-input-datepicker'"
+                                        />
+                                        <template v-if="rowContent.validated.scholarship_deadline">
+                                            <div admin-messages>
+                                                <div
+                                                    admin-message
+                                                    class="message-required"
+                                                >{{ rowContent.validated.scholarship_deadline }}
+                                                </div>
+                                            </div>
+                                        </template>
+                                    </div>
                                 </div>
                                 <div class="layout-align-space-around-start layout-row">
                                     <AdminInput
                                         v-model="rowContent.data.filename"
                                         @inputImageBase64="(d)=> rowContent.options.imageSrc=d"
                                         @inputFile="(d) => rowContent.data.image = d"
-                                        :label="'Feature Image'"
+                                        :label="'Feature Image *'"
                                         :validateText="rowContent.validated.image"
                                         :inputType="'file'"
                                         placeholder="Choose feature image"
-                                        @onInputEnter="editNews(fireEvent, rowContent.data, position)"
+                                        @onInputEnter="edit(fireEvent, rowContent.data, position)"
                                     />
                                 </div>
                                 <div class="layout-align-space-around-start layout-row">
@@ -129,7 +210,7 @@
                                         :id="`editor_news_${rowContent.data.id}`"
                                         v-model="rowContent.data.description"
                                         style="padding-bottom:24px;"
-                                        :label="'News description'"
+                                        :label="'Event description *'"
                                         @editorMounted="(ed)=> ed.setEditorContent(rowContent.data.description)"
                                         :validateText="rowContent.validated.description"
                                     />
@@ -141,18 +222,26 @@
                                         @click="toggleFormRowContent(fireEvent, position, {active: false})"
                                         class="v-md-button secondary theme-blue">Cancel
                                     </button>
+                                    <!--Status Manage-->
+                                    <button v-if="rowContent.data.status === 'open'"
+                                            @click="manageStatus(fireEvent, rowContent.data, position, 'scholarship', 'close')"
+                                            class="v-md-button warning theme-blue">Close
+                                    </button>
+                                    <!--Status Manage-->
                                     <button
-                                        @click="editNews(fireEvent, rowContent.data, position)"
+                                        @click="edit(fireEvent, rowContent.data, position)"
                                         class="v-md-button primary theme-blue">Save
                                     </button>
-
                                     <!--Status Manage-->
                                     <button v-if="rowContent.data.status === 'pending'"
-                                            @click="manageStatus(fireEvent, rowContent.data, position, 'news', 'approve')"
+                                            @click="manageStatus(fireEvent, rowContent.data, position, 'scholarship', 'approve')"
                                             class="v-md-button primary theme-blue">Approve
                                     </button>
+                                    <button v-else-if="rowContent.data.status === 'close'"
+                                            @click="manageStatus(fireEvent, rowContent.data, position, 'scholarship', 'open')"
+                                            class="v-md-button primary theme-blue">Open
+                                    </button>
                                     <!--Status Manage-->
-
                                 </div>
                             </template>
                             <!--Slot Row Detail Content-->
@@ -173,10 +262,10 @@
                     </div>
                 </div>
                 <div>
-                    <div class="form-label">News Information</div>
-                    <div class="form-input-static-value">
-                        {{ `Title: ${modal.data.title}, Author: ${modal.data.author}`
-                        }}
+                    <div class="form-label">Scholarship Information</div>
+                    <div
+                        class="form-input-static-value"
+                    >{{ `Title: ${modal.data.title}, Author: ${modal.data.author}`}}
                     </div>
                 </div>
             </div>
@@ -194,14 +283,15 @@
     import {mapActions} from "vuex";
 
     export default AdminBase.extend({
-        name: "news",
+        name: "Scholarship",
         data: () => ({
-            title: "News",
-            type: "news",
+            title: "Scholarship",
+            type: "scholarship",
             watchers: true,
-            tabs: [{name: "News"}],
+            tabs: [{name: "Scholarship"}],
             headers: [
-                {class: "th-sortable", name: "News title", width: "35%"},
+                {class: "th-sortable", name: "Scholarship name", width: "30%"},
+                {class: "hide-xs th-sortable", name: "Deadline", width: "20%"},
                 {class: "hide-xs th-sortable", name: "Image", width: "10%"},
                 {class: "hide-xs th-sortable", name: "Author", width: "20%"},
                 {class: "th-sortable", name: "Status", width: "100"},
@@ -209,9 +299,14 @@
                 {class: "th-not-sortable", name: "", width: "80"}
             ],
             models: {formTop: {imageSrc: null}},//override base data
+            scholarshipTypes: [{text: 'Partial', value: 'partial'}, {text: 'Full', value: 'full'}]
         }),
         methods: {
-            ...mapActions(["postCreateNews", "postUpdateNews", "postDeleteNews"]),
+            ...mapActions([
+                "postCreateScholarship",
+                "postUpdateScholarship",
+                "postDeleteScholarship"
+            ]),
             callbackBuildItem(data) {
                 //options data
                 data.options = {imageSrc: `${this.baseUrl}${data.image}`};
@@ -227,6 +322,11 @@
                     },
                     rows: [
                         {data: data.title, type: "id", class: "user-email"},
+                        {
+                            data: data.deadline,
+                            type: "text",
+                            class: "hide-xs"
+                        },
                         {
                             data: `${this.baseUrl}${data.image}`,
                             type: "image",
@@ -252,11 +352,11 @@
                             type: "action",
                             class: "",
                             modal: {
-                                name: "Delete News",
+                                name: "Delete scholarship",
                                 active: false,
                                 type: "warning",
-                                message: `When you delete the news, the news will be permanently deleted and cannot be un-deleted.`,
-                                action: {act: this.postDeleteNews, text: "Delete"},
+                                message: `When you delete the scholarship, the scholarship will be permanently deleted and cannot be un-deleted.`,
+                                action: {act: this.postDeleteScholarship, text: "Delete"},
                                 data: data
                             }
                         }
@@ -275,27 +375,27 @@
                         .act({id: data.id})
                         .then(r => {
                             if (r.success) {
-                                this.showInfoToast({msg: "The news was deleted!", dt});
+                                this.showInfoToast({msg: "The scholarship was deleted!", dt});
                                 this.getItems();
                             } else {
                                 this.showErrorToast({
-                                    msg: "Failed to delete the news!",
+                                    msg: "Failed to delete the scholarship!",
                                     dt
                                 });
                             }
                         })
                         .catch(e => {
                             this.showErrorToast({
-                                msg: "Failed to delete the news!",
+                                msg: "Failed to delete the scholarship!",
                                 dt
                             });
                         });
                 }
             },
-            addNews() {
+            add() {
                 let ft = this.formTopState;
                 ft.loading = true;
-                this.postCreateNews(this.models.formTop)
+                this.postCreateScholarship(this.models.formTop)
                     .then(r => {
                         if (r.success) {
                             this.getItems();
@@ -308,7 +408,7 @@
                         ft.loading = false;
                     });
             },
-            editNews(fireEvent, data, position) {
+            edit(fireEvent, data, position) {
                 let dt = 3500,
                     v = this.paginate.items[position.row].rowContent;
                 this.toggleFormRowContent(
@@ -317,14 +417,14 @@
                     this.Event.loadingState().ActiveLoading
                 );
                 data.id = v.data.id;
-                this.postUpdateNews(data)
+                this.postUpdateScholarship(data)
                     .then(r => {
                         if (r.success) {
-                            this.showInfoToast({msg: "The news was updated!", dt});
+                            this.showInfoToast({msg: "The scholarship was updated!", dt});
                             this.getItems();
                         } else {
                             this.showErrorToast({
-                                msg: "Failed to update the news!",
+                                msg: "Failed to update the scholarship!",
                                 dt
                             });
                         }
@@ -347,7 +447,7 @@
                             this.showInvalidFormValidation();
                         } else {
                             this.showErrorToast({
-                                msg: "Failed to update the news!",
+                                msg: "Failed to update the scholarship!",
                                 dt
                             });
                             this.toggleFormRowContent(
@@ -361,7 +461,7 @@
             deleteItem(data) {
                 data.modal.active = true;
                 this.modal = data.modal;
-            },
+            }
         },
         created() {
             this.getItems = this.debounce(this.getItems, 150);
@@ -369,6 +469,4 @@
         }
     });
 </script>
-
-
 

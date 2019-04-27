@@ -7,7 +7,7 @@ export default Vue.extend({
         return {
             ...mapGetters(['validated', 'succeeded', 'getSideBarWidthForTabs']),
             type: 'news',
-            paginate: {per_page: 6, data: [], current_page: 1, last_page: 0, total: 0},
+            paginate: {per_page: 4, data: [], current_page: 1, last_page: 0, total: 0},
             isNavigator: false,
             isSearch: false,
             isTyped: false,

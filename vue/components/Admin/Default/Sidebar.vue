@@ -82,29 +82,13 @@
                     {
                         contentHeader: {
                             expanded: true,
-                            name: "Site Setting",
-                            description: "Manage site identifications.",
+                            name: "ຂໍ້ມູນຜູ້ໃຊ້",
+                            description: "ຈັດການຂໍ້ມູນຜູ້ໃຊ້ລະບົບ",
                             icon: "keyboard_arrow_up"
                         },
                         items: [
                             {
-                                name: "Site Info and Banner", //required
-                                icon: "settings", //required
-                                action: this.Route, //required
-                                params: {name: "sitesetting"} //required
-                            }
-                        ]
-                    },
-                    {
-                        contentHeader: {
-                            expanded: true,
-                            name: "Esqac Memebers",
-                            description: "Manage, Authentication, Approval, Searching",
-                            icon: "keyboard_arrow_up"
-                        },
-                        items: [
-                            {
-                                name: "All Members", //required
+                                name: "ຜູ້ໃຊ້ທັງໝົດ", //required
                                 icon: "group", //required
                                 action: this.Route, //required
                                 params: {name: "members"} //required
@@ -127,48 +111,52 @@
                     {
                         contentHeader: {
                             expanded: true,
-                            name: "Esqac Posts",
-                            description: "Manage Esqac posts information",
+                            name: "ຂໍ້ມູນຂ່າວສານ",
+                            description: "ຈັດການຂໍ້ມູນຂ່າວສານ",
                             icon: "keyboard_arrow_up"
                         },
                         items: [
                             {
-                                name: "News", //required
+                                name: "ຂ່າວສານ", //required
                                 icon: "rss_feed", //required
                                 action: this.Route, //required
                                 params: {name: "news"} //required
                             },
-                            {
-                                name: "Activity", //required
+                                                        {
+                                name: "ກິດຈະກຳ", //required
                                 icon: "list_alt", //required
                                 action: this.Route, //required
                                 params: {name: "activity"} //required
                             },
                             {
-                                name: "Event", //required
-                                icon: "today", //required
+                                name: "ທຶນການສຶກສາ", //required
+                                icon: "school", //required
                                 action: this.Route, //required
-                                params: {name: "event"} //required
-                            },
-
-                        ]
+                                params: {name: "scholarship"} //required
+                            }, ]
                     },
                     {
                         contentHeader: {
                             expanded: true,
-                            name: "Esqac Info",
-                            description: "Manage Esqac information.",
+                            name: "ຂໍ້ມູນເວບໄຊ",
+                            description: "ຈັດການຂໍ້ມູນພື້ນຖານເວບໄຊ",
                             icon: "keyboard_arrow_up"
                         },
                         items: [
+                                {
+                                name: "Logo and Banner", //required
+                                icon: "settings", //required
+                                action: this.Route, //required
+                                params: {name: "sitesetting"} //required
+                            },
                             {
-                                name: "About Esqac Info", //required
+                                name: "ຂໍ້ມູນກ່ຽວກັບ", //required
                                 icon: "business", //required
                                 action: this.Route, //required
                                 params: {name: "aboutjaol"} //required
                             },
                             {
-                                name: "Contact Info", //required
+                                name: "ຂໍ້ມູນຕິດຕໍ່", //required
                                 icon: "call", //required
                                 action: this.Route, //required
                                 params: {name: "contactinfo"} //required

@@ -8,10 +8,13 @@
 
 namespace App\Traits;
 
-use App\Models\Banner;
-use App\Models\Posts;
+
+use App\AboutJaol;
+use App\Banner;
+use App\ContactInfo;
+use App\Posts;
 use App\Responses\Home\PostsResponse;
-use App\Models\Site;
+use App\Site;
 use Illuminate\Http\Request;
 
 trait DefaultData
@@ -26,15 +29,14 @@ trait DefaultData
             'banners' => json_encode(Banner::getBanners(8)),
             'latest_news' => json_encode(Posts::getPosts('news', 3)),
 
-            'news' => json_encode([]),
-            'activities' => json_encode([]),
-            'events' => json_encode([]),
-            'scholarships' => json_encode([]),
-            'dictionaries' => json_encode([]),
+            'news' => json_encode((new PostsResponse([], 'news'))->postsPaginator($request)),
+            'activities' => json_encode((new PostsResponse([], 'activities'))->postsPaginator($request)),
+            'events' => json_encode((new PostsResponse([], 'events'))->postsPaginator($request)),
+            'scholarships' => json_encode((new PostsResponse([], 'scholarships'))->postsPaginator($request)),
+            'dictionaries' => json_encode((new PostsResponse([], 'dictionaries'))->postsPaginator($request)),
 
-            'contactInfo' => json_encode([]),
-            'aboutInfo' => json_encode([]),
-
+            'contactInfo' => json_encode(ContactInfo::getContactInfo()),
+            'aboutInfo' => json_encode(AboutJaol::getAbout()),
         ];
     }
 

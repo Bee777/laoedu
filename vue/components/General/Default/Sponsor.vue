@@ -25,6 +25,48 @@
         </div>
       </div>
     </section>
+    
+    <!--====== PATNAR LOGO PART START ======-->
+
+    <div id="patnar-logo" class="pt-20 pb-40 gray-bg">
+      <div class="container">
+        <div class="row patnar-slied">
+          <div class="col-lg-12">
+            <div class="singel-patnar text-center mt-40">
+              <img :src="`${baseUrl}${baseRes}/assets/images/patnar-logo/p-1.png`" alt="Logo">
+            </div>
+          </div>
+          <div class="col-lg-12">
+            <div class="singel-patnar text-center mt-40">
+              <img :src="`${baseUrl}${baseRes}/assets/images/patnar-logo/p-2.png`" alt="Logo">
+            </div>
+          </div>
+          <div class="col-lg-12">
+            <div class="singel-patnar text-center mt-40">
+              <img :src="`${baseUrl}${baseRes}/assets/images/patnar-logo/p-3.png`" alt="Logo">
+            </div>
+          </div>
+          <div class="col-lg-12">
+            <div class="singel-patnar text-center mt-40">
+              <img :src="`${baseUrl}${baseRes}/assets/images/patnar-logo/p-4.png`" alt="Logo">
+            </div>
+          </div>
+          <div class="col-lg-12">
+            <div class="singel-patnar text-center mt-40">
+              <img :src="`${baseUrl}${baseRes}/assets/images/patnar-logo/p-2.png`" alt="Logo">
+            </div>
+          </div>
+          <div class="col-lg-12">
+            <div class="singel-patnar text-center mt-40">
+              <img :src="`${baseUrl}${baseRes}/assets/images/patnar-logo/p-3.png`" alt="Logo">
+            </div>
+          </div>
+        </div>
+        <!-- row -->
+      </div>
+      <!-- container -->
+    </div>
+    <!--====== PATNAR LOGO PART ENDS ======-->
   </div>
 </template>
 <script>

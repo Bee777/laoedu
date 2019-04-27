@@ -27,11 +27,6 @@
                       <i class="fab fa-twitter"></i>
                     </a>
                   </li>
-                  <li>
-                    <a href="#">
-                      <i class="fab fa-instagram"></i>
-                    </a>
-                  </li>
                 </ul>
               </div>
               <!-- footer about -->
@@ -47,11 +42,11 @@
                       <i class="fa fa-angle-right"></i>ໜ້າຫຼັກ
                     </router-link>
                   </li>
-                  <li>
+                  <!-- <li>
                    <router-link :to="{name:'home'}">
                       <i class="fa fa-angle-right"></i>ຫຼັກສູດ
                    </router-link>
-                  </li>
+                  </li> -->
                   <li>
                     <a href="#">
                       <i class="fa fa-angle-right"></i>ສະຖານການສຶກສາ
@@ -62,11 +57,6 @@
                       <i class="fa fa-angle-right"></i>ຂ່າວສານ
                     </router-link>
                   </li>
-                  <li>
-                   <router-link :to="{name:'news'}">
-                      <i class="fa fa-angle-right"></i>ແຈ້ງການ
-                   </router-link>
-                  </li>
                 </ul>
               </div>
               <!-- footer link -->
@@ -74,9 +64,14 @@
             <div class="col-lg-2 col-md-6 col-sm-6">
               <div class="footer-link support mt-40">
                 <div class="footer-title pb-20">
-                  <h6>Support</h6>
+                  <h6>Related link</h6>
                 </div>
                 <ul>
+                   <li>
+                   <router-link :to="{name:'news'}">
+                      <i class="fa fa-angle-right"></i>ແຈ້ງການ
+                   </router-link>
+                  </li>
                   <li>
                   <router-link :to="{name:'contact'}">
                       <i class="fa fa-angle-right"></i>ຂໍ້ມູນຕິດຕໍ່
@@ -87,7 +82,7 @@
                       <i class="fa fa-angle-right"></i>ກ່ຽວກັບສູນ
                     </router-link>
                   </li>
-                  <li>
+                  <!-- <li>
                     <a href="#">
                       <i class="fa fa-angle-right"></i>FAQS
                     </a>
@@ -101,7 +96,7 @@
                     <a href="#">
                       <i class="fa fa-angle-right"></i>ເອກະສານ
                     </a>
-                  </li>
+                  </li> -->
                 </ul>
               </div>
               <!-- support -->

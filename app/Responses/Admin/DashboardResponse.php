@@ -32,10 +32,8 @@ class DashboardResponse implements Responsable
             $data = [];
             $data['latest_members_count'] = User::join('user_types', 'user_types.user_id', 'users.id')->whereIn('user_types.type_user_id', User::getNonAdminUserIds())->count();
             $data['events_count'] = $this->getPostsCount('event');
-            $data['scholarships_count'] = $this->getPostsCount('scholarship');
             $data['activities_count'] = $this->getPostsCount('activity')['all'];
             $data['news_count'] = $this->getPostsCount('news')['all'];
-            $data['dictionaries_count'] = Dictionary::count();
 
             if (User::isAdminUser($request->user())) {
                 $data['members_government_none_government_count'] = $this->getMembersGovernmentNoneGovernmentCount();

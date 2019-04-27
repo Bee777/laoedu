@@ -8,7 +8,8 @@ import ContactInfo from '@com/Admin/Posts/ContactInfo.vue'
 import AboutJaol from '@com/Admin/Posts/AboutJaol.vue'
 import News from '@com/Admin/Posts/News.vue'
 import Activity from '@com/Admin/Posts/Activity.vue'
-import Event from '@com/Admin/Posts/Event.vue'
+import Scholarship from '@com/Admin/Posts/Scholarship.vue'
+// import NewsCategory from '@com/Admin/Posts/NewsCategory.vue'
 import UploadFile from '@com/Admin/Posts/Uploadfile.vue'
 import Sponsor from '@com/Admin/Posts/Sponsor.vue'
 
@@ -86,11 +87,17 @@ export default [{
         meta: metas.authMeta,
     },
     {
-        path: `${prefix}/event`,
-        name: 'event',
-        component: Event,
+        path: `${prefix}/scholarship`,
+        name: 'scholarship',
+        component: Scholarship,
         meta: metas.authMeta,
     },
+    // {
+    //     path: `${prefix}/news-category`,
+    //     name: 'newscategory',
+    //     component: NewsCategory,
+    //     meta: metas.authMeta,
+    // },
     {
         path: `${prefix}/upload-files`,
         name: 'uploadfile',

@@ -4,11 +4,9 @@
     var latest_news = {!! $latest_news !!};
 
     var news =  {!! $news!!};
-    var activities =  {!! $activities !!};
-    var events =  {!! $events !!};
-    var scholarships =  {!! $scholarships !!};
-
-    var dictionaries = {!! $dictionaries !!}
+    // var activities =  {!! $activities !!};
+    // var events =  {!! $events !!};
+    // var scholarships =  {!! $scholarships !!}
 
     var contactInfo =  {!! $contactInfo !!};
     var aboutInfo =  {!! $aboutInfo !!};

@@ -124,14 +124,14 @@
           </div>
           <div class="col-lg-5">
             <div class="contact-address mt-30">
-              <ul>
+              <ul v-if="!$utils.isEmptyVar( homeData.ContactInfo )">
                 <li>
                   <div class="singel-address">
                     <div class="icon">
                       <i class="fa fa-home"></i>
                     </div>
                     <div class="cont">
-                      <p>143 castle road 517 district, kiyev port south Canada</p>
+                      <p>  {{homeData.ContactInfo.address}}</p>
                     </div>
                   </div>
                   <!-- singel address -->
@@ -142,8 +142,7 @@
                       <i class="fa fa-phone"></i>
                     </div>
                     <div class="cont">
-                      <p>+3 123 456 789</p>
-                      <p>+1 222 345 342</p>
+                      <p>{{homeData.ContactInfo.phone}}</p>
                     </div>
                   </div>
                   <!-- singel address -->
@@ -151,11 +150,10 @@
                 <li>
                   <div class="singel-address">
                     <div class="icon">
-                      <i class="fa fa-envelope-o"></i>
+                      <i class="fas fa-envelope"></i>
                     </div>
                     <div class="cont">
-                      <p>info@yourmail.com</p>
-                      <p>info@yourmail.com</p>
+                      <p> {{homeData.ContactInfo.email}}</p>
                     </div>
                   </div>
                   <!-- singel address -->

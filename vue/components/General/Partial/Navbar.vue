@@ -2,7 +2,7 @@
   <div>
     <!--====== HEADER PART START ======-->
     <header id="header-part">
-      <div class="header-top d-none d-lg-block">
+      <!-- <div class="header-top d-none d-lg-block">
         <div class="container">
           <div class="row">
             <div class="col-lg-6">
@@ -26,10 +26,8 @@
               </div>
             </div>
           </div>
-          <!-- row -->
         </div>
-        <!-- container -->
-      </div>
+      </div> -->
       <!-- header top -->
 
       <div class="header-logo-support pt-30 pb-30">
@@ -107,7 +105,7 @@
                     <li class="nav-item">
                       <router-link to="/" active-class="active" exact>ໜ້າຫຼັກ</router-link>
                     </li>
-                    <li class="nav-item">
+                    <!-- <li class="nav-item">
                       <a href="#">ຫຼັກສູດ</a>
                       <ul class="sub-menu">
                         <li>
@@ -117,16 +115,16 @@
                           <a href="courses-singel.html">Course Singel</a>
                         </li>
                       </ul>
+                    </li> -->
+                    <li class="nav-item">
+                      <router-link :to="{name: 'events'}" active-class="active" exact>ສະຖານການສຶກສາ</router-link>
                     </li>
                     <li class="nav-item">
-                      <router-link :to="{name: 'events'}" active-class="active" exact>ສະຖາບັນ</router-link>
+                      <router-link :to="{name: 'news'}" active-class="active" exact>ຂ່າວສານ</router-link>
                     </li>
-                    <li class="nav-item">
-                      <router-link :to="{name: 'news'}" active-class="active" exact>ຂ່າວ</router-link>
-                    </li>
-                    <li class="nav-item">
+                    <!-- <li class="nav-item">
                       <router-link :to="{name: 'activities'}" active-class="is-active" exact>ກິດຈະກຳ</router-link>
-                    </li>
+                    </li> -->
                     <li class="nav-item">
                       <router-link to="/about" active-class="active" exact>ກ່ຽວກັບສູນ</router-link>
                     </li>

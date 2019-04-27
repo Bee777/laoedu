@@ -19,7 +19,7 @@ class AutoClosePosts extends Command
      *
      * @var string
      */
-    protected $description = 'Automatically to close posts types {events, scholarships} when it reached their expires time.';
+    protected $description = 'Automatically to close posts types {events} when it reached their expires time.';
 
 
     public function IsExpired($ctime): bool
@@ -46,23 +46,12 @@ class AutoClosePosts extends Command
     public function handle()
     {
         $event_posts = Posts::where('type', 'event')->where('status', 'open')->get();
-        $scholarships_posts = Posts::where('type', 'scholarship')->where('status', 'open')->get();
         if (count($event_posts)) {
             foreach ($event_posts as $post) {
                 if ($this->IsExpired($post->deadline)) {
                     $post->status = 'close';
                     $post->save();
                     $this->info('The event is expired now, Post Id = ' . $post->id);
-                }
-            }
-        }
-
-        if (count($scholarships_posts)) {
-            foreach ($scholarships_posts as $post) {
-                if ($this->IsExpired($post->deadline)) {
-                    $post->status = 'close';
-                    $post->save();
-                    $this->info('The scholarship is expired now, Post Id = ' . $post->id);
                 }
             }
         }
