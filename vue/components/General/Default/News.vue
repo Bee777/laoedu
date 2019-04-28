@@ -85,13 +85,13 @@
                                    <h4>Popular Posts</h4>
                                    <ul>
                                        <li v-for="(news, idx) in postsData.news.mostViews" :key="idx">
-                                            <a href="#">
+                                            <a @click="getDetail('news', news)">
                                                 <div class="singel-post">
-                                                   <div class="thum" @click="getDetail('news', news)">
+                                                   <div class="thum">
                                                        <img :src="`${baseUrl}${news.image}`" :alt="news.image">
                                                    </div>
                                                    <div class="cont" @click="getDetail('news', news)" >
-                                                       <p v-html="$utils.sub($utils.strip(news.title), 35)">{{news.title}}</p>
+                                                       <p v-html="$utils.sub($utils.strip(news.title), 35)"></p>
                                                        <span> {{news.post_updated}}</span>
                                                    </div>
                                                </div> <!-- singel post -->

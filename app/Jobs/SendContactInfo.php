@@ -50,8 +50,12 @@ class SendContactInfo implements ShouldQueue
         $data['from'] = $this->settings['email'];
         $data['subject'] = 'New Contact Information | ' . $this->settings['site_name'];
         $data['user_name'] = 'Dear ' . $this->settings['site_name'];
-        $data['content_text'] = "You are receiving this email because we received a new contact information on your site.<br> Name: {$this->contact['name']}<br>Email: {$this->contact['email']}<br>Message: {$this->contact['message']}.";
-        $link = route('get.home.index');
+        $data['content_text'] = "You are receiving this email because we received a new contact information on your site.
+        <br> Name: {$this->contact['name']}
+        <br>Email: {$this->contact['email']}
+        <br>Subject:{$this->contact['subject']}
+        <br>Message: {$this->contact['message']}.";
+          $link = route('get.home.index');
         $data['bottom_text'] = 'If you did not request to check it now, no further action is required.';
         $data['button_text'] = $this->settings['site_name'];
         $data['button_link'] = $link;

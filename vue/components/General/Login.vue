@@ -39,7 +39,7 @@
                                             <content>Sign in</content>
                                         </h1>
                                         <div class="headingSubtext">
-                                            <content>to continue to Jaol Members</content>
+                                            <content>to continue to ESQAC Members</content>
                                         </div>
                                     </div>
                                 </div>

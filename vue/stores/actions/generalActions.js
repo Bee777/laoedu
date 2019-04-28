@@ -128,6 +128,7 @@ export const createActions = (utils) => {
             return new Promise((r, n) => {
                 utils.Validate(data, {
                     'email': ['email', 'required'],
+                    'subject': ['required', {max: 191}],
                     'name': ['required', {max: 191}],
                     'message': ['required'],
                 }).then((v) => {

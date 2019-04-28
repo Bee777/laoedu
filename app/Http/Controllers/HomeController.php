@@ -123,7 +123,7 @@ class HomeController extends Controller
         $data['banners'] = Banner::getBanners(8);
         $data['AboutJaol'] = AboutJaol::getAbout();
         $data['ContactInfo'] = ContactInfo::getContactInfo();
-        $data['latest_news'] = Posts::getPosts('news', 3);
+        $data['latest_news'] = Posts::getPosts('news', 4);
         $data['latest_scholarship'] = Posts::getPosts('scholarship', 4);
         $data['latest_event'] = Posts::getPosts('event', 4);
         $data['latest_activity'] = Posts::getPosts('activity', 4);
@@ -147,6 +147,7 @@ class HomeController extends Controller
         $data = $this->validate($request, [
             'name' => ['required', 'string', 'max:191'],
             'email' => ['required', 'string', 'email', 'max:191'],
+            'subject' => ['required', 'string', 'max:191'],
             'message' => ['required', 'string'],
         ]);
         $this->dispatch(new SendContactInfo($data));

@@ -275,19 +275,17 @@
             </div>
             <!-- section title -->
             <div class="about-cont">
-              <p>
-                Lorem ipsum gravida nibh vel velit auctor aliquetn sollicitudirem quibibendum auci elit cons equat ipsutis sem nibh id elit. Duis sed odio sit amet nibh vulputate cursus a sit amet . Morbi accumsan ipsum velit. Nam nec tellus a odio tincidunt mauris.
-                <br>
-                <br>auci elit cons equat ipsutis sem nibh id elit. Duis sed odio sit amet nibh vulputate cursus a sit amet . Morbi accumsan ipsum velit. Nam nec tellus a odio tincidunt mauris
-              </p>
-              <a href="#" class="main-btn mt-55">Learn More</a>
+                 <div class="about-cont" v-if="!$utils.isEmptyVar(homeData.AboutJaol)">
+                <p v-html="$utils.sub($utils.strip(homeData.AboutJaol.description),800)"></p>
+            </div>
+              <router-link :to="{name: 'news'}"  class="main-btn mt-55">Learn More</router-link>
             </div>
           </div>
           <!-- about cont -->
           <div class="col-lg-6 offset-lg-1">
-            <div class="about-event mt-50">         
+            <div class="about-event mt-50">
               <div class="event-title">
-                     <i class="material-icons">notifications</i>
+                <i class="material-icons">notifications</i>
                 <h3>ແຈ້ງການ</h3>
               </div>
               <!-- event title -->
@@ -385,6 +383,361 @@
     </section>
 
     <!--====== APPLY PART ENDS ======-->
+
+    <section id="course-part" class="pt-65 pb-60 gray-bg">
+      <div class="container">
+        <div class="row">
+          <div class="col-lg-6">
+            <div class="section-title pb-45">
+              <h5>ສະຖານການສຶກສາ</h5>
+              <h2>The best institute</h2>
+            </div>
+            <!-- section title -->
+          </div>
+        </div>
+        <!-- row -->
+        <div class="row course-slied mt-30">
+          <div class="col-lg-4">
+            <div class="singel-course">
+              <div class="thum">
+                <div class="image">
+                  <img :src="`${baseUrl}${baseRes}/assets/images/course/cu-1.jpg`" alt="Course">
+                </div>
+                <div class="price">
+                  <span>Free</span>
+                </div>
+              </div>
+              <div class="cont">
+                <ul>
+                  <li>
+                    <i class="fa fa-star"></i>
+                  </li>
+                  <li>
+                    <i class="fa fa-star"></i>
+                  </li>
+                  <li>
+                    <i class="fa fa-star"></i>
+                  </li>
+                  <li>
+                    <i class="fa fa-star"></i>
+                  </li>
+                  <li>
+                    <i class="fa fa-star"></i>
+                  </li>
+                </ul>
+                <span>(20 Reviws)</span>
+                <a href="courses-singel.html">
+                  <h4>Learn basis javascirpt from start for beginner</h4>
+                </a>
+                <div class="course-teacher">
+                  <div class="thum">
+                    <a href="#">
+                      <img
+                        :src="`${baseUrl}${baseRes}/assets/images/course/teacher/t-1.jpg`"
+                        alt="teacher"
+                      >
+                    </a>
+                  </div>
+                  <div class="name">
+                    <a href="#">
+                      <h6>Mark anthem</h6>
+                    </a>
+                  </div>
+                  <div class="admin">
+                    <ul>
+                      <li>
+                        <a href="#">
+                          <i class="fa fa-user"></i>
+                          <span>31</span>
+                        </a>
+                      </li>
+                      <li>
+                        <a href="#">
+                          <i class="fa fa-heart"></i>
+                          <span>10</span>
+                        </a>
+                      </li>
+                    </ul>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <!-- singel course -->
+          </div>
+          <div class="col-lg-4">
+            <div class="singel-course">
+              <div class="thum">
+                <div class="image">
+                  <img :src="`${baseUrl}${baseRes}/assets/images/course/cu-2.jpg`" alt="Course">
+                </div>
+                <div class="price">
+                  <span>Free</span>
+                </div>
+              </div>
+              <div class="cont">
+                <ul>
+                  <li>
+                    <i class="fa fa-star"></i>
+                  </li>
+                  <li>
+                    <i class="fa fa-star"></i>
+                  </li>
+                  <li>
+                    <i class="fa fa-star"></i>
+                  </li>
+                  <li>
+                    <i class="fa fa-star"></i>
+                  </li>
+                  <li>
+                    <i class="fa fa-star"></i>
+                  </li>
+                </ul>
+                <span>(20 Reviws)</span>
+                <a href="courses-singel.html">
+                  <h4>Learn basis javascirpt from start for beginner</h4>
+                </a>
+                <div class="course-teacher">
+                  <div class="thum">
+                    <a href="#">
+                      <img
+                        :src="`${baseUrl}${baseRes}/assets/images/course/teacher/t-2.jpg`"
+                        alt="teacher"
+                      >
+                    </a>
+                  </div>
+                  <div class="name">
+                    <a href="#">
+                      <h6>Mark anthem</h6>
+                    </a>
+                  </div>
+                  <div class="admin">
+                    <ul>
+                      <li>
+                        <a href="#">
+                          <i class="fa fa-user"></i>
+                          <span>31</span>
+                        </a>
+                      </li>
+                      <li>
+                        <a href="#">
+                          <i class="fa fa-heart"></i>
+                          <span>10</span>
+                        </a>
+                      </li>
+                    </ul>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <!-- singel course -->
+          </div>
+          <div class="col-lg-4">
+            <div class="singel-course">
+              <div class="thum">
+                <div class="image">
+                  <img :src="`${baseUrl}${baseRes}/assets/images/course/cu-3.jpg`" alt="Course">
+                </div>
+                <div class="price">
+                  <span>Free</span>
+                </div>
+              </div>
+              <div class="cont">
+                <ul>
+                  <li>
+                    <i class="fa fa-star"></i>
+                  </li>
+                  <li>
+                    <i class="fa fa-star"></i>
+                  </li>
+                  <li>
+                    <i class="fa fa-star"></i>
+                  </li>
+                  <li>
+                    <i class="fa fa-star"></i>
+                  </li>
+                  <li>
+                    <i class="fa fa-star"></i>
+                  </li>
+                </ul>
+                <span>(20 Reviws)</span>
+                <a href="courses-singel.html">
+                  <h4>Learn basis javascirpt from start for beginner</h4>
+                </a>
+                <div class="course-teacher">
+                  <div class="thum">
+                    <a href="#">
+                      <img
+                        :src="`${baseUrl}${baseRes}/assets/images/course/teacher/t-3.jpg`"
+                        alt="teacher"
+                      >
+                    </a>
+                  </div>
+                  <div class="name">
+                    <a href="#">
+                      <h6>Mark anthem</h6>
+                    </a>
+                  </div>
+                  <div class="admin">
+                    <ul>
+                      <li>
+                        <a href="#">
+                          <i class="fa fa-user"></i>
+                          <span>31</span>
+                        </a>
+                      </li>
+                      <li>
+                        <a href="#">
+                          <i class="fa fa-heart"></i>
+                          <span>10</span>
+                        </a>
+                      </li>
+                    </ul>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <!-- singel course -->
+          </div>
+          <div class="col-lg-4">
+            <div class="singel-course">
+              <div class="thum">
+                <div class="image">
+                  <img :src="`${baseUrl}${baseRes}/assets/images/course/cu-4.jpg`" alt="Course">
+                </div>
+                <div class="price">
+                  <span>Free</span>
+                </div>
+              </div>
+              <div class="cont">
+                <ul>
+                  <li>
+                    <i class="fa fa-star"></i>
+                  </li>
+                  <li>
+                    <i class="fa fa-star"></i>
+                  </li>
+                  <li>
+                    <i class="fa fa-star"></i>
+                  </li>
+                  <li>
+                    <i class="fa fa-star"></i>
+                  </li>
+                  <li>
+                    <i class="fa fa-star"></i>
+                  </li>
+                </ul>
+                <span>(20 Reviws)</span>
+                <a href="courses-singel.html">
+                  <h4>Learn basis javascirpt from start for beginner</h4>
+                </a>
+                <div class="course-teacher">
+                  <div class="thum">
+                    <a href="#">
+                      <img
+                        :src="`${baseUrl}${baseRes}/assets/images/course/teacher/t-4.jpg`"
+                        alt="teacher"
+                      >
+                    </a>
+                  </div>
+                  <div class="name">
+                    <a href="#">
+                      <h6>Mark anthem</h6>
+                    </a>
+                  </div>
+                  <div class="admin">
+                    <ul>
+                      <li>
+                        <a href="#">
+                          <i class="fa fa-user"></i>
+                          <span>31</span>
+                        </a>
+                      </li>
+                      <li>
+                        <a href="#">
+                          <i class="fa fa-heart"></i>
+                          <span>10</span>
+                        </a>
+                      </li>
+                    </ul>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <!-- singel course -->
+          </div>
+          <div class="col-lg-4">
+            <div class="singel-course">
+              <div class="thum">
+                <div class="image">
+                  <img :src="`${baseUrl}${baseRes}/assets/images/course/cu-5.jpg`" alt="Course">
+                </div>
+                <div class="price">
+                  <span>Free</span>
+                </div>
+              </div>
+              <div class="cont">
+                <ul>
+                  <li>
+                    <i class="fa fa-star"></i>
+                  </li>
+                  <li>
+                    <i class="fa fa-star"></i>
+                  </li>
+                  <li>
+                    <i class="fa fa-star"></i>
+                  </li>
+                  <li>
+                    <i class="fa fa-star"></i>
+                  </li>
+                  <li>
+                    <i class="fa fa-star"></i>
+                  </li>
+                </ul>
+                <span>(20 Reviws)</span>
+                <a href="courses-singel.html">
+                  <h4>Learn basis javascirpt from start for beginner</h4>
+                </a>
+                <div class="course-teacher">
+                  <div class="thum">
+                    <a href="#">
+                      <img
+                        :src="`${baseUrl}${baseRes}/assets/images/course/teacher/t-5.jpg`"
+                        alt="teacher"
+                      >
+                    </a>
+                  </div>
+                  <div class="name">
+                    <a href="#">
+                      <h6>Mark anthem</h6>
+                    </a>
+                  </div>
+                  <div class="admin">
+                    <ul>
+                      <li>
+                        <a href="#">
+                          <i class="fa fa-user"></i>
+                          <span>31</span>
+                        </a>
+                      </li>
+                      <li>
+                        <a href="#">
+                          <i class="fa fa-heart"></i>
+                          <span>10</span>
+                        </a>
+                      </li>
+                    </ul>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <!-- singel course -->
+          </div>
+        </div>
+        <!-- course slied -->
+      </div>
+      <!-- container -->
+    </section>
+
     <!--====== PUBLICATION PART START ======-->
 
     <section id="publication-part" class="pt-45 pb-50 gray-bg">
@@ -558,16 +911,21 @@
 
     <!--====== PUBLICATION PART ENDS ======-->
     <!--====== NEWS PART START ======-->
-
-    <section id="news-part" class="pt-50 pb-50">
+    <section id="news-part" class="pt-50 pb-50" v-if="homeData.latest_news.length > 0">
       <div class="container">
-        <div class="row">
-          <div class="col-lg-6">
+        <div class="row align-items-end">
+          <div class="col-lg-6 col-md-8 col-sm-7">
             <div class="section-title pb-30">
               <h5>ຂ່າວໃໝ່</h5>
               <h2>From the news</h2>
             </div>
             <!-- section title -->
+          </div>
+          <div class="col-lg-6 col-md-4 col-sm-5">
+            <div class="products-btn text-right pb-60">
+              <router-link :to="{name: 'news'}" class="main-btn">ຂ່າວທັງໝົດ</router-link>
+            </div>
+            <!-- products btn -->
           </div>
         </div>
         <!-- row -->
@@ -599,99 +957,36 @@
             <!-- singel news -->
           </div>
           <div class="col-lg-6">
-            <div class="singel-news news-list">
+            <div class="singel-news news-list singel-course" v-for="(news, idx) in homeData.latest_news" :key="idx">
               <div class="row">
                 <div class="col-sm-4">
                   <div class="news-thum mt-30">
-                    <img :src="`${baseUrl}${baseRes}/assets/images/news/ns-1.jpg`" alt="News">
+                    <div class="image img-card" @click="getDetail('news', news)">
+                      <img :src="news.image" :alt="news.image">
+                    </div>
                   </div>
                 </div>
                 <div class="col-sm-8">
                   <div class="news-cont mt-30">
                     <ul>
                       <li>
-                        <a href="#">
-                          <i class="fa fa-calendar"></i>2 December 2018
-                        </a>
+                        <i class="fa fa-calendar"></i> 
+                        {{news.formatted_updated_at}}
                       </li>
                       <li>
-                        <a href="#">
-                          <span>By</span> Adam linn
-                        </a>
+                        <span>By</span>
+                        {{news.author}}
                       </li>
                     </ul>
-                    <a href="blog-singel.html">
-                      <h3>Intellectual communication</h3>
+                    <a @click="getDetail('news', news)">
+                      <h3 v-html="$utils.sub($utils.strip(news.title), 45)"></h3>
                     </a>
-                    <p>Gravida nibh vel velit auctor aliquetn sollicitudirem quibibendum auci elit cons vel.</p>
+                    <p v-html="$utils.sub($utils.strip(news.description), 80)"></p>
                   </div>
                 </div>
               </div>
               <!-- row -->
             </div>
-            <!-- singel news -->
-            <div class="singel-news news-list">
-              <div class="row">
-                <div class="col-sm-4">
-                  <div class="news-thum mt-30">
-                    <img :src="`${baseUrl}${baseRes}/assets/images/news/ns-2.jpg`" alt="News">
-                  </div>
-                </div>
-                <div class="col-sm-8">
-                  <div class="news-cont mt-30">
-                    <ul>
-                      <li>
-                        <a href="#">
-                          <i class="fa fa-calendar"></i>2 December 2018
-                        </a>
-                      </li>
-                      <li>
-                        <a href="#">
-                          <span>By</span> Adam linn
-                        </a>
-                      </li>
-                    </ul>
-                    <a href="blog-singel.html">
-                      <h3>Study makes you perfect</h3>
-                    </a>
-                    <p>Gravida nibh vel velit auctor aliquetn sollicitudirem quibibendum auci elit cons vel.</p>
-                  </div>
-                </div>
-              </div>
-              <!-- row -->
-            </div>
-            <!-- singel news -->
-            <div class="singel-news news-list">
-              <div class="row">
-                <div class="col-sm-4">
-                  <div class="news-thum mt-30">
-                    <img :src="`${baseUrl}${baseRes}/assets/images/news/ns-3.jpg`" alt="News">
-                  </div>
-                </div>
-                <div class="col-sm-8">
-                  <div class="news-cont mt-30">
-                    <ul>
-                      <li>
-                        <a href="#">
-                          <i class="fa fa-calendar"></i>2 December 2018
-                        </a>
-                      </li>
-                      <li>
-                        <a href="#">
-                          <span>By</span> Adam linn
-                        </a>
-                      </li>
-                    </ul>
-                    <a href="blog-singel.html">
-                      <h3>Technology edcution is now....</h3>
-                    </a>
-                    <p>Gravida nibh vel velit auctor aliquetn sollicitudirem quibibendum auci elit cons vel.</p>
-                  </div>
-                </div>
-              </div>
-              <!-- row -->
-            </div>
-            <!-- singel news -->
           </div>
         </div>
         <!-- row -->
@@ -702,3 +997,25 @@
     <!--====== NEWS PART ENDS ======-->
   </div>
 </template>
+<script>
+import Carousel from "@com/General/Partial/Carousel.vue";
+import Sponsor from "@com/General/Default/Sponsor.vue";
+import ContactForm from "@com/General/ContactForm.vue";
+import Base from "@com/Bases/GeneralBase.js";
+import { mapActions } from "vuex";
+
+export default Base.extend({
+  name: "Home",
+  data: () => ({
+    contactInfo: { header_title: "Contact Us Now" } //for contact form
+  }),
+  components: {
+    Carousel,
+    ContactForm,
+    Sponsor
+  },
+  created() {
+    this.setPageTitle(`Home`);
+  }
+});
+</script>

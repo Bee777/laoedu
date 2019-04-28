@@ -47,8 +47,8 @@
                 <span>ໜ້າຫຼັກ</span>
               </router-link>
             </li>
-            <li :class="isRoute('events')">
-              <router-link :to="{ name: 'events' }" @click.native.prevent="maskClick()">
+            <li :class="isRoute('institute')">
+              <router-link :to="{ name: 'institute' }" @click.native.prevent="maskClick()">
                 <i class="sidebar-icon-md material-icons">today</i>
                 <span>ສະຖານການສຶກສາ</span>
               </router-link>
@@ -59,20 +59,20 @@
                 <span>ຂ່າວສານ</span>
               </router-link>
             </li>
-            <!-- <li :class="isRoute('scholarships')">
+            <li :class="isRoute('scholarships')">
                             <router-link :to="{name: 'scholarships'}" @click.native.prevent="maskClick()">
                                 <i class="sidebar-icon-md material-icons">school</i>
-                                <span>Scholarships</span>
+                                <span>ທຶນການສຶກສາ</span>
                             </router-link>
-            </li>-->
-            <!-- <li :class="isRoute('activities')">
+            </li>
+            <li :class="isRoute('activities')">
                             <router-link :to="{ name: 'activities' }" @click.native.prevent="maskClick()">
                                 <i class="sidebar-icon-md material-icons">
                                     list_alt
                                 </i>
                                 <span>ກິດຈະກຳ</span>
                             </router-link>
-            </li>-->
+            </li>
             <!--<li :class="isRoute('forum')">-->
             <!--<router-link :to="{ name: 'forum' }" @click.native.prevent="maskClick()">-->
             <!--<i class="sidebar-icon-md material-icons">-->

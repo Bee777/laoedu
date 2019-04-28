@@ -8,10 +8,12 @@ import About from '@com/General/Default/about.vue'
 import News from '@com/General/Default/News.vue'
 import Contact from '@com/General/Default/contact.vue'
 import Activity from '@com/General/Default/activity.vue'
-import Event from '@com/General/Default/event.vue'
+import Scholarship from '@com/General/Default/scholarship.vue'
 import NewsSingle from '@com/General/Default/Single/NewsSingle.vue'
 import ActivitySingle from '@com/General/Default/Single/ActivitySingle.vue'
-import EventSingle from '@com/General/Default/Single/EventSingle.vue'
+import ScholarshipSingle from '@com/General/Default/Single/ScholarshipSingle.vue'
+import Institute from '@com/General/Default/Institute.vue'
+import InstituteSingle from '@com/General/Default/Single/InstituteSingle.vue'
 
 const metas = {
     guestMeta: {
@@ -156,9 +158,9 @@ export default [
         },
     },
     {
-        path: '/posts/events',
-        name: 'events',
-        component: Event,
+        path: '/posts/scholarships',
+        name: 'scholarships',
+        component: Scholarship,
         meta: {
             ...metas.df({
                 hideNavFooter: false,
@@ -166,9 +168,29 @@ export default [
         },
     },
     {
-        path: '/posts/events/single/:id',
-        name: 'event-single',
-        component: EventSingle,
+        path: '/posts/scholarships/single/:id',
+        name: 'scholarship-single',
+        component: ScholarshipSingle,
+        meta: {
+            ...metas.df({
+                hideNavFooter: false,
+            })
+        },
+    },
+    {
+        path: '/posts/institute',
+        name: 'institute',
+        component: Institute,
+        meta: {
+            ...metas.df({
+                hideNavFooter: false,
+            })
+        },
+    },
+    {
+        path: '/posts/institute/single/:id',
+        name: 'institute-single',
+        component: InstituteSingle,
         meta: {
             ...metas.df({
                 hideNavFooter: false,

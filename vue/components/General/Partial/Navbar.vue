@@ -53,9 +53,9 @@
                       alt="icon"
                     >
                   </div>
-                  <div class="cont">
+                  <div class="cont" v-if="!$utils.isEmptyVar( homeData.ContactInfo )">
                     <p>Need Help? call us free</p>
-                    <span>321 325 5678</span>
+                    <span>{{homeData.ContactInfo.phone}}</span>
                   </div>
                 </div>
                 <div class="button float-left">
@@ -117,14 +117,19 @@
                       </ul>
                     </li> -->
                     <li class="nav-item">
-                      <router-link :to="{name: 'events'}" active-class="active" exact>ສະຖານການສຶກສາ</router-link>
+                      <router-link :to="{name: 'institute'}" active-class="active" exact>ສະຖານການສຶກສາ</router-link>
                     </li>
                     <li class="nav-item">
                       <router-link :to="{name: 'news'}" active-class="active" exact>ຂ່າວສານ</router-link>
                     </li>
-                    <!-- <li class="nav-item">
+                    <li class="vav-item">
+                          <router-link class="navbar-item" :to="{name: 'scholarships'}" active-class="is-active" exact>
+                        ທຶນການສຶກສາ
+                    </router-link>
+                    </li>
+                    <li class="nav-item">
                       <router-link :to="{name: 'activities'}" active-class="is-active" exact>ກິດຈະກຳ</router-link>
-                    </li> -->
+                    </li>
                     <li class="nav-item">
                       <router-link to="/about" active-class="active" exact>ກ່ຽວກັບສູນ</router-link>
                     </li>
