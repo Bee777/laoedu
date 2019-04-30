@@ -4,7 +4,7 @@
    
     <!--====== COURSES PART START ======-->
     
-    <section id="courses-part" class="pt-120 pb-120 gray-bg">
+    <section id="courses-part" class="pt-20 pb-120 gray-bg">
         <div class="container">
             <div class="row">
                 <div class="col-lg-12">

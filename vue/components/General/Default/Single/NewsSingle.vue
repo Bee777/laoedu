@@ -91,7 +91,7 @@
               </div>
               <div class="cont">
                 <a @click="getDetail('news', item)">
-                  <h6 class="card-title">{{item.title}}</h6>
+                  <h6 class="card-title" v-html="$utils.sub($utils.strip(item.title),80)"></h6>
                 </a>
                 <div v-html="$utils.sub($utils.strip(item.description), 120)"></div>
                 <div class="course-teacher">

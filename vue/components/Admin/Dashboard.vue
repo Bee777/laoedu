@@ -107,14 +107,6 @@
                                 <section>
                                     <h2 class="items-title">All Posts Status</h2>
                                     <div class="items-row sidekick">
-                                        <!--Scholarships Card-->
-                                        <CounterCard :isLoading="validated().loading_dashboard_data"
-                                                     @onCardClick="goTo('scholarship')" title="Scholarships"
-                                                     icon="school"
-                                                     :count="{text: 'Posts', value: dashboardData.scholarships_count.all }"/>
-                                        <!--Scholarships Card-->
-                                    </div>
-                                    <div class="items-row sidekick">
                                         <!-- items-hero  -->
                                         <!--News Card-->
                                         <CounterCard :isLoading="validated().loading_dashboard_data"

@@ -10,8 +10,8 @@
               <h2>Welcome to Edubin</h2>
             </div>
             <!-- section title -->   
-               <div class="about-cont" v-if="!$utils.isEmptyVar(homeData.AboutJaol)">
-                <p v-html="homeData.AboutJaol.description"></p>
+               <div class="about-cont" v-if="!$utils.isEmptyVar(homeData.About)">
+                <p v-html="homeData.About.description"></p>
             </div>
           </div>
 

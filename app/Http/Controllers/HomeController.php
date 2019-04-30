@@ -121,10 +121,10 @@ class HomeController extends Controller
     {
         $data = [];
         $data['banners'] = Banner::getBanners(8);
-        $data['AboutJaol'] = AboutJaol::getAbout();
+        $data['About'] = AboutJaol::getAbout();
         $data['ContactInfo'] = ContactInfo::getContactInfo();
         $data['latest_news'] = Posts::getPosts('news', 4);
-        $data['latest_scholarship'] = Posts::getPosts('scholarship', 4);
+        $data['latest_scholarship'] = Posts::getPosts('scholarship', 3);
         $data['latest_event'] = Posts::getPosts('event', 4);
         $data['latest_activity'] = Posts::getPosts('activity', 4);
         $data['mostViewScholarship'] = Posts::where('type', 'scholarship')->where('status', 'open')->orderBy('view', 'desc')->first();

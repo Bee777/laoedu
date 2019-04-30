@@ -24,27 +24,27 @@ export default new Vuex.Store({
         isSidebar: '',
         homeData: {
             banners: [],
-            AboutJaol: aboutInfo,
+            About: aboutInfo,
             ContactInfo: contactInfo,
-            organizeChart: {
-                info: null, chart: null
-            },
             latest_news: latest_news,
+            latest_scholarship: [],
+            latest_activity: [],
+            mostViewScholarship: {},
         },
         postsData: {
             news: news,//{posts: {}, mostViews: [], comingEvents: []},
             activities: activities,// {posts: {}, mostViews: [], comingEvents: []},
-            events: events, //{posts: {}, mostViews: [], comingEvents: []},
+            scholarships: scholarships,//{posts: {}, mostViews: [], comingEvents: []},
         },
         singlePostsData: {
             news: {data: {}, others: []},
             activities: {data: {}, others: []},
-            events: {data: {}, others: []},
+            scholarships: {data: {}, others: []},
         },
         postsAllowed: {
             news: true,
             activities: true,
-            events: true,
+            scholarships: true,
         },
         searchQuery: {text: '', filters: {}},
     },

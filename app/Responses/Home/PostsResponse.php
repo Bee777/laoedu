@@ -121,6 +121,7 @@ class PostsResponse implements Responsable
     {
         $types = [
             'activities' => 'activity', 'news' => 'news',
+            'scholarships' => 'scholarship',
         ];
         return $types[$title] ?? '';
     }
@@ -137,11 +138,15 @@ class PostsResponse implements Responsable
             if ($d->type === 'activity') {
                 $d->formatted_start_date = Helpers::toFormatDateString($d->updated_at, 'H:i A, j M Y');
             }
-            if ($d->type === 'event') {
-                $d->during_time = Helpers::toFormatDateString($d->start_date, 'H:i A') . ' - ';
-                $d->during_time .= Helpers::toFormatDateString($d->deadline, 'H:i A');
-                $d->formatted_start_date = Helpers::toFormatDateString($d->start_date, 'M d Y');
-                $d->formatted_deadline = Helpers::toFormatDateString($d->deadline, 'M d Y');
+            // if ($d->type === 'event') {
+            //     $d->during_time = Helpers::toFormatDateString($d->start_date, 'H:i A') . ' - ';
+            //     $d->during_time .= Helpers::toFormatDateString($d->deadline, 'H:i A');
+            //     $d->formatted_start_date = Helpers::toFormatDateString($d->start_date, 'M d Y');
+            //     $d->formatted_deadline = Helpers::toFormatDateString($d->deadline, 'M d Y');
+            // }
+            
+            if ($d->type === 'scholarship') {
+                $d->formatted_deadline = date('H:i A, M d Y', strtotime($d->deadline));
             }
             //remove relationship
             unset($d->user, $d->type);

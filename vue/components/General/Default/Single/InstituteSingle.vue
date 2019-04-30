@@ -39,7 +39,7 @@
                                 <li>
                                     <div class="teacher-name">
                                         <div class="thum">
-                                            <img src="images/course/teacher/t-1.jpg" alt="Teacher">
+                                            <img :src="`${baseUrl}${baseRes}/assets/images/course/teacher/t-1.jpg`" alt="Teacher">
                                         </div>
                                         <div class="name">
                                             <span>Teacher</span>
@@ -70,7 +70,7 @@
                         </div> <!-- course terms -->
                         
                         <div class="corses-singel-image pt-50">
-                            <img src="images/course/cu-1.jpg" alt="Courses">
+                            <img :src="`${baseUrl}${baseRes}/assets/images/course/cu-1.jpg`" alt="Courses">
                         </div> <!-- corses singel image -->
                         
                         <div class="corses-tab mt-30">
@@ -242,7 +242,7 @@
                                     <div class="instructor-cont">
                                         <div class="instructor-author">
                                             <div class="author-thum">
-                                                <img src="images/instructor/i-1.jpg" alt="Instructor">
+                                                <img :src="`${baseUrl}${baseRes}/assets/images/instructor/i-1.jpg`" alt="Instructor">
                                             </div>
                                             <div class="author-name">
                                                 <a href="#"><h5>Sumon Hasan</h5></a>
@@ -270,7 +270,7 @@
                                                <div class="singel-reviews">
                                                     <div class="reviews-author">
                                                         <div class="author-thum">
-                                                            <img src="images/review/r-1.jpg" alt="Reviews">
+                                                            <img :src="`${baseUrl}${baseRes}/assets/images/review/r-1.jpg`" alt="Reviews">
                                                         </div>
                                                         <div class="author-name">
                                                             <h6>Bobby Aktar</h6>
@@ -296,7 +296,7 @@
                                                <div class="singel-reviews">
                                                     <div class="reviews-author">
                                                         <div class="author-thum">
-                                                            <img src="images/review/r-2.jpg" alt="Reviews">
+                                                            <img :src="`${baseUrl}${baseRes}/assets/images/review/r-2.jpg`" alt="Reviews">
                                                         </div>
                                                         <div class="author-name">
                                                             <h6>Humayun Ahmed</h6>
@@ -322,7 +322,7 @@
                                                <div class="singel-reviews">
                                                     <div class="reviews-author">
                                                         <div class="author-thum">
-                                                            <img src="images/review/r-3.jpg" alt="Reviews">
+                                                            <img :src="`${baseUrl}${baseRes}/assets/images/review/r-3.jpg`" alt="Reviews">
                                                         </div>
                                                         <div class="author-name">
                                                             <h6>Tania Aktar</h6>
@@ -417,7 +417,7 @@
                                 <h4>You make like </h4> 
                                 <div class="singel-makelike mt-20">
                                     <div class="image">
-                                        <img src="images/your-make/y-1.jpg" alt="Image">
+                                        <img :src="`${baseUrl}${baseRes}/assets/images/your-make/y-1.jpg`" alt="Image">
                                     </div>
                                     <div class="cont">
                                         <a href="#"><h4>Introduction to machine languages</h4></a>
@@ -429,7 +429,7 @@
                                 </div>
                                 <div class="singel-makelike mt-20">
                                     <div class="image">
-                                        <img src="images/your-make/y-1.jpg" alt="Image">
+                                        <img :src="`${baseUrl}${baseRes}/assets/images/your-make/y-1.jpg`" alt="Image">
                                     </div>
                                     <div class="cont">
                                         <a href="#"><h4>How to build a basis game with java </h4></a>
@@ -441,7 +441,7 @@
                                 </div>
                                 <div class="singel-makelike mt-20">
                                     <div class="image">
-                                        <img src="images/your-make/y-1.jpg" alt="Image">
+                                        <img :src="`${baseUrl}${baseRes}/assets/images/your-make/y-1.jpg`" alt="Image">
                                     </div>
                                     <div class="cont">
                                         <a href="#"><h4>Basic accounting from primary</h4></a>
@@ -467,7 +467,7 @@
                                 <div class="singel-course mt-30">
                                     <div class="thum">
                                         <div class="image">
-                                            <img src="images/course/cu-2.jpg" alt="Course">
+                                            <img :src="`${baseUrl}${baseRes}/assets/images/course/cu-2.jpg`" alt="Course">
                                         </div>
                                         <div class="price">
                                             <span>Free</span>
@@ -485,7 +485,7 @@
                                         <a href="courses-singel.html"><h4>Learn basis javascirpt from start for beginner</h4></a>
                                         <div class="course-teacher">
                                             <div class="thum">
-                                                <a href="#"><img src="images/course/teacher/t-2.jpg" alt="teacher"></a>
+                                                <a href="#"><img :src="`${baseUrl}${baseRes}/assets/images/course/teacher/t-2.jpg`" alt="teacher"></a>
                                             </div>
                                             <div class="name">
                                                 <a href="#"><h6>Mark anthem</h6></a>
@@ -504,7 +504,7 @@
                                 <div class="singel-course mt-30">
                                     <div class="thum">
                                         <div class="image">
-                                            <img src="images/course/cu-1.jpg" alt="Course">
+                                            <img :src="`${baseUrl}${baseRes}/assets/images/course/cu-1.jpg`" alt="Course">
                                         </div>
                                         <div class="price">
                                             <span>Free</span>
@@ -522,7 +522,7 @@
                                         <a href="courses-singel.html"><h4>Learn basis javascirpt from start for beginner</h4></a>
                                         <div class="course-teacher">
                                             <div class="thum">
-                                                <a href="#"><img src="images/course/teacher/t-3.jpg" alt="teacher"></a>
+                                                <a href="#"><img :src="`${baseUrl}${baseRes}/assets/images/course/teacher/t-3.jpg`" alt="teacher"></a>
                                             </div>
                                             <div class="name">
                                                 <a href="#"><h6>Mark anthem</h6></a>

@@ -33,7 +33,7 @@ class BannerResponse implements Responsable
      */
     public function get($request)
     {
-        $fields = ['id', 'name', 'order', 'link', 'image', 'created_at', 'updated_at'];
+        $fields = ['id', 'name','description', 'order', 'link', 'image', 'created_at', 'updated_at'];
         $request->request->add(['fields' => $fields]);
         $text = $this->options["text"];
         $paginateLimit = $this->options['limit'];
@@ -78,6 +78,7 @@ class BannerResponse implements Responsable
                 }
                 $info = new Banner();
                 $info->name = $request->get('name');
+                $info->description = $request->get('description');
                 $info->order = $request->get('order');
                 $info->link = $request->get('link');
                 $info->image = $img_filename;
@@ -105,6 +106,7 @@ class BannerResponse implements Responsable
                     }
                     $info->name = $request->get('name');
                     $info->order = $request->get('order');
+                    $info->description = $request->get('description');
                     $info->link = $request->get('link');
                     $info->image = $img_filename ?? $info->image;
                     $info->save();

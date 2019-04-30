@@ -16,7 +16,7 @@ class SiteSeeder extends Seeder
 
         Site::create(['key' => 'address', 'value' => 'Ministry of Education and Sports, Street Lekyheuang, Ban Anou, District Chanthabouly, Vientiane Laos PDR.']);
 
-        Site::create(['key' => 'email', 'value' => 'info@laoedu.la']);
+        Site::create(['key' => 'email', 'value' => 'xone.sps@gmail.com']);
 
         Site::create(['key' => 'email_logo', 'value' => 'email_logo.png']);
 

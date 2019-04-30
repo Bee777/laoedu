@@ -90,7 +90,7 @@ class SinglePostsResponse implements Responsable
     {
         $types = [
             'activities' => 'activity', 'news' => 'news',
-            'events' => 'event', 'scholarships' => 'scholarship',
+             'scholarships' => 'scholarship',
             'dictionaries' => 'dictionary',
         ];
         return $types[$title] ?? '';
@@ -108,14 +108,14 @@ class SinglePostsResponse implements Responsable
             if ($d->type === 'activity') {
                 $d->formatted_start_date = Helpers::toFormatDateString($d->start_date, 'j M Y');
             }
-            if ($d->type === 'event') {
+            // if ($d->type === 'event') {
 
-                $d->formatted_start_date = Helpers::toFormatDateString($d->start_date, 'M d Y');
-                $d->formatted_deadline = Helpers::toFormatDateString($d->deadline, 'M d Y');
+            //     $d->formatted_start_date = Helpers::toFormatDateString($d->start_date, 'M d Y');
+            //     $d->formatted_deadline = Helpers::toFormatDateString($d->deadline, 'M d Y');
 
-                $d->during_time = Helpers::toFormatDateString($d->start_date, 'H:i A') . ' - ';
-                $d->during_time .= Helpers::toFormatDateString($d->deadline, 'H:i A');
-            }
+            //     $d->during_time = Helpers::toFormatDateString($d->start_date, 'H:i A') . ' - ';
+            //     $d->during_time .= Helpers::toFormatDateString($d->deadline, 'H:i A');
+            // }
 
             if ($d->type === 'scholarship') {
                 $d->formatted_deadline = date('H:i A, M d Y', strtotime($d->deadline));
@@ -142,12 +142,12 @@ class SinglePostsResponse implements Responsable
             $data->formatted_start_date = Helpers::toFormatDateString($data->start_date, 'j M Y');
             $data->formatted_start_date_ago = $data->start_date->diffForHumans();
         }
-        if ($data->type === 'event') {
-            $data->formatted_start_date = Helpers::toFormatDateString($data->start_date, 'M d Y');
-            $data->formatted_deadline = Helpers::toFormatDateString($data->deadline, 'M d Y');
-            $data->during_time = Helpers::toFormatDateString($data->start_date, 'H:i A') . ' - ';
-            $data->during_time .= Helpers::toFormatDateString($data->deadline, 'H:i A');
-        }
+        // if ($data->type === 'event') {
+        //     $data->formatted_start_date = Helpers::toFormatDateString($data->start_date, 'M d Y');
+        //     $data->formatted_deadline = Helpers::toFormatDateString($data->deadline, 'M d Y');
+        //     $data->during_time = Helpers::toFormatDateString($data->start_date, 'H:i A') . ' - ';
+        //     $data->during_time .= Helpers::toFormatDateString($data->deadline, 'H:i A');
+        // }
         if ($data->type === 'scholarship') {
             $data->formatted_deadline = date('H:i A, M d Y', strtotime($data->deadline));
         }

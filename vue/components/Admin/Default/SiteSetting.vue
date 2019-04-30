@@ -35,14 +35,13 @@
 
                                                     <div class="form-input-container dense">
                                                         <label class="is-center"> Site Logo </label>
-                                                        <div class="user-picture-link-inner is-edit in-image-side-form"
+                                                        <div
                                                              @click="chooseImage('website_logo')">
-                                                            <div title="Choose logo image"
-                                                                 class="user-picture-link-inner-title">
-                                                                <img style="width: 100%; height: 100%;"
+                                                            <div title="Choose logo image">
+                                                                <img style="width: 100%; height: 100%;cursor:pointer;"
                                                                      v-if="siteInfo.website_logo_base64"
                                                                      :src="siteInfo.website_logo_base64">
-                                                                <img style="width: 100%; height: 100%;" v-else
+                                                                <img style="width: 100%; height: 100%;cursor:pointer;" v-else
                                                                      :src="`${baseUrl}${siteInfo.thumb_website_logo}`">
                                                             </div>
                                                         </div>
@@ -58,14 +57,13 @@
                                                     </div>
                                                     <div class="form-input-container dense">
                                                         <label class="is-center"> Favorite Icon </label>
-                                                        <div class="user-picture-link-inner is-edit in-image-side-form"
+                                                        <div class="is-edit in-image-side-form"
                                                              @click="chooseImage('favorite_icon')">
-                                                            <div title="Choose logo image"
-                                                                 class="user-picture-link-inner-title">
-                                                                <img style="width: 100%; height: 100%;"
+                                                            <div title="Choose logo image">
+                                                                <img style="width: 100%; height: 100%;cursor:pointer;"
                                                                      v-if="siteInfo.fav_icon_base64"
                                                                      :src="siteInfo.fav_icon_base64">
-                                                                <img style="width: 100%; height: 100%;"
+                                                                <img style="width: 100%; height: 100%;cursor:pointer;"
                                                                      v-else
                                                                      :src="`${baseUrl}${siteInfo.thumb_favorite_icon}`">
                                                             </div>

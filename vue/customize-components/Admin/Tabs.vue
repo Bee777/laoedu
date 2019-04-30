@@ -200,7 +200,7 @@
                 }, 560);
             },
             getNextWidths(el) {// get next sibling tab items width from current el
-                let Inc = 0, w = 0, sb = el.nextSibling;
+                var Inc = 0, w = 0, sb = el.nextSibling;
                 while (this.$utils.containsClassName(sb, "admin-tab-item") && Inc <= this.tabs.length) {
                     let rectSb = this.$utils.getElBouningClientRect(sb);
                     if (rectSb) {
@@ -212,7 +212,7 @@
                 return this.$utils.MathAbsRound(w, 0.1);
             },
             getPrevWidths(el) {// get prev sibling tab items width from current el
-                let Inc = 0, w = 0, sb = el.previousSibling;
+                var Inc = 0, w = 0, sb = el.previousSibling;
                 while (this.$utils.containsClassName(sb, "admin-tab-item") && Inc <= this.tabs.length) {
                     let rectSb = this.$utils.getElBouningClientRect(sb);
                     if (rectSb) {

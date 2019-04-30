@@ -118,17 +118,22 @@
                     </li> -->
                     <li class="nav-item">
                       <router-link :to="{name: 'institute'}" active-class="active" exact>ສະຖານການສຶກສາ</router-link>
+                      <ul class="sub-menu">
+                        <li>
+                          <router-link to="/posts/institute/single/:id">Institute Singel</router-link>
+                        </li>
+                      </ul>
                     </li>
                     <li class="nav-item">
                       <router-link :to="{name: 'news'}" active-class="active" exact>ຂ່າວສານ</router-link>
                     </li>
-                    <li class="vav-item">
-                          <router-link class="navbar-item" :to="{name: 'scholarships'}" active-class="is-active" exact>
+                    <li class="nav-item">
+                          <router-link :to="{name: 'scholarships'}" active-class="active" exact>
                         ທຶນການສຶກສາ
                     </router-link>
                     </li>
                     <li class="nav-item">
-                      <router-link :to="{name: 'activities'}" active-class="is-active" exact>ກິດຈະກຳ</router-link>
+                      <router-link :to="{name: 'activities'}" active-class="active" exact>ກິດຈະກຳ</router-link>
                     </li>
                     <li class="nav-item">
                       <router-link to="/about" active-class="active" exact>ກ່ຽວກັບສູນ</router-link>

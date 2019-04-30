@@ -786,7 +786,7 @@ export const createActions = (utils) => {
                     image: ["required", {mimes: 'jpeg,jpg,png,gif'}, {max: 3000}],
                 }).then(v => {
                     let formData = new FormData();
-                    utils.addDataForm(['name', 'order', 'link'], formData, data);
+                    utils.addDataForm(['name','description', 'order', 'link'], formData, data);
                     formData.append('image', data.image.file);
                     client.post(`${apiUrl}/admin/banner/create`, formData, ajaxToken(c, true))
                         .then(res => {
@@ -809,7 +809,7 @@ export const createActions = (utils) => {
                     image: [{mimes: 'jpeg,jpg,png,gif'}, {max: 3000}],
                 }).then(v => {
                     let formData = new FormData();
-                    utils.addDataForm(['name', 'order', 'link'], formData, data);
+                    utils.addDataForm(['name','description', 'order', 'link'], formData, data);
                     if (data.image && data.image.file) {//check if user change image
                         formData.append('image', data.image.file);
                     }

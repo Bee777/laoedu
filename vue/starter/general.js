@@ -4,12 +4,13 @@ import store from '@store/generalStore';
 import VueRouter from 'vue-router';
 import routes from '@route/routesGeneral';
 import VueCarousel from 'vue-carousel';
+import PostsSearchForm from '@com/General/Partial/PostsSearchForm.vue'
 
 /**
  * @Component load
  */
 import GeneralInput from '@cus-com/GeneralInput.vue';
-
+Vue.component('PostsSearchForm', PostsSearchForm);
 Vue.component('GeneralInput', GeneralInput);
 /**
  * @Component load

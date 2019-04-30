@@ -1,167 +1,146 @@
 <template>
-    <div>
-        <div class="page-header">
-            <section class="section">
-                <div class="container">
-                    <h2 class="header-title">All Scholarships</h2>
-                    <PostsSearchForm v-model="query" @onSearchEnter="getItems('click')"/>
-                </div>
-            </section>
-        </div>
-        <section class="section">
-            <div class="container">
-                <div class="page-blog fire-spinner-covered">
-                    <div class="fire-spinner" v-if="shouldLoading(type)"></div>
-                    <div class="columns is-multiline">
-                        <div class="column is-8">
-                            <div class="columns is-multiline">
-                                <div class="column is-6" v-for="(scholarship, idx) in postsData.scholarships.posts.data"
-                                     :key="idx">
-                                    <div class="card fixed">
-                                        <div @click="getDetail('scholarship', scholarship)"
-                                             class="card-image image event-card-image">
-                                            <img class="event-image" :src="`${baseUrl}${scholarship.image}`"
-                                                 :alt="scholarship.image">
-                                        </div>
-                                        <div class="card-content">
-                                            <a @click="getDetail('scholarship', scholarship)">
-                                                <p class="s-title">{{scholarship.title}}</p>
-                                            </a>
-                                            <div class="content"
-                                                 v-html="$utils.sub($utils.strip(scholarship.description), 180)"></div>
-                                        </div>
-                                        <footer class="card-footer scholarship-footer">
-                                            <div class="card-content">
-                                                <p>
-                                                    <i class="fas fa-map-marker-alt"></i>
-                                                    <strong class="f-title"
-                                                            v-html="$utils.sub($utils.strip(scholarship.place), 100)"></strong>
-                                                </p>
-                                                <p class="date-deadline">
-                                                    <i class="far fa-calendar-check"></i>
-                                                    <span class="deadline-color">Deadline - {{ scholarship.formatted_deadline }}  {{ scholarship.isClosed ? '(Closed)': '' }}</span>
-                                                </p>
-                                                <p class="bottom-date">
-                                                    <time class="updated-date" :datetime="scholarship.updated_at">
-                                                        Updated - {{scholarship.post_updated}}
-                                                    </time>
-                                                </p>
-                                            </div>
-                                        </footer>
-                                    </div>
-                                </div>
-                                <div class="column is-8" v-if="isNotFound()">
-                                    <div class="devsite-article">
-                                        <h1 class="devsite-page-title">
-                                            Search results for <span class="devsite-search-term"><span
-                                            class="devsite-search-term">{{ query }}</span></span>
-                                        </h1>
-                                    </div>
-                                    <div class="result-snippet">No Results</div>
-                                </div>
-                            </div>
-                        </div>
-                        <!-- Sidebar -->
-                        <div class="column is-4 is-multiline">
-                            <div class="sidebar">
-                                <!-- popular posts -->
-                                <div class="card-side-bar" v-if="postsData.scholarships.mostViews.length > 0">
-                                    <h1 class="title title-sidebar">Most Viewed Scholarships</h1>
-                                    <hr class="small-bottom">
-                                    <div class="ho-event ho-event-mob-bot-sp">
-                                        <ul>
-                                            <li v-for="(scholarship, idx) in postsData.scholarships.mostViews"
-                                                :key="idx">
-                                                <div @click="getDetail('scholarship', scholarship)" class="ho-ev-img ">
-                                                    <img :src="`${baseUrl}${scholarship.image}`"
-                                                         :alt="scholarship.image">
-                                                </div>
-                                                <div class="ho-ev-link">
-                                                    <a @click="getDetail('scholarship', scholarship)">
-                                                        <h4>{{scholarship.title}}</h4>
-                                                    </a>
-                                                    <p v-html="$utils.sub($utils.strip(scholarship.description), 100)"></p>
-                                                    <p>
-                                                        <span>by {{scholarship.author}}</span><span> {{scholarship.post_updated}}</span>
-                                                    </p>
-                                                </div>
-                                            </li>
-                                        </ul>
-                                    </div>
-                                </div>
-                                <!-- popular posts -->
-                                <!-- Upcoming event -->
-                                <template v-if="postsData.scholarships.comingEvents.length > 0">
-                                    <div class="card-side-bar">
-                                        <h1 class="title title-sidebar">Upcoming Events</h1>
-                                        <hr>
-                                        <div class="ho-event ho-event-mob-bot-sp">
-                                            <ul>
-                                                <li v-for="(event, idx) in postsData.scholarships.comingEvents"
-                                                    :key="idx">
-                                                    <div class="ho-ev-date"
-                                                         v-html="getCalendarDate(event.start_date)"></div>
-                                                    <div class="ho-ev-link large-width">
-                                                        <a @click="getDetail('event', event)">
-                                                            <h4>{{ event.title }}</h4>
-                                                        </a>
-                                                        <p v-html="$utils.sub($utils.strip(event.description), 100)"></p>
-                                                        <p>
-                                                            <span>{{ event.during_time }}</span>
-                                                            <span> Location: {{ event.place }}</span>
-                                                        </p>
-                                                    </div>
-                                                </li>
-                                            </ul>
-                                        </div>
-                                    </div>
-                                </template>
-                                <!-- Upcoming event -->
-                            </div>
-                        </div>
-                    </div>
-                    <nav class="pagination" role="navigation" aria-label="pagination">
-                        <a :disabled="paginate.current_page===1" @click="prevPage(paginate.current_page - 1)"
-                           class="pagination-previous">Previous</a>
-                        <a :disabled="paginate.current_page===paginate.last_page"
-                           @click="nextPage(paginate.current_page + 1)" class="pagination-next">Next page</a>
-                    </nav>
-                </div>
+  <div>
+    <!--====== BLOG PART START ======-->
+    <section id="blog-page" class="pt-20 pb-120 gray-bg">
+      <div class="container">
+        <div class="fire-spinner" v-if="shouldLoading(type)"></div>
+        <div class="row">
+          <div class="col-lg-8">
+            <div
+              class="singel-blog mt-30"
+              v-for="(scholarship, idx) in postsData.scholarships.posts.data"
+              :key="idx"
+            >
+              <div class="blog-thum" @click="getDetail('scholarship', scholarship)">
+                <img :src="`${baseUrl}${scholarship.image}`"
+                     :alt="scholarship.image">
+              </div>
+              <div class="blog-cont">
+                <a @click="getDetail('scholarship', scholarship)">
+                  <h3>{{scholarship.title}}</h3>
+                </a>
+                <ul>
+                  <li>
+                    <i class="fa fa-user"></i>
+                    {{scholarship.author}}
+                  </li>
+                  <li>
+                    <i class="fas fa-map-marker-alt check-in"></i>
+                    <strong
+                      class="f-title"
+                      v-html="$utils.sub($utils.strip(scholarship.place), 100)"
+                    ></strong>
+                  </li>
+                  <li>
+                    <span
+                      class="deadline-color"
+                    >Deadline - {{ scholarship.formatted_deadline }} {{ scholarship.isClosed ? '(Closed)': '' }}</span>
+                  </li>
+                </ul>
+                <p v-html="$utils.sub($utils.strip(scholarship.description), 180)"></p>
+                <p>
+                  <span :datetime="scholarship.updated_at">{{scholarship.post_updated}}</span>
+                </p>
+              </div>
             </div>
-        </section>
-    </div>
+            <!-- singel blog -->
+            <nav class="courses-pagination mt-50">
+              <ul class="pagination justify-content-lg-end justify-content-center">
+                <li class="page-item">
+                  <a
+                    :disabled="paginate.current_page===1"
+                    @click="prevPage(paginate.current_page - 1)"
+                    aria-label="Previous"
+                    class="active"
+                  >
+                    <i class="fa fa-angle-left"></i>
+                  </a>
+                </li>
+                <li class="page-item">
+                  <a
+                    :disabled="paginate.current_page===paginate.last_page"
+                    @click="nextPage(paginate.current_page + 1)"
+                    aria-label="Next"
+                  >
+                    <i class="fa fa-angle-right"></i>
+                  </a>
+                </li>
+              </ul>
+            </nav>
+          </div>
+          <div class="col-lg-8" v-if="isNotFound()">
+            <div class="devsite-article">
+              <h1 class="devsite-page-title">
+                Search results for
+                <span class="devsite-search-term">
+                  <span class="devsite-search-term">{{ query }}</span>
+                </span>
+              </h1>
+            </div>
+            <div class="result-snippet">No Results</div>
+          </div>
+          <div class="col-lg-4">
+            <div class="saidbar">
+              <div class="row">
+                <div class="col-lg-12 col-md-6">
+                  <PostsSearchForm v-model="query" @onSearchEnter="getItems('click')"/>
+                </div>
+                <!-- search -->
+                <div class="col-lg-12 col-md-6">
+                  <div
+                    class="saidbar-post mt-30"
+                    v-if="postsData.scholarships.mostViews.length > 0"
+                  >
+                    <h4>ທຶນອື່ນໆ</h4>
+                    <ul>
+                      <li v-for="(scholarship, idx) in postsData.scholarships.mostViews" :key="idx">
+                        <a @click="getDetail('scholarship', scholarship)">
+                          <div class="singel-post">
+                            <div class="thum">
+                              <img :src="`${baseUrl}${scholarship.image}`" :alt="scholarship.image">
+                            </div>
+                            <div class="cont" @click="getDetail('scholarship', scholarship)">
+                              <p v-html="$utils.sub($utils.strip(scholarship.title), 35)"></p>
+                              <span>{{scholarship.post_updated}}</span>
+                            </div>
+                          </div>
+                        </a>
+                      </li>
+                    </ul>
+                  </div>
+                  <!-- saidbar post -->
+                </div>
+              </div>
+              <!-- row -->
+            </div>
+            <!-- saidbar -->
+          </div>
+        </div>
+        <!-- row -->
+      </div>
+      <!-- container -->
+    </section>
+
+    <!--====== BLOG PART ENDS ======-->
+  </div>
 </template>
-<style lang="scss" scoped>
-    .card-custom {
-        box-shadow: rgba(0, 0, 0, 0.117647) 0px 1px 6px,
-        rgba(0, 0, 0, 0.117647) 0px 1px 4px;
-        transition: 0.6s all ease-in-out;
-
-        &:hover {
-            transform: scale(1.06);
-        }
-    }
+<style scoped>
+.saidbar .saidbar-post ul li a .singel-post .thum img {
+  width: 92px;
+  height: 62px;
+}
 </style>
-
 <script>
-    import Base from '@com/Bases/GeneralBase.js'
-
-    export default Base.extend({
-        data: () => ({
-            type: 'scholarships',
-        }),
-        methods: {
-            getCalendarEvent(date) {
-                let d = this.$utils.getDateTime(date);
-                return `<span class="day">${d.days}</span>
-                        <span class="month">${d.months}</span>
-                        <span class="year">${d.years}</span>`;
-            }
-        },
-        created() {
-            this.registerWatches();
-            this.setPageTitle('Scholarships');
-            this.getItems();
-        }
-    });
+import Base from "@com/Bases/GeneralBase.js";
+export default Base.extend({
+  data: () => ({
+    type: "scholarships"
+  }),
+  created() {
+    this.registerWatches();
+    this.setPageTitle("Scholarships");
+    this.getItems();
+  }
+});
 </script>
+

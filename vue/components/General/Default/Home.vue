@@ -1,142 +1,6 @@
 <template>
   <div>
-    <section id="slider-part" class="slider-active">
-      <div
-        class="single-slider bg_cover pt-150"
-        :style="`background-image: url(${baseUrl}${baseRes}/assets/images/slider/s-1.jpg)`"
-        data-overlay="4"
-        style="height:400px;"
-      >
-        <div class="container">
-          <div class="row">
-            <div class="col-xl-7 col-lg-9">
-              <div class="slider-cont">
-                <h1
-                  data-animation="bounceInLeft"
-                  data-delay="1s"
-                >Choose the right theme for education</h1>
-                <p
-                  data-animation="fadeInUp"
-                  data-delay="1.3s"
-                >Donec vitae sapien ut libearo venenatis faucibus. Nullam quis ante. Etiam sit amet orci eget eros faucibus tincidunt Sed fringilla mauri amet nibh.</p>
-                <ul>
-                  <li>
-                    <a
-                      data-animation="fadeInUp"
-                      data-delay="1.6s"
-                      class="main-btn"
-                      href="#"
-                    >Read More</a>
-                  </li>
-                  <li>
-                    <a
-                      data-animation="fadeInUp"
-                      data-delay="1.9s"
-                      class="main-btn main-btn-2"
-                      href="#"
-                    >Get Started</a>
-                  </li>
-                </ul>
-              </div>
-            </div>
-          </div>
-          <!-- row -->
-        </div>
-        <!-- container -->
-      </div>
-      <!-- single slider -->
-
-      <div
-        class="single-slider bg_cover pt-150"
-        :style="`background-image: url(${baseUrl}${baseRes}/assets/images/slider/s-2.jpg)`"
-        style="height:400px;"
-        data-overlay="4"
-      >
-        <div class="container">
-          <div class="row">
-            <div class="col-xl-7 col-lg-9">
-              <div class="slider-cont">
-                <h1
-                  data-animation="bounceInLeft"
-                  data-delay="1s"
-                >Choose the right theme for education</h1>
-                <p
-                  data-animation="fadeInUp"
-                  data-delay="1.3s"
-                >Donec vitae sapien ut libearo venenatis faucibus. Nullam quis ante. Etiam sit amet orci eget eros faucibus tincidunt Sed fringilla mauri amet nibh.</p>
-                <ul>
-                  <li>
-                    <a
-                      data-animation="fadeInUp"
-                      data-delay="1.6s"
-                      class="main-btn"
-                      href="#"
-                    >Read More</a>
-                  </li>
-                  <li>
-                    <a
-                      data-animation="fadeInUp"
-                      data-delay="1.9s"
-                      class="main-btn main-btn-2"
-                      href="#"
-                    >Get Started</a>
-                  </li>
-                </ul>
-              </div>
-            </div>
-          </div>
-          <!-- row -->
-        </div>
-        <!-- container -->
-      </div>
-      <!-- single slider -->
-
-      <div
-        class="single-slider bg_cover pt-150"
-        :style="`background-image: url(${baseUrl}${baseRes}/assets/images/slider/s-3.jpg)`"
-        style="height:400px;"
-        data-overlay="4"
-      >
-        <div class="container">
-          <div class="row">
-            <div class="col-xl-7 col-lg-9">
-              <div class="slider-cont">
-                <h1
-                  data-animation="bounceInLeft"
-                  data-delay="1s"
-                >Choose the right theme for education</h1>
-                <p
-                  data-animation="fadeInUp"
-                  data-delay="1.3s"
-                >Donec vitae sapien ut libearo venenatis faucibus. Nullam quis ante. Etiam sit amet orci eget eros faucibus tincidunt Sed fringilla mauri amet nibh.</p>
-                <ul>
-                  <li>
-                    <a
-                      data-animation="fadeInUp"
-                      data-delay="1.6s"
-                      class="main-btn"
-                      href="#"
-                    >Read More</a>
-                  </li>
-                  <li>
-                    <a
-                      data-animation="fadeInUp"
-                      data-delay="1.9s"
-                      class="main-btn main-btn-2"
-                      href="#"
-                    >Get Started</a>
-                  </li>
-                </ul>
-              </div>
-            </div>
-          </div>
-          <!-- row -->
-        </div>
-        <!-- container -->
-      </div>
-      <!-- single slider -->
-    </section>
-
+  <carousel :items="homeData.banners"/>
     <!--====== SLIDER PART ENDS ======-->
 
     <!--====== CATEGORY PART START ======-->
@@ -275,71 +139,46 @@
             </div>
             <!-- section title -->
             <div class="about-cont">
-                 <div class="about-cont" v-if="!$utils.isEmptyVar(homeData.AboutJaol)">
-                <p v-html="$utils.sub($utils.strip(homeData.AboutJaol.description),800)"></p>
+                 <div class="about-cont" v-if="!$utils.isEmptyVar(homeData.About)">
+                <p v-html="$utils.sub($utils.strip(homeData.About.description),800)"></p>
             </div>
               <router-link :to="{name: 'news'}"  class="main-btn mt-55">Learn More</router-link>
             </div>
           </div>
           <!-- about cont -->
-          <div class="col-lg-6 offset-lg-1">
+          <div class="col-lg-6 offset-lg-1" v-if="homeData.latest_scholarship.length > 0">
             <div class="about-event mt-50">
               <div class="event-title">
-                <i class="material-icons">notifications</i>
-                <h3>ແຈ້ງການ</h3>
+                <h3>ທຶນການສຶກສາ</h3>
               </div>
               <!-- event title -->
               <ul>
-                <li>
+                <li v-for="(scholarship,index) in homeData.latest_scholarship"
+                                     :key="index">
                   <div class="singel-event">
                     <span>
-                      <i class="fa fa-calendar"></i> 2 December 2018
+                      <i class="fa fa-calendar"></i> {{scholarship.formatted_updated_at}}
                     </span>
-                    <a href="events-singel.html">
-                      <h4>Campus clean workshop</h4>
+                    <a @click="getDetail('scholarship', scholarship)">
+                      <h4 v-html="$utils.sub($utils.strip(scholarship.title), 100)"></h4>
                     </a>
                     <span>
-                      <i class="fa fa-clock-o"></i> 10:00 Am - 3:00 Pm
+                      <i class="fa fa-clock-o"></i><strong>Deadline: </strong>
+                                                {{scholarship.formatted_deadline}}
                     </span>
                     <span>
-                      <i class="fa fa-map-marker"></i> Rc Auditorim
+                      <i class="fa fa-map-marker"></i> {{scholarship.place}}
                     </span>
                   </div>
                 </li>
-                <li>
+                               <li>
                   <div class="singel-event">
-                    <span>
-                      <i class="fa fa-calendar"></i> 2 December 2018
-                    </span>
-                    <a href="events-singel.html">
-                      <h4>Tech Summit</h4>
-                    </a>
-                    <span>
-                      <i class="fa fa-clock-o"></i> 10:00 Am - 3:00 Pm
-                    </span>
-                    <span>
-                      <i class="fa fa-map-marker"></i> Rc Auditorim
-                    </span>
+                 <router-link :to="{name:'scholarship'}"  class="main-btn mt-15">ອ່ານເພີ່ມ</router-link>
                   </div>
-                </li>
-                <li>
-                  <div class="singel-event">
-                    <span>
-                      <i class="fa fa-calendar"></i> 2 December 2018
-                    </span>
-                    <a href="events-singel.html">
-                      <h4>Enviroement conference</h4>
-                    </a>
-                    <span>
-                      <i class="fa fa-clock-o"></i> 10:00 Am - 3:00 Pm
-                    </span>
-                    <span>
-                      <i class="fa fa-map-marker"></i> Rc Auditorim
-                    </span>
-                  </div>
-                </li>
+               </li>
               </ul>
-            </div>
+                           </div>
+            
             <!-- about event -->
           </div>
         </div>
@@ -354,35 +193,6 @@
     <!--====== ABOUT PART ENDS ======-->
 
     <!--====== APPLY PART START ======-->
-
-    <section id="apply-aprt" class="pb-60">
-      <div class="container">
-        <div class="apply">
-          <div class="row no-gutters">
-            <div class="col-lg-6">
-              <div class="apply-cont apply-color-1">
-                <h3>Apply for fall 2019</h3>
-                <p>Gravida nibh vel velit auctor aliquetn sollicitudirem sem quibibendum auci elit cons equat ipsutis sem nibh id elituis sed odio sit amet nibh vulputate cursus equat ipsutis.</p>
-                <a href="#" class="main-btn">Apply Now</a>
-              </div>
-              <!-- apply cont -->
-            </div>
-            <div class="col-lg-6">
-              <div class="apply-cont apply-color-2">
-                <h3>Apply for scholarship</h3>
-                <p>Gravida nibh vel velit auctor aliquetn sollicitudirem sem quibibendum auci elit cons equat ipsutis sem nibh id elituis sed odio sit amet nibh vulputate cursus equat ipsutis.</p>
-                <a href="#" class="main-btn">Apply Now</a>
-              </div>
-              <!-- apply cont -->
-            </div>
-          </div>
-        </div>
-        <!-- row -->
-      </div>
-      <!-- container -->
-    </section>
-
-    <!--====== APPLY PART ENDS ======-->
 
     <section id="course-part" class="pt-65 pb-60 gray-bg">
       <div class="container">
@@ -745,161 +555,38 @@
         <div class="row align-items-end">
           <div class="col-lg-6 col-md-8 col-sm-7">
             <div class="section-title pb-60">
-              <h5>ສະຖານການສຶກສາ</h5>
-              <h2>From the best</h2>
+              <h5>ກິດຈະກຳ</h5>
+              <h2>ວຽກງານນອກຫຼັກສູດ</h2>
             </div>
             <!-- section title -->
           </div>
           <div class="col-lg-6 col-md-4 col-sm-5">
             <div class="products-btn text-right pb-60">
-              <a href="#" class="main-btn">ສະຖານການສຶກສາທັງໝົດ</a>
+              <a href="#" class="main-btn">ກິດຈະກຳທັງໝົດ</a>
             </div>
             <!-- products btn -->
           </div>
         </div>
         <!-- row -->
         <div class="row justify-content-center">
-          <div class="col-lg-3 col-md-6 col-sm-8">
+          <div class="col-lg-3 col-md-6 col-sm-8"  v-for="(activity,index) in (homeData.latest_activity)" :key="index">
             <div class="singel-publication mt-30">
-              <div class="image">
+              <div class="image" @click="getDetail('activity', activity)">
                 <img
-                  :src="`${baseUrl}${baseRes}/assets/images/publication/p-1.jpg`"
-                  alt="Publication"
+                  :src="activity.image"
+                  :alt="activity.image"
                 >
-                <div class="add-cart">
-                  <ul>
-                    <li>
-                      <a href="#">
-                        <i class="fa fa-shopping-cart"></i>
-                      </a>
-                    </li>
-                    <li>
-                      <a href="#">
-                        <i class="fa fa-heart-o"></i>
-                      </a>
-                    </li>
-                  </ul>
-                </div>
               </div>
-              <div class="cont">
-                <div class="name">
-                  <a href="shop-singel.html">
-                    <h6>Set for life</h6>
+              <div class="cont"> 
+                  <a @click="getDetail('activity', activity)">
+                    <h6 v-html="$utils.sub($utils.strip(activity.title), 45)"></h6>
                   </a>
-                  <span>By Scott Trench</span>
-                </div>
-                <div class="button text-right">
-                  <a href="#" class="main-btn">Buy Now ($50)</a>
-                </div>
+                 
               </div>
-            </div>
-            <!-- singel publication -->
-          </div>
-          <div class="col-lg-3 col-md-6 col-sm-8">
-            <div class="singel-publication mt-30">
-              <div class="image">
-                <img
-                  :src="`${baseUrl}${baseRes}/assets/images/publication/p-2.jpg`"
-                  alt="Publication"
-                >
-                <div class="add-cart">
-                  <ul>
-                    <li>
-                      <a href="#">
-                        <i class="fa fa-shopping-cart"></i>
-                      </a>
-                    </li>
-                    <li>
-                      <a href="#">
-                        <i class="fa fa-heart-o"></i>
-                      </a>
-                    </li>
-                  </ul>
-                </div>
-              </div>
-              <div class="cont">
-                <div class="name">
-                  <a href="shop-singel.html">
-                    <h6>A Daughters</h6>
-                  </a>
-                  <span>By Scott Trench</span>
-                </div>
-                <div class="button text-right">
-                  <a href="#" class="main-btn">Buy Now ($30)</a>
-                </div>
-              </div>
-            </div>
-            <!-- singel publication -->
-          </div>
-          <div class="col-lg-3 col-md-6 col-sm-8">
-            <div class="singel-publication mt-30">
-              <div class="image">
-                <img
-                  :src="`${baseUrl}${baseRes}/assets/images/publication/p-3.jpg`"
-                  alt="Publication"
-                >
-                <div class="add-cart">
-                  <ul>
-                    <li>
-                      <a href="#">
-                        <i class="fa fa-shopping-cart"></i>
-                      </a>
-                    </li>
-                    <li>
-                      <a href="#">
-                        <i class="fa fa-heart-o"></i>
-                      </a>
-                    </li>
-                  </ul>
-                </div>
-              </div>
-              <div class="cont">
-                <div class="name">
-                  <a href="shop-singel.html">
-                    <h6>A Magnet</h6>
-                  </a>
-                  <span>By Scott Trench</span>
-                </div>
-                <div class="button text-right">
-                  <a href="#" class="main-btn">Buy Now ($20)</a>
-                </div>
-              </div>
-            </div>
-            <!-- singel publication -->
-          </div>
-          <div class="col-lg-3 col-md-6 col-sm-8">
-            <div class="singel-publication mt-30">
-              <div class="image">
-                <img
-                  :src="`${baseUrl}${baseRes}/assets/images/publication/p-4.jpg`"
-                  alt="Publication"
-                >
-                <div class="add-cart">
-                  <ul>
-                    <li>
-                      <a href="#">
-                        <i class="fa fa-shopping-cart"></i>
-                      </a>
-                    </li>
-                    <li>
-                      <a href="#">
-                        <i class="fa fa-heart-o"></i>
-                      </a>
-                    </li>
-                  </ul>
-                </div>
-              </div>
-              <div class="cont">
-                <div class="name">
-                  <a href="shop-singel.html">
-                    <h6>Pices of light</h6>
-                  </a>
-                  <span>By Scott Trench</span>
-                </div>
-                <div class="btn text-right">
-                  <a href="#" class="main-btn">Buy Now ($75)</a>
-                </div>
-              </div>
+               <div>
+                    <span>By {{activity.author}}</span>
+                <span>{{activity.formatted_updated_at}}</span>
+                  </div>
             </div>
             <!-- singel publication -->
           </div>

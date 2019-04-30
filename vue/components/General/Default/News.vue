@@ -1,7 +1,5 @@
 <template>
     <div>
-    <!--====== PAGE BANNER PART START ======-->
-        <!--====== PAGE BANNER PART ENDS ======-->
        <!--====== BLOG PART START ======-->
         <section id="blog-page" class="pt-20 pb-120 gray-bg">
         <div class="container">
@@ -42,13 +40,7 @@
                                 </a>
                             </li>
                         </ul>
-                    </nav>  <!-- courses pagination -->
-                     <!-- <nav class="pagination" role="navigation" aria-label="pagination">
-                        <a :disabled="paginate.current_page===1" @click="prevPage(paginate.current_page - 1)"
-                           class="pagination-previous">Previous</a>
-                        <a :disabled="paginate.current_page===paginate.last_page"
-                           @click="nextPage(paginate.current_page + 1)" class="pagination-next">Next page</a>
-                    </nav> -->
+                    </nav>
                </div>
                <div class="col-lg-8" v-if="isNotFound()">
                                     <div class="devsite-article">
@@ -59,26 +51,11 @@
                                     </div>
                                     <div class="result-snippet">No Results</div>
                                 </div>
-
                <div class="col-lg-4">
                    <div class="saidbar">
                        <div class="row">
                            <div class="col-lg-12 col-md-6">
-                               <div class="saidbar-search mt-30">
-                                   <form action="#">
-                                       <input type="text" placeholder="ຄົ້ນຫາ">
-                                       <button type="button"><i class="fa fa-search"></i></button>
-                                   </form>
-                                    <PostsSearchForm v-model="query" @onSearchEnter="getItems('click')"/>
-                               </div> <!-- saidbar search -->
-                               <div class="categories mt-30">
-                                   <h4>Categories</h4>
-                                   <ul>
-                                       <li><a href="#">Activity</a></li>
-                                       <li><a href="#">Scholarship</a></li>
-                                       <li><a href="#">News</a></li>
-                                   </ul>
-                               </div>
+                                <PostsSearchForm v-model="query" @onSearchEnter="getItems('click')"/>
                            </div> <!-- categories -->
                            <div class="col-lg-12 col-md-6">
                                <div class="saidbar-post mt-30 ">
