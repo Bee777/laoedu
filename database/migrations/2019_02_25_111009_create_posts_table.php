@@ -22,6 +22,7 @@ class CreatePostsTable extends Migration
             $table->longText('description');
             $table->text('place')->nullable()->default(null);
             $table->string('scholarship_type')->nullable()->default(null);
+            $table->timestamp('start_date')->nullable()->default(null);
             $table->timestamp('deadline')->nullable()->default(null);
             $table->integer('user_id')->unsigned();
             $table->double('view')->default(0);

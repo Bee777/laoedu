@@ -144,7 +144,6 @@ class UserController extends Controller
             'start_event' => 'required',
             'end_event' => 'required',
             'place' => 'required',
-            'hosted_by' => 'required',
             'description' => 'required|string',
         ]);
         return new UserEventResponse('insert');
@@ -158,7 +157,6 @@ class UserController extends Controller
             'start_event' => 'required',
             'end_event' => 'required',
             'place' => 'required',
-            'hosted_by' => 'required',
             'description' => 'required|string',
         ]);
         return new UserEventResponse('update');

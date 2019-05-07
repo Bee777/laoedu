@@ -38,10 +38,10 @@
                                 <div class="form-represent-form-header-caption">
                                     <div class="header-text-centered">
                                         <h1 class="headingText ">
-                                            <content>Create your Jaol Account</content>
+                                            <content>ສະໝັກສະມາຊິກ ສປຄ</content>
                                         </h1>
                                         <div class="headingSubtext ">
-                                            <content>Continue to Jaol Memebers</content>
+                                            <content>Continue to Ledu Memebers</content>
                                         </div>
                                     </div>
                                 </div>
@@ -194,7 +194,3 @@
         },
     }
 </script>
-
-<style scoped>
-
-</style>

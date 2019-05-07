@@ -11,7 +11,7 @@
           <div class="row">
             <div class="col-lg-4">
               <div class="category-text pt-40">
-                <h2>ທ່ານກຳລັງຊອກຫາ</h2>
+                <h2>ທ່ານກຳລັງຊອກຫາຫຼັກສູດການສຶກສາ</h2>
               </div>
             </div>
             <div
@@ -28,7 +28,7 @@
                         >
                       </span>
                       <span class="cont">
-                        <span>Language</span>
+                        <span>ປະລິນຍາໂທ</span>
                       </span>
                     </span>
                     <!-- singel category -->
@@ -44,7 +44,7 @@
                         >
                       </span>
                       <span class="cont">
-                        <span>Business</span>
+                        <span>ປະລິນຍາຕີ</span>
                       </span>
                     </span>
                     <!-- singel category -->
@@ -60,7 +60,7 @@
                         >
                       </span>
                       <span class="cont">
-                        <span>Literature</span>
+                        <span>ອະນຸປະລິນຍາ</span>
                       </span>
                     </span>
                     <!-- singel category -->
@@ -76,7 +76,7 @@
                         >
                       </span>
                       <span class="cont">
-                        <span>Language</span>
+                        <span>ຊັ້ນກາງ</span>
                       </span>
                     </span>
                     <!-- singel category -->
@@ -92,7 +92,7 @@
                         >
                       </span>
                       <span class="cont">
-                        <span>Business</span>
+                        <span>ວິຊາຊີບ</span>
                       </span>
                     </span>
                     <!-- singel category -->
@@ -108,7 +108,7 @@
                         >
                       </span>
                       <span class="cont">
-                        <span>Literature</span>
+                        <span>ສາຍສາມັນ</span>
                       </span>
                     </span>
                     <!-- singel category -->

@@ -94,20 +94,70 @@
                                 params: {name: "members"} //required
                             },
                             {
-                                name: "Members Profile",
+                                name: "User Profile",
                                 icon: "account_box", //required
                                 action: this.Route, //required
                                 params: {name: "members-profile"} //required
                             },
                             {
-                                name: "Department",
+                                name: "User type",
                                 icon: "chrome_reader_mode",
                                 action: this.Route,
                                 params: {name: "department"}
                             }
                         ]
                     },
-                    //Xone Menu
+                                        {
+                        contentHeader: {
+                            expanded: true,
+                            name: "ຂໍ້ມູນສະຖານການສຶກສາ",
+                            description: "ຈັດການຂໍ້ມູນສະຖານການສຶກສາ, ປະເພດສະຖານການສຶກສາ",
+                            icon: "keyboard_arrow_up"
+                        },
+                        items: [
+                            {
+                                name: "ສະຖານການສຶກສາທັງໝົດ", //required
+                                icon: "business", //required
+                                action: this.Route, //required
+                                params: {name: "institute"} //required
+                            },
+                            {
+                                name: "ສະຖານການສຶກສາ Profile",
+                                icon: "account_circle", //required
+                                action: this.Route, //required
+                                params: {name: "institute-profile"} //required
+                            },
+                            {
+                                name: "ໝວດໝູ່ສະຖານການສຶກສາ",
+                                icon: "category",
+                                action: this.Route,
+                                params: {name: "institute-category"}
+                            }
+                        ]
+                    },
+                                                            {
+                        contentHeader: {
+                            expanded: true,
+                            name: "ຂໍ້ມູນບົດປະເມີນ",
+                            description: "ຈັດການຂໍ້ມູນບົດປະເມີນ, ບົດປະເມີນທີ່ກວດສອບແລ້ວ",
+                            icon: "keyboard_arrow_up"
+                        },
+                        items: [
+                            {
+                                name: "ບົດປະເມີນທັງໝົດ", //required
+                                icon: "collections_bookmark", //required
+                                action: this.Route, //required
+                                params: {name: "assessment"} //required
+                            },
+                            {
+                                name: "ບົດປະເມີນທີ່ກວດສອບແລ້ວ",
+                                icon: "assignment_turned_in", //required
+                                action: this.Route, //required
+                                params: {name: "review-assessment"} //required
+                            },
+                        ]
+                    },
+
                     {
                         contentHeader: {
                             expanded: true,

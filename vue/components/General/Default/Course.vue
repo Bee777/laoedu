@@ -246,7 +246,5 @@
     <!--====== COURSES PART ENDS ======-->
     </div>
 </template>
-<style scoped>
-
+<style lang="">
 </style>
-

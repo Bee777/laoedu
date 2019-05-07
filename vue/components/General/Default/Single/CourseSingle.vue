@@ -473,20 +473,70 @@
               </div>
               <div class="col-lg-12 col-md-6">
                 <div class="You-makelike mt-30">
-                  <h4>ແຜນທີ່ສະຖານການສຶກສາ</h4>
-                  
-            <div class="gmap mt-10">
-              <iframe
-                src="https://www.google.com/maps/embed?pb=!1m14!1m8!1m3!1d15175.027535503485!2d102.6322612026245!3d18.03648292309852!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x31245d38b6cb9d2b%3A0xd933c8032521d049!2z4Lqh4Lqw4Lqr4Lqy4Lqn4Lq04LqX4Lqw4LqN4Lqy4LuE4Lql4LuB4Lqr4LuI4LqH4LqK4Lqy4LqU!5e0!3m2!1slo!2sla!4v1557239144195!5m2!1slo!2sla"
-                frameborder="0"
-                scrolling="no"
-                marginheight="0"
-                marginwidth="0"
-                style="width: 100%;
-                   height: 228px;"
-              ></iframe>
-            </div>
-              
+                  <h4>ສະຖານສຶກສາທີ່ທ່ານອາດມັກ</h4>
+                  <div class="singel-makelike mt-20">
+                    <div class="image">
+                      <img
+                        :src="`${baseUrl}${baseRes}/assets/images/your-make/y-1.jpg`"
+                        alt="Image"
+                      >
+                    </div>
+                    <div class="cont">
+                      <a href="#">
+                        <h4>Introduction to machine languages</h4>
+                      </a>
+                      <ul>
+                        <li>
+                          <a href="#">
+                            <i class="fa fa-user"></i>31
+                          </a>
+                        </li>
+                        <li>$50</li>
+                      </ul>
+                    </div>
+                  </div>
+                  <div class="singel-makelike mt-20">
+                    <div class="image">
+                      <img
+                        :src="`${baseUrl}${baseRes}/assets/images/your-make/y-1.jpg`"
+                        alt="Image"
+                      >
+                    </div>
+                    <div class="cont">
+                      <a href="#">
+                        <h4>How to build a basis game with java</h4>
+                      </a>
+                      <ul>
+                        <li>
+                          <a href="#">
+                            <i class="fa fa-user"></i>31
+                          </a>
+                        </li>
+                        <li>$50</li>
+                      </ul>
+                    </div>
+                  </div>
+                  <div class="singel-makelike mt-20">
+                    <div class="image">
+                      <img
+                        :src="`${baseUrl}${baseRes}/assets/images/your-make/y-1.jpg`"
+                        alt="Image"
+                      >
+                    </div>
+                    <div class="cont">
+                      <a href="#">
+                        <h4>Basic accounting from primary</h4>
+                      </a>
+                      <ul>
+                        <li>
+                          <a href="#">
+                            <i class="fa fa-user"></i>31
+                          </a>
+                        </li>
+                        <li>$50</li>
+                      </ul>
+                    </div>
+                  </div>
                 </div>
               </div>
             </div>

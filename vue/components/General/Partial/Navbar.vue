@@ -105,17 +105,14 @@
                     <li class="nav-item">
                       <router-link to="/" active-class="active" exact>ໜ້າຫຼັກ</router-link>
                     </li>
-                    <!-- <li class="nav-item">
-                      <a href="#">ຫຼັກສູດ</a>
+                    <li class="nav-item">
+                      <router-link :to="{name:'course'}">ຫຼັກສູດ</router-link>
                       <ul class="sub-menu">
                         <li>
-                          <a href="courses.html">ຫຼັກສູດ</a>
-                        </li>
-                        <li>
-                          <a href="courses-singel.html">Course Singel</a>
+                          <router-link :to="{name:'course-single'}">Course Singel</router-link>
                         </li>
                       </ul>
-                    </li> -->
+                    </li>
                     <li class="nav-item">
                       <router-link :to="{name: 'institute'}" active-class="active" exact>ສະຖານການສຶກສາ</router-link>
                       <ul class="sub-menu">

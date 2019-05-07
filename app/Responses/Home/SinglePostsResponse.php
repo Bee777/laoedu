@@ -76,7 +76,7 @@ class SinglePostsResponse implements Responsable
     {
         $type = $this->getPostsType($this->type);
 
-        $fields = ['id', 'title', 'type', 'image', 'description', 'status', 'place', 'hosted_by', 'start_date', 'deadline', 'updated_at', 'user_id',];
+        $fields = ['id', 'title', 'type', 'image', 'description', 'status', 'place', 'start_date', 'deadline', 'updated_at', 'user_id',];
         $data = Posts::select($fields)->where('type', $type)->whereIn('status', ['open', 'close'])->where('id', $this->id)->first();
 
         $this->mapPost($data);

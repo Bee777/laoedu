@@ -106,7 +106,7 @@ class RegisterController extends Controller
             $this->dispatch(new SendNewUserRegistration($user));
         }
         // add user type for first register
-        $userType = new UserType(['type_user_id' => $user->getTypeUserId('user')]);
+        $userType = new UserType(['type_user_id' => $user->getTypeUserId('checker')]);
         $user->userType()->save($userType);
         if ($request->ajax()) {
             return [

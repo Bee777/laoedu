@@ -14,6 +14,8 @@ import ActivitySingle from '@com/General/Default/Single/ActivitySingle.vue'
 import ScholarshipSingle from '@com/General/Default/Single/ScholarshipSingle.vue'
 import Institute from '@com/General/Default/Institute.vue'
 import InstituteSingle from '@com/General/Default/Single/InstituteSingle.vue'
+import Course from '@com/General/Default/Course.vue'
+import CourseSingle from '@com/General/Default/Single/CourseSingle.vue'
 
 const metas = {
     guestMeta: {
@@ -191,6 +193,26 @@ export default [
         path: '/posts/institute/single/:id',
         name: 'institute-single',
         component: InstituteSingle,
+        meta: {
+            ...metas.df({
+                hideNavFooter: false,
+            })
+        },
+    },
+    {
+        path: '/posts/course',
+        name: 'course',
+        component: Course,
+        meta: {
+            ...metas.df({
+                hideNavFooter: false,
+            })
+        },
+    },
+    {
+        path: '/posts/course/single/:id',
+        name: 'course-single',
+        component: CourseSingle,
         meta: {
             ...metas.df({
                 hideNavFooter: false,
