@@ -33,17 +33,19 @@
                     <span class="agoTime" :title="singlePostsData.news.data.post_updated_ago"></span>
                   </li>
                   <li>
-                    <img
-                      v-if="shouldLoadingSingle(type)"
-                      :src="`${baseUrl}/assets/images/${s.website_logo}${s.fresh_version}`"
-                      class="avatar-image image-size50x50"
-                    >
-                    <img
-                      v-else-if="singlePostsData.news.data.author_image"
-                      :src="`${baseUrl}${singlePostsData.news.data.author_image}`"
-                      class="avatar-image image-size50x50"
-                    >
-                    <div class="author-caption">{{singlePostsData.news.data.author}}</div>
+                    <div class="thum avatar">
+                      <img
+                        v-if="shouldLoadingSingle(type)"
+                        :src="`${baseUrl}/assets/images/${s.website_logo}${s.fresh_version}`"
+                        class="avatar-image image-size50x50"
+                      >
+                      <img
+                        v-else-if="singlePostsData.news.data.author_image"
+                        :src="`${baseUrl}${singlePostsData.news.data.author_image}`"
+                        class="avatar-image image-size50x50"
+                      >
+                      <span class="author-caption">{{singlePostsData.news.data.author}}</span>
+                    </div>
                   </li>
                 </ul>
                 <div class="blog-content">
@@ -69,11 +71,10 @@
                       </a>
                     </li>
                   </ul>
-                  
                 </div>
                 <br>
-              <h4 class="text-center">ຂ່າວອື່ນໆທີ່ນ່າສົນໃຈ</h4>
-                                             </div>
+                <h4 class="text-center">ຂ່າວອື່ນໆທີ່ນ່າສົນໃຈ</h4>
+              </div>
               <!-- cont -->
             </div>
             <!-- blog details -->
@@ -85,8 +86,7 @@
             <div class="singel-course card">
               <div class="thum">
                 <div class="image img-card" @click="getDetail('news', item)">
-                  <img :src="`${baseUrl}${item.image}`"
-                                                 :alt="item.image">
+                  <img :src="`${baseUrl}${item.image}`" :alt="item.image">
                 </div>
               </div>
               <div class="cont">
@@ -96,17 +96,16 @@
                 <div v-html="$utils.sub($utils.strip(item.description), 120)"></div>
                 <div class="course-teacher">
                   <div class="thum">
-                     <img
-                      :src="`${baseUrl}${singlePostsData.news.data.author_image}`"
-                        >
+                    <img :src="`${baseUrl}${singlePostsData.news.data.author_image}`">
                   </div>
-                  <div class="name">
+                  <div class="name auther">
                     <div class="author-caption">{{singlePostsData.news.data.author}}</div>
                   </div>
-                  <div class="admin">
-                     
-                         <time class="updated-date" :datetime="item.updated_at"><i class="fa fa-calendar"></i> {{item.post_updated}}</time>
-                      
+                  <div class="date-post">
+                    <time class="updated-date" :datetime="item.updated_at">
+                      <i class="fa fa-calendar"></i>
+                      {{item.post_updated}}
+                    </time>
                   </div>
                 </div>
               </div>
@@ -114,8 +113,8 @@
             <!-- singel course -->
           </div>
         </div>
-        </div>
-</section>
+      </div>
+    </section>
   </div>
 </template>
 <script>

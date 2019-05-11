@@ -4,6 +4,10 @@ import SingleMemberProfile from '@com/Admin/Members/SingleMemberProfile.vue'
 import Department from '@com/Admin/Members/Department.vue'
 import MembersProfile from '@com/Admin/Members/MembersProfile.vue'
 
+import Admin from '@com/Admin/Members/Admin.vue'
+import Checker from '@com/Admin/Members/Checker.vue'
+
+
 import Assessment from '@com/Admin/Assessments/All.vue'
 import ReviewAssessment from '@com/Admin/Assessments/ReviewAssessment.vue'
 
@@ -154,4 +158,16 @@ export default [{
         component: SingleInstituteProfile,
         meta: metas.authMeta,
     },
+    // {
+    //     name: 'admin',
+    //     path: `${prefix}/admin`,
+    //     component: Admin,
+    //     meta: metas.authMeta,
+    // },
+    // {
+    //     name: 'checker',
+    //     path: `${prefix}/checker`,
+    //     component: Checker,
+    //     meta: metas.authMeta,
+    // },
 ];

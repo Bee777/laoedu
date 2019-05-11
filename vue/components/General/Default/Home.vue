@@ -134,8 +134,8 @@
         <div class="row">
           <div class="col-lg-5">
             <div class="section-title mt-50">
-              <h5>ກ່ຽວກັບສູນ</h5>
-              <h2>ຍິນດີຕ້ອນຮັບສູ່ ສປຄ</h2>
+              <h2>ກ່ຽວກັບສູນ</h2>
+              <h5>ຍິນດີຕ້ອນຮັບສູ່ ສປຄ</h5>
             </div>
             <!-- section title -->
             <div class="about-cont">
@@ -199,8 +199,8 @@
         <div class="row">
           <div class="col-lg-6">
             <div class="section-title pb-45">
-              <h5>ສະຖານການສຶກສາ</h5>
-              <h2>The best institute</h2>
+              <h3>ສະຖານການສຶກສາ</h3>
+              <h5>The best institute</h5>
             </div>
             <!-- section title -->
           </div>
@@ -548,15 +548,98 @@
       <!-- container -->
     </section>
 
-    <!--====== PUBLICATION PART START ======-->
+    <!--====== NEWS PART START ======-->
+    <section id="news-part" class="pt-50 pb-50" v-if="homeData.latest_news.length > 0">
+      <div class="container">
+        <div class="row align-items-end">
+          <div class="col-lg-6 col-md-8 col-sm-7">
+            <div class="section-title pb-30">
+              <h3>ຂ່າວໃໝ່</h3>
+              <h5>From the news</h5>
+            </div>
+            <!-- section title -->
+          </div>
+          <div class="col-lg-6 col-md-4 col-sm-5">
+            <div class="products-btn text-right pb-60">
+              <router-link :to="{name: 'news'}" class="main-btn">ຂ່າວທັງໝົດ</router-link>
+            </div>
+            <!-- products btn -->
+          </div>
+        </div>
+        <!-- row -->
+        <div class="row" v-if="homeData.latest_news.length > 0">
+          <div class="col-lg-6">
+            <div class="singel-news mt-30">
+              <div class="news-thum pb-25" @click="getDetail('news', homeData.latest_news[0])">
+                <img :src="homeData.latest_news[0].image" alt="News">
+              </div>
+              <div class="news-cont">
+                <ul>
+                  <li>
+                      <i class="fa fa-calendar"></i> {{homeData.latest_news[0].formatted_updated_at}}
+                  </li>
+                  <li>
+                      <span>By</span> {{homeData.latest_news[0].author}}
+                  </li>
+                </ul>
+                <a @click="getDetail('news', homeData.latest_news[0])">
+                  <h3 v-html="$utils.sub($utils.strip(homeData.latest_news[0].title), 55)"></h3>
+                </a>
+               <p v-html="$utils.sub($utils.strip(homeData.latest_news[0].description), 150)"></p>
+                
+              </div>
+            </div>
+            <!-- singel news -->
+          </div>
+          <div class="col-lg-6">
+            <template  v-for="(news, idx) in homeData.latest_news">
+            <div class="singel-news news-list singel-course" :key="idx" v-if="idx!==0">
+              <div class="row">
+                <div class="col-sm-4">
+                  <div class="news-thum mt-30">
+                    <div class="image img-card" @click="getDetail('news', news)">
+                      <img :src="news.image" :alt="news.image">
+                    </div>
+                  </div>
+                </div>
+                <div class="col-sm-8">
+                  <div class="news-cont mt-30">
+                    <ul>
+                      <li>
+                        <i class="fa fa-calendar"></i> 
+                        {{news.formatted_updated_at}}
+                      </li>
+                      <li>
+                        <span>By</span>
+                        {{news.author}}
+                      </li>
+                    </ul>
+                    <a @click="getDetail('news', news)">
+                      <h3 v-html="$utils.sub($utils.strip(news.title), 45)"></h3>
+                    </a>
+                    <p v-html="$utils.sub($utils.strip(news.description), 80)"></p>
+                  </div>
+                </div>
+              </div>
+              <!-- row -->
+            </div>
+            </template>
+          </div>
+        </div>
+        <!-- row -->
+      </div>
+      <!-- container -->
+    </section>
 
-    <section id="publication-part" class="pt-45 pb-50 gray-bg">
+    <!--====== NEWS PART ENDS ======-->
+      <!--====== ACTIVITY PART START ======-->
+    <section id="publication-part" class="pt-45 pb-50 gray-bg" v-if="homeData.latest_activity.length > 0">
       <div class="container">
         <div class="row align-items-end">
           <div class="col-lg-6 col-md-8 col-sm-7">
             <div class="section-title pb-60">
-              <h5>ກິດຈະກຳ</h5>
-              <h2>ວຽກງານນອກຫຼັກສູດ</h2>
+              <h3>ກິດຈະກຳ</h3>
+              <h5>ວຽກງານນອກຫຼັກສູດ</h5>
             </div>
             <!-- section title -->
           </div>
@@ -595,93 +678,6 @@
       </div>
       <!-- container -->
     </section>
-
-    <!--====== PUBLICATION PART ENDS ======-->
-    <!--====== NEWS PART START ======-->
-    <section id="news-part" class="pt-50 pb-50" v-if="homeData.latest_news.length > 0">
-      <div class="container">
-        <div class="row align-items-end">
-          <div class="col-lg-6 col-md-8 col-sm-7">
-            <div class="section-title pb-30">
-              <h5>ຂ່າວໃໝ່</h5>
-              <h2>From the news</h2>
-            </div>
-            <!-- section title -->
-          </div>
-          <div class="col-lg-6 col-md-4 col-sm-5">
-            <div class="products-btn text-right pb-60">
-              <router-link :to="{name: 'news'}" class="main-btn">ຂ່າວທັງໝົດ</router-link>
-            </div>
-            <!-- products btn -->
-          </div>
-        </div>
-        <!-- row -->
-        <div class="row">
-          <div class="col-lg-6">
-            <div class="singel-news mt-30">
-              <div class="news-thum pb-25">
-                <img :src="`${baseUrl}${baseRes}/assets/images/news/n-1.jpg`" alt="News">
-              </div>
-              <div class="news-cont">
-                <ul>
-                  <li>
-                    <a href="#">
-                      <i class="fa fa-calendar"></i>2 December 2018
-                    </a>
-                  </li>
-                  <li>
-                    <a href="#">
-                      <span>By</span> Adam linn
-                    </a>
-                  </li>
-                </ul>
-                <a href="blog-singel.html">
-                  <h3>Tips to grade high cgpa in university life</h3>
-                </a>
-                <p>Lorem ipsum gravida nibh vel velit auctor aliquetn sollicitudirem quibibendum auci elit cons equat ipsutis sem nibh id elit. Duis sed odio sit amet nibh vulputate cursus a sit amet mauris. Morbi accumsan ipsum velit. Nam nec tellus a odio tincidunt .</p>
-              </div>
-            </div>
-            <!-- singel news -->
-          </div>
-          <div class="col-lg-6">
-            <div class="singel-news news-list singel-course" v-for="(news, idx) in homeData.latest_news" :key="idx">
-              <div class="row">
-                <div class="col-sm-4">
-                  <div class="news-thum mt-30">
-                    <div class="image img-card" @click="getDetail('news', news)">
-                      <img :src="news.image" :alt="news.image">
-                    </div>
-                  </div>
-                </div>
-                <div class="col-sm-8">
-                  <div class="news-cont mt-30">
-                    <ul>
-                      <li>
-                        <i class="fa fa-calendar"></i> 
-                        {{news.formatted_updated_at}}
-                      </li>
-                      <li>
-                        <span>By</span>
-                        {{news.author}}
-                      </li>
-                    </ul>
-                    <a @click="getDetail('news', news)">
-                      <h3 v-html="$utils.sub($utils.strip(news.title), 45)"></h3>
-                    </a>
-                    <p v-html="$utils.sub($utils.strip(news.description), 80)"></p>
-                  </div>
-                </div>
-              </div>
-              <!-- row -->
-            </div>
-          </div>
-        </div>
-        <!-- row -->
-      </div>
-      <!-- container -->
-    </section>
-
-    <!--====== NEWS PART ENDS ======-->
   </div>
 </template>
 <script>

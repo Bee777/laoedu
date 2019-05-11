@@ -7,7 +7,8 @@
                     <div class="md-single-grid provider-list">
                         <!--Table card-->
                         <TablePaginate v-model="query"
-                                       :searchPlaceholder="'Search by  name, tel or member Email'"
+                                       :searchPlaceholder="'Search by member name, surname, tel or member Email'"
+                                       :searchButtonText="'Add User'"
                                        :headers="headers"
                                        :notFoundText="'Please make sure you type or spell the member information correctly.'"
                                        :isSearch="isSearch"
@@ -22,12 +23,86 @@
                                        :paginateData="paginate"
                                        @paginateNavigate="paginateNavigator"
                                        @onMenuContextClick="showModalAction">
+
+                            <template slot="form-top" v-if="formTopState.show">
+                                <form class="admin-form-card user-form" @submit.prevent>
+                                    <div class="user-form-title"> Create new user</div>
+                                    <div class="layout-align-space-around-start layout-row">
+                                        <AdminInput v-model="models.formTop.first_name"
+                                                    :validateText="validated().first_name"
+                                                    :label="'Name'"
+                                                    :inputType="'text'"
+                                                    :focus="true"/>
+                                        <AdminInput v-model="models.formTop.last_name"
+                                                    :validateText="validated().last_name"
+                                                    :containerClass="'is-second-input'"
+                                                    :label="'Last name'"
+                                                    :inputType="'text'"/>
+                                    </div>
+                                    <div class="layout-align-space-around-start layout-row">
+                                        <AdminInput v-model="models.formTop.email" :validateText="validated().email"
+                                                    :autoCompleteText="'username'" :label="'Email'"
+                                                    :inputType="'email'  "/>
+                                        <AdminInput @onInputEnter="createUser" v-model="models.formTop.password"
+                                                    :validateText="validated().password"
+                                                    :containerClass="'is-second-input'"
+                                                    :autoCompleteText="'current-password'" :label="'Password'"
+                                                    :inputType="'password'"/>
+                                    </div>
+                                    <div class="user-form-action layout-align-end-center layout-row">
+                                        <button @click="toggleFormTop(false)"
+                                                class="v-md-button secondary theme-blue">
+                                            Cancel
+                                        </button>
+                                        <button @click="createUser" class="v-md-button primary theme-blue"> Create
+                                        </button>
+                                    </div>
+                                </form>
+                            </template>
+
                         </TablePaginate>
                         <!--Table card-->
                     </div>
                 </div>
             </div>
         </div>
+        <!--Modals -->
+        <!--info-->
+        <AdminModal :isActive="modal.type==='info' && modal.active" @close="modal.active=false">
+            <template slot="title"> {{modal.name}}</template>
+            <div class="fb-dialog-body-section">
+                <div v-html="modal.message"></div>
+                <div>
+                    <div class="form-label"> User Account</div>
+                    <div class="form-input-static-value"> {{ modal.data.email }}</div>
+                </div>
+            </div>
+            <template slot="actions">
+                <button @click="positiveAction()" class="v-md-button primary"> {{modal.action.text}}</button>
+            </template>
+        </AdminModal>
+        <!--info -->
+        <!--warning-->
+        <AdminModal :isActive="modal.type==='warning' && modal.active" @close="modal.active=false">
+            <template slot="title"> {{modal.name}}</template>
+            <div class="fb-dialog-body-section">
+                <div class="body-message-container has-icon is-warning">
+                    <div class="inner">
+                        <i class="material-icons m-icon">warning</i>
+                        <div class="admin-modal-message">{{ modal.message }}</div>
+                    </div>
+                </div>
+                <div>
+                    <div class="form-label"> User Account</div>
+                    <div class="form-input-static-value"> {{ modal.data.email }}</div>
+                </div>
+            </div>
+            <template slot="actions">
+                <button @click="positiveAction()" class="v-md-button warning"> {{ modal.action.text }}</button>
+            </template>
+        </AdminModal>
+        <!--warning -->
+        <!--Modals -->
     </div>
 </template>
 
@@ -39,16 +114,16 @@
         name: "all",
         data() {
             return {
-                title: 'All Institutes',
+                title: 'All Members',
                 type: 'users',
                 watchers: true,
-                tabs: [{name: 'Institutes'}],
+                tabs: [{name: 'Members'}],
                 headers: [
-                    {class: 'hide-xs th-sortable', name: 'ຊື່', width: '15%'},
-                    {class: 'hide-xs th-sortable', name: 'ປະເພດສະຖານການສຶກສາ', width: '15%'},
                     {class: 'th-sortable', name: 'Email', width: '200'},
                     {class: 'hide-xs hide-md th-sortable', name: 'Image', width: '10%'},
                     {class: 'hide-xs th-sortable', name: 'Status', width: '15%'},
+                    {class: 'hide-xs th-sortable', name: 'Name', width: '15%'},
+                    {class: 'hide-xs th-sortable', name: 'Last Name', width: '15%'},
                     {class: 'hide-xs th-sortable', name: 'Created At', width: '25%'},
                     {class: 'th-not-sortable', name: '', width: '80'},
                 ],
@@ -114,8 +189,6 @@
                 return {
                     rowContent: {},
                     rows: [
-                                                {data: data.name, type: 'text', class: 'hide-xs'},
-                        {data: data.last_name, type: 'text', class: 'hide-xs'},
                         {data: data.email, type: 'id', class: 'user-email'},
                         {
                             data: `${this.baseUrl}${data.image}`,
@@ -128,6 +201,8 @@
                             class: 'hide-xs',
                             textColor: data.statusColor,
                         },
+                        {data: data.name, type: 'text', class: 'hide-xs'},
+                        {data: data.last_name, type: 'text', class: 'hide-xs'},
                         {data: this.$utils.formatTimestmp(data.created_at), type: 'text', class: 'hide-xs'},
                         {
                             data: data.email, type: 'action', class: '',

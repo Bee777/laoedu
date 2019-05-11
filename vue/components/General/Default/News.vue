@@ -16,7 +16,21 @@
                                </a>
                            <ul>
                             <li class="updated-date" :datetime="news.updated_at"><i class="fa fa-calendar"></i> {{news.post_updated}}</li>
-                             <li><i class="fa fa-user"></i> {{news.author}}</li>
+                             <li>
+                                           <div class="thum avatar">
+                      <img
+                        v-if="shouldLoadingSingle(type)"
+                        :src="`${baseUrl}/assets/images/${s.website_logo}${s.fresh_version}`"
+                        class="avatar-image image-size50x50"
+                      >
+                      <img
+                        v-else-if="singlePostsData.news.data.author_image"
+                        :src="`${baseUrl}${singlePostsData.news.data.author_image}`"
+                        class="avatar-image image-size50x50"
+                      >
+                      <span class="author-caption">{{singlePostsData.news.data.author}}</span>
+                    </div>
+                             </li>
                            </ul>
                            <p v-html="$utils.sub($utils.strip(news.description), 180)"></p>
                        </div>
@@ -29,9 +43,6 @@
                                     <i class="fa fa-angle-left"></i>
                                 </a>
                             </li>
-                            <!-- <li class="page-item"><a class="active" href="#">1</a></li>
-                            <li class="page-item"><a href="#">2</a></li>
-                            <li class="page-item"><a href="#">3</a></li> -->
                             <li class="page-item">
                                 <a :disabled="paginate.current_page===paginate.last_page"
                                 @click="nextPage(paginate.current_page + 1)"

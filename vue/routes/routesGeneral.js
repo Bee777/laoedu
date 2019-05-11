@@ -1,5 +1,6 @@
 import Login from '@com/General/Login.vue'
 import ResetPassword from '@com/General/ResetPassword.vue'
+import RegisterInstitute from '@com/General/InstituteRegister.vue'
 import Register from '@com/General/Register.vue'
 import Registered from '@com/General/Registered.vue'
 import FinishedResetPassword from '@com/General/FinishedResetPassword.vue'
@@ -16,7 +17,7 @@ import Institute from '@com/General/Default/Institute.vue'
 import InstituteSingle from '@com/General/Default/Single/InstituteSingle.vue'
 import Course from '@com/General/Default/Course.vue'
 import CourseSingle from '@com/General/Default/Single/CourseSingle.vue'
-
+const prefix = '/register-';
 const metas = {
     guestMeta: {
         requiresVisitor: true,
@@ -53,15 +54,35 @@ export default [
         },
     },
     {
-        path: "/register",
-        component: Register,
-        name: 'register',
+        path: `${prefix}institute`,
+        component: RegisterInstitute,
+        name: 'institute-register',
         meta: {
             ...metas.guestMeta, ...metas.df({
                 navFixed: false,
             })
         },
     },
+    // {
+    //     path: `${prefix}admin`,
+    //     component: RegisterAdmin,
+    //     name: 'admin-register',
+    //     meta: {
+    //         ...metas.guestMeta, ...metas.df({
+    //             navFixed: false,
+    //         })
+    //     },
+    // },
+    // {
+    //     path: `${prefix}checker`,
+    //     component: RegisterAdmin,
+    //     name: 'checker-register',
+    //     meta: {
+    //         ...metas.guestMeta, ...metas.df({
+    //             navFixed: false,
+    //         })
+    //     },
+    // },
     {
         path: "/register-successfully",
         component: Registered,

@@ -1,7 +1,7 @@
 <template>
   <div>
     <!--====== COURSES SINGEl PART START ======-->
-    <section id="corses-singel" class="pt-40 pb-60 gray-bg">
+    <section id="corses-singel" class="pt-20 pb-40 gray-bg">
       <div class="container">
         <div class="row">
           <div class="col-lg-8">
@@ -461,13 +461,6 @@
                       <span>1000</span>
                     </li>
                   </ul>
-                  <div class="price-button pt-10">
-                    <span>
-                      Price :
-                      <b>$25</b>
-                    </span>
-                    <a href="#" class="main-btn">Enroll Now</a>
-                  </div>
                 </div>
                 <!-- course features -->
               </div>

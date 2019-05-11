@@ -28,7 +28,6 @@ use App\User;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
-use App\Dictionary;
 
 use App\SiteImage;
 
@@ -229,50 +228,6 @@ class AdminController extends Controller
     }
     /**
      * @Responses SponsorAction
-     */
-    /**
-     * @Responses DictionaryAction
-     */
-
-    public function SaveDictionary(Request $request)
-    {
-        $this->validate($request, [
-            'lao' => 'required|string|max:191',
-            'japanese' => 'required|string|max:191',
-            'description' => 'required|string|max:191',
-        ]);
-        $dictionary = new Dictionary();
-        $dictionary->lao = $request->get('lao');
-        $dictionary->japanese = $request->get('japanese');
-        $dictionary->description = $request->get('description');
-        $dictionary->save();
-
-        return response()->json(['success' => true, 'msg' => 'The dictionary saved successfully!.', 'data' => $dictionary]);
-    }
-
-    public function UpdateDictionary(Request $request, $id)
-    {
-        $this->validate($request, [
-            'lao' => 'required|string|max:191',
-            'japanese' => 'required|string|max:191',
-            'description' => 'required|string|max:191',
-        ]);
-        $dictionary = Dictionary::find($id);
-        $dictionary->lao = $request->get('lao');
-        $dictionary->japanese = $request->get('japanese');
-        $dictionary->description = $request->get('description');
-        $dictionary->save();
-        return response()->json(['success' => true, 'msg' => 'The dictionary updated successfully!.', 'data' => $dictionary]);
-    }
-
-    public function DeleteDictionary($id)
-    {
-        $dictionary = Dictionary::find($id);
-        $dictionary->delete();
-        return response()->json(['success' => true, 'msg' => 'The dictionary deleted successfully!.']);
-    }
-    /**
-     * @Responses DictionaryAction
      */
 
     /**
@@ -713,23 +668,6 @@ class AdminController extends Controller
             $fields = ['id', 'name', 'created_at', 'updated_at'];
             $request->request->add(['fields' => $fields]);
             $data = Department::select($fields);
-            $data->where(function ($query) use ($request, $text) {
-                foreach ($request->fields as $k => $f) {
-                    if ($f === 'created_at' || $f === 'updated_at') {
-                        if (Helpers::isEngText($text)) {
-                            $query->orWhere($f, 'LIKE', "%{$text}%");
-                        } else {
-                            continue;
-                        }
-                    }
-                    $query->orWhere($f, 'LIKE', "%{$text}%");
-                }
-            });
-            $data = $data->orderBy('created_at', 'desc')->paginate($paginateLimit);
-        } else if ($type === 'dictionaries') {
-            $fields = ['id', 'lao', 'japanese', 'description', 'created_at', 'updated_at'];
-            $request->request->add(['fields' => $fields]);
-            $data = Dictionary::select($fields);
             $data->where(function ($query) use ($request, $text) {
                 foreach ($request->fields as $k => $f) {
                     if ($f === 'created_at' || $f === 'updated_at') {

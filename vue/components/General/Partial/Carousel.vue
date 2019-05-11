@@ -20,8 +20,8 @@
           <h1>{{slide.name}}</h1>
           <p>{{slide.description}}</p>
                   <ul>
-          <li>
-            <a data-animation="fadeInUp" data-delay="1.6s" class="main-btn" :to="'login'">Get Started</a>
+          <li @slideclick="openLink(slide.link)">
+            <a :style="`display: ${noLink(slide.link) ? 'none;' : ''}`" data-animation="fadeInUp" data-delay="1.6s" class="main-btn">Read more</a>
           </li>
         </ul>
         </div>
@@ -94,6 +94,9 @@ export default {
     hasLink(d) {
       return !this.$utils.isEmptyVar(d);
     },
+        noLink(d) {
+      return this.$utils.isEmptyVar(d);
+    },
     openLink(link) {
       if (this.hasLink(link)) {
         window.open(link, "_blank");
@@ -104,6 +107,9 @@ export default {
 </script>
 
 <style>
+.main-btn{
+  display: absolute;
+}
 .slider_bck {
   height: 450px;
   background-size: cover !important;

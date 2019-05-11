@@ -534,7 +534,7 @@ a.main-btn:hover, a.main-btn:not([href]):hover{
 }
 
 .navigation .navbar .navbar-nav li a{
-    font-size: 16px;
+    font-size: 18px;
     font-weight: 900;
     color: #07294d;
     text-transform: uppercase;
@@ -1252,8 +1252,9 @@ a.main-btn:hover, a.main-btn:not([href]):hover{
 }
 
 .singel-course .course-teacher{
+    margin-top: 4px;
     border-top: 1px solid #e0e0e0;
-    padding-top: 20px;
+    padding-top: 10px;
     overflow: hidden;
 }
 .singel-course .course-teacher > .thum{
@@ -1267,7 +1268,7 @@ a.main-btn:hover, a.main-btn:not([href]):hover{
 .singel-course .course-teacher .name {
 	display: inline-block;
 	margin-left: 10px;
-	position: relative;
+	/* position: relative; */
 	bottom: 13px;
 }
 .singel-course .course-teacher .name a h6{
@@ -1691,7 +1692,10 @@ a.main-btn:hover, a.main-btn:not([href]):hover{
 ======================================================*/
 
 .singel-news{}
-.singel-news .news-thum{}
+.singel-news .news-thum a img{
+    width: 100%;
+    border-radius: 5px;
+}
 .singel-news .news-thum img{
     width: 100%;
     border-radius: 5px;
@@ -1804,9 +1808,10 @@ a.main-btn:hover, a.main-btn:not([href]):hover{
 }
 .footer-link ul li a{
     color: #fff;
-    font-size: 15px;
+    font-size: 18px;
     -webkit-transition: all 0.4s linear;
     transition: all 0.4s linear;
+    font-weight: 600;
 }
 .footer-link ul li a i{
     margin-right: 8px;
@@ -2306,7 +2311,6 @@ a.main-btn:hover, a.main-btn:not([href]):hover{
 }
 .count-down-time .singel-count .title{
     color: #fff;
-    font-family: 'Montserrat', sans-serif;
     font-weight: 600;
     font-size: 18px;
     display: block;
@@ -3246,7 +3250,7 @@ a.main-btn:hover, a.main-btn:not([href]):hover{
     display: block;
 }
 .singel-blog .blog-cont h3{
-    font-size: 36px;
+    font-size: 26px;
     color: #000;
     -webkit-transition: all 0.4s linear;
     transition: all 0.4s linear;
@@ -3917,7 +3921,7 @@ a{
   .card-title {
     margin-top: 0px;
       font-weight: 600;
-      font-size: 1.4rem;
+      font-size: 1.2rem;
   }
   .card-title a {
     color: #000;
@@ -3938,9 +3942,8 @@ a{
     padding-bottom: 30px;
 }
 .title{
-    font-size: 18px;
+    font-size: 22px;
     color: #000;
-    font-family: 'Montserrat', sans-serif;
     font-weight: 600;
 }
 .share > li{
@@ -3963,8 +3966,22 @@ a{
     color: #fff;
     margin-right: 0;
 }
-
-
+.date-post{
+    display: inline-block;
+    float: left;
+    padding-top: 4px;
+    overflow: hidden;
+}
+.name.auther{
+    display: inline-block;
+    margin-left: 10px;
+  
+    bottom: 13px;
+}
+img.avatar-image {
+    width: 32px;
+    height: 32px;
+  }
 
 
 

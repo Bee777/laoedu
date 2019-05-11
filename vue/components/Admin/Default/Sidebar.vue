@@ -93,18 +93,24 @@
                                 action: this.Route, //required
                                 params: {name: "members"} //required
                             },
+                                                        {
+                                name: "ຜູ້ກວດສອບບົດປະເມີນ", //required
+                                icon: "group", //required
+                                action: this.Route, //required
+                                params: {name: "admin"} //required
+                            },
+                                                        {
+                                name: "ຜູ້ກວດສອບພາກສະໜາມ", //required
+                                icon: "group", //required
+                                action: this.Route, //required
+                                params: {name: "checker"} //required
+                            },
                             {
                                 name: "User Profile",
                                 icon: "account_box", //required
                                 action: this.Route, //required
                                 params: {name: "members-profile"} //required
                             },
-                            {
-                                name: "User type",
-                                icon: "chrome_reader_mode",
-                                action: this.Route,
-                                params: {name: "department"}
-                            }
                         ]
                     },
                                         {

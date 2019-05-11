@@ -105,14 +105,14 @@
                     <li class="nav-item">
                       <router-link to="/" active-class="active" exact>ໜ້າຫຼັກ</router-link>
                     </li>
-                    <li class="nav-item">
+                   <!--  <li class="nav-item">
                       <router-link :to="{name:'course'}">ຫຼັກສູດ</router-link>
                       <ul class="sub-menu">
                         <li>
                           <router-link :to="{name:'course-single'}">Course Singel</router-link>
                         </li>
                       </ul>
-                    </li>
+                    </li> -->
                     <li class="nav-item">
                       <router-link :to="{name: 'institute'}" active-class="active" exact>ສະຖານການສຶກສາ</router-link>
                       <ul class="sub-menu">
@@ -124,11 +124,11 @@
                     <li class="nav-item">
                       <router-link :to="{name: 'news'}" active-class="active" exact>ຂ່າວສານ</router-link>
                     </li>
-                    <li class="nav-item">
+                    <!-- <li class="nav-item">
                           <router-link :to="{name: 'scholarships'}" active-class="active" exact>
                         ທຶນການສຶກສາ
                     </router-link>
-                    </li>
+                    </li> -->
                     <li class="nav-item">
                       <router-link :to="{name: 'activities'}" active-class="active" exact>ກິດຈະກຳ</router-link>
                     </li>
@@ -143,7 +143,8 @@
               </nav>
               <!-- nav -->
             </div>
-            <div class="col-lg-2 col-md-2 col-sm-3 col-4">
+            <!-- search -->
+            <!-- <div class="col-lg-2 col-md-2 col-sm-3 col-4">
               <div class="right-icon text-right">
                 <ul>
                   <li>
@@ -152,9 +153,8 @@
                     </a>
                   </li>
                 </ul>
-              </div>
-              <!-- right icon -->
-            </div>
+              </div>      
+            </div> -->
           </div>
           <!-- row -->
         </div>

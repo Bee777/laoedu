@@ -19,7 +19,6 @@ Route::group(['prefix' => 'admin/me', 'middleware' => []], function () {
     Route::get('/members-profile', 'AdminController@index')->name('admin.get.index.membersProfile');
     Route::get('/members-profile/{id}', 'AdminController@index')->name('admin.get.singleMemberProfile');
     Route::get('/sitesetting', 'AdminController@index')->name('admin.get.sitesetting');
-    Route::get('/dictionary', 'AdminController@index')->name('admin.get.dictionary');
     Route::get('/contactinfo', 'AdminController@index')->name('admin.get.contactinfo');
     Route::get('/aboutjaol', 'AdminController@index')->name('admin.get.aboutjaol');
     Route::get('/news', 'AdminController@index')->name('admin.get.news');

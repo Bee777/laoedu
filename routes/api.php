@@ -33,12 +33,6 @@ Route::group(['prefix' => '/home', 'middleware' => ['cors', 'parseToken:guest-be
     /***@MembersChartRange */
     Route::get('/chart-ranges/{id}', 'HomeController@getChartRangeMembers');
     /***@MembersChartRange */
-
-    /**@DictionaryComment */
-    Route::get('/dictionary-comments', 'HomeController@getDictionaryComments');
-    Route::post('/dictionary-comments-manage', 'HomeController@manageDictionaryComments');
-    Route::delete('/dictionary-comments-delete', 'HomeController@deleteDictionaryComments');
-    /**@DictionaryComment */
 });
 /******************** @HomeSection ****************** */
 
@@ -77,11 +71,6 @@ Route::group(['prefix' => '/', 'middleware' => ['cors', 'parseToken', 'auth:api'
 
         //End Phoud
 
-        /*** @Dictionary ** */
-        Route::post('/dictionary/create', 'AdminController@SaveDictionary');
-        Route::post('/dictionary/update/{id}', 'AdminController@UpdateDictionary');
-        Route::delete('/dictionary/delete/{id}', 'AdminController@DeleteDictionary');
-        /***@Dictionary ** */
         /*** @News ** */
         Route::post('/news/create', 'AdminController@insertNews');
         Route::post('/news/update/{id}', 'AdminController@updateNews');
@@ -179,11 +168,6 @@ Route::group(['prefix' => '/', 'middleware' => ['cors', 'parseToken', 'auth:api'
         /*** @DashboardData Make it can accessible for admin and user * */
         Route::get('/dashboard-data', 'UserController@responseDashboardData')->name('api.user.get.dashboardData');
         /*** @DashboardData Make it can accessible for admin and user * */
-        /*** @Dictionary ** */
-        Route::post('/dictionary/create', 'UserController@SaveDictionary');
-        Route::post('/dictionary/update/{id}', 'UserController@UpdateDictionary');
-        Route::delete('/dictionary/delete/{id}', 'UserController@DeleteDictionary');
-        /***@Dictionary ** */
         /*** @News ** */
         Route::post('/news/create', 'UserController@insertNews');
         Route::post('/news/update/{id}', 'UserController@updateNews');

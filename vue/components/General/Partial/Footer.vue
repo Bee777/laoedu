@@ -48,9 +48,9 @@
                    </router-link>
                   </li> -->
                   <li>
-                    <a href="#">
+                    <Router-link :to="{name:'institute'}">
                       <i class="fa fa-angle-right"></i>ສະຖານການສຶກສາ
-                    </a>
+                    </Router-link>
                   </li>
                   <li>
                     <router-link :to="{name:'news'}">
@@ -68,8 +68,8 @@
                 </div>
                 <ul>
                    <li>
-                   <router-link :to="{name:'news'}">
-                      <i class="fa fa-angle-right"></i>ແຈ້ງການ
+                   <router-link :to="{name:'activities'}">
+                      <i class="fa fa-angle-right"></i>ກິດຈະກຳ
                    </router-link>
                   </li>
                   <li>

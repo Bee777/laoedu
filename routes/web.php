@@ -28,8 +28,6 @@ Route::group(['prefix' => 'posts/{type}'], function () {
 /**@Posts */
 Route::get('/forum', 'HomeController@index')->name('get.home.forum');
 Route::get('/organization-charts', 'HomeController@index')->name('get.home.organization-charts');
-Route::get('/dictionary', 'HomeController@dictionary')->name('get.home.dictionary');
-Route::get('/dictionary/single/{id}', 'HomeController@singeDictionary')->name('get.home.dictionary.single');
 
 /**@ResetPasswordForm */
 Route::get('password/reset/{token}', 'HomeController@index')->name('password.reset');
@@ -42,7 +40,6 @@ Route::group(['prefix' => 'users/me', 'middleware' => []], function () {
     Route::get('/profile-settings', 'UserController@index')->name('get.user.profileSettings');
     Route::get('/members-profile', 'UserController@index')->name('get.user.membersProfile');
     Route::get('/members-profile/{id}', 'UserController@index')->name('get.user.singleMemberProfile');
-    Route::get('/dictionary', 'UserController@index')->name('get.user.dictionary');
     Route::get('/news', 'UserController@index')->name('get.user.news');
     Route::get('/activity', 'UserController@index')->name('get..user.activity');
     Route::get('/event', 'UserController@index')->name('get.user.event');
