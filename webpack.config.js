@@ -176,7 +176,7 @@ if (process.env.NODE_ENV === 'development') {
             path: path.resolve(__dirname, 'public', 'bundles', 'generated', type),
             filename: type + '.[hash].bundle.js',
             chunkFilename: type + '.[name].[chunkhash].js',
-            publicPath: "{{url('/bundles/generated')}}/" + type,
+            publicPath: "/bundles/generated/" + type  + "/",
         },
         module: {
             rules: [

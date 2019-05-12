@@ -4,9 +4,8 @@
     var latest_news = {!! $latest_news !!};
 
     var news =  {!! $news!!};
-    // var activities =  {!! $activities !!};
-    // var events =  {!! $events !!};
-    // var scholarships =  {!! $scholarships !!}
+    var activities =  {posts: {}, mostViews: [], comingEvents: []};
+    var scholarships =  {posts: {}, mostViews: [], comingEvents: []};
 
     var contactInfo =  {!! $contactInfo !!};
     var aboutInfo =  {!! $aboutInfo !!};
