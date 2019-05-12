@@ -18,7 +18,7 @@
 @media (min-width: 992px) and (max-width: 1199.98px) {
 
 .navigation .navbar .navbar-nav li {
-	margin-right: 35px;
+	margin-right: 18px;
 }
 .singel-course .cont {
 	padding-left: 25px;
@@ -162,7 +162,9 @@
 /* Tablet desktop :768px. */
 @media (min-width: 768px) and (max-width: 991.98px) {
 
-
+	.header-logo-support{
+		display: none;
+	}
 .navigation .navbar .navbar-nav li {
 	margin-right: 0;
 }
@@ -745,15 +747,9 @@
 	padding-top: 40px;
 	padding-bottom: 70px;
 }
-
-
-
-
-
-
-
-
-    
+.header-logo-support{
+	display: none;
+}   
 
 }
  
@@ -1379,32 +1375,8 @@
 	padding-bottom: 70px;
 }
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+.header-logo-support{
+	display: none;
+}   
 
 }
