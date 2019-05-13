@@ -74,8 +74,8 @@ class HomeController extends Controller
     {
         $data = [];
         $data['banners'] = Banner::getBanners(8);
-        $data['About'] = AboutJaol::getAbout();
-        $data['ContactInfo'] = ContactInfo::getContactInfo();
+        $data['About'] = null;
+        $data['ContactInfo'] = null;
         $data['latest_news'] = Posts::getPosts('news', 5);
         $data['latest_scholarship'] = Posts::getPosts('scholarship', 3);
         $data['latest_event'] = Posts::getPosts('event', 4);
@@ -85,7 +85,6 @@ class HomeController extends Controller
             $data['mostViewScholarship']->image = Posts::$uploadPath . $data['mostViewScholarship']->image;
             $data['mostViewScholarship']->formatted_deadline = date('H:i A, M d Y', strtotime($data['mostViewScholarship']->deadline));
         }
-        $data['sponsors'] = Sponsor::getSponsor(20);
         return $data;
     }
     /***@Get Home Data */

@@ -29,7 +29,8 @@ import Sponsor from '@com/Admin/Posts/Sponsor.vue'
 const prefix = '/admin/me';
 const metas = {
     authMeta: {
-        requiresAuth: true
+        requiresAuth: true,
+        allows: ['admin', 'super_admin']
     },
     guestMeta: {
         requiresVisitor: true,

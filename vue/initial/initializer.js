@@ -3,6 +3,7 @@ import Vue from 'vue'
 import $utils from './utilities.js'
 import {crypter} from './encryter.js'
 import debounce from 'lodash/debounce'
+import throttle from 'lodash/throttle'
 
 /*** @DataSpecific Init ***/
 let encrypter = crypter(), cipter, decipher, jsEncode = encrypter.jsEncode;
@@ -19,6 +20,7 @@ export function createInit() {
     Vue.use(Vuex);
     Vue.prototype.jq = $;
     Vue.prototype.debounce = debounce;
+    Vue.prototype.$throttle = throttle;
     //check if slot exists
     Vue.prototype.hasSlot = function (name = 'default') {
         return !!this.$slots[name] || !!this.$scopedSlots[name];
@@ -56,6 +58,7 @@ Vue.prototype.Event = new class {
         return {
             ActiveLoading: {active: true, loading: true},
             ActiveNotLoading: {active: true, loading: false},
+            NotActiveLoading: {active: false, loading: true},
             NorActiveLoading: {active: false, loading: false},
         }
     }
@@ -82,6 +85,8 @@ const initRouter = (router, store) => {
             router.beforeEach((to, from, next) => {
                 // clear global messages.
                 store.commit('setClearMsg');
+                //set user type
+                let userType = store.state.authUserInfo.decodedType;
                 if (to.matched.some(record => record.meta.requiresAuth)) {
                     // this route requires auth, check if logged in
                     // if not, redirect to login page.
@@ -94,10 +99,21 @@ const initRouter = (router, store) => {
                             $utils.Location('/login');
                         }
                     } else {
-                        next()
+                        if ($utils.isEmptyVar(userType)) {
+                            next();
+                            return;
+                        }
+                        if (to.meta.allows && to.meta.allows.includes(userType)) {
+                            next();
+                        } else {
+                            $utils.Location('/');
+                        }
                     }
                 } else if (to.matched.some(record => record.meta.requiresVisitor)) {
                     if (store.getters.LoggedIn) {
+                        if (to.meta.except && to.meta.except.includes(userType)) {
+                            next();
+                        }
                         if (hasActiveApp(router, to.meta.redirect)) {
                             next({name: to.meta.redirect})
                         } else {
@@ -128,6 +144,7 @@ export const defaultStates = {
         image: `/assets/images/${settings.website_logo}${settings.fresh_version}`,
         thumb_image: `/assets/images/user_profiles/96x96-logo.svg${settings.fresh_version}`,
         type: '',
+        decodedType: '',
     },
     allowedRedirectTo: {'users-forum': true},
 };
@@ -215,6 +232,7 @@ export const defaultMutations = {
             $utils.Location(p.path)
     },
     setAuthUserInfo(s, p) {
+        p.auth.decodedType = $utils.b64DecodeUnicode(p.auth.type);
         s.authUserInfo = p.auth;
     },
     setCopyStatus(s, p) {
@@ -315,10 +333,15 @@ export const defaultActions = (api) => {
                 'email': ['email', 'required'],
                 'password': ['required', {min: 6}],
             }).then((v) => {
+                //global event
+                let bus = Vue.prototype.Event;
+                bus.fire('preload', bus.loadingState().NotActiveLoading);
+                //global event
                 c.commit('setValidated', {errors: {loading: 'yes'}});
                 api.client.post(api.apiUrl + '/guest/login', i.userInfo, api.ajaxConfig.getHeaders())
                     .then(res => {
                         c.commit('setClearMsg');
+                        bus.fire('preload', bus.loadingState().ActiveNotLoading);
                         const iRes = res.data;
                         if (iRes.access_token) {
                             c.commit('setToken', {
@@ -326,6 +349,10 @@ export const defaultActions = (api) => {
                                 token: iRes.access_token,
                                 seconds: iRes.expires_in
                             });
+                            if (i.refreshPage) {
+                                window.location.reload(true);
+                                return;
+                            }
                             if (i.redirectTo && i.redirectTo.redirectTo && c.state.allowedRedirectTo[i.redirectTo.redirectTo]) {
                                 $utils.Location('/' + i.redirectTo.redirectTo);
                                 return;
@@ -333,8 +360,10 @@ export const defaultActions = (api) => {
                             const type = iRes.user.type;
                             if (type === $utils.b64EncodeUnicode('admin') || type === $utils.b64EncodeUnicode('super_admin')) {
                                 $utils.Location('/admin/me')
-                            } else if (type === $utils.b64EncodeUnicode('user')) {
-                                $utils.Location('/users/me');
+                            } else if (type === $utils.b64EncodeUnicode('volunteer')) {
+                                $utils.Location('/volunteer/me');
+                            } else if (type === $utils.b64EncodeUnicode('organize')) {
+                                $utils.Location('/organize/me');
                             }
                         } else {
                             $utils.Location('/');
@@ -342,6 +371,7 @@ export const defaultActions = (api) => {
                     })
                     .catch(err => {
                         c.dispatch('HandleError', err.response);
+                        bus.fire('preload', bus.loadingState().ActiveNotLoading);
                     });
 
             }).catch((err) => {

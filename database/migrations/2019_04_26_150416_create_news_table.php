@@ -16,7 +16,7 @@ class CreateNewsTable extends Migration
         Schema::create('news', function (Blueprint $table) {
             $table->bigIncrements('id');
             $table->enum('status', ['pending', 'close', 'open'])->default('open');
-            $table->enum('type', ['news', 'remark', 'activity', 'scholarship' ])->default('ຂ່າວສານ');
+            $table->enum('type', ['news', 'remark', 'activity', 'scholarship' ])->default('news');
             $table->string('title',300);
             $table->string('image',200);
             $table->longText('description',50000);

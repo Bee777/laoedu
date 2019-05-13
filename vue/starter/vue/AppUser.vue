@@ -62,6 +62,13 @@
         computed: {
             ...mapState(['isMobile', 'isSidebarCollapsed', 'isSidebarMobileOpen', 'selectedSidebarItem']),
         },
+        watch: {
+            'authUserInfo': function (n, o) {
+                if (!(this.$route.meta.allows && this.$route.meta.allows.includes(n.decodedType))) {
+                    this.$utils.Location(`/${n.decodedType}/me`);
+                }
+            }
+        },
         methods: {
             ...mapActions(['fetchAuthUserInfo']),
             ...mapMutations(['setMobile', 'setSidebarMobileOpen']),

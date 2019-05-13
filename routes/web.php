@@ -14,7 +14,8 @@
 Route::get('/', 'HomeController@index')->name('get.home.index');
 
 Route::get('/login', 'HomeController@index')->name('get.home.login');
-Route::get('/aGlkZGVuLXJlZ2lzdGVyLXBhZ2UtQGphb2w', 'HomeController@index')->name('get.home.register');
+Route::get('/aGlkZGVuLXJlZ2lzdGVyLXBhZ2UtQGphb2w', 'HomeController@index')->name('get.home.register.checker_field_inspector');
+Route::get('/aGlkZGVuLXJlZ2lzdGVyLXBhZ2UtQGphb2w', 'HomeController@index')->name('get.home.register.institute');
 
 Route::get('/register-successfully', 'HomeController@index')->name('get.home.register-successfully');
 
