@@ -3,18 +3,17 @@
 namespace App\Http\Controllers;
 
 use App\Jobs\SendContactInfo;
+use App\Models\InstituteCategory;
 use App\Responses\Home\PostsResponse;
 use App\Responses\Home\SinglePostsResponse;
 use App\Responses\OrganizeChartMemberResponse;
 use App\Traits\DefaultData;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
-use App\ContactInfo;
-use App\AboutJaol;
 use App\Http\Controllers\Helpers\Helpers;
-use App\Banner;
-use App\Posts;
-use App\Sponsor;
+use App\Models\Banner;
+use App\Models\Posts;
+use Illuminate\Support\Str;
 
 class HomeController extends Controller
 {
@@ -74,13 +73,11 @@ class HomeController extends Controller
     {
         $data = [];
         $data['banners'] = Banner::getBanners(8);
-        $data['About'] = null;
-        $data['ContactInfo'] = null;
         $data['latest_news'] = Posts::getPosts('news', 5);
         $data['latest_scholarship'] = Posts::getPosts('scholarship', 3);
-        $data['latest_event'] = Posts::getPosts('event', 4);
         $data['latest_activity'] = Posts::getPosts('activity', 4);
         $data['mostViewScholarship'] = Posts::where('type', 'scholarship')->where('status', 'open')->orderBy('view', 'desc')->first();
+        $data['instituteCategories'] = InstituteCategory::select('id', 'name', 'have_parent')->orderBy('id', 'desc')->get();
         if ($data['mostViewScholarship']) {//set image
             $data['mostViewScholarship']->image = Posts::$uploadPath . $data['mostViewScholarship']->image;
             $data['mostViewScholarship']->formatted_deadline = date('H:i A, M d Y', strtotime($data['mostViewScholarship']->deadline));
@@ -119,4 +116,20 @@ class HomeController extends Controller
         return response()->json(['data' => $data]);
     }
     /***@GET_ChartRangeMembers */
+
+    /**@GET_InstituteParentCategories
+     *
+     */
+    public function getInstituteParentCategories(Request $request, $id)
+    {
+        $data = InstituteCategory::find($id);
+        if(!isset($data)){
+            return response()->json(['data' => []]);
+        }
+        $data = $data->selectedParentCategories();
+        return response()->json(['data' => $data]);
+    }
+    /**@ENDGET_InstituteParentCategories
+     *
+     */
 }

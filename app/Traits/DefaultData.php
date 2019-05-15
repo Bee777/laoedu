@@ -9,12 +9,10 @@
 namespace App\Traits;
 
 
-use App\AboutJaol;
-use App\Banner;
-use App\ContactInfo;
-use App\Posts;
+use App\Models\Banner;
+use App\Models\Posts;
 use App\Responses\Home\PostsResponse;
-use App\Site;
+use App\Models\Site;
 use Illuminate\Http\Request;
 
 trait DefaultData
@@ -23,20 +21,12 @@ trait DefaultData
     {
         $request->request->set('limit', 2);
         return [
-
             's' => $this->getSettings(),
-
             'banners' => json_encode(Banner::getBanners(8)),
             'latest_news' => json_encode(Posts::getPosts('news', 3)),
-
             'news' => json_encode((new PostsResponse([], 'news'))->postsPaginator($request)),
             'activities' => json_encode((new PostsResponse([], 'activities'))->postsPaginator($request)),
-            'events' => json_encode((new PostsResponse([], 'events'))->postsPaginator($request)),
             'scholarships' => json_encode((new PostsResponse([], 'scholarships'))->postsPaginator($request)),
-            'dictionaries' => json_encode((new PostsResponse([], 'dictionaries'))->postsPaginator($request)),
-
-            'contactInfo' => json_encode(ContactInfo::getContactInfo()),
-            'aboutInfo' => json_encode(AboutJaol::getAbout()),
         ];
     }
 

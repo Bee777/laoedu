@@ -7,11 +7,10 @@
           <div class="col-lg-12">
             <div class="section-title mt-50">
               <h5>About us</h5>
-              <h2>Welcome to Edubin</h2>
+              <h2>{{s.site_name}}</h2>
             </div>
-            <!-- section title -->   
-               <div class="about-cont" v-if="!$utils.isEmptyVar(homeData.About)">
-                <p v-html="homeData.About.description"></p>
+               <div class="about-cont" v-if="!$utils.isEmptyVar(s)">
+                <p v-html="s.description"></p>
             </div>
           </div>
 
@@ -52,44 +51,44 @@
     </section>
     <!--====== PATNAR LOGO PART START ======-->
 
-    <div id="patnar-logo" class="pt-40 pb-80 gray-bg">
-      <div class="container">
-               <div class="row patnar-slied">
-          <div class="col-lg-12">
-            <div class="singel-patnar text-center mt-40">
-              <img :src="`${baseUrl}${baseRes}/assets/images/patnar-logo/p-1.png`" alt="Logo">
-            </div>
-          </div>
-          <div class="col-lg-12">
-            <div class="singel-patnar text-center mt-40">
-              <img :src="`${baseUrl}${baseRes}/assets/images/patnar-logo/p-2.png`" alt="Logo">
-            </div>
-          </div>
-          <div class="col-lg-12">
-            <div class="singel-patnar text-center mt-40">
-              <img :src="`${baseUrl}${baseRes}/assets/images/patnar-logo/p-3.png`" alt="Logo">
-            </div>
-          </div>
-          <div class="col-lg-12">
-            <div class="singel-patnar text-center mt-40">
-              <img :src="`${baseUrl}${baseRes}/assets/images/patnar-logo/p-4.png`" alt="Logo">
-            </div>
-          </div>
-          <div class="col-lg-12">
-            <div class="singel-patnar text-center mt-40">
-              <img :src="`${baseUrl}${baseRes}/assets/images/patnar-logo/p-2.png`" alt="Logo">
-            </div>
-          </div>
-          <div class="col-lg-12">
-            <div class="singel-patnar text-center mt-40">
-              <img :src="`${baseUrl}${baseRes}/assets/images/patnar-logo/p-3.png`" alt="Logo">
-            </div>
-          </div>
-        </div>
-        <!-- row -->
-      </div>
-      <!-- container -->
-    </div>
+    <!--<div id="patnar-logo" class="pt-40 pb-80 gray-bg">-->
+      <!--<div class="container">-->
+               <!--<div class="row patnar-slied">-->
+          <!--<div class="col-lg-12">-->
+            <!--<div class="singel-patnar text-center mt-40">-->
+              <!--<img :src="`${baseUrl}${baseRes}/assets/images/patnar-logo/p-1.png`" alt="Logo">-->
+            <!--</div>-->
+          <!--</div>-->
+          <!--<div class="col-lg-12">-->
+            <!--<div class="singel-patnar text-center mt-40">-->
+              <!--<img :src="`${baseUrl}${baseRes}/assets/images/patnar-logo/p-2.png`" alt="Logo">-->
+            <!--</div>-->
+          <!--</div>-->
+          <!--<div class="col-lg-12">-->
+            <!--<div class="singel-patnar text-center mt-40">-->
+              <!--<img :src="`${baseUrl}${baseRes}/assets/images/patnar-logo/p-3.png`" alt="Logo">-->
+            <!--</div>-->
+          <!--</div>-->
+          <!--<div class="col-lg-12">-->
+            <!--<div class="singel-patnar text-center mt-40">-->
+              <!--<img :src="`${baseUrl}${baseRes}/assets/images/patnar-logo/p-4.png`" alt="Logo">-->
+            <!--</div>-->
+          <!--</div>-->
+          <!--<div class="col-lg-12">-->
+            <!--<div class="singel-patnar text-center mt-40">-->
+              <!--<img :src="`${baseUrl}${baseRes}/assets/images/patnar-logo/p-2.png`" alt="Logo">-->
+            <!--</div>-->
+          <!--</div>-->
+          <!--<div class="col-lg-12">-->
+            <!--<div class="singel-patnar text-center mt-40">-->
+              <!--<img :src="`${baseUrl}${baseRes}/assets/images/patnar-logo/p-3.png`" alt="Logo">-->
+            <!--</div>-->
+          <!--</div>-->
+        <!--</div>-->
+        <!--&lt;!&ndash; row &ndash;&gt;-->
+      <!--</div>-->
+      <!--&lt;!&ndash; container &ndash;&gt;-->
+    <!--</div>-->
 
     <!--====== PATNAR LOGO PART ENDS ======-->
   </div>

@@ -79,15 +79,28 @@ export const createActions = (utils) => {
             })
         },
         /***  @Users  **/
+        /*** @InstituteCategories **/
+        fetchInstituteCategories(c, i) {
+            return new Promise((r, n) => {
+                client.get(`${apiUrl}/admin/institute/category`, ajaxToken(c))
+                    .then(res => {
+                        r(res.data)
+                    })
+                    .catch(err => {
+                        c.dispatch('HandleError', err.response);
+                        n(err)
+                    });
+            });
 
-        /*** @Organize **/
-        postCreateOrganize(c, organize) {
+        },
+        postCreateInstituteCategory(c, organize) {
             return new Promise((r, n) => {
                 utils.Validate(organize, {
                     'name': ['required', {max: 191}],
-                    'government_organize': ['required', {max: 10}]
+                    'have_parent': ['required', {max: 10}],
+                    'parent_categories': [{required: { when: 'have_parent', equals: true} }],
                 }).then(v => {
-                    client.post(`${apiUrl}/admin/organize/create`, organize, ajaxToken(c))
+                    client.post(`${apiUrl}/admin/institute/category/create`, organize, ajaxToken(c))
                         .then(res => {
                             c.commit('setClearMsg');
                             r(res.data)
@@ -102,13 +115,14 @@ export const createActions = (utils) => {
                 });
             });
         },
-        postUpdateOrganize(c, organize) {
+        postUpdateInstituteCategory(c, organize) {
             return new Promise((r, n) => {
                 utils.Validate(organize, {
-                    'organize_name': ['required', {max: 191}],
-                    'government_organize': ['required', {max: 10}]
+                    'category_name': ['required', {max: 191}],
+                    'have_parent': ['required', {max: 10}],
+                    'parent_categories': [{required: { when: 'have_parent', equals: true} }],
                 }).then(v => {
-                    client.post(`${apiUrl}/admin/organize/update/${organize.id}`, organize, ajaxToken(c))
+                    client.post(`${apiUrl}/admin/institute/category/update/${organize.id}`, organize, ajaxToken(c))
                         .then(res => {
                             c.commit('setClearMsg');
                             r(res.data)
@@ -123,9 +137,9 @@ export const createActions = (utils) => {
                 });
             });
         },
-        postDeleteOrganize(c, i) {
+        postDeleteInstituteCategory(c, i) {
             return new Promise((r, n) => {
-                client.delete(`${apiUrl}/admin/organize/delete/${i.id}`, ajaxToken(c))
+                client.delete(`${apiUrl}/admin/institute/category/delete/${i.id}`, ajaxToken(c))
                     .then(res => {
                         c.commit('setClearMsg');
                         r(res.data)
@@ -136,7 +150,7 @@ export const createActions = (utils) => {
                     })
             });
         },
-        /*** @Organize **/
+        /*** @EndInstituteCategories **/
         /*** @Department **/
         postCreateDepartment(c, department) {
             return new Promise((r, n) => {
@@ -711,7 +725,7 @@ export const createActions = (utils) => {
                     image: ["required", {mimes: 'jpeg,jpg,png,gif'}, {max: 3000}],
                 }).then(v => {
                     let formData = new FormData();
-                    utils.addDataForm(['name','description', 'order', 'link'], formData, data);
+                    utils.addDataForm(['name', 'description', 'order', 'link'], formData, data);
                     formData.append('image', data.image.file);
                     client.post(`${apiUrl}/admin/banner/create`, formData, ajaxToken(c, true))
                         .then(res => {
@@ -734,7 +748,7 @@ export const createActions = (utils) => {
                     image: [{mimes: 'jpeg,jpg,png,gif'}, {max: 3000}],
                 }).then(v => {
                     let formData = new FormData();
-                    utils.addDataForm(['name','description', 'order', 'link'], formData, data);
+                    utils.addDataForm(['name', 'description', 'order', 'link'], formData, data);
                     if (data.image && data.image.file) {//check if user change image
                         formData.append('image', data.image.file);
                     }
@@ -1009,15 +1023,15 @@ export const createActions = (utils) => {
             });
         },
         /*** @FetchChartRangesAndMembersChartRange **/
-         /*** @Sponsor **/
-         postCreateSponsor(c, data) {
+        /*** @Sponsor **/
+        postCreateSponsor(c, data) {
             return new Promise((r, n) => {
                 utils.Validate(data, {
                     name: ["required"],
                     image: ["required", {mimes: 'jpeg,jpg,png,gif'}, {max: 3000}],
                 }).then(v => {
                     let formData = new FormData();
-                    utils.addDataForm(['name','link','description'], formData, data);
+                    utils.addDataForm(['name', 'link', 'description'], formData, data);
                     formData.append('image', data.image.file);
                     client.post(`${apiUrl}/admin/sponsor/create`, formData, ajaxToken(c))
                         .then(res => {
@@ -1033,7 +1047,7 @@ export const createActions = (utils) => {
                     n(e);
                 });
             });
-    
+
         },
         postUpdateSponsor(c, data) {
             return new Promise((r, n) => {
@@ -1042,7 +1056,7 @@ export const createActions = (utils) => {
                     image: [{mimes: 'jpeg,jpg,png,gif'}, {max: 3000}],
                 }).then(v => {
                     let formData = new FormData();
-                    utils.addDataForm(['name','link','description'], formData, data);
+                    utils.addDataForm(['name', 'link', 'description'], formData, data);
                     if (data.image && data.image.file) {//check if user change image
                         formData.append('image', data.image.file);
                     }

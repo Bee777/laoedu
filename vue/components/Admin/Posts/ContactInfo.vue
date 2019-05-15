@@ -7,8 +7,8 @@
           <MasterSingleDetailCard
            :isLoading="contactInfo.loading"
             @onBackButtonClick="onBackButtonClick"
-            :header="{ title: 'Contact Info Jaol', content: '<p> Changes Contact Info Jaol.</p>'}"
-            :menuItem="{ name: 'Contact Info Jaol', icon: 'account_circle'}"
+            :header="{ title: 'Contact Info', content: '<p> Changes Contact Info.</p>'}"
+            :menuItem="{ name: 'Contact Info', icon: 'account_circle'}"
           >
             <div class="details is-edit">
               <form @submit.prevent class="admin-form admin-template-form">

@@ -83,37 +83,31 @@
                         contentHeader: {
                             expanded: true,
                             name: "ຂໍ້ມູນຜູ້ໃຊ້",
-                            description: "ຈັດການຂໍ້ມູນຜູ້ໃຊ້ລະບົບ",
+                            description: "ຈັດການຂໍ້ມູນຜູ້ໃຊ",
                             icon: "keyboard_arrow_up"
                         },
                         items: [
                             {
-                                name: "ຜູ້ໃຊ້ທັງໝົດ", //required
-                                icon: "group", //required
-                                action: this.Route, //required
-                                params: {name: "members"} //required
-                            },
-                                                        {
                                 name: "ຜູ້ກວດສອບບົດປະເມີນ", //required
-                                icon: "group", //required
-                                action: this.Route, //required
-                                params: {name: "admin"} //required
-                            },
-                                                        {
-                                name: "ຜູ້ກວດສອບພາກສະໜາມ", //required
                                 icon: "group", //required
                                 action: this.Route, //required
                                 params: {name: "checker"} //required
                             },
                             {
-                                name: "User Profile",
-                                icon: "account_box", //required
+                                name: "ສະຖານການສຶກສາ", //required
+                                icon: "business", //required
                                 action: this.Route, //required
-                                params: {name: "members-profile"} //required
+                                params: {name: "institute"} //required
                             },
+                            {
+                                name: "ຜູ້ກວດສອບພາກສະໜາມ", //required
+                                icon: "directions_walk", //required
+                                action: this.Route, //required
+                                params: {name: "field-inspector"} //required
+                            }
                         ]
                     },
-                                        {
+                    {
                         contentHeader: {
                             expanded: true,
                             name: "ຂໍ້ມູນສະຖານການສຶກສາ",
@@ -122,13 +116,7 @@
                         },
                         items: [
                             {
-                                name: "ສະຖານການສຶກສາທັງໝົດ", //required
-                                icon: "business", //required
-                                action: this.Route, //required
-                                params: {name: "institute"} //required
-                            },
-                            {
-                                name: "ສະຖານການສຶກສາ Profile",
+                                name: "ລາຍລະອຽດສະຖານການສຶກສາ",
                                 icon: "account_circle", //required
                                 action: this.Route, //required
                                 params: {name: "institute-profile"} //required
@@ -141,7 +129,7 @@
                             }
                         ]
                     },
-                                                            {
+                    {
                         contentHeader: {
                             expanded: true,
                             name: "ຂໍ້ມູນບົດປະເມີນ",
@@ -149,6 +137,18 @@
                             icon: "keyboard_arrow_up"
                         },
                         items: [
+                            {
+                                name: "ສ້າງບົດປະເມີນ", //required
+                                icon: "import_contacts", //required
+                                action: this.Route, //required
+                                params: {name: "create-assessment"} //required
+                            },
+                            {
+                                name: "ສົ່ງບົດປະເມີນ", //required
+                                icon: "screen_share", //required
+                                action: this.Route, //required
+                                params: {name: "send-assessment"} //required
+                            },
                             {
                                 name: "ບົດປະເມີນທັງໝົດ", //required
                                 icon: "collections_bookmark", //required
@@ -178,7 +178,7 @@
                                 action: this.Route, //required
                                 params: {name: "news"} //required
                             },
-                                                        {
+                            {
                                 name: "ກິດຈະກຳ", //required
                                 icon: "list_alt", //required
                                 action: this.Route, //required
@@ -189,7 +189,7 @@
                                 icon: "school", //required
                                 action: this.Route, //required
                                 params: {name: "scholarship"} //required
-                            }, ]
+                            },]
                     },
                     {
                         contentHeader: {
@@ -199,8 +199,8 @@
                             icon: "keyboard_arrow_up"
                         },
                         items: [
-                                {
-                                name: "Logo and Banner", //required
+                            {
+                                name: "ໂລໂກ້ ແລະ ແບຣນເນີ້", //required
                                 icon: "settings", //required
                                 action: this.Route, //required
                                 params: {name: "sitesetting"} //required
@@ -209,7 +209,7 @@
                                 name: "ຂໍ້ມູນກ່ຽວກັບ", //required
                                 icon: "business", //required
                                 action: this.Route, //required
-                                params: {name: "aboutjaol"} //required
+                                params: {name: "about-us"} //required
                             },
                             {
                                 name: "ຂໍ້ມູນຕິດຕໍ່", //required
@@ -217,14 +217,14 @@
                                 action: this.Route, //required
                                 params: {name: "contactinfo"} //required
                             },
-                              {
-                                name: "Sponsor", //required
-                                icon: "card_giftcard", //required
-                                action: this.Route, //required
-                                params: {name: "sponsor"} //required
-                            },
+                            // {
+                            //     name: "Sponsor", //required
+                            //     icon: "card_giftcard", //required
+                            //     action: this.Route, //required
+                            //     params: {name: "sponsor"} //required
+                            // },
                             {
-                                name: "Upload File", //required
+                                name: "ອັບໂຫລດຟາຍຕ່າງໆ", //required
                                 icon: "cloud_upload", //required
                                 action: this.Route, //required
                                 params: {name: "uploadfile"} //required

@@ -6,9 +6,6 @@
     var news =  {!! $news!!};
     var activities =  {posts: {}, mostViews: [], comingEvents: []};
     var scholarships =  {posts: {}, mostViews: [], comingEvents: []};
-
-    var contactInfo =  {!! $contactInfo !!};
-    var aboutInfo =  {!! $aboutInfo !!};
-
+    var instituteCategories = [];
 
 </script>

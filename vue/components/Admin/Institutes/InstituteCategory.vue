@@ -7,10 +7,10 @@
                     <div class="md-single-grid provider-list">
                         <!--Table card-->
                         <TablePaginate v-model="query"
-                                       :searchPlaceholder="'Search by department name'"
-                                       :searchButtonText="'Add Department'"
+                                       :searchPlaceholder="'Search by category name'"
+                                       :searchButtonText="'Add Category'"
                                        :headers="headers"
-                                       :notFoundText="'Please make sure you type or spell the department information correctly.'"
+                                       :notFoundText="'Please make sure you type or spell the category information correctly.'"
                                        :isSearch="isSearch"
                                        :isLoading="validated().loading_searches"
                                        :formTopState="formTopState"
@@ -25,21 +25,67 @@
                             <!--Slot Form Top -->
                             <template slot="form-top" v-if="formTopState.show">
                                 <form class="admin-form-card user-form" @submit.prevent>
-                                    <div class="user-form-title"> Create new department</div>
+                                    <div class="user-form-title"> Create new category</div>
                                     <div class="layout-align-space-around-start layout-row">
                                         <AdminInput v-model="models.formTop.name"
                                                     :focus="true"
                                                     :validateText="validated().name"
-                                                    :label="'Department Name'"
+                                                    :label="'Category Name'"
                                                     :inputType="'text'"
-                                                    @onInputEnter="addDepartment"/>
+                                                    @onInputEnter="addItem"/>
                                     </div>
+                                    <div class="layout-align-space-around-start layout-row">
+                                        <AdminInput v-model="models.formTop.have_parent"
+                                                    :containerClass="'dense'"
+                                                    :validateText="validated().have_parent"
+                                                    :label="'Have Parent'"
+                                                    :inputType="'checkbox'"
+                                                    @onInputEnter="addItem">
+                                        </AdminInput>
+                                    </div>
+
+                                    <div v-if="models.formTop.have_parent"
+                                         class="layout-align-space-around-start layout-row"
+                                         style="padding-bottom: 32px;">
+                                        <div class="form-multi-select-container flex dense" full>
+                                            <label>Parent Category</label>
+                                            <multiselect class="select-multiple"
+                                                         v-model="models.formTop.parent_categories"
+                                                         label="name" track-by="id"
+                                                         placeholder="Select parent categories"
+                                                         open-direction="bottom"
+                                                         :options="parentCategories"
+                                                         :limit="10"
+                                                         :limit-text="limitText"
+                                                         :multiple="true"
+                                                         :show-no-results="true"
+                                                         :clear-on-select="false"
+                                                         :close-on-select="false"
+                                                         :preserve-search="true"
+                                                         :hide-selected="true">
+                                            </multiselect>
+
+                                            <template v-if="validated().parent_categories">
+                                                <div class="form-input-container">
+                                                    <input v-show="false"/>
+                                                    <div admin-messages>
+                                                        <div admin-message
+                                                             class="message-required ">
+                                                            {{ validated().parent_categories }}
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </template>
+
+                                        </div>
+                                    </div>
+
                                     <div class="user-form-action layout-align-end-center layout-row">
                                         <button @click="toggleFormTop(false)"
                                                 class="v-md-button secondary theme-blue">
                                             Cancel
                                         </button>
-                                        <button @click="addDepartment" class="v-md-button primary theme-blue"> Create
+                                        <button @click="addItem" class="v-md-button primary theme-blue"> Create
                                         </button>
                                     </div>
                                 </form>
@@ -50,24 +96,69 @@
                                 <button @click="toggleFormRowContent(fireEvent, position, {active: true})"
                                         class="v-md-button v-md-icon-button"><i
                                     class="material-icons v-icon">edit</i></button>
-                                <button @click="deleteDepartment(data.column)" class="v-md-button v-md-icon-button"><i
+                                <button @click="deleteItem(data.column)" class="v-md-button v-md-icon-button"><i
                                     class="material-icons v-icon">delete</i></button>
                             </template>
                             <!--Slot Actions row-->
                             <!--Slot Row Detail Content-->
                             <template slot-scope="{fireEvent, position, rowContent}" slot="form-row-detail">
                                 <AdminInput v-model="rowContent.data.name" class="provider-edit-inset-content"
-                                            :validateText="rowContent.validated.department_name"
-                                            :label="'Department Name'"
+                                            :validateText="rowContent.validated.category_name"
+                                            :label="'Category Name'"
                                             :inputType="'text'"
-                                            @onInputEnter="editDepartment(fireEvent, rowContent.data, position)"/>
+                                            @onInputEnter="editItem(fireEvent, rowContent.data, position)"/>
+
+                                <AdminInput v-model="rowContent.data.have_parent" class="provider-edit-inset-content"
+                                            :containerClass="'dense'"
+                                            :validateText="rowContent.validated.have_parent"
+                                            :label="'Have Parent'"
+                                            :inputType="'checkbox'"
+                                            @onInputEnter="editItem(fireEvent, rowContent.data, position)"/>
+
+                                <div v-if="rowContent.data.have_parent"
+                                     style="padding-bottom: 32px;">
+                                    <div class="form-multi-select-container flex dense provider-edit-inset-content" full >
+                                        <label>Parent Category</label>
+                                        <multiselect class="select-multiple"
+                                                     v-model="rowContent.data.parent_categories"
+                                                     label="name" track-by="id"
+                                                     placeholder="Select parent categories"
+                                                     open-direction="bottom"
+                                                     :options="parentCategories.filter((i)=> {return i.id !== rowContent.data.id})"
+                                                     :limit="10"
+                                                     :limit-text="limitText"
+                                                     :multiple="true"
+                                                     :show-no-results="true"
+                                                     :clear-on-select="false"
+                                                     :close-on-select="false"
+                                                     :preserve-search="true"
+                                                     :hide-selected="true">
+                                        </multiselect>
+
+                                        <template v-if="rowContent.validated.parent_categories">
+                                            <div class="form-input-container">
+                                                <input v-show="false"/>
+                                                <div admin-messages>
+                                                    <div admin-message
+                                                         class="message-required ">
+                                                        {{ rowContent.validated.parent_categories }}
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </template>
+
+                                    </div>
+                                </div>
+
+
+
                                 <div class="user-form-action provider-list-actions layout-align-end-center layout-row">
                                     <button
                                         @click="toggleFormRowContent(fireEvent, position, {active: false})"
                                         class="v-md-button secondary theme-blue">
                                         Cancel
                                     </button>
-                                    <button @click="editDepartment(fireEvent, rowContent.data, position)"
+                                    <button @click="editItem(fireEvent, rowContent.data, position)"
                                             class="v-md-button primary theme-blue">
                                         Save
                                     </button>
@@ -91,7 +182,7 @@
                     </div>
                 </div>
                 <div>
-                    <div class="form-label"> Department Name</div>
+                    <div class="form-label"> Category Name</div>
                     <div class="form-input-static-value"> {{ modal.data.name }}</div>
                 </div>
             </div>
@@ -110,21 +201,25 @@
     import {mapActions} from 'vuex'
 
     export default AdminBase.extend({
-        name: "department",
+        name: "InstituteCategory",
         data: () => ({
-            title: 'Departments',
-            type: 'departments',
+            title: 'Institute Categories',
+            type: 'institute_category',
             watchers: true,
-            tabs: [{name: 'Departments'}],
+            tabs: [{name: 'Institute Categories'}],
             headers: [
-                {class: 'th-sortable', name: 'Department Name', width: '200'},
-                {class: 'hide-xs th-sortable', name: 'Created At', width: '30%'},
-                {class: 'hide-xs th-sortable', name: 'Updated At', width: '30%'},
+                {class: 'th-sortable', name: 'Category Name', width: '35%'},
+                {class: "th-sortable", name: "Have Parent", width: "110"},
+                {class: 'hide-xs th-sortable', name: 'Created At', width: '28%'},
+                {class: 'hide-xs th-sortable', name: 'Updated At', width: '28%'},
                 {class: 'th-not-sortable', name: '', width: '80'},
             ],
+            models: {formTop: {have_parent: false}},
+            parentCategories: [],
         }),
         methods: {
-            ...mapActions(['postCreateDepartment', 'postUpdateDepartment', 'postDeleteDepartment']),
+            ...mapActions(['postCreateInstituteCategory', 'postUpdateInstituteCategory', 'postDeleteInstituteCategory',
+                'fetchInstituteCategories']),
             callbackBuildItem(data) {
                 return {
                     rowContent: {
@@ -136,16 +231,17 @@
                     },
                     rows: [
                         {data: data.name, type: 'id', class: 'user-email'},
+                        {data: data.have_parent ? 'Yes' : 'No', type: "text"},
                         {data: this.$utils.formatTimestmp(data.created_at), type: 'text', class: 'hide-xs'},
                         {data: this.$utils.formatTimestmp(data.updated_at), type: 'text', class: 'hide-xs'},
                         {
                             data: data.name, type: 'action', class: '',
                             modal: {
-                                name: 'Delete Department',
+                                name: 'Delete Category',
                                 active: false,
                                 type: 'warning',
-                                message: `When you delete the department, the department will be permanently deleted and cannot be un-deleted.`,
-                                action: {act: this.postDeleteDepartment, text: 'Delete'},
+                                message: `When you delete the category, the category will be permanently deleted and cannot be un-deleted.`,
+                                action: {act: this.postDeleteInstituteCategory, text: 'Delete'},
                                 data: data,
                             }
                         },
@@ -161,26 +257,26 @@
                     action.act({id: data.id})
                         .then(r => {
                             if (r.success) {
-                                this.showInfoToast({msg: 'The department was deleted!', dt});
+                                this.showInfoToast({msg: 'The Category was deleted!', dt});
                                 this.getItems();
                             } else {
-                                this.showErrorToast({msg: 'Failed to delete the department!', dt});
+                                this.showErrorToast({msg: 'Failed to delete the category!', dt});
                             }
                         })
                         .catch(e => {
-                            this.showErrorToast({msg: 'Failed to delete the department!', dt});
+                            this.showErrorToast({msg: 'Failed to delete the category!', dt});
                         });
                 }
             },
-            addDepartment() {
+            addItem() {
                 let ft = this.formTopState;
                 ft.loading = true;
-                this.postCreateDepartment(this.models.formTop)
+                this.postCreateInstituteCategory(this.models.formTop)
                     .then(r => {
                         if (r.success) {
                             this.getItems();
                             ft.show = false;
-                            this.models.formTop = {imageSrc: null};
+                            this.models.formTop = {imageSrc: null, have_parent: false};
                         }
                         ft.loading = false;
                     })
@@ -188,17 +284,17 @@
                         ft.loading = false;
                     })
             },
-            editDepartment(fireEvent, data, position) {
+            editItem(fireEvent, data, position) {
                 let dt = 3500, v = this.paginate.items[position.row].rowContent;
-                data.department_name = data.name;
+                data.category_name = data.name;
                 this.toggleFormRowContent(fireEvent, position, this.Event.loadingState().ActiveLoading);
-                this.postUpdateDepartment(data)
+                this.postUpdateInstituteCategory(data)
                     .then(r => {
                         if (r.success) {
-                            this.showInfoToast({msg: 'The department was updated!', dt});
+                            this.showInfoToast({msg: 'The category was updated!', dt});
                             this.getItems();
                         } else {
-                            this.showErrorToast({msg: 'Failed to update the department!', dt});
+                            this.showErrorToast({msg: 'Failed to update the category!', dt});
                         }
                         this.toggleFormRowContent(fireEvent, position, this.Event.loadingState().NorActiveLoading);
                     })
@@ -209,18 +305,27 @@
                             v.validated = this.validated();
                         } else {
                             this.toggleFormRowContent(fireEvent, position, this.Event.loadingState().NorActiveLoading);
-                            this.showErrorToast({msg: 'Failed to update the department!', dt});
+                            this.showErrorToast({msg: 'Failed to update the category!', dt});
                         }
                     });
             },
-            deleteDepartment(data) {
+            deleteItem(data) {
                 data.modal.active = true;
                 this.modal = data.modal;
+            },
+            getParentCategories() {
+                this.fetchInstituteCategories()
+                    .then(res => {
+                        this.parentCategories = res.data.filter((i) => {
+                            return i.have_parent === 'no';
+                        })
+                    });
             }
         },
         created() {
             this.getItems = this.debounce(this.getItems, 150);
             this.getItems();
+            this.getParentCategories();
         }
     })
 </script>

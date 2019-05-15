@@ -16,14 +16,14 @@
                   </a>
                 </div>
                 <p>ສູນປະກັນຄຸນນະພາບການສຶກສາ</p>
-                <ul class="mt-20" v-if="!$utils.isEmptyVar( homeData.ContactInfo )">
+                <ul class="mt-20">
                   <li>
-                    <a :href="homeData.ContactInfo.facebook" target="_blank" >
+                    <a :href="s.facebook" target="_blank" >
                       <i class="fab fa-facebook-f"></i>
                     </a>
                   </li>
                   <li>
-                    <a v-if="!$utils.isEmptyVar(homeData.ContactInfo.twitter)" :href="homeData.ContactInfo.twitter" target="_blank">
+                    <a v-if="!$utils.isEmptyVar(s.twitter)" :href="s.twitter" target="_blank">
                       <i class="fab fa-twitter"></i>
                     </a>
                   </li>
@@ -106,13 +106,13 @@
                 <div class="footer-title pb-20">
                   <h6>Contact Us</h6>
                 </div>
-                <ul v-if="!$utils.isEmptyVar( homeData.ContactInfo )">
+                <ul v-if="!$utils.isEmptyVar( s )">
                   <li>
                     <div class="icon">
                       <i class="fa fa-home"></i>
                     </div>
                     <div class="cont">
-                      <p>{{homeData.ContactInfo.address}}</p>
+                      <p>{{s.address}}</p>
                     </div>
                   </li>
                   <li>
@@ -120,7 +120,7 @@
                       <i class="fa fa-phone"></i>
                     </div>
                     <div class="cont">
-                      <p>{{homeData.ContactInfo.phone}}</p>
+                      <p>{{s.phone}}</p>
                     </div>
                   </li>
                   <li>
@@ -128,7 +128,7 @@
                       <i class="far fa-envelope"></i>
                     </div>
                     <div class="cont">
-                      <p>{{homeData.ContactInfo.email}}</p>
+                      <p>{{s.email}}</p>
                     </div>
                   </li>
                 </ul>

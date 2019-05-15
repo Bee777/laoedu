@@ -38,7 +38,7 @@
                 <router-link class="logo" to="/">
                   <img
                     class="logoImage"
-                    :src="`${baseUrl}${baseRes}/assets/images/${s.website_logo}${s.fresh_version}`"
+                    :src="`${baseUrl}/assets/images/${s.website_logo}${s.fresh_version}`"
                   >
                 </router-link>
                 <span class="site-title">ສູນປະກັນຄຸນນະພາບການສຶກສາ ສປປ ລາວ</span>
@@ -49,13 +49,13 @@
                 <div class="support float-left">
                   <div class="icon">
                     <img
-                      :src="`${baseUrl}${baseRes}/assets/images/all-icon/support.png`"
+                      :src="`${baseUrl}${baseRes}assets/images/all-icon/support.png`"
                       alt="icon"
                     >
                   </div>
-                  <div class="cont" v-if="!$utils.isEmptyVar( homeData.ContactInfo )">
+                  <div class="cont" v-if="!$utils.isEmptyVar( s.phone )">
                     <p>Need Help? call us free</p>
-                    <span>{{homeData.ContactInfo.phone}}</span>
+                    <span>{{s.phone}}</span>
                   </div>
                 </div>
                 <div class="button float-left">
@@ -73,7 +73,7 @@
                     </a>
 
                     <a
-                      @click="Logout"
+                      @click="Logout()"
                       class="main-btn"
                       :class="[ validated().loading ? 'button is-loading' : '']"
                     >
@@ -117,7 +117,7 @@
                       <router-link :to="{name: 'institute'}" active-class="active" exact>ສະຖານການສຶກສາ</router-link>
                       <ul class="sub-menu">
                         <li>
-                          <router-link to="/posts/institute/single/:id">Institute Singel</router-link>
+                          <router-link to="/posts/institute/single/:id">Institute Single</router-link>
                         </li>
                       </ul>
                     </li>

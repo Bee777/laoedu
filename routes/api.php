@@ -12,16 +12,19 @@
 /******************** @GuestUserSection ****************** */
 Route::group(['prefix' => '/guest', 'middleware' => ['cors']], function () {
     Route::post('/login', 'Auth\LoginController@login')->name('api.post.login');
-    Route::post('/aGlkZGVuLXJlZ2lzdGVyLXBhZ2UtQGphb2w-post', 'Auth\RegisterController@register')->name('api.post.register');
+    Route::post('/jv0ABI4k2qmWQfLwSapBKfIQe7Lw0xTTVpa0xGG6-post', 'Auth\RegisterController@registerCheckerFiledInspector')->name('api.post.register.checker_field_inspector');
+    Route::post('/FWSfbih3KioEQAAOTinfTMME4HT5l8faZ9easpl7-post', 'Auth\RegisterController@registerInstitute')->name('api.post.register.institute');
     //Users Email Forgot Password
     Route::post('/forgot-password/email/{token}', 'Auth\ForgotPasswordController@getEmailFromToken')->name('api.post.getEmailFromToken');
     //Users Password Reset
     Route::post('/password/reset', 'Auth\ResetPasswordController@reset')->name('api.post.resetPassword');
+    //fetchInstituteParentCategories
+    Route::get('/institute/category/list-parents/{id}', 'HomeController@getInstituteParentCategories')->name('api.get.institute-parent-categories');
 });
 /******************** @GuestUserSection ****************** */
 
 /******************** @HomeSection ****************** */
-Route::group(['prefix' => '/home', 'middleware' => ['cors', 'parseToken:guest-bearer'] ], function () {
+Route::group(['prefix' => '/home', 'middleware' => ['cors', 'parseToken:guest-bearer']], function () {
     Route::get('/index', 'HomeController@index')->name('api.get.home.index');
     /*********@Posts */
     Route::get('/posts/{type}', 'HomeController@responsePosts')->name('get.home.posts');
@@ -52,11 +55,15 @@ Route::group(['prefix' => '/', 'middleware' => ['cors', 'parseToken', 'auth:api'
         Route::post('/users-delete/{id}', 'AdminController@responseActionDeleteUser')->name('api.admin.post.users.deleteUser');
         /*** @Users actions ** */
 
-        /*** @Organize ** */
-        Route::post('/organize/create', 'AdminController@responseActionCreateOrganize')->name('api.admin.post.organize.create');
-        Route::post('/organize/update/{id}', 'AdminController@responseActionUpdateOrganize')->name('api.admin.post.organize.update');
-        Route::delete('/organize/delete/{id}', 'AdminController@responseActionDeleteOrganize')->name('api.admin.delete.organize.delete');
-        /*** @Organize ** */
+        Route::group(['prefix' => '/institute', 'middleware' => []], function () {
+            /*** @Category ** */
+            Route::get('/category', 'AdminController@responseActionListInstituteCategories')->name('api.admin.get.institute.category.lists');
+            Route::post('/category/create', 'AdminController@responseActionCreateInstituteCategory')->name('api.admin.post.institute.category.create');
+            Route::post('/category/update/{id}', 'AdminController@responseActionUpdateInstituteCategory')->name('api.admin.post.institute.category.update');
+            Route::delete('/category/delete/{id}', 'AdminController@responseActionDeleteInstituteCategory')->name('api.admin.delete.institute.category.delete');
+            /*** @Category ** */
+
+        });
 
         /*** @Department ** */
         Route::post('/department/create', 'AdminController@responseActionCreateDepartment')->name('api.admin.post.department.create');
@@ -193,7 +200,7 @@ Route::group(['prefix' => '/', 'middleware' => ['cors', 'parseToken', 'auth:api'
         /*** @postManagePostsStatus * */
         /*** @postMemberEducationsProfile */
         Route::post('member-educations/manage', 'UserController@responseActionManageMemberEducations')->name('api.users.post.ManageMemberEducations');
-         /*** @postMemberEducationsProfile */
+        /*** @postMemberEducationsProfile */
         /*** @postMemberEducationsProfile */
         Route::post('member-careers/manage', 'UserController@responseActionManageMemberCareers')->name('api.users.post.ManageMemberCareers');
         /*** @postMemberEducationsProfile */

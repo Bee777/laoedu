@@ -9,10 +9,8 @@
 namespace App\Responses\Home;
 
 
-use App\Banner;
-use App\Dictionary;
 use App\Http\Controllers\Helpers\Helpers;
-use App\Posts;
+use App\Models\Posts;
 use App\Traits\DefaultData;
 use Illuminate\Contracts\Support\Responsable;
 use Illuminate\Support\Facades\DB;
@@ -58,32 +56,8 @@ class PostsResponse implements Responsable
         $paginateLimit = Helpers::isNumber($paginateLimit) ? $paginateLimit : 6;
         $text = $request->get('q');
 
-        //@for dictionaries only
-        if ($type === 'dictionary') {
-            $fields = ['id', 'lao', 'japanese', 'description', 'updated_at'];
-            $request->request->add(['fields' => $fields]);
-            $data = Dictionary::select($fields);
-            /**@Query */
-            $data->where(function ($query) use ($request, $text) {
-                foreach ($request->fields as $k => $f) {
-                    if ($f === 'updated_at') {
-                        if (Helpers::isEngText($text)) {
-                            $query->orWhere($f, 'LIKE', "%{$text}%");
-                        } else {
-                            continue;
-                        }
-                    }
-                    $query->orWhere($f, 'LIKE', "%{$text}%");
-                }
-            });
-            /**@Query */
-            $data = $data->orderBy('id', 'desc')->paginate($paginateLimit);
-            $data->appends(['limit' => $paginateLimit, 'q' => $text]);
-            return ['posts' => $data, 'mostViews' => [], 'comingEvents' => []];
-        }
-        //@for dictionaries only
 
-        $fields = ['id', 'title', 'type', 'image', 'description', 'status', 'place', 'start_date', 'deadline', 'updated_at', 'user_id',];
+        $fields = ['id', 'title', 'type', 'image', 'description', 'status', 'deadline', 'updated_at', 'user_id',];
         $request->request->add(['fields' => $fields]);
         $data = Posts::select($fields)->where('type', $type)->whereIn('status', ['open', 'close']);
         /**@Query */
@@ -107,14 +81,7 @@ class PostsResponse implements Responsable
         $mostViewsPosts = Posts::select($fields)->where('type', $type)->where('status', 'open')->limit(5)->orderBy('view', 'desc')->get();
         $this->mapPosts($mostViewsPosts);
         /**@mostViewsPosts */
-        /**@comingEvents */
-        $rawQuery = 'datediff(now(), start_date)';
-        $comingEvents = Posts::select($fields)->where('type', 'event')->where('status', 'open')->limit(4)
-            ->where(DB::raw($rawQuery), '<=', 0)
-            ->orderBy(DB::raw($rawQuery), 'desc')->get();
-        $this->mapPosts($comingEvents);
-        /**@comingEvents */
-        return ['posts' => $data, 'mostViews' => $mostViewsPosts, 'comingEvents' => $comingEvents];
+        return ['posts' => $data, 'mostViews' => $mostViewsPosts];
     }
 
     public function getPostsType($title)
@@ -138,12 +105,6 @@ class PostsResponse implements Responsable
             if ($d->type === 'activity') {
                 $d->formatted_start_date = Helpers::toFormatDateString($d->updated_at, 'H:i A, j M Y');
             }
-            // if ($d->type === 'event') {
-            //     $d->during_time = Helpers::toFormatDateString($d->start_date, 'H:i A') . ' - ';
-            //     $d->during_time .= Helpers::toFormatDateString($d->deadline, 'H:i A');
-            //     $d->formatted_start_date = Helpers::toFormatDateString($d->start_date, 'M d Y');
-            //     $d->formatted_deadline = Helpers::toFormatDateString($d->deadline, 'M d Y');
-            // }
             
             if ($d->type === 'scholarship') {
                 $d->formatted_deadline = date('H:i A, M d Y', strtotime($d->deadline));

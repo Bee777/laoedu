@@ -14,23 +14,20 @@ class CreatePostsTable extends Migration
     public function up()
     {
         Schema::create('posts', function (Blueprint $table) {
-            $table->increments('id');
+            $table->bigIncrements('id');
             $table->enum('status', ['pending', 'close', 'open'])->default('open');
-            $table->enum('type', ['news', 'activity', 'event', 'scholarship', ])->default('news');
-            $table->string('title');
+            $table->enum('type', ['news', 'remark', 'activity', 'scholarship'])->default('news');
+            $table->string('title' );
             $table->string('image');
             $table->longText('description');
-            $table->text('place')->nullable()->default(null);
-            $table->string('scholarship_type')->nullable()->default(null);
-            $table->timestamp('start_date')->nullable()->default(null);
             $table->timestamp('deadline')->nullable()->default(null);
-            $table->integer('user_id')->unsigned();
+            $table->timestamps();
+            $table->unsignedBigInteger('user_id');
             $table->double('view')->default(0);
             $table->foreign('user_id')
                 ->references('id')->on('users')
                 ->onUpdate('cascade')
                 ->onDelete('cascade');
-            $table->timestamps();
         });
     }
     //ALTER TABLE posts ADD INDEX (start_date);

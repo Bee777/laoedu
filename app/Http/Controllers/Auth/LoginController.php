@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use Illuminate\Foundation\Auth\AuthenticatesUsers;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Str;
 use Illuminate\Validation\ValidationException;
 
 class LoginController extends Controller
@@ -37,7 +38,7 @@ class LoginController extends Controller
      */
     public function __construct()
     {
-        $this->middleware('guest')->except('logout');
+        $this->middleware('guest')->except('logout', 'sessionLogout');
     }
 
     /**
@@ -64,7 +65,7 @@ class LoginController extends Controller
     protected function authenticated(Request $request, $user)
     {
         if ($this->isNotAllowedAccount($user->status)) {//check if user is allowed or not
-            return response()->json(['errors' => ['auth_failed' => ['Your account status is ' . title_case($user->status) . '.']]], 422);
+            return response()->json(['errors' => ['auth_failed' => ['Your account status is ' . Str::title($user->status) . '.']]], 422);
         }
 
         $personal_token = $user->createToken($user->getTokenName());
@@ -134,4 +135,21 @@ class LoginController extends Controller
             'auth_failed' => [trans('auth.failed')],
         ]);
     }
+
+    /**
+     * Log the user out of the application.
+     *
+     * @param  \Illuminate\Http\Request  $request
+     * @return \Illuminate\Http\Response
+     */
+
+    public function sessionLogout(Request $request)
+    {
+        $this->guard()->logout();
+
+        $request->session()->invalidate();
+
+        return $this->loggedOut($request) ?: redirect('/users-logout');
+    }
+
 }

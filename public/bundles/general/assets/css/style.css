@@ -2423,6 +2423,12 @@ a.main-btn:hover, a.main-btn:not([href]):hover{
     margin-right: 15px;
     font-size: 15px;
     color: #8a8a8a;
+    display: -webkit-flex;
+    display: flex;
+}
+.courses-top-search .nav .nav-item span{
+    margin-bottom: auto;
+    margin-top: auto;
 }
 .courses-top-search .nav .nav-item a{
     font-size: 16px;

@@ -11,7 +11,6 @@
     <meta name="csrf-token" content="{{ csrf_token() }}">
     {{--CSS--}}
     <link rel="stylesheet" href="{{url('/')}}/css/fontawesome-all.min.css">
-    <link rel="stylesheet" href="{{url('/')}}/css/bulma.css">
     <link rel="stylesheet" href="{{url('/')}}/css/vue-toasted.min.css"><!--Toast-->
     <link rel="stylesheet" href="{{url('/')}}/css/vue-multiselect.min.css">  <!--Multi select-->
     <link rel="stylesheet" href="{{url('/')}}/css/bolloon.css">

@@ -4,6 +4,28 @@ import store from '@store/adminStore';
 import VueRouter from 'vue-router';
 import routes from '@route/routesAdmin';
 
+import '@com/Admin/Assets/index.css'
+import {Button, Select, Dialog, Option, Switch, TabPane, Message, MessageBox} from 'element-ui';
+import plugins from '@vue/plugin/index.js'
+
+Vue.use(plugins)
+
+Vue.use(Button)
+Vue.use(Select)
+Vue.use(Dialog)
+Vue.use(Option)
+Vue.use(Switch)
+Vue.use(TabPane)
+Vue.use(TabPane)
+
+Vue.prototype.$message = Message
+Vue.prototype.$confirm = MessageBox.confirm
+
+import iconfont from '@com/Admin/Assets/iconfont/iconfont.js'
+
+Vue.use(iconfont)
+
+
 Vue.use(VueRouter);
 export const router = new VueRouter({
     mode: 'history',

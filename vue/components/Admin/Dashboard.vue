@@ -43,18 +43,18 @@
                                                     <div class="p-columns">
                                                         <!--Events Count-->
                                                         <div class="p-column">
-                                                            <div @click="goTo('event')" style="cursor: pointer;"
+                                                            <div @click="goTo('scholarship')" style="cursor: pointer;"
                                                                  class="items-counter align-horizontal-center target-host">
                                                                 <div class="counter-header">
                                                                     <div class="counter-title-label">
-                                                                        <h4 class="counter-title">Active Events
+                                                                        <h4 class="counter-title">Active Scholarships
                                                                             Count</h4>
                                                                         <div class="p-label">(Current)</div>
                                                                     </div>
                                                                 </div>
                                                                 <div class="value-delta">
                                                                     <div class="value">
-                                                                        <span class="value-container">{{dashboardData.events_count.active}} Posts</span>
+                                                                        <span class="value-container">{{dashboardData.scholarships_count.active}} Posts</span>
                                                                     </div>
                                                                 </div>
                                                             </div>
@@ -70,36 +70,6 @@
                             <!--End Overview Items-->
                             <!--<hr class="splitter-items">-->
 
-                            <!--Member Overview Items-->
-                            <div class="items">
-                                <!-- items-stability -->
-                                <section>
-                                    <h2 class="items-title">All Members Status</h2>
-                                    <div class="items-row sidekick">
-                                        <!--Government/None-Government Card-->
-                                        <CounterCard :isLoading="validated().loading_dashboard_data"
-                                                     @onCardClick="goTo('members-profile')"
-                                                     @onMultipleCardClick="goTo('members-profile')"
-                                                     title="Government/None-Government"
-                                                     :multipleItems="dashboardData.members_government_none_government_count"
-                                                     icon="work"/>
-                                        <!--Government/None-Government Card-->
-                                    </div>
-                                    <!--Degrees Card-->
-                                    <template v-for="(degrees, idx) in dashboardData.members_degrees_count">
-                                        <div class="items-row sidekick" :key="idx">
-                                            <!--Degree Card-->
-                                            <CounterCard v-for="(degree, jdx) in degrees" :key="jdx" :isLoading="validated().loading_dashboard_data"
-                                                         @onCardClick="goTo('members-profile')" :title="degree.title"
-                                                         icon="import_contacts"
-                                                         :count="{text: degree.count.text, value: degree.count.value}"/>
-                                            <!--Degree Card-->
-                                        </div>
-                                    </template>
-                                    <!--Degrees Card-->
-                                </section>
-                            </div>
-                            <!--End Member Overview Items-->
 
                             <!--Posts Items-->
                             <div class="items">
@@ -119,14 +89,6 @@
                                                      icon="list_alt"
                                                      :count="{text: 'Posts', value: dashboardData.activities_count }"/>
                                         <!--Activities Card-->
-                                    </div>
-                                    <div class="items-row sidekick">
-                                        <!--Event Card-->
-                                        <CounterCard :isLoading="validated().loading_dashboard_data"
-                                                     @onCardClick="goTo('event')" title="Events" icon="today"
-                                                     :count="{text: 'Posts', value: dashboardData.events_count.all }"/>
-                                        <!--Event Card-->
-
                                     </div>
                                 </section>
                             </div>

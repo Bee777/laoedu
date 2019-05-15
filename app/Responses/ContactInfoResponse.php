@@ -10,14 +10,13 @@ namespace App\Responses;
 
 
 use App\Http\Controllers\Helpers\Helpers;
-use App\Site;
+use App\Models\Site;
 use Illuminate\Contracts\Support\Responsable;
-use App\ContactInfo;
 
 class ContactInfoResponse implements Responsable
 {
 
-    protected $actionType = "get";
+    protected $actionType = 'get';
 
     public function __construct($actionType)
     {
@@ -32,34 +31,31 @@ class ContactInfoResponse implements Responsable
     public function toResponse($request)
     {
         if (Helpers::isAjax($request)) {
-
+            $keys = ['phone', 'email', 'address', 'facebook', 'twitter'];
+            $data = [];
             if ($this->actionType === 'get') {
-                $data = ContactInfo::first();
+                $data = Site::whereIn('key', $keys)->get();
+                $s = [];
+                foreach ($data as $item) {
+                    $s[$item->key] = $item->value;
+                }
+                $data = $s;
             }
 
             if ($this->actionType === 'manage') {
-                $info = ContactInfo::first();
-                if (!isset($info)) {
-                    $info = new ContactInfo();
+                foreach ($keys as $item) {
+                    $exist = Site::where('key', $item)->first();
+                    if (!isset($exist)) {
+                        $exist = new Site();
+                        $exist->key = $item;
+                    }
+                    $exist->value = $request->get($item);
+                    $exist->save();
                 }
-                $data = $info;
-                $info->phone = $request->get('phone');
-                $info->email = $request->get('email');
-                $info->address = $request->get('address');
-                $info->facebook = $request->get('facebook');
-                $info->googleplus = $request->get('googleplus');
-                $info->twitter = $request->get('twitter');
-                $info->save();
-                //save for site table
-                $oldData = Site::where('key', 'email')->first();
-                if (isset($oldData)) {
-                    $oldData->value = $request->get('email');
-                    $oldData->save();
-                }
-                //save for site table
             }
-            return response()->json(['success' => true, "data" => $data]);
+            return response()->json(['success' => true, 'data' => $data]);
         }
+        return response()->json(['success' => false, 'data' => null]);
     }
 
 }

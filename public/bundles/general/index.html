@@ -7,9 +7,10 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <link rel="stylesheet" href="/css/fontawesome-all.min.css">
     <link rel="stylesheet" href="/css/general.css">
+    <link rel="stylesheet" href="/css/vue-multiselect.min.css">  <!--Multi select-->
 
     <!--Template CSS-->
-    <link  rel="stylesheet" href="/bundles/general/assets/css/bootstrap.min.css">
+    <link rel="stylesheet" href="/bundles/general/assets/css/bootstrap.min.css">
     <link rel="stylesheet" href="/bundles/general/assets/css/slick.css">
     <!--====== Animate css ======-->
     <link rel="stylesheet" href="/bundles/general/assets/css/animate.css">
@@ -43,11 +44,21 @@
 <script type="text/javascript">
     var baseUrl = 'http://localhost:8000';
     var baseRes = '/bundles/general/';
-    var settings = JSON.parse(JSON.stringify({
-        "website_logo": "logo.png",
-        "site_name": "Lao Education Quality Assurance.com",
-        "fresh_version": "?v5bfaeb853bc634a830a28575dc406101"
-    }));
+    var settings = JSON.parse(JSON.stringify(
+        {
+            "site_name": "Lao Education Quality Assurance Collection and Management Website.",
+            "address": "Ministry of Education and Sports, Street Lekyheuang, Ban Anou, District Chanthabouly, Vientiane Laos PDR.",
+            "email": "xone.sps@gmail.com",
+            "email_logo": "5a49bd77bfdb59dde26d4ea195071a891557725816_site_info_.png",
+            "fav_icon": "3ffe251d7ffa49529d89e67903afa5101557725843_site_info_.png",
+            "website_logo": "logo.png",
+            "fresh_version": "?va336b9b504e244faa697e838f28966bb",
+            "description": "<p>&nbsp;<\/p>\n<p><em><strong>Giving.sg is created and powered by the&nbsp;<a href=\"https:\/\/www.nvpc.org.sg\/\">National Volunteer &amp; Philanthropy Centre (NVPC).<\/a><\/strong><br \/>The National Volunteer &amp; Philanthropy Centre (NVPC) is an independent, not-for-profit organisation that advocates giving in Singapore. Our vision is to be a Giving Nation and to cultivate a strong culture of contribution where giving is part of every Singaporean&rsquo;s DNA. NVPC is also a proud supporter of the #SGCares movement, which believes in building a more caring and inclusive home for all. By inspiring and supporting one another, we can show the world that we are a nation with a big heart.<\/em><\/p>\n<p>&nbsp;<\/p>",
+            "phone": "030 5746744",
+            "facebook": "https:\/\/www.facebook.com\/japan.alumni.of.laos\/",
+            "twitter": "https:\/\/twitter.com\/?lang=en"
+        }
+    ));
 
     var latest_news = [];
 
@@ -56,6 +67,7 @@
     var activities = items;
     var events = items;
     var scholarships = items;
+    var instituteCategories = [];
 
     var contactInfo = {
         "phone": "+852 20 557685867",

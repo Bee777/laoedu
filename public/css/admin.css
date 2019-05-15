@@ -2019,7 +2019,7 @@ button.navbar-alert-menu-button-bell {
 .admin-fb-featurebar .admin-fb-featurebar-title {
     color: #fff;
     margin: 0;
-    font-family: "Google Sans", sans-serif;
+    font-family: "Google Sans", 'Roboto', 'noto-regular', sans-serif;
     font-size: 26px;
     line-height: 32px;
     font-weight: 500;
@@ -4124,7 +4124,14 @@ button.navbar-alert-menu-button-bell {
 }
 
 .form-multi-select-container .multiselect--active .multiselect__tags input.multiselect__input {
-    width: 100% !important;
+    width: auto !important;
+}
+
+@media screen and (max-width: 37.4rem) {
+    .form-multi-select-container .multiselect--active .multiselect__tags input.multiselect__input {
+        width: 100% !important;
+        display: block;
+    }
 }
 
 .form-input-container input.is-input-height-same-multiple {

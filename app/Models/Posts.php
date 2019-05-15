@@ -2,12 +2,13 @@
 
 namespace App\Models;
 
+use App\User;
 use Illuminate\Database\Eloquent\Model;
 use App\Http\Controllers\Helpers\Helpers;
 
 class Posts extends Model
 {
-    protected $dates = ['start_date', 'deadline'];
+    protected $dates = ['deadline'];
     public static $uploadPath = '/assets/images/posts/';
 
     public function user()

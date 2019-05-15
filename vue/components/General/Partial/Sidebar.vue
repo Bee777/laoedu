@@ -17,7 +17,7 @@
           <div class="drawer-unlogin" v-if="!LoggedIn()">
             <router-link @click.native.prevent="maskClick()" :to="{ name: 'home' }">
               <a class="drawer-seeker">
-                <span class="line-bottom">ສູນປະກັນຄຸນນະພາບການສຶກສາ ສປປ ລາວ</span>
+                <span class="line-bottom">ສປຄ</span>
               </a>
             </router-link>
             <router-link @click.native.prevent="maskClick()" :to="{ name: 'login' }">

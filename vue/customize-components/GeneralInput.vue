@@ -210,7 +210,11 @@
             },
             showPassword() {
                 this.isShownPassword = !this.isShownPassword;
-                this.$refs['general-input'].focus();
+                let el = this.$refs['general-input'];
+                setTimeout(() => {
+                    this.$utils.setCaretPosition(el, (el.value || []).length);
+                }, 250);
+
             },
             emit() {
                 this.$emit('send', this.inputText);

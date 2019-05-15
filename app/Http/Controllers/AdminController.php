@@ -2,40 +2,36 @@
 
 namespace App\Http\Controllers;
 
-use App\Department;
 use App\Http\Controllers\Auth\ForgotPasswordController;
 use App\Http\Controllers\Auth\RegisterController;
 use App\Http\Controllers\Helpers\Helpers;
 use App\Jobs\SendUserChangeStatus;
-use App\Organize;
-use App\Posts;
+use App\Models\InstituteCategory;
+use App\Models\InstituteParentCategory;
+use App\Models\Posts;
 use App\Responses\IndexAdminResponse;
 use App\Responses\ContactInfoResponse;
 use App\Responses\AboutInfoResponse;
-use App\Responses\OrganizeChartMemberResponse;
-use App\Responses\OrganizeInfoResponse;
 use App\Responses\NewsResponse;
 use App\Responses\ActivityResponse;
 use App\Responses\OrganizeChartRangeResponse;
-use App\Responses\EventResponse;
 use App\Responses\ScholarshipResponse;
 use App\Responses\BannerResponse;
 use App\Responses\FileResponse;
 use App\Responses\SponsorResponse;
 
-use App\Site;
+use App\Models\Site;
+use App\Traits\UserRoleTrait;
 use App\User;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 
-use App\SiteImage;
-
-use App\News;
-
 
 class AdminController extends Controller
 {
+    use  UserRoleTrait;
+
     protected $rootView = 'main.admin';
 
     protected $excepts = [
@@ -236,7 +232,7 @@ class AdminController extends Controller
 
     public function getContactInfo(Request $request)
     {
-        return new ContactInfoResponse("get");
+        return new ContactInfoResponse('get');
     }
 
     public function manageContactInfo(Request $request)
@@ -407,8 +403,8 @@ class AdminController extends Controller
     /**
      * @Responses AboutAction
      *     /**
-     * 
-    /**
+     *
+     * /**
      * @Responses PostsImageAction
      */
 
@@ -432,50 +428,94 @@ class AdminController extends Controller
      */
 
     /**
-     * @Responses OrganizeAction
+     * @Responses InstituteCategoryAction
      */
-
-    public function responseActionCreateOrganize(Request $request)
+    public function responseActionListInstituteCategories(Request $request)
     {
-        $this->validate($request, [
-            'name' => 'required|string|max:191',
-            'government_organize' => 'required|max:10',
-        ]);
-        $oldData = Organize::where('name', $request->get('name'))->first();
-        if (isset($oldData)) {
-            return response()->json(['errors' => ['name' => ['Your entered organize name already exists in our system.']]], 422);
-        }
-        $organize = Organize::CreateOrganize($request->get('name'), $request->get('government_organize') ? 'yes' : 'no');
-        return response()->json(['success' => true, 'data' => $organize]);
+        $data = InstituteCategory::orderBy('id', 'desc')->get();
+        return response()->json(['success' => true, 'data' => $data]);
     }
 
-    public function responseActionUpdateOrganize(Request $request, $id)
+    public function responseActionCreateInstituteCategory(Request $request)
     {
         $this->validate($request, [
             'name' => 'required|string|max:191',
-            'government_organize' => 'required|max:10',
+            'have_parent' => 'required|max:10',
         ]);
-        $name = $request->get('name');
-        $government_organize = $request->get('government_organize') ? 'yes' : 'no';
-        $oldData = Organize::find($id);
-        if (isset($oldData) && $oldData->name !== $name) {
-            $exits = Organize::where('name', $name)->where('id', '!=', $id)->first();
-            if (isset($exits)) {
-                return response()->json(['errors' => ['organize_name' => ['Your entered organize name already exists in our system.']]], 422);
+        $oldData = InstituteCategory::where('name', $request->get('name'))->first();
+        if (isset($oldData)) {
+            return response()->json(['errors' => ['name' => ['Your entered institute category name already exists in our system.']]], 422);
+        }
+
+        if ($request->get('have_parent')) {
+            $this->validate($request, [
+                'parent_categories' => 'required',
+            ]);
+        }
+
+
+        $data = InstituteCategory::CreateItem($request->get('name'), $request->get('have_parent') ? 'yes' : 'no');
+        if ($request->get('have_parent')) {
+            $parents = InstituteCategory::whereIn('id', array_column($request->get('parent_categories'), 'id'))->where('have_parent', 'no')->get();
+            foreach ($parents as $item) {
+                $data->instituteParentCategories()->save(new InstituteParentCategory([
+                    'parent_id' => $item->id,
+                ]));
             }
         }
-        $saved = Organize::UpdateOrganize($id, $name, $government_organize);
+        return response()->json(['success' => true, 'data' => $data]);
+    }
+
+    public function responseActionUpdateInstituteCategory(Request $request, $id)
+    {
+        $this->validate($request, [
+            'name' => 'required|string|max:191',
+            'have_parent' => 'required|max:10',
+        ]);
+
+        if ($request->get('have_parent')) {
+            $this->validate($request, [
+                'parent_categories' => 'required',
+            ]);
+        }
+
+        $name = $request->get('name');
+        $have_parent = $request->get('have_parent') ? 'yes' : 'no';
+        $oldData = InstituteCategory::find($id);
+        if (isset($oldData) && $oldData->name !== $name) {
+            $exits = InstituteCategory::where('name', $name)->where('id', '!=', $id)->first();
+            if (isset($exits)) {
+                return response()->json(['errors' => ['category_name' => ['Your entered category name already exists in our system.']]], 422);
+            }
+        }
+        if (isset($oldData)) {
+            $exits_parent = InstituteParentCategory::where('parent_id', $id)->get();
+            if ($oldData->have_parent === 'no' && $have_parent === 'yes' && count($exits_parent) > 0) {
+                return response()->json(['errors' => ['have_parent' => ['You cannot change the category to Have Parent due it is already have child.']]], 422);
+            }
+        }
+        $oldData->instituteParentCategories()->delete();
+        $saved = InstituteCategory::UpdateItem($id, $name, $have_parent);
+        if ($saved && $request->get('have_parent')) {
+            $parents = InstituteCategory::whereIn('id', array_column($request->get('parent_categories'), 'id'))->where('have_parent', 'no')->get();
+            foreach ($parents as $item) {
+                $saved->instituteParentCategories()->save(new InstituteParentCategory([
+                    'parent_id' => $item->id,
+                ]));
+            }
+        }
+
         return response()->json(['success' => $saved]);
     }
 
-    public function responseActionDeleteOrganize(Request $request, $id)
+    public function responseActionDeleteInstituteCategory(Request $request, $id)
     {
-        $deleted = Organize::DeleteOrganize($id);
+        $deleted = InstituteCategory::DeleteItem($id);
         return response()->json(['success' => $deleted]);
     }
 
     /**
-     * @Responses OrganizeAction
+     * @Responses @EndInstituteCategoryAction
      */
 
     /**
@@ -615,10 +655,11 @@ class AdminController extends Controller
         $paginateLimit = ($request->exists('limit') && !empty($request->get('limit'))) ? $request->get('limit') : 10;
         $paginateLimit = Helpers::isNumber($paginateLimit) ? $paginateLimit : 10;
         $text = $request->get('q');
-        if ($type === 'users') {
+        if ($type === 'users_checker') {
             $fields = ['users.id', 'users.status', 'users.name', 'users.last_name', 'users.email', 'users.created_at'];
             $request->request->add(['fields' => $fields]);
             $data = User::select(array_merge(['users.image'], $fields))->join('user_types', 'user_types.user_id', 'users.id')
+                ->where('user_types.type_user_id', $this->getTypeUserId('checker'))
                 ->whereIn('user_types.type_user_id', User::getNonAdminUserIds());
             $data->where(function ($query) use ($request, $text) {
                 foreach ($request->fields as $k => $f) {
@@ -643,15 +684,79 @@ class AdminController extends Controller
                 $d->statusColor = $d->status === 'approved' ? '#00bfa5' : ($d->status === 'disabled' ? '#d50000' : '');
                 return $d;
             });
-        } else if ($type === 'organizes') {
-            $fields = ['id', 'name', 'government_organize', 'created_at', 'updated_at'];
+        } else if ($type === 'users_field_inspector') {
+            $fields = ['users.id', 'users.status', 'users.name', 'users.last_name', 'users.email', 'users.created_at'];
             $request->request->add(['fields' => $fields]);
-            $data = Organize::select($fields);
+            $data = User::select(array_merge(['users.image'], $fields))->join('user_types', 'user_types.user_id', 'users.id')
+                ->where('user_types.type_user_id', $this->getTypeUserId('field_inspector'))
+                ->whereIn('user_types.type_user_id', User::getNonAdminUserIds());
+            $data->where(function ($query) use ($request, $text) {
+                foreach ($request->fields as $k => $f) {
+                    if ($f === 'users.created_at') {
+                        if (Helpers::isEngText($text)) {
+                            $query->orWhere($f, 'LIKE', "%{$text}%");
+                        } else {
+                            continue;
+                        }
+                    }
+                    $query->orWhere($f, 'LIKE', "%{$text}%");
+                }
+                $query->orWhere(
+                    DB::raw("CONCAT (users.name, ' ', users.last_name)"),
+                    'LIKE',
+                    "%{$text}%"
+                );
+            });
+            $data = $data->orderBy('users.created_at', 'desc')->paginate($paginateLimit);
+            $data->map(function ($d) {
+                $d->image = "/assets/images/user_profiles/{$d->image}";
+                $d->statusColor = $d->status === 'approved' ? '#00bfa5' : ($d->status === 'disabled' ? '#d50000' : '');
+                return $d;
+            });
+        } else if ($type === 'users_institute') {
+            $fields = ['users.id', 'users.status', 'user_profiles.institute_name', 'user_profiles.short_institute_name', 'users.email', 'users.created_at'];
+            $request->request->add(['fields' => $fields]);
+            $data = User::select(array_merge(['users.image', 'user_profiles.institute_category_id'], $fields))->join('user_types', 'user_types.user_id', 'users.id')
+                ->join('user_profiles', 'user_profiles.user_id', 'users.id')
+                ->where('user_types.type_user_id', $this->getTypeUserId('institute'))
+                ->whereIn('user_types.type_user_id', User::getNonAdminUserIds());
+            $data->where(function ($query) use ($request, $text) {
+                foreach ($request->fields as $k => $f) {
+                    if ($f === 'users.created_at') {
+                        if (Helpers::isEngText($text)) {
+                            $query->orWhere($f, 'LIKE', "%{$text}%");
+                        } else {
+                            continue;
+                        }
+                    }
+                    $query->orWhere($f, 'LIKE', "%{$text}%");
+                }
+                $query->orWhere(
+                    DB::raw("CONCAT (user_profiles.institute_name, ' ', user_profiles.short_institute_name)"),
+                    'LIKE',
+                    "%{$text}%"
+                );
+            });
+            $data = $data->orderBy('users.created_at', 'desc')->paginate($paginateLimit);
+            $data->map(function ($d) {
+                $category = InstituteCategory::find($d->institute_category_id);
+                $d->category = isset($category) ? $category->name : 'No data.';
+                $d->image = "/assets/images/user_profiles/{$d->image}";
+                $d->statusColor = $d->status === 'approved' ? '#00bfa5' : ($d->status === 'disabled' ? '#d50000' : '');
+                return $d;
+            });
+        } else if ($type === 'institute_category') {
+            $fields = ['id', 'name', 'have_parent', 'created_at', 'updated_at'];
+            $request->request->add(['fields' => $fields]);
+            $data = InstituteCategory::select($fields);
             $data->where(function ($query) use ($request, $text) {
                 foreach ($request->fields as $k => $f) {
                     if ($f === 'created_at' || $f === 'updated_at') {
                         if (Helpers::isEngText($text)) {
-                            $query->orWhere($f, 'LIKE', "%{$text}%");
+                            $query->orWhere($f, 'LIKE', "%{$text}
+
+%
+");
                         } else {
                             continue;
                         }
@@ -661,7 +766,9 @@ class AdminController extends Controller
             });
             $data = $data->orderBy('created_at', 'desc')->paginate($paginateLimit);
             $data->map(function ($d) {
-                $d->government_organize = $d->government_organize === 'yes';
+                $d->have_parent = $d->have_parent === 'yes';
+                $d->parent_categories = $d->selectedParentCategories();
+                unset($d->instituteParentCategories);
                 return $d;
             });
         } else if ($type === 'departments') {

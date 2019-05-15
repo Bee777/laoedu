@@ -24,7 +24,7 @@
                                             <content>Thank you for registration</content>
                                         </h1>
                                         <div class="headingSubtext">
-                                            <content>Continue to Jaol Memebers after your account has been approved.
+                                            <content>Continue to Ledu Memebers after your account has been approved.
                                             </content>
                                         </div>
                                     </div>

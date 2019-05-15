@@ -6,6 +6,7 @@ import {
     defaultMutations,
     defaultActions,
 } from '../initial/initializer';
+
 /**
  * @initialize
  */
@@ -24,12 +25,11 @@ export default new Vuex.Store({
         isSidebar: '',
         homeData: {
             banners: [],
-            About: aboutInfo,
-            ContactInfo: contactInfo,
             latest_news: latest_news,
             latest_scholarship: [],
             latest_activity: [],
             mostViewScholarship: {},
+            instituteCategories: instituteCategories,
         },
         postsData: {
             news: news,//{posts: {}, mostViews: [], comingEvents: []},

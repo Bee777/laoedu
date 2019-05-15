@@ -7,7 +7,8 @@
                     <div class="md-single-grid provider-list">
                         <!--Table card-->
                         <TablePaginate v-model="query"
-                                       :searchPlaceholder="'Search by  name, tel or member Email'"
+                                       :searchPlaceholder="'Search by institute name, short name, or Email'"
+                                       :showSearchButton="false"
                                        :headers="headers"
                                        :notFoundText="'Please make sure you type or spell the member information correctly.'"
                                        :isSearch="isSearch"
@@ -28,6 +29,45 @@
                 </div>
             </div>
         </div>
+
+        <!--Modals -->
+        <!--info-->
+        <AdminModal :isActive="modal.type==='info' && modal.active" @close="modal.active=false">
+            <template slot="title"> {{modal.name}}</template>
+            <div class="fb-dialog-body-section">
+                <div v-html="modal.message"></div>
+                <div>
+                    <div class="form-label"> User Account</div>
+                    <div class="form-input-static-value"> {{ modal.data.email }}</div>
+                </div>
+            </div>
+            <template slot="actions">
+                <button @click="positiveAction()" class="v-md-button primary"> {{modal.action.text}}</button>
+            </template>
+        </AdminModal>
+        <!--info -->
+        <!--warning-->
+        <AdminModal :isActive="modal.type==='warning' && modal.active" @close="modal.active=false">
+            <template slot="title"> {{modal.name}}</template>
+            <div class="fb-dialog-body-section">
+                <div class="body-message-container has-icon is-warning">
+                    <div class="inner">
+                        <i class="material-icons m-icon">warning</i>
+                        <div class="admin-modal-message">{{ modal.message }}</div>
+                    </div>
+                </div>
+                <div>
+                    <div class="form-label"> User Account</div>
+                    <div class="form-input-static-value"> {{ modal.data.email }}</div>
+                </div>
+            </div>
+            <template slot="actions">
+                <button @click="positiveAction()" class="v-md-button warning"> {{ modal.action.text }}</button>
+            </template>
+        </AdminModal>
+        <!--warning -->
+        <!--Modals -->
+
     </div>
 </template>
 
@@ -36,17 +76,17 @@
     import {mapActions} from 'vuex'
 
     export default AdminBase.extend({
-        name: "all",
+        name: "all-institute",
         data() {
             return {
                 title: 'All Institutes',
-                type: 'users',
+                type: 'users_institute',
                 watchers: true,
                 tabs: [{name: 'Institutes'}],
                 headers: [
-                    {class: 'hide-xs th-sortable', name: 'ຊື່', width: '15%'},
-                    {class: 'hide-xs th-sortable', name: 'ປະເພດສະຖານການສຶກສາ', width: '15%'},
-                    {class: 'th-sortable', name: 'Email', width: '200'},
+                    {class: 'th-sortable', name: 'Name', width: '150'},
+                    {class: 'hide-xs th-sortable', name: 'Short Name', width: '120'},
+                    {class: 'hide-xs th-sortable', name: 'Category', width: '15%'},
                     {class: 'hide-xs hide-md th-sortable', name: 'Image', width: '10%'},
                     {class: 'hide-xs th-sortable', name: 'Status', width: '15%'},
                     {class: 'hide-xs th-sortable', name: 'Created At', width: '25%'},
@@ -114,9 +154,9 @@
                 return {
                     rowContent: {},
                     rows: [
-                                                {data: data.name, type: 'text', class: 'hide-xs'},
-                        {data: data.last_name, type: 'text', class: 'hide-xs'},
-                        {data: data.email, type: 'id', class: 'user-email'},
+                        {data: data.institute_name, type: 'text', class: 'user-email'},
+                        {data: data.short_institute_name, type: 'text', class: 'hide-xs'},
+                        {data: data.category, type: 'id', class: 'hide-xs'},
                         {
                             data: `${this.baseUrl}${data.image}`,
                             type: 'image',
@@ -159,22 +199,6 @@
                             this.showErrorToast({msg: 'The action failed!', dt});
                         });
                 }
-            },
-            createUser() {
-                let ft = this.formTopState;
-                ft.loading = true;
-                this.postRegisterUser(this.models.formTop)
-                    .then(res => {
-                        if (res.success) {
-                            this.getItems();
-                            ft.show = false;
-                            this.models.formTop = {imageSrc: null};
-                        }
-                        ft.loading = false;
-                    })
-                    .catch(er => {
-                        ft.loading = false;
-                    })
             }
         },
         created() {

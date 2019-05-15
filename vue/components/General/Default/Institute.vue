@@ -6,10 +6,10 @@
                 <div class="col-lg-12">
                     <div class="courses-top-search">
                         <ul class="nav float-left" id="myTab" role="tablist">
-                            <li class="nav-item">ສະແດງ 4 ທັງໝົດ 24</li>
+                            <li class="nav-item"><span>ສະແດງ 4 ທັງໝົດ 24</span></li>
                             <li>
                                   <div class="shop-select">
-                           <select>
+                           <select class="select form-control">
                                 <option value="1">ເລືອກຕາມໜວດໝູ່</option>
                                 <option value="2">ພາກລັດ</option>
                                 <option value="3">ເອກະຊົນ</option>

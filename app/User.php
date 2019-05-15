@@ -4,6 +4,7 @@ namespace App;
 
 use App\Http\Controllers\Helpers\Helpers;
 use App\Models\Role;
+use App\Models\UserProfile;
 use App\Models\UserType;
 use App\Traits\UserRoleTrait;
 use App\Traits\PersonalAccessTokenTrait;
@@ -77,7 +78,7 @@ class User extends Authenticatable
      */
     public function setStatus($status): bool
     {
-        if ($this->status !== $status && in_array($status, $this->defaultStatus, true)) {
+        if ($this->status !== $status && in_array($status, self::$defaultStatus, true)) {
             $this->status = $status;
             $this->save();
             //check if status changed to disabled and sign user out
@@ -109,6 +110,11 @@ class User extends Authenticatable
     public function userType(): HasOne
     {
         return $this->hasOne(UserType::class);
+    }
+
+    public function userProfile(): HasOne
+    {
+        return $this->hasOne(UserProfile::class);
     }
 
     public function getTypeOfUserAttribute()

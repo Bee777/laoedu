@@ -184,7 +184,8 @@ export default {
 
                 /**@RequiredObject Section **/
                 if (rule.required) {
-                    if (rule.required.when && data[rule.required.when] === rule.required.equals && keyRuleNames[ol[i]] === ol[i] && (value === '' || value === null)) {
+                    if (rule.required.when && this.accessObjectLevels(data, rule.required.when) === rule.required.equals && keyRuleNames[ol[i]] === ol[i] && (value === '' || value === null ||
+                        (typeof value === 'object' && this.isArray(value) && value.length <= 0))) {
                         errorsObj[ol[i]] = `The ${attribName} field is required.`;
                     }
                 }
@@ -463,6 +464,14 @@ export default {
             '][0-9]|1[0-9][0-9]|[1-9][0-9]|[0-9])?',
             '(:[0-9]+)?(\/[^\\s]*)?$'
         ].join(''), 'i').test(str);
+    },
+    accessObjectLevels(obj, level) {
+        level = String(level).split(".");
+        let cObj = obj;
+        for (let i = 0; i < level.length; i++) {
+            cObj = (cObj || {})[level[i]];
+        }
+        return cObj;
     },
     LocationHack(href, delay) {
         if (delay !== null) {
@@ -1193,6 +1202,30 @@ export default {
                 field.setAttribute('style', 'display:none;position:absolute;');
             }, 50);
         }, 50);
+    },
+    setCaretPosition(el, caretPos) {
+        el.value = el.value;
+        // ^ this is used to not only get "focus", but
+        // to make sure we don't have it everything -selected-
+        // (it causes an issue in chrome, and having it doesn't hurt any other browser)
+        if (el !== null) {
+            if (el.createTextRange) {
+                var range = el.createTextRange();
+                range.move('character', caretPos);
+                range.select();
+                return true;
+            } else {
+                // (el.selectionStart === 0 added for Firefox bug)
+                if (el.selectionStart || el.selectionStart === 0) {
+                    el.focus();
+                    el.setSelectionRange(caretPos, caretPos);
+                    return true;
+                } else { // fail city, fortunately this never happens (as far as I've tested) :)
+                    el.focus();
+                    return false;
+                }
+            }
+        }
     }
 
 }

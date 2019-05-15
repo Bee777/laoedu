@@ -8,6 +8,6 @@ class Banner extends Model
 {
     public static function getBanners($limit = 0)
     {
-        return self::select('link', 'image')->limit($limit)->orderBy('order', 'asc')->get();
+        return self::select(['id', 'name', 'description', 'order', 'link', 'image', 'created_at', 'updated_at'])->limit($limit)->orderBy('order', 'asc')->get();
     }
 }

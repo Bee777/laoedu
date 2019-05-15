@@ -1,7 +1,9 @@
 import Login from '@com/General/Login.vue'
+import Logout from '@com/General/Logout.vue'
+
 import ResetPassword from '@com/General/ResetPassword.vue'
-import RegisterInstitute from '@com/General/InstituteRegister.vue'
-import Register from '@com/General/Register.vue'
+import RegisterInstitute from '@com/General/RegisterInstitute.vue'
+import RegisterCheckerFieldInspector from '@com/General/RegisterCheckerFieldInspector.vue'
 import Registered from '@com/General/Registered.vue'
 import FinishedResetPassword from '@com/General/FinishedResetPassword.vue'
 import Home from '@com/General/Default/Home.vue'
@@ -17,7 +19,12 @@ import Institute from '@com/General/Default/Institute.vue'
 import InstituteSingle from '@com/General/Default/Single/InstituteSingle.vue'
 import Course from '@com/General/Default/Course.vue'
 import CourseSingle from '@com/General/Default/Single/CourseSingle.vue'
-const prefix = '/register-';
+
+
+const jv0ABI4_ch = 'jv0ABI4k2qmWQfLwSapBKfIQe7Lw0xTTVpa0xGG6';
+const FWSfbih_in = 'FWSfbih3KioEQAAOTinfTMME4HT5l8faZ9easpl7';
+
+
 const metas = {
     guestMeta: {
         requiresVisitor: true,
@@ -54,35 +61,36 @@ export default [
         },
     },
     {
-        path: `${prefix}institute`,
-        component: RegisterInstitute,
-        name: 'institute-register',
+        path: '/users-logout',
+        name: 'users-logout',
+        component: Logout, meta: {
+            ...metas.df({
+                navFixed: false,
+            })
+        },
+    },
+    {
+        path: `/${jv0ABI4_ch}`,
+        component: RegisterCheckerFieldInspector,
+        name: 'checker-filed-in-register',
         meta: {
             ...metas.guestMeta, ...metas.df({
                 navFixed: false,
             })
         },
     },
-    // {
-    //     path: `${prefix}admin`,
-    //     component: RegisterAdmin,
-    //     name: 'admin-register',
-    //     meta: {
-    //         ...metas.guestMeta, ...metas.df({
-    //             navFixed: false,
-    //         })
-    //     },
-    // },
-    // {
-    //     path: `${prefix}checker`,
-    //     component: RegisterAdmin,
-    //     name: 'checker-register',
-    //     meta: {
-    //         ...metas.guestMeta, ...metas.df({
-    //             navFixed: false,
-    //         })
-    //     },
-    // },
+    {
+        path: `/${FWSfbih_in}`,
+        component: RegisterInstitute,
+        name: 'institute-in-register',
+        meta: {
+            ...metas.guestMeta, ...metas.df({
+                navFixed: false,
+            })
+        },
+    },
+
+
     {
         path: "/register-successfully",
         component: Registered,
