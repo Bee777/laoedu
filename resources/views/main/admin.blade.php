@@ -8,6 +8,7 @@
 @section('scripts_footer')
     <script type="text/javascript">
         var baseUrl = '{{ url('/') }}';
+        var baseRes = "/bundles/admin/";
         var pathPrefix = '/';
     </script>
     <script src="{{ asset('/js') }}/tiny/jquery.tinymce.min.js" type="text/javascript"></script>
