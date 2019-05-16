@@ -8,9 +8,29 @@
                         <div class="md-single-grid">
                             <div ad-cell="12" class="theme-blue">
                                 <FormTop/>
+                                <div class="ViewPagePageBreakGap">
+                                    <label class="ViewPageGoToPageSelectLabel">
+                                        Continue to question sections
+                                    </label>
+                                </div>
                                 <div class="form-create-wrap">
                                     <div class="wrap">
                                         <div class="content-wrap">
+                                            <HeaderBanner title="Section 1/2" color="#039be5">
+                                                <template slot="action">
+                                                    <el-dropdown trigger="click">
+                                                        <span class="el-dropdown-link">
+                                                             <button class="v-md-button v-md-icon-button theme-blue">
+                                                                 <i class="material-icons">more_vert</i></button>
+                                                        </span>
+                                                        <el-dropdown-menu slot="dropdown">
+                                                            <el-dropdown-item>Duplicate Section</el-dropdown-item>
+                                                            <el-dropdown-item>Move Section</el-dropdown-item>
+                                                            <el-dropdown-item>Delete Section</el-dropdown-item>
+                                                        </el-dropdown-menu>
+                                                    </el-dropdown>
+                                                </template>
+                                            </HeaderBanner>
                                             <div class="item title" @click="focusTitle($event)"
                                                  :class="{'title-focus': focusIndex === 'title'}">
                                                 <div class="li">
@@ -45,6 +65,7 @@
 <script>
     import AdminBase from '@bases/AdminBase.js'
     import FormTop from '@com/Admin/Assessments/AssessmentForm.vue'
+    import HeaderBanner from './Includes/HeaderBanner.vue'
     import {mapActions} from 'vuex'
 
     let lineEndOptions = Array.apply(null, Array(9)).map((item, i) => {
@@ -54,7 +75,8 @@
     export default AdminBase.extend({
         name: "CreateAssessment",
         components: {
-            FormTop
+            FormTop,
+            HeaderBanner
         },
         data() {
             return {

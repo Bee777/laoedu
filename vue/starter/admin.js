@@ -5,7 +5,7 @@ import VueRouter from 'vue-router';
 import routes from '@route/routesAdmin';
 
 import '@com/Admin/Assets/index.css'
-import {Button, Select, Dialog, Option, Switch, TabPane, Message, MessageBox} from 'element-ui';
+import {Button, Select, Dropdown, DropdownItem, DropdownMenu, Dialog, Option, Switch, TabPane, Message, MessageBox} from 'element-ui';
 import plugins from '@vue/plugin/index.js'
 
 Vue.use(plugins)
@@ -17,6 +17,10 @@ Vue.use(Option)
 Vue.use(Switch)
 Vue.use(TabPane)
 Vue.use(TabPane)
+Vue.use(Dropdown)
+Vue.use(DropdownItem)
+Vue.use(DropdownMenu)
+
 
 Vue.prototype.$message = Message
 Vue.prototype.$confirm = MessageBox.confirm
