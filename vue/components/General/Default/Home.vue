@@ -634,18 +634,18 @@
 
         <!--====== NEWS PART ENDS ======-->
         <!--====== ACTIVITY PART START ======-->
-        <section id="publication-part" class="pt-45 pb-50 gray-bg" v-if="homeData.latest_activity.length > 0">
+        <section id="publication-part" class="pt-25 pb-30 gray-bg" v-if="homeData.latest_activity.length > 0">
             <div class="container">
                 <div class="row align-items-end">
                     <div class="col-lg-6 col-md-8 col-sm-7">
-                        <div class="section-title pb-60">
+                        <div class="section-title pb-10">
                             <h3>ກິດຈະກຳ</h3>
                             <h5>ວຽກງານນອກຫຼັກສູດ</h5>
                         </div>
                         <!-- section title -->
                     </div>
                     <div class="col-lg-6 col-md-4 col-sm-5">
-                        <div class="products-btn text-right pb-60">
+                        <div class="products-btn text-right pb-10">
                             <a href="#" class="main-btn">ກິດຈະກຳທັງໝົດ</a>
                         </div>
                         <!-- products btn -->

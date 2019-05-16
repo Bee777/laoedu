@@ -1240,12 +1240,16 @@ a.main-btn:hover, a.main-btn:not([href]):hover{
 }
 .singel-course .cont h4{
     font-weight: 600;
-    font-size: 24px;
+    font-size: 20px;
     color: #000;
     padding-top: 15px;
     padding-bottom: 40px;
     -webkit-transition: all 0.4s linear;
     transition: all 0.4s linear;
+}
+.singel-course .cont.institute h4{
+    padding-top: 0px;
+    padding-bottom: 10px;
 }
 .singel-course .cont h4:hover{
     color: #ffc600;
@@ -1254,7 +1258,7 @@ a.main-btn:hover, a.main-btn:not([href]):hover{
 .singel-course .course-teacher{
     margin-top: 4px;
     border-top: 1px solid #e0e0e0;
-    padding-top: 10px;
+    padding-top: 24px;
     overflow: hidden;
 }
 .singel-course .course-teacher > .thum{
@@ -1289,7 +1293,7 @@ a.main-btn:hover, a.main-btn:not([href]):hover{
 
 .singel-course .course-teacher .name-course {
 	display: inline-block;
-	margin-left: 10px;
+	margin-left: 0px;
 	position: relative;
 	bottom: 13px;
 }
@@ -2589,6 +2593,10 @@ a.main-btn:hover, a.main-btn:not([href]):hover{
 	display: block;
     background-color: #edf0f2;
 }
+.corses-tab .nav .nav-item.institute a {
+	font-size: 18px;
+cursor: initial;
+}
 .corses-tab .nav .nav-item a.active {
     background-color: #fff;
 }
@@ -2890,8 +2898,8 @@ a.main-btn:hover, a.main-btn:not([href]):hover{
 }
 .course-features ul{}
 .course-features ul li{
-    font-size: 15px;
-    color: #8a8a8a;
+    /* font-size: 15px;
+    color: #8a8a8a; */
     overflow: hidden;
     line-height: 45px;
     border-bottom: 1px solid #d2d2d2;
@@ -2903,6 +2911,9 @@ a.main-btn:hover, a.main-btn:not([href]):hover{
 .course-features ul li i{
     color: #ffc600;
     margin-right: 8px;
+    float: left;
+    padding-right: 8px;
+    line-height: unset;
 }
 .course-features ul li span{
     float: right;
@@ -3946,6 +3957,14 @@ a{
     padding-top: 22px;
     border-bottom: 1px solid #cecece;
     padding-bottom: 30px;
+}
+.share.social{
+    padding-top: 8px;
+    padding-bottom: 0px;
+    border: none;
+}
+.share.social li{
+    border: none;
 }
 .title{
     font-size: 22px;

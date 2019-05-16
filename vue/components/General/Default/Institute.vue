@@ -1,252 +1,276 @@
 <template>
-    <div>
+  <div>
     <section id="courses-part" class="pt-20 pb-120 gray-bg">
-        <div class="container">
-            <div class="row">
-                <div class="col-lg-12">
-                    <div class="courses-top-search">
-                        <ul class="nav float-left" id="myTab" role="tablist">
-                            <li class="nav-item"><span>ສະແດງ 4 ທັງໝົດ 24</span></li>
-                            <li>
-                                  <div class="shop-select">
-                           <select class="select form-control">
-                                <option value="1">ເລືອກຕາມໜວດໝູ່</option>
-                                <option value="2">ພາກລັດ</option>
-                                <option value="3">ເອກະຊົນ</option>
-                                <option value="4">ມະຫາວິທະຍາໄລ</option>
-                            </select>
-                        </div> <!-- shop select -->
-                            </li>
-                        </ul> <!-- nav -->
-                                              
-                        
-                        <div class="courses-search float-right">
-                            <form action="#">
-                                <input type="text" placeholder="ຄົ້ນຫາ">
-                                <button type="button"><i class="fa fa-search"></i></button>
-                            </form>
-                        </div> <!-- courses search -->
-                    </div> <!-- courses top search -->
+      <div class="container">
+        <div class="row">
+          <div class="col-lg-12">
+            <div class="courses-top-search">
+              <ul class="nav float-left" id="myTab" role="tablist">
+                <li class="nav-item">
+                  <span>ສະແດງ 4 ທັງໝົດ 24</span>
+                </li>
+                <li>
+                  <div class="shop-select">
+                    <select class="select form-control">
+                      <option value="1">ເລືອກຕາມໜວດໝູ່</option>
+                      <option value="2">ພາກລັດ</option>
+                      <option value="3">ເອກະຊົນ</option>
+                      <option value="4">ມະຫາວິທະຍາໄລ</option>
+                    </select>
+                  </div>
+                  <!-- shop select -->
+                </li>
+              </ul>
+              <!-- nav -->
+
+              <div class="courses-search float-right">
+                <form action="#">
+                  <input type="text" placeholder="ຄົ້ນຫາ">
+                  <button type="button">
+                    <i class="fa fa-search"></i>
+                  </button>
+                </form>
+              </div>
+              <!-- courses search -->
+            </div>
+            <!-- courses top search -->
+          </div>
+        </div>
+        <!-- row -->
+        <div class="tab-pane fade show active" id="courses-grid" role="tabpanel">
+          <div class="row">
+            <div class="col-lg-4 col-md-6">
+              <div class="singel-course mt-30">
+                <div class="thum">
+                  <div class="image">
+                    <img :src="`${baseUrl}${baseRes}/assets/images/course/cu-1.jpg`" alt="Course">
+                  </div>
                 </div>
-            </div> <!-- row -->
-              <div class="tab-pane fade show active" id="courses-grid" role="tabpanel">
-                    <div class="row">
-                        <div class="col-lg-4 col-md-6">
-                            <div class="singel-course mt-30">
-                                <div class="thum">
-                                    <div class="image">
-                                        <img :src="`${baseUrl}${baseRes}/assets/images/course/cu-1.jpg`" alt="Course">
-                                    </div>
-                                </div>
-                                <div class="cont">
-                                    <ul>
-                                        <li><i class="fa fa-star"></i></li>
-                                        <li><i class="fa fa-star"></i></li>
-                                        <li><i class="fa fa-star"></i></li>
-                                        <li><i class="fa fa-star"></i></li>
-                                        <li><i class="fa fa-star"></i></li>
-                                    </ul>
-                                    <span>(20 Reviws)</span>
-                                    <a href="courses-singel.html"><h4>ຄະນະວິທະຍາສາດທຳມະຊາດ</h4></a>
-                                    <div class="course-teacher">
-                                        <div class="name-course">
-                                            <a href="#"><h6><i class="fa fa-tags"></i> ມະຫາວິທະຍາໄລແຫ່ງຊາດ</h6></a>
-                                        </div>
-                                        <div class="student">
-                                            <ul>
-                                                <li><i class="fa fa-user"></i> <span>ອາຈານ 200</span></li>
-                                                <li><i class="fa fa-heart"></i> <span>ນັກສຶກສາ 5000</span></li>
-                                            </ul>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div> <!-- singel course -->
-                        </div>
-                        <div class="col-lg-4 col-md-6">
-                            <div class="singel-course mt-30">
-                                <div class="thum">
-                                    <div class="image">
-                                        <img :src="`${baseUrl}${baseRes}/assets/images/course/cu-2.jpg`" alt="Course">
-                                    </div>
-                                </div>
-                                <div class="cont">
-                                    <ul>
-                                        <li><i class="fa fa-star"></i></li>
-                                        <li><i class="fa fa-star"></i></li>
-                                        <li><i class="fa fa-star"></i></li>
-                                        <li><i class="fa fa-star"></i></li>
-                                        <li><i class="fa fa-star"></i></li>
-                                    </ul>
-                                    <span>(20 Reviws)</span>
-                                    <a href="courses-singel.html"><h4>ວິທະຍາໄລເຕັກນິກປາກປາສັກ</h4></a>
-                                             <div class="course-teacher">
-                                        <div class="name-course">
-                                            <a href="#"><h6><i class="fa fa-tags"></i> ພາກລັດ</h6></a>
-                                        </div>
-                                        <div class="student">
-                                            <ul>
-                                                <li><i class="fa fa-user"></i> <span>ອາຈານ 200</span></li>
-                                                <li><i class="fa fa-heart"></i> <span>ນັກສຶກສາ 5000</span></li>
-                                            </ul>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div> <!-- singel course -->
-                        </div>
-                        <div class="col-lg-4 col-md-6">
-                            <div class="singel-course mt-30">
-                                <div class="thum">
-                                    <div class="image">
-                                        <img :src="`${baseUrl}${baseRes}/assets/images/course/cu-3.jpg`" alt="Course">
-                                    </div>
-                                </div>
-                                <div class="cont">
-                                    <ul>
-                                        <li><i class="fa fa-star"></i></li>
-                                        <li><i class="fa fa-star"></i></li>
-                                        <li><i class="fa fa-star"></i></li>
-                                        <li><i class="fa fa-star"></i></li>
-                                        <li><i class="fa fa-star"></i></li>
-                                    </ul>
-                                    <span>(20 Reviws)</span>
-                                    <a href="courses-singel.html"><h4>ເສດຖະສາດແລະບໍລິຫານທຸລະກິດ</h4></a>
-                                    <div class="course-teacher">
-                                       <div class="name-course">
-                                            <a href="#"><h6><i class="fa fa-tags"></i> ມະຫາວິທະຍາໄລແຫ່ງຊາດ</h6></a>
-                                        </div>
-                                        <div class="student">
-                                            <ul>
-                                                <li><i class="fa fa-user"></i> <span>ອາຈານ 300</span></li>
-                                                <li><i class="fa fa-heart"></i> <span>ນັກສຶກສາ 7000</span></li>
-                                            </ul>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div> <!-- singel course -->
-                        </div>
-                        <div class="col-lg-4 col-md-6">
-                            <div class="singel-course mt-30">
-                                <div class="thum">
-                                    <div class="image">
-                                        <img :src="`${baseUrl}${baseRes}/assets/images/course/cu-4.jpg`" alt="Course">
-                                    </div>
-                                </div>
-                                <div class="cont">
-                                    <ul>
-                                        <li><i class="fa fa-star"></i></li>
-                                        <li><i class="fa fa-star"></i></li>
-                                        <li><i class="fa fa-star"></i></li>
-                                        <li><i class="fa fa-star"></i></li>
-                                        <li><i class="fa fa-star"></i></li>
-                                    </ul>
-                                    <span>(20 Reviws)</span>
-                                    <a href="courses-singel.html"><h4>Learn basis javascirpt from start for beginner</h4></a>
-                                    <div class="course-teacher">
-                           <div class="name-course">
-                                            <a href="#"><h6><i class="fa fa-tags"></i> ມະຫາວິທະຍາໄລແຫ່ງຊາດ</h6></a>
-                                        </div>
-                                        <div class="student">
-                                            <ul>
-                                                <li><i class="fa fa-user"></i> <span>ອາຈານ 300</span></li>
-                                                <li><i class="fa fa-heart"></i> <span>ນັກສຶກສາ 7000</span></li>
-                                            </ul>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div> <!-- singel course -->
-                        </div>
-                        <div class="col-lg-4 col-md-6">
-                            <div class="singel-course mt-30">
-                                <div class="thum">
-                                    <div class="image">
-                                        <img :src="`${baseUrl}${baseRes}/assets/images/course/cu-5.jpg`" alt="Course">
-                                    </div>
-                                </div>
-                                <div class="cont">
-                                    <ul>
-                                        <li><i class="fa fa-star"></i></li>
-                                        <li><i class="fa fa-star"></i></li>
-                                        <li><i class="fa fa-star"></i></li>
-                                        <li><i class="fa fa-star"></i></li>
-                                        <li><i class="fa fa-star"></i></li>
-                                    </ul>
-                                    <span>(20 Reviws)</span>
-                                    <a href="courses-singel.html"><h4>Learn basis javascirpt from start for beginner</h4></a>
-                                    <div class="course-teacher">
-                                                                               <div class="name-course">
-                                            <a href="#"><h6><i class="fa fa-tags"></i> ມະຫາວິທະຍາໄລແຫ່ງຊາດ</h6></a>
-                                        </div>
-                                        <div class="student">
-                                            <ul>
-                                                <li><i class="fa fa-user"></i> <span>ອາຈານ 300</span></li>
-                                                <li><i class="fa fa-heart"></i> <span>ນັກສຶກສາ 7000</span></li>
-                                            </ul>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div> <!-- singel course -->
-                        </div>
-                        <div class="col-lg-4 col-md-6">
-                            <div class="singel-course mt-30">
-                                <div class="thum">
-                                    <div class="image">
-                                        <img :src="`${baseUrl}${baseRes}/assets/images/course/cu-1.jpg`" alt="Course">
-                                    </div>
-                                </div>
-                                <div class="cont">
-                                    <ul>
-                                        <li><i class="fa fa-star"></i></li>
-                                        <li><i class="fa fa-star"></i></li>
-                                        <li><i class="fa fa-star"></i></li>
-                                        <li><i class="fa fa-star"></i></li>
-                                        <li><i class="fa fa-star"></i></li>
-                                    </ul>
-                                    <span>(20 Reviws)</span>
-                                    <a href="courses-singel.html"><h4>Learn basis javascirpt from start for beginner</h4></a>
-                                    <div class="course-teacher">
-                                       <div class="name-course">
-                                            <a href="#"><h6><i class="fa fa-tags"></i> ມະຫາວິທະຍາໄລແຫ່ງຊາດ</h6></a>
-                                        </div>
-                                        <div class="student">
-                                            <ul>
-                                                <li><i class="fa fa-user"></i> <span>ອາຈານ 300</span></li>
-                                                <li><i class="fa fa-heart"></i> <span>ນັກສຶກສາ 7000</span></li>
-                                            </ul>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div> <!-- singel course -->
-                        </div>
-                    </div> <!-- row -->
+
+                <div class="cont institute">
+                  <a href="courses-singel.html">
+                    <h4>ຄະນະວິທະຍາສາດທຳມະຊາດ</h4>
+                  </a>
+                  <p>Lorem ipsum dolor sit amet consectetur, adipisicing elit. In aliquid provident nesciunt inventore ipsa odit quisquam repellat praesentium?</p>
+                  <div class="course-teacher">
+                    <div class="name-course">
+                      <a href="#">
+                        <h6>
+                          <i class="fa fa-tags"></i> ມະຫາວິທະຍາໄລແຫ່ງຊາດ
+                        </h6>
+                      </a>
+                    </div>
+                    <div>
+                      <ul>
+                        <li>
+                          <span>Updated 22/4/2019</span>
+                        </li>
+                      </ul>
+                    </div>
+                  </div>
                 </div>
-            <div class="row">
-                <div class="col-lg-12">
-                    <nav class="courses-pagination mt-50">
-                        <ul class="pagination justify-content-center">
-                            <li class="page-item">
-                                <a href="#" aria-label="Previous">
-                                    <i class="fa fa-angle-left"></i>
-                                </a>
-                            </li>
-                            <li class="page-item"><a class="active" href="#">1</a></li>
-                            <li class="page-item"><a href="#">2</a></li>
-                            <li class="page-item"><a href="#">3</a></li>
-                            <li class="page-item">
-                                <a href="#" aria-label="Next">
-                                    <i class="fa fa-angle-right"></i>
-                                </a>
-                            </li>
-                        </ul>
-                    </nav>  <!-- courses pagination -->
+              </div>
+              <!-- singel course -->
+            </div>
+            <div class="col-lg-4 col-md-6">
+              <div class="singel-course mt-30">
+                <div class="thum">
+                  <div class="image">
+                    <img :src="`${baseUrl}${baseRes}/assets/images/course/cu-2.jpg`" alt="Course">
+                  </div>
                 </div>
-            </div>  <!-- row -->
-        </div> <!-- container -->
+                <div class="cont institute">
+                  <a href="courses-singel.html">
+                    <h4>ວິທະຍາໄລເຕັກນິກປາກປາສັກ</h4>
+                  </a>
+                  <p>Lorem ipsum dolor sit amet consectetur, adipisicing elit. In aliquid provident nesciunt inventore ipsa odit quisquam repellat praesentium?</p>
+                  <div class="course-teacher">
+                    <div class="name-course">
+                      <a href="#">
+                        <h6>
+                          <i class="fa fa-tags"></i> ພາກລັດ
+                        </h6>
+                      </a>
+                    </div>
+                    <div>
+                      <ul>
+                        <li>
+                          <span>Updated 22/4/2019</span>
+                        </li>
+                      </ul>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <!-- singel course -->
+            </div>
+            <div class="col-lg-4 col-md-6">
+              <div class="singel-course mt-30">
+                <div class="thum">
+                  <div class="image">
+                    <img :src="`${baseUrl}${baseRes}/assets/images/course/cu-3.jpg`" alt="Course">
+                  </div>
+                </div>
+                <div class="cont institute">
+                  <a href="courses-singel.html">
+                    <h4>ເສດຖະສາດແລະບໍລິຫານທຸລະກິດ</h4>
+                  </a>
+                  <p>Lorem ipsum dolor sit amet consectetur, adipisicing elit. In aliquid provident nesciunt inventore ipsa odit quisquam repellat praesentium?</p>
+                  <div class="course-teacher">
+                    <div class="name-course">
+                      <a href="#">
+                        <h6>
+                          <i class="fa fa-tags"></i> ມະຫາວິທະຍາໄລແຫ່ງຊາດ
+                        </h6>
+                      </a>
+                    </div>
+                    <div>
+                      <ul>
+                        <li>
+                          <span>Updated 22/4/2019</span>
+                        </li>
+                      </ul>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <!-- singel course -->
+            </div>
+            <div class="col-lg-4 col-md-6">
+              <div class="singel-course mt-30">
+                <div class="thum">
+                  <div class="image">
+                    <img :src="`${baseUrl}${baseRes}/assets/images/course/cu-4.jpg`" alt="Course">
+                  </div>
+                </div>
+                <div class="cont institute">
+                  <a href="courses-singel.html">
+                    <h4>ເສດຖະສາດແລະບໍລິຫານທຸລະກິດ</h4>
+                  </a>
+                  <p>Lorem ipsum dolor sit amet consectetur, adipisicing elit. In aliquid provident nesciunt inventore ipsa odit quisquam repellat praesentium?</p>
+                  <div class="course-teacher">
+                    <div class="name-course">
+                      <a href="#">
+                        <h6>
+                          <i class="fa fa-tags"></i> ມະຫາວິທະຍາໄລແຫ່ງຊາດ
+                        </h6>
+                      </a>
+                    </div>
+                    <div>
+                      <ul>
+                        <li>
+                          <span>Updated 22/4/2019</span>
+                        </li>
+                      </ul>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <!-- singel course -->
+            </div>
+            <div class="col-lg-4 col-md-6">
+              <div class="singel-course mt-30">
+                <div class="thum">
+                  <div class="image">
+                    <img :src="`${baseUrl}${baseRes}/assets/images/course/cu-5.jpg`" alt="Course">
+                  </div>
+                </div>
+                <div class="cont institute">
+                  <a href="courses-singel.html">
+                    <h4>ເສດຖະສາດແລະບໍລິຫານທຸລະກິດ</h4>
+                  </a>
+                  <p>Lorem ipsum dolor sit amet consectetur, adipisicing elit. In aliquid provident nesciunt inventore ipsa odit quisquam repellat praesentium?</p>
+                  <div class="course-teacher">
+                    <div class="name-course">
+                      <a href="#">
+                        <h6>
+                          <i class="fa fa-tags"></i> ມະຫາວິທະຍາໄລແຫ່ງຊາດ
+                        </h6>
+                      </a>
+                    </div>
+                    <div>
+                      <ul>
+                        <li>
+                          <span>Updated 22/4/2019</span>
+                        </li>
+                      </ul>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <!-- singel course -->
+            </div>
+            <div class="col-lg-4 col-md-6">
+              <div class="singel-course mt-30">
+                <div class="thum">
+                  <div class="image">
+                    <img :src="`${baseUrl}${baseRes}/assets/images/course/cu-1.jpg`" alt="Course">
+                  </div>
+                </div>
+                <div class="cont institute">
+                  <a href="courses-singel.html">
+                    <h4>ເສດຖະສາດແລະບໍລິຫານທຸລະກິດ</h4>
+                  </a>
+                  <p>Lorem ipsum dolor sit amet consectetur, adipisicing elit. In aliquid provident nesciunt inventore ipsa odit quisquam repellat praesentium?</p>
+                  <div class="course-teacher">
+                    <div class="name-course">
+                      <a href="#">
+                        <h6>
+                          <i class="fa fa-tags"></i> ມະຫາວິທະຍາໄລແຫ່ງຊາດ
+                        </h6>
+                      </a>
+                    </div>
+                    <div>
+                      <ul>
+                        <li>
+                          <span>Updated 22/4/2019</span>
+                        </li>
+                      </ul>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <!-- singel course -->
+            </div>
+          </div>
+          <!-- row -->
+        </div>
+        <div class="row">
+          <div class="col-lg-12">
+            <nav class="courses-pagination mt-50">
+              <ul class="pagination justify-content-center">
+                <li class="page-item">
+                  <a href="#" aria-label="Previous">
+                    <i class="fa fa-angle-left"></i>
+                  </a>
+                </li>
+                <li class="page-item">
+                  <a class="active" href="#">1</a>
+                </li>
+                <li class="page-item">
+                  <a href="#">2</a>
+                </li>
+                <li class="page-item">
+                  <a href="#">3</a>
+                </li>
+                <li class="page-item">
+                  <a href="#" aria-label="Next">
+                    <i class="fa fa-angle-right"></i>
+                  </a>
+                </li>
+              </ul>
+            </nav>
+            <!-- courses pagination -->
+          </div>
+        </div>
+        <!-- row -->
+      </div>
+      <!-- container -->
     </section>
-    
+
     <!--====== COURSES PART ENDS ======-->
-    </div>
+  </div>
 </template>
 <style scoped>
-
 </style>
 

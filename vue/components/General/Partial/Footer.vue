@@ -57,6 +57,11 @@
                       <i class="fa fa-angle-right"></i>ຂ່າວສານ
                     </router-link>
                   </li>
+                     <li>
+                   <router-link :to="{name:'scholarships'}">
+                      <i class="fa fa-angle-right"></i>ທຶນການສຶກສາ
+                   </router-link>
+                  </li>
                 </ul>
               </div>
               <!-- footer link -->

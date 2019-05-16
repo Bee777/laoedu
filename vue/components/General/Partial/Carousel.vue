@@ -15,9 +15,9 @@
                     class="slider_bck"
                     :style="`background:url('${path}/${slide.image}');cursor: ${hasLink(slide.link) ? 'pointer;' : ''}`"
                 ></div>
-                <div class="slide-text">
-                    <h1>{{slide.name}}</h1>
-                    <p>{{slide.description}}</p>
+                <div class="container slide-text">
+                    <h1 v-html="$utils.sub($utils.strip(slide.name), 60)"></h1>
+                    <p v-html="$utils.sub($utils.strip(slide.description), 100)"></p>
                     <ul>
                         <li @slideclick="openLink(slide.link)">
                             <a :style="`display: ${noLink(slide.link) ? 'none;' : ''}`" data-animation="fadeInUp"
@@ -63,9 +63,6 @@
 </script>
 
 <style>
-    .main-btn {
-        display: absolute;
-    }
 
     .slider_bck {
         height: 450px;
@@ -83,9 +80,11 @@
         padding-bottom: 8px;
         z-index: 5;
         text-align: center;
-        margin-top: -138px;
+        margin-top: -178px;
         position: relative;
-        top: -50px;
+        top: -90px;
+         transition-delay: 5s;
+         transition: ease;
     }
 
     .slide-text h1 {
@@ -129,5 +128,10 @@
             padding-bottom: 20px;
             color: #fff;
         }
+                .main-btn{
+   padding: 0px 12px;
+    font-size: 12px;
+    line-height: 26px;
+}
     }
 </style>
