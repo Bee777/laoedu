@@ -10,7 +10,7 @@ namespace App\Responses;
 
 use App\Http\Controllers\Helpers\Helpers;
 use Illuminate\Contracts\Support\Responsable;
-use App\Posts;
+use App\Models\Posts;
 use Image;
 
 class ScholarshipResponse implements Responsable

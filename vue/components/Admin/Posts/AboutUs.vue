@@ -7,8 +7,8 @@
           <MasterSingleDetailCard
             :isLoading="about.loading"
             @onBackButtonClick="onBackButtonClick"
-            :header="{ title: 'About Jaol', content: '<p> Changes about Jaol information.</p>'}"
-            :menuItem="{ name: 'About Jaol', icon: 'account_circle'}"
+            :header="{ title: 'About Us', content: '<p> Changes own information.</p>'}"
+            :menuItem="{ name: 'About Us', icon: 'account_circle'}"
           >
             <div class="details is-edit">
               <form @submit.prevent class="admin-form admin-template-form">
@@ -34,8 +34,8 @@ import { mapActions } from "vuex";
 export default AdminBase.extend({
   name: "AboutInfo",
   data: () => ({
-    title: "About Jaol information",
-    tabs: [{ name: "About Jaol" }],
+    title: "About Us information",
+    tabs: [{ name: "About Us" }],
     about: { loading: true },
     editor: null,
   }),

@@ -10,13 +10,13 @@ namespace App\Responses;
 
 use App\Http\Controllers\Helpers\Helpers;
 use Illuminate\Contracts\Support\Responsable;
-use App\Posts;
+use App\Models\Posts;
 use Image;
 
 class ActivityResponse implements Responsable
 {
 
-    protected $actionType = "get";
+    protected $actionType = 'get';
     protected $options = [];
     protected $uploadPath = '/assets/images/posts/';
 
