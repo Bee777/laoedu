@@ -143,16 +143,19 @@
                         <p>Address</p>
                       </div>
                     </li>
+                    <li>
+                      <div class="icon">
+                        <i class="fas fa-globe"></i>
+                      </div>
+                      <div class="cont">
+                        <p>www.google.com</p>
+                      </div>
+                    </li>
                     <li></li>
                   </ul>
                   <div>
                     <ul class="share social">
-                      <li class="cont">Social :</li>
-                      <li>
-                        <a target="_blank" href="#">
-                          <i class="fab fa-twitter"></i>
-                        </a>
-                      </li>
+                      <li class="title">Social :</li>
                       <li>
                         <a target="_blank" href="#">
                           <i class="fab fa-facebook-f"></i>
