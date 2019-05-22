@@ -5,10 +5,32 @@ import VueRouter from 'vue-router';
 import routes from '@route/routesAdmin';
 
 import '@com/Admin/Assets/index.css'
-import {Button, Select, Dropdown, DropdownItem, DropdownMenu, Dialog, Option, Switch, TabPane, Message, MessageBox} from 'element-ui';
-import plugins from '@vue/plugin/index.js'
+import {
+    Button,
+    Select,
+    Dropdown,
+    DropdownItem,
+    DropdownMenu,
+    Dialog,
+    Option,
+    Switch,
+    TabPane,
+    Message,
+    MessageBox,
+    Tooltip
+} from 'element-ui';
 
-Vue.use(plugins)
+import lang from 'element-ui/lib/locale/lang/en'
+import locale from 'element-ui/lib/locale'
+// configure language
+locale.use(lang);
+
+import iconfont from '@com/Admin/Assets/iconfont/iconfont.js'
+
+Vue.use(iconfont);
+import TextAreaPlugin from '@vue/plugin/textarea-plugin.js'
+Vue.use(TextAreaPlugin);
+
 
 Vue.use(Button)
 Vue.use(Select)
@@ -20,15 +42,10 @@ Vue.use(TabPane)
 Vue.use(Dropdown)
 Vue.use(DropdownItem)
 Vue.use(DropdownMenu)
-
+Vue.use(Tooltip)
 
 Vue.prototype.$message = Message
 Vue.prototype.$confirm = MessageBox.confirm
-
-import iconfont from '@com/Admin/Assets/iconfont/iconfont.js'
-
-Vue.use(iconfont)
-
 
 Vue.use(VueRouter);
 export const router = new VueRouter({

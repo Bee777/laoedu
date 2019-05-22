@@ -176,7 +176,7 @@ if (process.env.NODE_ENV === 'development') {
             path: path.resolve(__dirname, 'public', 'bundles', 'generated', type),
             filename: type + '.[hash].bundle.js',
             chunkFilename: type + '.[name].[chunkhash].js',
-            publicPath: "/bundles/generated/" + type  + "/",
+            publicPath: "/bundles/generated/" + type + "/",
         },
         module: {
             rules: [
@@ -241,24 +241,16 @@ if (process.env.NODE_ENV === 'development') {
                 },
                 {
                     test: /\.css$/,
-                    use: [
-                        {loader: 'css-loader', options: {sourceMap: false, minimize: true}},
-                    ],
+                    loader: 'style-loader!css-loader'
                 },
                 {
                     test: /\.scss$/,
-                    use: [
-                        {loader: 'css-loader', options: {sourceMap: false, minimize: true}},
-                        {loader: 'sass-loader', options: {sourceMap: false, minimize: true}}
-                    ],
+                    loader: ["style", "css?sourceMap", "sass?sourceMap"],
                     exclude: /(node_modules)/
                 },
                 {
                     test: /\.sass$/,
-                    use: [
-                        {loader: 'css-loader', options: {sourceMap: false, minimize: true}},
-                        {loader: 'sass-loader', options: {sourceMap: false, minimize: true}}
-                    ]
+                    use: ["style", "css?sourceMap", "sass?sourceMap"]
                 }
             ]
         },

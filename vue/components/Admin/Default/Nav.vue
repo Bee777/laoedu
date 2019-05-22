@@ -287,7 +287,6 @@
                         this.scrollNavBgColor = `${this.getBgColor()};`;
                         if (!isEmitted) {
                             this.$emit('addScrollHasShadow');
-                            this.Event.fire('scrolling', this.el.scrollTop());
                             isEmitted = true;
                         }
                     }
@@ -297,7 +296,6 @@
                         if (alphaRatio <= 0.5) {
                             this.scrollNavShadow = '';
                             this.$emit('removeScrollHasShadow');
-                            this.Event.fire('scrolling', this.el.scrollTop());
                             isEmitted = false;
                         }
                     }
@@ -305,6 +303,7 @@
                         this.scrollNavBgColor = `${this.getBgColor()};`;
                     }
                 }
+                this.Event.fire('scrolling', this.el.scrollTop());
             },
             scrollNavHandler() {
                 this.el = this.jq('#main-container');
