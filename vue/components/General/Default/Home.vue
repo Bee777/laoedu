@@ -9,7 +9,7 @@
         <div class="category pt-20 pb-40">
           <div class="row">
             <div class="col-lg-4">
-              <div class="category-text pt-40">
+              <div class="category-text">
                 <h2>ທ່ານກຳລັງຊອກຫາຫຼັກສູດການສຶກສາ</h2>
               </div>
             </div>
@@ -128,7 +128,7 @@
 
     <!--====== ABOUT PART START ======-->
 
-    <section id="about-part" class="pt-15">
+    <section id="about-part">
       <div class="container">
         <div class="row">
           <div class="col-lg-5">
@@ -209,34 +209,43 @@
         <!-- row -->
         <div class="row course-slied mt-30">
           <div class="col-lg-4">
-            <div class="singel-course">
-              <div class="thum">
-                <div class="image">
+            <div class="custom-card">
+              <a href="/courses/mastering-vuex/intro-to-vuex" class="grid-card card">
+                <div class="media">
                   <img :src="`${baseUrl}${baseRes}/assets/images/course/cu-1.jpg`" alt="Course">
                 </div>
-              </div>
-              <div class="cont institute">
-                <a href="courses-singel.html">
-                  <h4>ເສດຖະສາດແລະບໍລິຫານທຸລະກິດ</h4>
-                </a>
-                <p>Lorem ipsum dolor sit amet consectetur, adipisicing elit. In aliquid provident nesciunt inventore ipsa odit quisquam repellat praesentium?</p>
-                <div class="course-teacher">
-                  <div class="name-course">
-                    <a href="#">
-                      <h6>
-                        <i class="fa fa-tags"></i> ມະຫາວິທະຍາໄລແຫ່ງຊາດ
-                      </h6>
-                    </a>
+                <div class="card-body">
+                  <div class="media-block">
+                    <div class="body">
+                      <h3
+                        class="title"
+                      >Lorem ipsum dolor sit amet consectetur adipisicing elit. Ex corrupti, error nulla hic ab eos.</h3>
+                      <p class="content">
+                        <i class="fas fa-fw fa-birthday-cake"></i>
+                        <span>22.2.2009</span>
+                      </p>
+                      <p class="conent">
+                        <i class="fas fa-fw fa-envelope"></i>
+                        <span>info@gmail.com</span>
+                      </p>
+                      <p class="content">
+                        <i class="fas fa-fw fa-phone"></i>
+                        <span>+856 2093938384</span>
+                      </p>
+                    </div>
                   </div>
-                  <div>
-                    <ul>
-                      <li>
-                        <span>Updated 22/4/2019</span>
-                      </li>
-                    </ul>
+                  <div class="actions">
+                    <div>
+                      <a href="#">
+                        <h6>
+                          <i class="fa fa-tags"></i> ມະຫາວິທະຍາໄລແຫ່ງຊາດ
+                        </h6>
+                      </a>
+                      <div class="button secondary border -full">View more</div>
+                    </div>
                   </div>
                 </div>
-              </div>
+              </a>
             </div>
             <!-- singel course -->
           </div>
@@ -552,27 +561,33 @@
           </div>
         </div>
         <!-- row -->
-        <div class="row justify-content-center">
+        <div class="row">
           <div
-            class="col-lg-3 col-md-6 col-sm-8"
+            class="col-lg-4 col-md-6 col-sm-8"
             v-for="(activity,index) in (homeData.latest_activity)"
             :key="index"
           >
-            <div class="singel-publication mt-30">
-              <div class="image" @click="getDetail('activity', activity)">
-                <img :src="activity.image" :alt="activity.image">
-              </div>
-              <div class="cont">
-                <a @click="getDetail('activity', activity)">
-                  <h6 v-html="$utils.sub($utils.strip(activity.title), 45)"></h6>
-                </a>
-              </div>
-              <div>
-                <span>By {{activity.author}}</span>
-                <span>{{activity.formatted_updated_at}}</span>
-              </div>
+            <div class="custom-card">
+              <a @click="getDetail('activity', activity)" class="grid-card card">
+                <div class="media">
+                  <img :src="activity.image" :alt="activity.image">
+                </div>
+                <div class="card-body">
+                  <div class="media-block">
+                    <div class="body">
+                      <h3 class="title" v-html="$utils.sub($utils.strip(activity.title), 45)"></h3>
+                      <p class="content">By {{activity.author}}</p>
+                    </div>
+                  </div>
+                  <div class="actions">
+                    <div>
+                      <span>{{activity.formatted_updated_at}}</span>
+                      <div class="button secondary border -full">Read more</div>
+                    </div>
+                  </div>
+                </div>
+              </a>
             </div>
-            <!-- singel publication -->
           </div>
         </div>
         <!-- row -->
@@ -603,3 +618,6 @@ export default Base.extend({
   }
 });
 </script>
+<style>
+
+</style>

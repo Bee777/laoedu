@@ -16,7 +16,7 @@
                     :style="`background:url('${path}/${slide.image}');cursor: ${hasLink(slide.link) ? 'pointer;' : ''}`"
                 ></div>
                 <div class="container slide-text">
-                    <h1 v-html="$utils.sub($utils.strip(slide.name), 60)"></h1>
+                    <h1 style="transition:ease;" v-html="$utils.sub($utils.strip(slide.name), 60)"></h1>
                     <p v-html="$utils.sub($utils.strip(slide.description), 100)"></p>
                     <ul>
                         <li @slideclick="openLink(slide.link)">

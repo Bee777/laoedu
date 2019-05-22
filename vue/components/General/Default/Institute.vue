@@ -40,40 +40,48 @@
         <div class="tab-pane fade show active" id="courses-grid" role="tabpanel">
           <div class="row">
             <div class="col-lg-4 col-md-6">
-              <div class="singel-course mt-30">
-                <div class="thum">
-                  <div class="image">
-                    <img :src="`${baseUrl}${baseRes}/assets/images/course/cu-1.jpg`" alt="Course">
-                  </div>
+            <div class="custom-card mt-10">
+              <a href="/courses/mastering-vuex/intro-to-vuex" class="grid-card card">
+                <div class="media">
+                  <img :src="`${baseUrl}${baseRes}/assets/images/course/cu-1.jpg`" alt="Course">
                 </div>
-
-                <div class="cont institute">
-                  <a href="courses-singel.html">
-                    <h4>ຄະນະວິທະຍາສາດທຳມະຊາດ</h4>
-                  </a>
-                  <p>Lorem ipsum dolor sit amet consectetur, adipisicing elit. In aliquid provident nesciunt inventore ipsa odit quisquam repellat praesentium?</p>
-                  <div class="course-teacher">
-                    <div class="name-course">
+                <div class="card-body">
+                  <div class="media-block">
+                    <div class="body">
+                      <h3
+                        class="title"
+                      >Lorem ipsum dolor sit amet consectetur adipisicing elit. Ex corrupti, error nulla hic ab eos.</h3>
+                      <p class="content">
+                        <i class="fas fa-fw fa-birthday-cake"></i>
+                        <span>22.2.2009</span>
+                      </p>
+                      <p class="conent">
+                        <i class="fas fa-fw fa-envelope"></i>
+                        <span>info@gmail.com</span>
+                      </p>
+                      <p class="content">
+                        <i class="fas fa-fw fa-phone"></i>
+                        <span>+856 2093938384</span>
+                      </p>
+                    </div>
+                  </div>
+                  <div class="actions">
+                    <div>
                       <a href="#">
                         <h6>
                           <i class="fa fa-tags"></i> ມະຫາວິທະຍາໄລແຫ່ງຊາດ
                         </h6>
                       </a>
-                    </div>
-                    <div>
-                      <ul>
-                        <li>
-                          <span>Updated 22/4/2019</span>
-                        </li>
-                      </ul>
+                      <div class="button secondary border -full">View more</div>
                     </div>
                   </div>
                 </div>
-              </div>
+              </a>
+            </div>
               <!-- singel course -->
             </div>
             <div class="col-lg-4 col-md-6">
-              <div class="singel-course mt-30">
+              <div class="singel-course mt-10">
                 <div class="thum">
                   <div class="image">
                     <img :src="`${baseUrl}${baseRes}/assets/images/course/cu-2.jpg`" alt="Course">
@@ -105,7 +113,7 @@
               <!-- singel course -->
             </div>
             <div class="col-lg-4 col-md-6">
-              <div class="singel-course mt-30">
+              <div class="singel-course mt-10">
                 <div class="thum">
                   <div class="image">
                     <img :src="`${baseUrl}${baseRes}/assets/images/course/cu-3.jpg`" alt="Course">
@@ -222,7 +230,7 @@
                     </div>
                     <div>
                       <ul>
-                        <li>
+                        <li> 
                           <span>Updated 22/4/2019</span>
                         </li>
                       </ul>
