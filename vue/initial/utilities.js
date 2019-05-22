@@ -1,3 +1,5 @@
+let that = this, toString = Object.prototype.toString;
+
 export default {
     Log() {
         for (var i = 0; i < arguments.length; i++) {
@@ -366,8 +368,11 @@ export default {
         });
         return f;
     },
-    parse(dataString) {
-        return JSON.parse(dataString)
+    parseJSON(dataString) {
+        if (/^[\],:{}\s]*$/.test(dataString.replace(/\\["\\\/bfnrtu]/g, '@').replace(/"[^"\\\n\r]*"|true|false|null|-?\d+(?:\.\d*)?(?:[eE][+\-]?\d+)?/g, ']').replace(/(?:^|:|,)(?:\s*\[)+/g, ''))) {
+            return JSON.parse(dataString)
+        }
+        return {};
     },
     isEmptyObject(obj) {
         for (var prop in obj) {
@@ -756,6 +761,47 @@ export default {
         }
 
         throw new Error("Unable to copy obj! Its type isn't supported.");
+    },
+    deepCopy(obj) {
+        let rv;
+        switch (typeof obj) {
+            case "object":
+                if (obj === null) {
+                    // null => null
+                    rv = null;
+                } else {
+                    switch (toString.call(obj)) {
+                        case "[object Array]":
+                            // It's an array, create a new array with
+                            // deep copies of the entries
+                            rv = obj.map(that.a.deepCopy);
+                            break;
+                        case "[object Date]":
+                            // Clone the date
+                            rv = new Date(obj);
+                            break;
+                        case "[object RegExp]":
+                            // Clone the RegExp
+                            rv = new RegExp(obj);
+                            break;
+                        // ...probably a few others
+                        default:
+                            // Some other kind of object, deep-copy its
+                            // properties into a new object
+                            rv = Object.keys(obj).reduce((prev, key) => {
+                                prev[key] = that.a.deepCopy(obj[key]);
+                                return prev;
+                            }, {});
+                            break;
+                    }
+                }
+                break;
+            default:
+                // It's a primitive, copy via assignment
+                rv = obj;
+                break;
+        }
+        return rv;
     },
     firstUpper(s) {
         if (this.isEmptyVar(s))

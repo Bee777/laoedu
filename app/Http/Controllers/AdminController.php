@@ -9,6 +9,7 @@ use App\Jobs\SendUserChangeStatus;
 use App\Models\InstituteCategory;
 use App\Models\InstituteParentCategory;
 use App\Models\Posts;
+use App\Responses\Admin\AssessmentActionResponse;
 use App\Responses\IndexAdminResponse;
 use App\Responses\ContactInfoResponse;
 use App\Responses\AboutInfoResponse;
@@ -453,7 +454,6 @@ class AdminController extends Controller
             ]);
         }
 
-
         $data = InstituteCategory::CreateItem($request->get('name'), $request->get('have_parent') ? 'yes' : 'no');
         if ($request->get('have_parent')) {
             $parents = InstituteCategory::whereIn('id', array_column($request->get('parent_categories'), 'id'))->where('have_parent', 'no')->get();
@@ -504,7 +504,6 @@ class AdminController extends Controller
                 ]));
             }
         }
-
         return response()->json(['success' => $saved]);
     }
 
@@ -519,47 +518,21 @@ class AdminController extends Controller
      */
 
     /**
-     * @Responses DepartmentAction
+     * @Response @AssessmentAction
+     *
      */
-
-    public function responseActionCreateDepartment(Request $request)
+    public function responseActionCreateAsessment(Request $request)
     {
         $this->validate($request, [
-            'name' => 'required|string|max:191',
+            'assessment' => 'required',
+            'sections' => 'required',
         ]);
-        $oldData = Department::where('name', $request->get('name'))->first();
-        if (isset($oldData)) {
-            return response()->json(['errors' => ['name' => ['Your entered department name already exists in our system.']]], 422);
-        }
-        $department = Department::CreateDepartment($request->get('name'));
-        return response()->json(['success' => true, 'data' => $department]);
-    }
 
-    public function responseActionUpdateDepartment(Request $request, $id)
-    {
-        $this->validate($request, [
-            'name' => 'required|string|max:191',
-        ]);
-        $name = $request->get('name');
-        $oldData = Department::find($id);
-        if (isset($oldData) && $oldData->name !== $name) {
-            $exits = Department::where('name', $name)->where('id', '!=', $id)->first();
-            if (isset($exits)) {
-                return response()->json(['errors' => ['department_name' => ['Your entered department name already exists in our system.']]], 422);
-            }
-        }
-        $saved = Department::UpdateDepartment($id, $request->get('name'));
-        return response()->json(['success' => $saved]);
+        return new AssessmentActionResponse('create');
     }
-
-    public function responseActionDeleteDepartment(Request $request, $id)
-    {
-        $deleted = Department::DeleteDepartment($id);
-        return response()->json(['success' => $deleted]);
-    }
-
     /**
-     * @Responses DepartmentAction
+     * @Response @EndAssessmentAction
+     *
      */
 
     /**
@@ -771,40 +744,18 @@ class AdminController extends Controller
                 unset($d->instituteParentCategories);
                 return $d;
             });
-        } else if ($type === 'departments') {
-            $fields = ['id', 'name', 'created_at', 'updated_at'];
-            $request->request->add(['fields' => $fields]);
-            $data = Department::select($fields);
-            $data->where(function ($query) use ($request, $text) {
-                foreach ($request->fields as $k => $f) {
-                    if ($f === 'created_at' || $f === 'updated_at') {
-                        if (Helpers::isEngText($text)) {
-                            $query->orWhere($f, 'LIKE', "%{$text}%");
-                        } else {
-                            continue;
-                        }
-                    }
-                    $query->orWhere($f, 'LIKE', "%{$text}%");
-                }
-            });
-            $data = $data->orderBy('created_at', 'desc')->paginate($paginateLimit);
         } else if ($type === 'news') {
             $data = (new NewsResponse('get', ['text' => $text, 'limit' => $paginateLimit]))->get($request);
         } else if ($type === 'activity') {
             $data = (new ActivityResponse('get', ['text' => $text, 'limit' => $paginateLimit]))->get($request);
-        } else if ($type === 'event') {
-            $data = (new EventResponse('get', ['text' => $text, 'limit' => $paginateLimit]))->get($request);
         } else if ($type === 'scholarship') {
             $data = (new ScholarshipResponse('get', ['text' => $text, 'limit' => $paginateLimit]))->get($request);
-        } else if ($type === 'organizeChartRanges') {
-            $data = (new OrganizeChartRangeResponse('get', ['text' => $text, 'limit' => $paginateLimit]))->get($request);
         } else if ($type === 'banner') {
             $data = (new BannerResponse('get', ['text' => $text, 'limit' => $paginateLimit]))->get($request);
         } else if ($type === 'file') {
             $data = (new FileResponse('get', ['text' => $text, 'limit' => $paginateLimit]))->get($request);
-        } else if ($type === 'sponsor') {
-            $data = (new SponsorResponse('get', ['text' => $text, 'limit' => $paginateLimit]))->get($request);
         }
+
         if (count($data) > 0) {
             $data->appends(['limit' => $request->exists('limit'), 'q' => $request->get('q')]);
         }

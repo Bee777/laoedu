@@ -104,19 +104,6 @@ class HomeController extends Controller
     }
 
     /***@POST_CONTACTINFO */
-    /***@GET_ChartRangeMembers
-     * @param Request $request
-     * @param $id
-     * @return JsonResponse
-     */
-    public function getChartRangeMembers(Request $request, $id): JsonResponse
-    {
-        $text = $request->get('q');
-        $data = (new OrganizeChartMemberResponse('get', ['text' => $text, 'id' => $id]))->get($request);
-        return response()->json(['data' => $data]);
-    }
-    /***@GET_ChartRangeMembers */
-
     /**@GET_InstituteParentCategories
      *
      */

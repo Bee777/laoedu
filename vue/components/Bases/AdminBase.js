@@ -2,7 +2,6 @@ import Vue from 'vue'
 import {mapActions, mapGetters, mapMutations, mapState} from 'vuex'
 import Editor from "@cus-com/Admin/TinyEditor.vue";
 import Multiselect from 'vue-multiselect'
-
 //set local
 const {Settings} = luxon;
 Settings.defaultLocale = 'en';

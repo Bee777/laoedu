@@ -17,6 +17,7 @@
         "build:admin": "cross-env NODE_ENV=production PROD=admin webpack --progress --hide-modules"
     },
     "dependencies": {
+        "autoprefixer": "^9.5.1",
         "babel-minify-webpack-plugin": "^0.3.0",
         "babel-plugin-component": "^1.1.1",
         "babel-plugin-syntax-dynamic-import": "^6.18.0",
@@ -33,6 +34,7 @@
         "lodash": "^4.17.4",
         "lottie-web": "^5.3.1",
         "luxon": "^1.11.3",
+        "postcss-loader": "^3.0.0",
         "sass-resources-loader": "^1.3.3",
         "select2": "^4.0.6-rc.1",
         "slick-carousel": "^1.6.0",
@@ -46,7 +48,9 @@
         "vue-nav-tabs": "^0.5.1",
         "vue-scrollto": "^2.7.2",
         "vue-select": "^2.2.0",
-        "vue-toasted": "^1.1.26"
+        "vue-toasted": "^1.1.26",
+        "vuedraggable": "^2.20.0",
+        "vuex-undo-redo": "^1.1.4"
     },
     "devDependencies": {
         "axios": "^0.18.0",

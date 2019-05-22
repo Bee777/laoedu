@@ -65,6 +65,12 @@ Route::group(['prefix' => '/', 'middleware' => ['cors', 'parseToken', 'auth:api'
 
         });
 
+        Route::group(['prefix' => '/assessment', 'middleware' => []], function () {
+            Route::post('/create', 'AdminController@responseActionCreateAsessment')->name('api.admin.get.assessment.create');
+        });
+
+
+
         /*** @Department ** */
         Route::post('/department/create', 'AdminController@responseActionCreateDepartment')->name('api.admin.post.department.create');
         Route::post('/department/update/{id}', 'AdminController@responseActionUpdateDepartment')->name('api.admin.post.department.update');

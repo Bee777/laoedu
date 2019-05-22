@@ -1,14 +1,34 @@
 $green_accent: #323232;
-.ViewPagePageBreakGap {
-    -webkit-box-align: start;
-    box-align: start;
-    -webkit-align-items: flex-start;
-    align-items: flex-start;
+$green: #039be5;
+
+%display-flex {
     display: -webkit-box;
     display: -moz-box;
     display: -webkit-flex;
     display: -ms-flexbox;
     display: flex;
+}
+
+%i-absolute-center-all {
+    position: absolute;
+    left: 50%;
+    top: 50%;
+    -webkit-transform: translateY(-50%) translateX(-50%);
+    -moz-transform: translateY(-50%) translateX(-50%);
+    -ms-transform: translateY(-50%) translateX(-50%);
+    -o-transform: translateY(-50%) translateX(-50%);
+    transform: translateY(-50%) translateX(-50%);
+    color: rgba(0, 0, 0, 0.54);
+    fill: rgba(0, 0, 0, 0.54);
+}
+
+
+.ViewPagePageBreakGap {
+    @extend %display-flex;
+    -webkit-box-align: start;
+    box-align: start;
+    -webkit-align-items: flex-start;
+    align-items: flex-start;
     height: 36px;
 
     .ViewPageGoToPageSelectLabel {
@@ -29,7 +49,6 @@ $green_accent: #323232;
 }
 
 .form-create-wrap {
-    $green: #039be5;
     $grey: rgba(0, 0, 0, .5);
     position: relative;
     width: 80%;
@@ -43,7 +62,7 @@ $green_accent: #323232;
     }
 
     .wrap {
-        width: 780px;
+        max-width: 780px;
         min-height: 100px;
         margin: 0 auto;
         @media (max-width: 920px) {
@@ -56,19 +75,14 @@ $green_accent: #323232;
             background-color: #fff;
             -webkit-box-shadow: 0 0 2px rgba(0, 0, 0, .12), 0 2px 4px rgba(0, 0, 0, .24);
             box-shadow: 0 0 2px rgba(0, 0, 0, .12), 0 2px 4px rgba(0, 0, 0, .1);
-            margin-right: 10px;
 
             .header {
+                @extend %display-flex;
                 -webkit-box-align: start;
                 box-align: start;
                 -webkit-align-items: flex-start;
                 align-items: flex-start;
                 background-color: #fff;
-                display: -webkit-box;
-                display: -moz-box;
-                display: -webkit-flex;
-                display: -ms-flexbox;
-                display: flex;
                 height: 40px;
                 overflow-y: visible;
                 padding-right: 2px;
@@ -143,6 +157,7 @@ $green_accent: #323232;
 
     .item {
         padding: 26px 24px 24px 42px;
+        margin-bottom: 0;
 
         .li-right {
             text-align: right;
@@ -171,22 +186,21 @@ $green_accent: #323232;
         position: relative;
 
         .add-list {
-            width: 50px;
-            height: 50px;
+            width: 45px;
+            height: 45px;
             border-radius: 50%;
-            background-color: #e9e9e9;
+            background-color: rgba(0, 0, 0, 0.68);
             position: absolute;
             left: 50%;
             transform: translateX(-50%);
-            bottom: -15px;
             display: flex;
             align-items: center;
             justify-content: center;
             cursor: pointer;
 
             i {
-                color: $green;
-                font-size: 22px;
+                color: white;
+                font-size: 18px;
             }
         }
     }
@@ -213,6 +227,7 @@ $green_accent: #323232;
             }
 
             .q-title {
+                padding-left: 42px;
                 flex: 1;
                 flex-grow: 2;
 
@@ -231,7 +246,7 @@ $green_accent: #323232;
             padding: 5px;
             cursor: move;
 
-            .icon-tuozhuai {
+            .icon-menu-drag-head {
                 color: lightgray;
                 font-size: 20px;
                 margin-left: 37px;
@@ -239,10 +254,14 @@ $green_accent: #323232;
         }
 
         .q-item-wrap {
-            padding: 16px 24px 24px 42px;
+            padding: 16px 24px 8px 0;
         }
 
         .q-item {
+            &.non-options {
+                margin-left: 42px;
+            }
+
             margin-bottom: 10px;
             /*overflow: hidden;*/
             .q-radio {
@@ -250,28 +269,63 @@ $green_accent: #323232;
                 display: flex;
                 align-items: center;
 
+                .drap-area {
+                    @extend %display-flex;
+                    -webkit-box-align: center;
+                    box-align: center;
+                    -webkit-align-items: center;
+                    width: 42px;
+                    cursor: move;
+                    visibility: hidden;
+
+                    i {
+                        cursor: move;
+                        margin-left: auto;
+                        margin-right: auto;
+                        margin-top: -3px;
+                        -webkit-transform: rotate(90deg);
+                        -moz-transform: rotate(90deg);
+                        -ms-transform: rotate(90deg);
+                        -o-transform: rotate(90deg);
+                        transform: rotate(90deg);
+                    }
+
+                    padding: 0;
+                }
+
+                &:hover {
+                    .drap-area {
+                        visibility: visible;
+
+                        &.area-temp {
+                            visibility: hidden;
+                        }
+                    }
+                }
+
                 .icon-radio {
-                    width: 15px;
-                    height: 15px;
+                    width: 20px;
+                    height: 20px;
                     border: 2px solid transparent;
                     margin-right: 15px;
+                    line-height: 18px;
                 }
 
                 .icon-cirle {
-                    border: 2px solid lightgray;
+                    border: 2px solid rgba(0, 0, 0, 0.26);
                     border-radius: 50%;
                 }
 
                 .icon-square {
-                    border: 2px solid lightgray;
+                    border: 2px solid rgba(0, 0, 0, 0.26);
                     border-radius: 0;
                 }
 
                 input {
                     flex: 2;
                     margin-right: 15px;
-                    border: 1px solid transparent;
-                    padding-bottom: 3px;
+                    border: 2px solid transparent;
+                    border-bottom: 1px solid transparent;
 
                     &:focus {
                         border-bottom: 1px solid lightgray;
@@ -283,6 +337,7 @@ $green_accent: #323232;
                     flex-grow: 0;
                     color: rgba(0, 0, 0, 0.3);
                     cursor: pointer;
+                    font-size: 14px;
                 }
 
                 .radio-add {
@@ -290,6 +345,10 @@ $green_accent: #323232;
                     font-weight: bold;
                     cursor: pointer;
                     flex: 0;
+                }
+
+                &.add-padding-left {
+                    padding-left: 36px;
                 }
             }
         }
@@ -326,39 +385,88 @@ $green_accent: #323232;
             padding-bottom: 5px;
             width: 60%;
             text-align: left;
+
+            &.spaced-bottom {
+                margin-bottom: 28px;
+            }
         }
 
         .square-wrap {
             display: flex;
 
             .square-li {
-                flex: 1
+                flex: 1;
+
+                &.square-percent-13 {
+                    flex: 13%;
+                }
+
+                h4.drag-area {
+                    padding-left: 42px;
+                }
             }
         }
 
         .option-wrap {
             overflow: hidden;
             border-top: 1px solid lightgray;
+            margin-bottom: 0;
 
             .option-list {
+                @extend %display-flex;
                 float: right;
+                -webkit-box-align: center;
+                box-align: center;
+                -webkit-align-items: center;
+                align-items: center;
+                box-pack: end;
+                -webkit-box-pack: end;
+                -webkit-justify-content: flex-end;
+                justify-content: flex-end;
+                margin-top: 10px;
 
                 li {
+                    @extend %display-flex;
                     float: left;
                     list-style: none;
-                    margin: 20px 0 0 25px;
+                    -webkit-flex-shrink: 0;
+                    flex-shrink: 0;
+                    height: 48px;
+                    outline: none;
+                    overflow: hidden;
+                    position: relative;
+                    text-align: center;
+                    -webkit-tap-highlight-color: transparent;
+                    z-index: 0;
+                    justify-content: center;
+                    margin: 0 0 0 25px;
 
                     .icon-copy {
                         font-size: 20px;
+                        line-height: 24px;
                     }
 
                     .el-icon-delete {
                         font-size: 21px;
-                        vertical-align: middle;
                     }
 
                     i {
                         cursor: pointer;
+                        margin: auto;
+                    }
+
+                    .group {
+                        margin: auto;
+                        @extend %display-flex;
+
+                        * {
+                            margin-top: auto;
+                            margin-bottom: auto;
+
+                            &:first-child {
+                                margin-right: 6px;
+                            }
+                        }
                     }
                 }
 
@@ -524,6 +632,14 @@ $green_accent: #323232;
             color: rgba(0, 0, 0, 0.54);
         }
     }
+
+    &.add-after:last-child:after {
+        content: '';
+        height: 310px;
+        display: table;
+        clear: both;
+    }
+
 }
 
 .el-dropdown-menu {
@@ -554,3 +670,265 @@ $green_accent: #323232;
     }
 }
 
+.el-select-dropdown__item.selected {
+    color: #fff;
+    background-color: $green;
+
+    &.hover {
+        background-color: rgb(8, 163, 229);
+    }
+}
+
+.questions-section {
+    width: 100%;
+    position: absolute;
+    overflow-x: hidden;
+}
+
+.questions {
+    margin: auto;
+    padding-bottom: 64px;
+    width: 780px;
+    @media (max-width: 771px) {
+        width: 100%;
+        min-width: inherit;
+    }
+}
+
+.FormeditorViewFatDesktop {
+
+    @extend %display-flex;
+    height: 0;
+    box-pack: end;
+    -webkit-box-pack: end;
+    -webkit-justify-content: flex-end;
+    justify-content: flex-end;
+    position: relative;
+    width: 100%;
+
+    .ViewFatPositioner {
+        top: 30px;
+        right: -69px;
+        position: absolute;
+        -webkit-transition: all .3s cubic-bezier(0.4, 0.0, 0.2, 1);
+        transition: all .3s cubic-bezier(0.4, 0.0, 0.2, 1);
+
+        .ViewFatCard {
+            background-color: #fff;
+            -webkit-box-shadow: 0 0 2px rgba(0, 0, 0, .12), 0 2px 4px rgba(0, 0, 0, .24);
+            box-shadow: 0 0 2px rgba(0, 0, 0, .12), 0 2px 4px rgba(0, 0, 0, .24);
+            -webkit-border-radius: 2px;
+            border-radius: 2px;
+
+            .sidebar-li {
+                height: 46px;
+                padding: 2px 0;
+
+                .item {
+                    height: 36px;
+                    margin: 0 2px;
+                    opacity: 1;
+                    color: rgba(0, 0, 0, 0.54);
+                    fill: rgba(0, 0, 0, 0.54);
+                    -webkit-user-select: none;
+                    -webkit-transition: background .3s;
+                    transition: background .3s;
+                    border: 0;
+                    -webkit-border-radius: 50%;
+                    border-radius: 50%;
+                    cursor: pointer;
+                    display: inline-block;
+                    -webkit-flex-shrink: 0;
+                    flex-shrink: 0;
+                    outline: none;
+                    overflow: hidden;
+                    position: relative;
+                    text-align: center;
+                    -webkit-tap-highlight-color: transparent;
+                    width: 48px;
+                    z-index: 0;
+
+                    i {
+                        @extend %i-absolute-center-all;
+                    }
+                }
+
+
+                &:first-child {
+                    padding-top: 8px;
+                }
+
+                &:last-child {
+                    padding-bottom: 8px;
+                }
+            }
+        }
+    }
+
+    @media (max-width: 1230px) {
+        display: none;
+    }
+}
+
+@media (max-width: 1230px) {
+
+    .app-sidebar-collapsed {
+        .FormeditorViewFatDesktop {
+            display: flex;
+        }
+
+        .ViewFatMobile {
+            display: none;
+        }
+    }
+    .ViewFatMobile {
+        display: block;
+        margin-top: 16px;
+        min-height: 60px;;
+    }
+}
+
+@media (max-width: 950px) {
+    .FormeditorViewFatDesktop, .app-sidebar-collapsed .FormeditorViewFatDesktop {
+        display: none;
+    }
+    .ViewFatMobile {
+        display: block;
+        margin-top: 16px;
+        min-height: 60px;
+    }
+}
+
+.el-tooltip {
+    outline: none;
+}
+
+.el-tooltip__popper {
+    line-height: 1;
+    font-size: 11px;
+}
+
+.el-tooltip__popper .popper__arrow {
+    opacity: 0;
+}
+
+.el-tooltip__popper.is-dark {
+    -webkit-border-radius: 2px;
+    border-radius: 2px;
+    background-color: rgba(97, 97, 97, 0.902);
+}
+
+.scale-tran-enter-active, .scale-tran-leave-active {
+    transition: opacity .2s;
+}
+
+.scale-tran-enter, .scale-tran-leave-to {
+    opacity: 0;
+}
+
+.ViewFatMobile {
+    display: none;
+    @media (max-width: 1230px) {
+        display: none;
+    }
+
+    .FormeditorViewFatPositioner {
+        background: linear-gradient(to bottom, transparent, rgba(0, 0, 0, 0.12));
+        bottom: 0;
+        -webkit-box-sizing: border-box;
+        box-sizing: border-box;
+        height: 60px;
+        margin: 0 0 0 256px;
+        padding-right: 256px;
+        position: fixed;
+        width: 100%;
+        z-index: 10;
+        left: 0;
+        right: 0;
+
+        .FormeditorViewFatCard, content {
+
+            @extend %display-flex;
+            -webkit-box-shadow: 0 1px 6px #616161;
+            box-shadow: 0 1px 6px #616161;
+            -webkit-box-flex: 1;
+            box-flex: 1;
+            -webkit-flex-grow: 1;
+            flex-grow: 1;
+            height: 60px;
+            box-pack: justify;
+            -webkit-box-pack: justify;
+            -webkit-justify-content: space-around;
+            justify-content: space-around;
+            background-color: #fff;
+            -webkit-border-radius: 2px;
+            border-radius: 2px;
+
+            .sidebar-li {
+
+                @extend %display-flex;
+                margin: 8px 0;
+                opacity: 1;
+                color: rgba(0, 0, 0, 0.54);
+                fill: rgba(0, 0, 0, 0.54);
+                -webkit-transition: background .3s;
+                transition: background .3s;
+                border: 0;
+                -webkit-border-radius: 50%;
+                border-radius: 50%;
+                cursor: pointer;
+                -webkit-flex-shrink: 0;
+                flex-shrink: 0;
+                height: 48px;
+                outline: none;
+                overflow: hidden;
+                position: relative;
+                text-align: center;
+                -webkit-tap-highlight-color: transparent;
+                width: 48px;
+                z-index: 0;
+
+                .item {
+                    margin: auto;
+                    opacity: 1;
+                    -webkit-user-select: none;
+                    -webkit-transition: background .3s;
+                    transition: background .3s;
+                    border: 0;
+                    -webkit-border-radius: 50%;
+                    border-radius: 50%;
+
+                    i {
+                        @extend %i-absolute-center-all;
+                    }
+                }
+            }
+        }
+
+        @media screen and (max-width: 1023px) {
+            margin-left: 0;
+            padding-right: 0;
+        }
+    }
+}
+
+@media (max-width: 1230px) {
+
+    .app-sidebar-collapsed {
+        .ViewFatMobile {
+            display: none;
+        }
+    }
+
+    .ViewFatMobile {
+        display: block;
+        margin-top: 16px;
+        min-height: 60px;;
+    }
+}
+
+.clearfix::after {
+    content: "";
+    clear: both;
+    display: table;
+}

@@ -110,7 +110,7 @@ export default [
     },
     {
         name: 'create-assessment',
-        path: `${prefix}/assessment/create`,
+        path: `${prefix}/assessment/start-assessment`,
         component: CreateAssessment,
         meta: metas.authMeta,
     },
