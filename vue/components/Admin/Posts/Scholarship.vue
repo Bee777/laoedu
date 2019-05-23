@@ -290,10 +290,9 @@
             watchers: true,
             tabs: [{name: "Scholarship"}],
             headers: [
-                {class: "th-sortable", name: "Scholarship name", width: "30%"},
+                {class: "th-sortable", name: "Scholarship name", width: "50%"},
                 {class: "hide-xs th-sortable", name: "Deadline", width: "20%"},
                 {class: "hide-xs th-sortable", name: "Image", width: "10%"},
-                {class: "hide-xs th-sortable", name: "Author", width: "20%"},
                 {class: "th-sortable", name: "Status", width: "100"},
                 {class: "hide-xs th-sortable", name: "Created", width: "20%"},
                 {class: "th-not-sortable", name: "", width: "80"}
@@ -330,11 +329,6 @@
                         {
                             data: `${this.baseUrl}${data.image}`,
                             type: "image",
-                            class: "hide-xs"
-                        },
-                        {
-                            data: data.author,
-                            type: "text",
                             class: "hide-xs"
                         },
                         {

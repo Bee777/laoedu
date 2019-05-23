@@ -12,6 +12,7 @@ use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Helpers\Helpers;
 use App\Models\Banner;
+use App\Models\Site;
 use App\Models\Posts;
 use Illuminate\Support\Str;
 
@@ -74,6 +75,7 @@ class HomeController extends Controller
         $data = [];
         $data['banners'] = Banner::getBanners(8);
         $data['latest_news'] = Posts::getPosts('news', 5);
+        // $data['About'] = Site::getAbout();
         $data['latest_scholarship'] = Posts::getPosts('scholarship', 3);
         $data['latest_activity'] = Posts::getPosts('activity', 4);
         $data['mostViewScholarship'] = Posts::where('type', 'scholarship')->where('status', 'open')->orderBy('view', 'desc')->first();

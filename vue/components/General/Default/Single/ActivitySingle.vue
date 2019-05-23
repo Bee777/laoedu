@@ -1,7 +1,7 @@
 <template>
   <div>
     <!--POST CONTENT -->
-    <section id="blog-singel" class="pt-20 pb-20 gray-bg">
+    <section id="blog-singel" class="pt-10 pb-10 gray-bg">
       <div class="container">
         <div class="fire-spinner" v-if="shouldLoadingSingle(type)"></div>
         <div class="row">
@@ -31,7 +31,6 @@
                       {{
                       singlePostsData.activities.data.post_updated }}
                     </time>
-                    <span class="agoTime" :title="singlePostsData.activities.data.post_updated_ago"></span>
                   </li>
                   <li>
                     <img
@@ -81,7 +80,7 @@
           </div>
         </div>
         <!-- Sigle blog footer -->
-        <div class="row course-slied mt-30">
+        <div class="row course-slied mt-10">
           <div class="col-lg-4 pb-10" v-for="(item, idx) in singlePostsData.activities.others" :key="idx">
             <div class="singel-course card">
               <div class="thum">

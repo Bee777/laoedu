@@ -1,11 +1,11 @@
 <template>
   <div>
     <!--====== ABOUT PART START ======-->
-    <section id="about-page" class="pt-40 pb-60">
+    <section id="about-page" class="pt-20 pb-30">
       <div class="container">
         <div class="row">
           <div class="col-lg-12">
-            <div class="section-title mt-50">
+            <div class="section-title mt-30">
               <h5>About us</h5>
               <h2>{{s.site_name}}</h2>
             </div>

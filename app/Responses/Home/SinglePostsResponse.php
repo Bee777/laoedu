@@ -10,9 +10,8 @@ namespace App\Responses\Home;
 
 
 use App\Banner;
-use App\Dictionary;
 use App\Http\Controllers\Helpers\Helpers;
-use App\Posts;
+use App\Models\Posts;
 use App\Traits\DefaultData;
 use Illuminate\Contracts\Support\Responsable;
 use Illuminate\Support\Facades\DB;
@@ -91,7 +90,6 @@ class SinglePostsResponse implements Responsable
         $types = [
             'activities' => 'activity', 'news' => 'news',
              'scholarships' => 'scholarship',
-            'dictionaries' => 'dictionary',
         ];
         return $types[$title] ?? '';
     }
@@ -108,15 +106,6 @@ class SinglePostsResponse implements Responsable
             if ($d->type === 'activity') {
                 $d->formatted_start_date = Helpers::toFormatDateString($d->start_date, 'j M Y');
             }
-            // if ($d->type === 'event') {
-
-            //     $d->formatted_start_date = Helpers::toFormatDateString($d->start_date, 'M d Y');
-            //     $d->formatted_deadline = Helpers::toFormatDateString($d->deadline, 'M d Y');
-
-            //     $d->during_time = Helpers::toFormatDateString($d->start_date, 'H:i A') . ' - ';
-            //     $d->during_time .= Helpers::toFormatDateString($d->deadline, 'H:i A');
-            // }
-
             if ($d->type === 'scholarship') {
                 $d->formatted_deadline = date('H:i A, M d Y', strtotime($d->deadline));
             }
@@ -135,19 +124,11 @@ class SinglePostsResponse implements Responsable
         $data->author = $data->user->name . ' ' . $data->user->last_name;
         $data->author_image = $data->user->userInfo['imagePath'] . $data->user->userInfo['preThumb'] . $data->user->image;
         $data->image = Posts::$uploadPath . $data->image;
-        $data->post_updated_ago = $data->updated_at->diffForHumans();
         $data->post_updated = Helpers::toFormatDateString($data->updated_at, 'H:i A, j M Y');
         $data->isClosed = $data->status==='close';
         if ($data->type === 'activity') {
             $data->formatted_start_date = Helpers::toFormatDateString($data->start_date, 'j M Y');
-            $data->formatted_start_date_ago = $data->start_date->diffForHumans();
         }
-        // if ($data->type === 'event') {
-        //     $data->formatted_start_date = Helpers::toFormatDateString($data->start_date, 'M d Y');
-        //     $data->formatted_deadline = Helpers::toFormatDateString($data->deadline, 'M d Y');
-        //     $data->during_time = Helpers::toFormatDateString($data->start_date, 'H:i A') . ' - ';
-        //     $data->during_time .= Helpers::toFormatDateString($data->deadline, 'H:i A');
-        // }
         if ($data->type === 'scholarship') {
             $data->formatted_deadline = date('H:i A, M d Y', strtotime($data->deadline));
         }

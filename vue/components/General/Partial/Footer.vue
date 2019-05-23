@@ -31,7 +31,7 @@
               </div>
               <!-- footer about -->
             </div>
-            <div class="col-lg-5 col-md-6 col-sm-12">
+            <div class="col-lg-4 col-md-6 col-sm-12">
               <div class="footer-link mt-40">
                 <div class="footer-title pb-20">
                   <h6>Sitemap</h6>
@@ -80,7 +80,7 @@
               </div>
               <!-- footer link -->
             </div>
-            <div class="col-lg-3 col-md-6">
+            <div class="col-lg-4 col-md-6">
               <div class="footer-address mt-40">
                 <div class="footer-title pb-20">
                   <h6>Contact Us</h6>

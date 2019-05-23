@@ -54,7 +54,7 @@ class ActivityResponse implements Responsable
         $data->map(function ($d) {
             $d->author = $d->user->name;
             $d->statusColor = $d->status === 'open' ? '#00bfa5' : ($d->status === 'close' ? '#d50000' : '');
-            $d->activity_date = $d->start_date->format('c');//covert timestamp to ISO 8601 format.
+            // $d->activity_date = $d->start_date->format('c');//covert timestamp to ISO 8601 format.
             $d->filename = $d->image;
             $d->image = "{$this->uploadPath}{$d->image}";
             return $d;

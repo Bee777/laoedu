@@ -124,7 +124,7 @@ p {
 	/* font-size: 16px !important; */
 	font-weight: 400;
 	/* line-height: 28px; */
-	color: #505050;
+	color: #4a4a4a;
 	margin: 0px;
 }
 
@@ -1287,7 +1287,7 @@ a.main-btn:hover, a.main-btn:not([href]):hover{
 
 .singel-course .course-teacher .admin{
     display: inline-block;
-    float: right;
+    float: left;
     overflow: hidden;
 }
 
@@ -1305,12 +1305,6 @@ a.main-btn:hover, a.main-btn:not([href]):hover{
 }
 .singel-course .course-teacher .name-course a:hover h6{
     color: #ffc600;
-}
-
-.singel-course .course-teacher .admin{
-    display: inline-block;
-    float: right;
-    overflow: hidden;
 }
 
 .singel-course .course-teacher .student{
@@ -1817,7 +1811,7 @@ img{
 .footer-link ul li{
     line-height: 30px;
         display: inline-block;
-    padding-right: 60px;
+    padding-right: 40px;
     float: left;
 }
 .footer-link ul li a{
@@ -3287,7 +3281,7 @@ cursor: initial;
 }
 
 .singel-blog .blog-cont ul {
-    padding: 20px 0;
+    padding: 10px 0;
 }
 .singel-blog .blog-cont ul li{
     display: inline-block;
@@ -3896,7 +3890,7 @@ a{
     letter-spacing: 0.01rem;
     font-weight: 400;
     font-style: normal;
-    font-size: 19px;
+    font-size: 20px;
     line-height: 1.58;
     letter-spacing: -0.003em;
     overflow-wrap: break-word;
@@ -4201,7 +4195,10 @@ img.avatar-image {
     -webkit-transform: scale(1.1);
     transform: scale(1.1);
   }
-
+  .saidbar .saidbar-post ul li a .singel-post .thum img{
+    width: 92px;
+    height: 62px;
+  }
 
 
 
