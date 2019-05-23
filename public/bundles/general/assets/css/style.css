@@ -1816,6 +1816,9 @@ img{
 }
 .footer-link ul li{
     line-height: 30px;
+        display: inline-block;
+    padding-right: 60px;
+    float: left;
 }
 .footer-link ul li a{
     color: #fff;

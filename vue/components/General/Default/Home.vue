@@ -10,7 +10,7 @@
           <div class="row">
             <div class="col-lg-4">
               <div class="category-text">
-                <h2>ທ່ານກຳລັງຊອກຫາຫຼັກສູດການສຶກສາ</h2>
+                <h2>ໝວດໝູ່ສະຖານການສຶກສາທີ່ທ່ານອາດມັກ</h2>
               </div>
             </div>
             <div
@@ -27,23 +27,7 @@
                         >
                       </span>
                       <span class="cont">
-                        <span>ປະລິນຍາໂທ</span>
-                      </span>
-                    </span>
-                    <!-- singel category -->
-                  </a>
-                </div>
-                <div class="col-lg-4">
-                  <a href="#">
-                    <span class="singel-category text-center color-2">
-                      <span class="icon">
-                        <img
-                          :src="`${baseUrl}${baseRes}assets/images/all-icon/ctg-2.png`"
-                          alt="Icon"
-                        >
-                      </span>
-                      <span class="cont">
-                        <span>ປະລິນຍາຕີ</span>
+                        <span>ມະຫາວິທະຍາໄລແຫ່ງຊາດ</span>
                       </span>
                     </span>
                     <!-- singel category -->
@@ -75,7 +59,7 @@
                         >
                       </span>
                       <span class="cont">
-                        <span>ຊັ້ນກາງ</span>
+                        <span>ເອກະຊົນ</span>
                       </span>
                     </span>
                     <!-- singel category -->
@@ -91,23 +75,7 @@
                         >
                       </span>
                       <span class="cont">
-                        <span>ວິຊາຊີບ</span>
-                      </span>
-                    </span>
-                    <!-- singel category -->
-                  </a>
-                </div>
-                <div class="col-lg-4">
-                  <a href="#">
-                    <span class="singel-category text-center color-3">
-                      <span class="icon">
-                        <img
-                          :src="`${baseUrl}${baseRes}assets/images/all-icon/ctg-3.png`"
-                          alt="Icon"
-                        >
-                      </span>
-                      <span class="cont">
-                        <span>ສາຍສາມັນ</span>
+                        <span>ສະຖາບັນລັດ</span>
                       </span>
                     </span>
                     <!-- singel category -->
@@ -201,7 +169,7 @@
           <div class="col-lg-6">
             <div class="section-title pb-15">
               <h3>ສະຖານການສຶກສາ</h3>
-              <h5>The best institute</h5>
+              <h5>ສະຖານການສຶກສາທີ່ຜ່ານການປະເມີນຈາກສູນປະກັນຄຸນນະພາບການສຶກສສາ</h5>
             </div>
             <!-- section title -->
           </div>
@@ -459,8 +427,8 @@
         <div class="row align-items-end">
           <div class="col-lg-6 col-md-8 col-sm-7">
             <div class="section-title pb-30">
-              <h3>ຂ່າວໃໝ່</h3>
-              <h5>From the news</h5>
+              <h3>ຂ່າວສານ</h3>
+              <h5>ຕິດຕາມຂໍ້ມູນຂ່າວສານ ແລະສາລະໜ້າຮູ້ຕ່າງໆໄດ້</h5>
             </div>
             <!-- section title -->
           </div>
@@ -549,7 +517,7 @@
           <div class="col-lg-6 col-md-8 col-sm-7">
             <div class="section-title pb-10">
               <h3>ກິດຈະກຳ</h3>
-              <h5>ວຽກງານນອກຫຼັກສູດ</h5>
+              <h5>ການເຄື່ອນໄຫຼວກິດຈະກຳຕ່າງໆ</h5>
             </div>
             <!-- section title -->
           </div>
@@ -618,6 +586,3 @@ export default Base.extend({
   }
 });
 </script>
-<style>
-
-</style>

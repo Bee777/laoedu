@@ -149,6 +149,9 @@
 	padding: 10px 40px 40px;
 }
 
+.footer-link.suppor{
+	margin-top: 0px;
+}
 
 
 }
@@ -809,7 +812,7 @@
 	left: 80%;
 }
 .logo {
-	text-align: center;
+	text-align: left;
 }
 
 .header-contact ul li {
@@ -1378,5 +1381,11 @@
 .header-logo-support{
 	display: none;
 }   
+.footer-link.suppor{
+	margin-top: 0px;
+}
+.mobile-left{
+	    margin-left: 15px;
+}
 
 }
