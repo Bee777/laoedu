@@ -51,6 +51,14 @@ Route::group(['prefix' => 'users/me', 'middleware' => []], function () {
 });
 /***** @UserRoutes ***** */
 
+/***** @InstituteRoutes ***** */
+Route::group([ 'prefix' => 'institute/me', 'middleware' => []], function () {
+    Route::get('/', 'InstituteProfileController@index')->name('get.institute.index');
+    Route::get('/institute-profile', 'InstituteProfileController@index')->name('get.user.instituteProfile');
+
+});
+/***** @InstituteRoutes ***** */
+
 
 
 

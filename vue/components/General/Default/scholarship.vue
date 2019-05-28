@@ -44,7 +44,6 @@
               </div>
             </div>
             <!-- singel blog -->
-            <v-container>
               <!--Search Form-->
                         <div class="col-lg-8" v-if="isNotFound()">
             <div class="devsite-article mt-20">
@@ -57,7 +56,6 @@
             </div>
             <div class="result-snippet">No Results</div>
           </div>
-            </v-container>
             <nav class="courses-pagination mt-20">
               <ul class="pagination justify-content-lg-end justify-content-center">
                 <li class="page-item">

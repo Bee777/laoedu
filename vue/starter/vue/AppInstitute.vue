@@ -37,8 +37,8 @@
 </template>
 <script>
     import {mapState, mapGetters, mapActions, mapMutations} from 'vuex'
-    import Sidebar from '@com/User/Default/Sidebar.vue'
-    import Nav from '@com/User/Default/Nav.vue'
+    import Sidebar from '@com/Institute/Default/Sidebar.vue'
+    import Nav from '@com/Institute/Default/Nav.vue'
     import MenuContext from '@cus-com/Admin/MenuContext.vue'
 
     export default {
@@ -105,4 +105,3 @@
         }
     }
 </script>
-

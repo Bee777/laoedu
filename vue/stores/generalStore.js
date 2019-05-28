@@ -30,6 +30,7 @@ export default new Vuex.Store({
             latest_activity: [],
             mostViewScholarship: {},
             instituteCategories: instituteCategories,
+            instituteCategoriesHome: instituteCategoriesHome
         },
         postsData: {
             news: news,//{posts: {}, mostViews: [], comingEvents: []},

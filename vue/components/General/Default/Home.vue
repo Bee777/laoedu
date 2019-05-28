@@ -1,97 +1,10 @@
 <template>
   <div>
-    <carousel :items="homeData.banners"/>
+    <carousels :items="homeData.banners"/>
     <!--====== SLIDER PART ENDS ======-->
 
     <!--====== CATEGORY PART START ======-->
-    <section id="category-part">
-      <div class="container">
-        <div class="category pt-20 pb-40">
-          <div class="row">
-            <div class="col-lg-4">
-              <div class="category-text">
-                <h2>ໝວດໝູ່ສະຖານການສຶກສາທີ່ທ່ານອາດມັກ</h2>
-              </div>
-            </div>
-            <div
-              class="col-lg-6 offset-lg-1 col-md-8 offset-md-2 col-sm-8 offset-sm-2 col-8 offset-2"
-            >
-              <div class="row category-slied mt-40">
-                <div class="col-lg-4">
-                  <a href="#">
-                    <span class="singel-category text-center color-1">
-                      <span class="icon">
-                        <img
-                          :src="`${baseUrl}${baseRes}assets/images/all-icon/ctg-1.png`"
-                          alt="Icon"
-                        >
-                      </span>
-                      <span class="cont">
-                        <span>ມະຫາວິທະຍາໄລແຫ່ງຊາດ</span>
-                      </span>
-                    </span>
-                    <!-- singel category -->
-                  </a>
-                </div>
-                <div class="col-lg-4">
-                  <a href="#">
-                    <span class="singel-category text-center color-3">
-                      <span class="icon">
-                        <img
-                          :src="`${baseUrl}${baseRes}assets/images/all-icon/ctg-3.png`"
-                          alt="Icon"
-                        >
-                      </span>
-                      <span class="cont">
-                        <span>ອະນຸປະລິນຍາ</span>
-                      </span>
-                    </span>
-                    <!-- singel category -->
-                  </a>
-                </div>
-                <div class="col-lg-4">
-                  <a href="#">
-                    <span class="singel-category text-center color-1">
-                      <span class="icon">
-                        <img
-                          :src="`${baseUrl}${baseRes}assets/images/all-icon/ctg-1.png`"
-                          alt="Icon"
-                        >
-                      </span>
-                      <span class="cont">
-                        <span>ເອກະຊົນ</span>
-                      </span>
-                    </span>
-                    <!-- singel category -->
-                  </a>
-                </div>
-                <div class="col-lg-4">
-                  <a href="#">
-                    <span class="singel-category text-center color-2">
-                      <span class="icon">
-                        <img
-                          :src="`${baseUrl}${baseRes}assets/images/all-icon/ctg-2.png`"
-                          alt="Icon"
-                        >
-                      </span>
-                      <span class="cont">
-                        <span>ສະຖາບັນລັດ</span>
-                      </span>
-                    </span>
-                    <!-- singel category -->
-                  </a>
-                </div>
-              </div>
-              <!-- category slied -->
-            </div>
-          </div>
-          <!-- row -->
-        </div>
-        <!-- category -->
-      </div>
-      <!-- container -->
-    </section>
-
+               <InstitueCategory/>
     <!--====== CATEGORY PART ENDS ======-->
 
     <!--====== ABOUT PART START ======-->
@@ -565,7 +478,9 @@
   </div>
 </template>
 <script>
-import Carousel from "@com/General/Partial/Carousel.vue";
+    import {Carousel, Slide} from "vue-carousel";
+import Carousels from "@com/General/Partial/Carousel.vue";
+import InstitueCategory from "@com/General/Default/instituteCategory.vue";
 import Sponsor from "@com/General/Default/Sponsor.vue";
 import ContactForm from "@com/General/ContactForm.vue";
 import Base from "@com/Bases/GeneralBase.js";
@@ -577,9 +492,12 @@ export default Base.extend({
     contactInfo: { header_title: "Contact Us Now" } //for contact form
   }),
   components: {
-    Carousel,
+    Carousels,
+      Carousel,
+    Slide,
     ContactForm,
-    Sponsor
+    Sponsor,
+    InstitueCategory
   },
   created() {
     this.setPageTitle(`Home`);

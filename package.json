@@ -9,7 +9,7 @@
         "dev:admin": "cross-env NODE_ENV=development DEV=admin webpack-dev-server --hot --port 9001",
         "dev:checker": "cross-env NODE_ENV=development DEV=checker webpack-dev-server --hot --port 9002",
         "dev:field_inspector": "cross-env NODE_ENV=development DEV=field_inspector webpack-dev-server --hot --port 9003",
-        "dev:institute": "cross-env NODE_ENV=organize DEV=institute webpack-dev-server --hot --port 9004",
+        "dev:institute": "cross-env NODE_ENV=development DEV=institute webpack-dev-server --hot --port 9004",
         "build:general": "cross-env NODE_ENV=production PROD=general webpack --progress --hide-modules",
         "build:checker": "cross-env NODE_ENV=production PROD=checker webpack --progress --hide-modules",
         "build:field_inspector": "cross-env NODE_ENV=production PROD=field_inspector webpack --progress --hide-modules",

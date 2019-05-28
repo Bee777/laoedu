@@ -1005,6 +1005,8 @@ a.main-btn:hover, a.main-btn:not([href]):hover{
 	padding: 20px 0;
 	border-radius: 5px;
 	display: block;
+	width: 190px;
+	margin-right: 4px;
 }
 .singel-category .icon{
     display: inline-block;

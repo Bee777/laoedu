@@ -71,20 +71,20 @@
                                                             </div>
                                                         </div>
                                                         <div class="layout-align-space-around-start layout-row">
-                                                            <AdminInput :label="'First name'"
-                                                                        v-model="userProfile.first_name"
-                                                                        :validateText="validated().first_name"
+                                                            <AdminInput :label="'Institute name'"
+                                                                        v-model="userProfile.institute_name"
+                                                                        :validateText="validated().institute_name"
                                                                         :containerClass="'dense'"
                                                                         :inputType="'text'">
-                                                                <p class="template-tip">{{ userProfile.first_name ||
+                                                                <p class="template-tip">{{ userProfile.institute_name ||
                                                                     emptyText }}</p>
                                                             </AdminInput>
-                                                            <AdminInput :label="' Last name '"
-                                                                        v-model="userProfile.last_name"
-                                                                        :validateText="validated().last_name"
+                                                            <AdminInput :label="' Short name '"
+                                                                        v-model="userProfile.short_institute_name"
+                                                                        :validateText="validated().short_institute_name"
                                                                         :containerClass="'is-second-input dense'"
                                                                         :inputType="'text'">
-                                                                <p class="template-tip">{{ userProfile.last_name ||
+                                                                <p class="template-tip">{{ userProfile.short_institute_name ||
                                                                     emptyText }}</p>
                                                             </AdminInput>
                                                         </div>
@@ -100,7 +100,7 @@
                                                             <div
                                                                 class="form-input-container flex is-second-input dense"
                                                                 full>
-                                                                <label>Date of Birth</label>
+                                                                <label>Date of Founded</label>
                                                                 <Datetime v-model="userProfile.dateOfBirth"
                                                                           value-zone="Asia/Vientiane"
                                                                           zone="Asia/Vientiane"
@@ -154,90 +154,6 @@
 
                                             <!--Career Info -->
                                             <CareerProfile @onSaved="()=> reFetchData('member_careers')" :yearsOptions="getYearsOption(18)" :options="options" :isEdit="isEdit" :emptyText="emptyText" :member_careers="userProfile.member_careers"/>
-                                            <!--Career Info-->
-                                            <!--&lt;!&ndash;Working Info &ndash;&gt;-->
-                                            <!--<div class="admin-settings-cameo template-brand-settings">-->
-                                                <!--<div class="settings-container no-border-left no-margin-top"-->
-                                                     <!--border-bottom>-->
-                                                    <!--<div class="cameo-header">-->
-                                                        <!--<i class="material-icons cameo-header-icon">work</i>-->
-                                                        <!--<span> Career Information</span>-->
-                                                    <!--</div>-->
-                                                    <!--<div class="cameo-content">-->
-                                                        <!--<div class="layout-align-space-around-start layout-row">-->
-                                                            <!--<AdminInput :label="'Member of State'"-->
-                                                                        <!--:containerClass="'dense'"-->
-                                                                        <!--v-model="userProfile.memberOfState"-->
-                                                                        <!--:validateText="validated().memberOfState"-->
-                                                                        <!--:inputType="'checkbox'">-->
-                                                                <!--<p class="template-tip"-->
-                                                                   <!--v-if="getMemberState()">-->
-                                                                    <!--{{ userProfile.memberOfState ? "Yes" : "No"}}</p>-->
-                                                                <!--<p class="template-tip"-->
-                                                                   <!--v-else>{{ emptyText }}</p>-->
-                                                            <!--</AdminInput>-->
-                                                        <!--</div>-->
-                                                        <!--<div v-if="userProfile.memberOfState"-->
-                                                             <!--class="layout-align-space-around-start layout-row">-->
-                                                            <!--<AdminInput-->
-                                                                <!--:containerClass="'dense'"-->
-                                                                <!--v-model="userProfile.governmentAgency"-->
-                                                                <!--:validateText="validated().governmentAgency"-->
-                                                                <!--:customClass="'is-input-height-same-multiple'"-->
-                                                                <!--:label="'Government Agency'"-->
-                                                                <!--:inputType="'text'">-->
-                                                                <!--<p class="template-tip">{{-->
-                                                                    <!--userProfile.governmentAgency ||-->
-                                                                    <!--emptyText }}</p></AdminInput>-->
-                                                        <!--</div>-->
-                                                        <!--<div class="layout-align-space-around-start layout-row">-->
-                                                            <!--<div class="form-multi-select-container flex dense" full>-->
-                                                                <!--<label>Type Of Organization</label>-->
-                                                                <!--<multiselect class="select-multiple"-->
-                                                                             <!--v-model="userProfile.typeOfOrganize"-->
-                                                                             <!--label="label" track-by="value"-->
-                                                                             <!--placeholder="Select type Of organization"-->
-                                                                             <!--open-direction="bottom"-->
-                                                                             <!--:options="options.organization"-->
-                                                                             <!--:show-no-results="false"-->
-                                                                             <!--:preserve-search="true"-->
-                                                                             <!--:hide-selected="false">-->
-                                                                <!--</multiselect>-->
-                                                                <!--<p class="template-tip"-->
-                                                                   <!--v-if="userProfile.typeOfOrganize && userProfile.typeOfOrganize.label !==''">-->
-                                                                    <!--{{userProfile.typeOfOrganize.label }}</p>-->
-                                                                <!--<p class="template-tip" v-else>{{ emptyText }}</p>-->
-                                                            <!--</div>-->
-                                                        <!--</div>-->
-                                                        <!--<div class="layout-align-space-around-start layout-row">-->
-                                                            <!--<div class="form-multi-select-container flex dense" full>-->
-                                                                <!--<label>Work Categories</label>-->
-                                                                <!--<multiselect class="select-multiple"-->
-                                                                             <!--v-model="userProfile.work_categories"-->
-                                                                             <!--label="label" track-by="value"-->
-                                                                             <!--placeholder="Select work categories"-->
-                                                                             <!--open-direction="bottom"-->
-                                                                             <!--:limit="10"-->
-                                                                             <!--:limit-text="limitText"-->
-                                                                             <!--:options="options.workCategories"-->
-                                                                             <!--:multiple="true"-->
-                                                                             <!--:clear-on-select="false"-->
-                                                                             <!--:close-on-select="false"-->
-                                                                             <!--:preserve-search="true"-->
-                                                                             <!--:hide-selected="true">-->
-                                                                <!--</multiselect>-->
-                                                                <!--<p class="template-tip"-->
-                                                                   <!--v-if="userProfile.work_categories && userProfile.work_categories.length > 0">-->
-                                                                    <!--{{$utils.arrayToText(userProfile.work_categories,-->
-                                                                    <!--'label') }}</p>-->
-                                                                <!--<p class="template-tip" v-else>{{ emptyText }}</p>-->
-                                                            <!--</div>-->
-                                                        <!--</div>-->
-                                                    <!--</div>-->
-                                                <!--</div>-->
-                                            <!--</div>-->
-                                            <!--&lt;!&ndash;Working Info&ndash;&gt;-->
-                                            <!--Address Info  and Description-->
                                             <div class="admin-settings-cameo template-brand-settings">
                                                 <div class="settings-container no-border-left no-margin-top">
                                                     <div class="cameo-header">
@@ -394,6 +310,28 @@
                                     </MasterDetailCardMenu>
                                     <!--Reset Password end-->
                                 </MasterDetailCardItem>
+                                <!-- <MasterDetailCardItem :header='{ title: " SMS " }'>
+                                    <MasterDetailCardMenu
+                                        :header='{
+                                        title: "การยืนยันทาง SMS",
+                                        content: `อนุญาตให้ผู้ใช้ลงชื่อเข้าใช้ด้วยรหัสผ่านแบบใช้ครั้งเดียวที่ส่งเป็น SMS ไปยังโทรศัพท์มือถือ`}'
+                                        :menuItem='{name: "การยืนยันที่อยู่อีเมล", icon: "email", selected: true}'>
+                                        <form @submit.prevent class="admin-form admin-template-form">
+                                            <div class="layout-align-space-around-start layout-row">
+                                                <AdminInput
+                                                    :value="'%LOGIN_CODE% is your verification code for %APP_NAME%.'"
+                                                    :label="' ข้อความ '"
+                                                    :inputType="'text'"/>
+                                            </div>
+                                            <div class="actions">
+                                                <div class="layout-align-end-center layout-row">
+                                                    <button class="v-md-button secondary"> ยกเลิก</button>
+                                                    <button class="v-md-button primary"> บันทึก</button>
+                                                </div>
+                                            </div>
+                                        </form>
+                                    </MasterDetailCardMenu>
+                                </MasterDetailCardItem> -->
                             </div>
                         </template>
                     </MasterDetailCard>
@@ -405,7 +343,7 @@
 
 <script>
     import {mapActions} from 'vuex'
-    import UserBase from '@bases/UserBase.js'
+    import UserBase from '@bases/InstituteBase.js'
     import EducationProfile from '@com/User/Member/EducationProfile.vue'
     import CareerProfile from '@com/User/Member/CareerProfile.vue'
 

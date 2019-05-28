@@ -80,6 +80,8 @@ class HomeController extends Controller
         $data['latest_activity'] = Posts::getPosts('activity', 4);
         $data['mostViewScholarship'] = Posts::where('type', 'scholarship')->where('status', 'open')->orderBy('view', 'desc')->first();
         $data['instituteCategories'] = InstituteCategory::select('id', 'name', 'have_parent')->orderBy('id', 'desc')->get();
+        $data['instituteCategoriesHome'] = InstituteCategory::select('id', 'name')->where('have_parent','no')->orderBy('id', 'desc')->get();
+
         if ($data['mostViewScholarship']) {//set image
             $data['mostViewScholarship']->image = Posts::$uploadPath . $data['mostViewScholarship']->image;
             $data['mostViewScholarship']->formatted_deadline = date('H:i A, M d Y', strtotime($data['mostViewScholarship']->deadline));
