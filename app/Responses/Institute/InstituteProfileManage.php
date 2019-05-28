@@ -35,8 +35,8 @@ class UserProfileManage implements Responsable
             $user = $request->user();
             if (isset($user)) {
                 //Personal Information
-                $user->name = $request->get('institute_name');
-                $user->last_name = $request->get('short_institute_name');
+                $user->institute_name = $request->get('institute_name');
+                $user->short_institute_name = $request->get('short_institute_name');
                 $this->saveImageProfile($user);
                 $user->save();
                 //Personal Information

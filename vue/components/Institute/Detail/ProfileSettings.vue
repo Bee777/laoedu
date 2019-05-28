@@ -36,8 +36,8 @@
                                             <div class="admin-settings-cameo template-brand-settings">
                                                 <div class="settings-container no-border-left" border-bottom>
                                                     <div class="cameo-header">
-                                                        <i class="material-icons cameo-header-icon">account_box</i>
-                                                        <span> Personal Information</span>
+                                                   <i class="material-icons cameo-header-icon">business</i>
+                                                        <span> Institute Information</span>
                                                     </div>
                                                     <div class="cameo-content">
                                                         <div class="layout-align-space-around-start layout-row">
@@ -117,52 +117,61 @@
                                                 </div>
                                             </div>
                                             <!--Personal Info-->
-                                            <!--Marital Info -->
+                                                        <!--Institute Category Info -->
                                             <div class="admin-settings-cameo template-brand-settings">
                                                 <div class="settings-container no-border-left no-margin-top"
                                                      border-bottom>
                                                     <div class="cameo-header">
-                                                        <i class="material-icons cameo-header-icon">favorite</i>
-                                                        <span> Marital Status</span>
+                                                       <i class="material-icons cameo-header-icon">school</i>
+                                                        <span>Institute Category</span>
                                                     </div>
                                                     <div class="cameo-content">
                                                         <div class="layout-align-space-around-start layout-row">
                                                             <div
                                                                 class="form-multi-select-container flex dense"
                                                                 full>
-                                                                <label>Current Status</label>
                                                                 <multiselect class="select-multiple"
-                                                                             v-model="userProfile.marital_status"
-                                                                             label="text" track-by="value"
-                                                                             placeholder="Select your status"
+                                                                            
+                                                                             label="text" track-by="id"
+                                                                            placeholder="Select institute category"
                                                                              open-direction="bottom"
-                                                                             :options="getMaritalStatusOption()"
+                                                                             
                                                                              :show-no-results="false"
                                                                              :preserve-search="true"
-                                                                             :hide-selected="false">
+                                                                             :hide-selected="false"
+                                                                            
+                                                                             >
                                                                 </multiselect>
+                                                                  <div v-if="validated().institute_category"
+                                                                             class="general-input-validate-text-container">
+                                                                            <div class="inner"><span class="span-icon"><svg
+                                                                                xmlns="http://www.w3.org/2000/svg"
+                                                                                width="16" height="16"
+                                                                                viewBox="0 0 24 24"
+                                                                                fill="rgb(229, 28, 35)"><path
+                                                                                d="M0 0h24v24H0z"
+                                                                                fill="none"></path><path
+                                                                                d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm1 15h-2v-2h2v2zm0-4h-2V7h2v6z"></path></svg></span>{{
+                                                                                validated().institute_category }}
+                                                                            </div>
+                                                                        </div>
                                                                 <p class="template-tip">{{ (userProfile.marital_status && userProfile.marital_status.text) || emptyText }}</p>
                                                             </div>
                                                         </div>
                                                     </div>
                                                 </div>
                                             </div>
-                                            <!--Marital Info -->
-                                            <!--Education Info -->
-                                            <EducationProfile @onSaved="()=> reFetchData('member_educations')" :yearsOptions="getYearsOption(10)" :options="options" :isEdit="isEdit" :emptyText="emptyText" :member_educations="userProfile.member_educations"/>
-                                            <!--Education Info-->
-
-                                            <!--Career Info -->
-                                            <CareerProfile @onSaved="()=> reFetchData('member_careers')" :yearsOptions="getYearsOption(18)" :options="options" :isEdit="isEdit" :emptyText="emptyText" :member_careers="userProfile.member_careers"/>
+                                            <!--Institute Category Info -->
+                                            <!--Contact Info -->
                                             <div class="admin-settings-cameo template-brand-settings">
                                                 <div class="settings-container no-border-left no-margin-top">
                                                     <div class="cameo-header">
-                                                        <i class="material-icons cameo-header-icon">business</i>
-                                                        <span> Address Information & Description</span>
+                                                         <i class="material-icons cameo-header-icon">account_box</i>
+                                                        <span> Contact Information & Description</span>
                                                     </div>
                                                     <div class="cameo-content">
                                                         <div class="layout-align-space-around-start layout-row">
-                                                            <AdminInput :label="' Place of Birth '"
+                                                            <AdminInput :label="' Address '"
                                                                         v-model="userProfile.placeOfBirth"
                                                                         :containerClass="'dense'"
                                                                         :inputType="'text'">
@@ -171,7 +180,16 @@
                                                         </div>
                                                         <div class="layout-align-space-around-start layout-row">
                                                             <AdminInput
-                                                                :label="' Place of Resident '"
+                                                                :label="' Google Map '"
+                                                                v-model="userProfile.placeOfResident"
+                                                                :containerClass="'dense'"
+                                                                :inputType="'text'"><p class="template-tip">{{
+                                                                userProfile.placeOfResident ||
+                                                                emptyText }}</p></AdminInput>
+                                                        </div>
+                                                         <div class="layout-align-space-around-start layout-row">
+                                                            <AdminInput
+                                                                :label="'Website'"
                                                                 v-model="userProfile.placeOfResident"
                                                                 :containerClass="'dense'"
                                                                 :inputType="'text'"><p class="template-tip">{{
@@ -181,7 +199,7 @@
                                                         <div class="layout-align-space-around-start layout-row"
                                                              v-if="!isEdit">
                                                             <AdminInput
-                                                                :label="'Personal Description'"
+                                                                :label="'Institute Description'"
                                                                 :containerClass="'dense'"
                                                                 :inputType="'textarea'">
                                                                 <p class="template-tip"
@@ -198,7 +216,7 @@
                                                                 id="description_jaol_editor"
                                                                 v-model="userProfile.personalDescription"
                                                                 :containerClass="'dense'"
-                                                                label="Personal Description"
+                                                                label="Institute Description"
                                                                 @editorMounted="(ed)=> editor = ed"/>
                                                         </div>
                                                     </div>
