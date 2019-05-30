@@ -10,7 +10,7 @@ export const getSectionsScrollHeight = ($vue) => {
             }
         }
     });
-    return scrollClientHeight + (marginSectionDiff * $vue.currentSectionIndex) + bottomSectionDiff;
+    return scrollClientHeight + (marginSectionDiff * $vue.currentFocusIndexes.sectionIndex) + bottomSectionDiff;
 };
 
 export const getSectionFocusQuestionScrollHeight = ($vue) => {
@@ -25,7 +25,7 @@ export const getSectionFocusQuestionScrollHeight = ($vue) => {
         }
     });
     return sectionsQuestionsHeight +
-        (offsetBtwSection * $vue.currentSectionIndex) + (offsetSectionHeader * $vue.currentSectionIndex);
+        (offsetBtwSection * $vue.currentFocusIndexes.sectionIndex) + (offsetSectionHeader * $vue.currentFocusIndexes.sectionIndex);
 };
 
 export function setPlacePositioner($vue) {

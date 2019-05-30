@@ -3,7 +3,7 @@
     <div class="q-item" v-if="allows.includes(type)">
 
         <draggable
-            :list="mOptions"
+            v-model="mOptions"
             group="options"
             :handle="'.drap-area'"
             :move="onMove"
@@ -23,6 +23,7 @@
                 <div v-else class="icon-radio"
                      :class="{'icon-cirle': type === 'multiple_choice', 'icon-square': type === 'checkboxes'}"></div>
                 <input class="radio-input text-data"
+                       :class="[`SectionIndex-${sectionIndex}-QuestionIndex-${question_idx}-type-${type}`]"
                        :data-schema="`${JSON.stringify({sectionIndex, question_index: question_idx, content_index: answer_schema_index, option_index: i})}`"
                        :id="IdSchema(i)"
                        v-model="item.description">
@@ -38,7 +39,7 @@
                 <i class="iconfont icon-menu-drag-head"></i>
             </div>
             <div class="icon-radio" v-if="type === 'dropdown_list' || type === 'priority'">
-                {{options.length + 1}}.
+                {{mOptions.length + 1}}.
             </div>
             <div v-else class="icon-radio"
                  :class="{'icon-cirle': type === 'multiple_choice', 'icon-square': type === 'checkboxes'}"></div>
@@ -51,6 +52,7 @@
 
 <script>
     import draggable from 'vuedraggable';
+    import {mapMutations, mapState} from 'vuex'
 
     export default {
         name: "OptionsQuestion",
@@ -60,11 +62,6 @@
         props: {
             type: {
                 default: 'multiple_choice',
-            },
-            options: {
-                default: function () {
-                    return [];
-                }
             },
             sectionIndex: {
                 default: 0
@@ -82,27 +79,64 @@
                 default: 0
             }
         },
+        computed: {
+            ...mapState(['mSectionsStack']),
+            mOptions: {
+                get() {
+                    return this.mSectionsStack[this.sectionIndex].questions[this.question_idx].content[this.answer_schema_index].option_answers;
+                },
+                set(data) {
+                    let time_group = new Date().getTime();
+                    this.setMoveQuestionSectionOptionsDataStack({
+                        type: 'options',
+                        options: data, sectionIndex: this.sectionIndex,
+                        question_index: this.question_idx, answer_schema_index: this.answer_schema_index,
+                        time_group
+                    });
+
+                    if (this.dragDropContext.related && this.dragDropContext.dragged) {
+                        let targetComp = this.dragDropContext.related.component.$parent;
+                        let dragged = this.dragDropContext.dragged.element;
+                        let placedIndex = targetComp.mOptions.findIndex((item) => {
+                            return item.hash_id === dragged.hash_id;
+                        });
+                        if (placedIndex !== -1) {
+                            this.setMovementQuestionSectionDataStack({
+                                sectionIndex: targetComp.sectionIndex,
+                                questionIndex: targetComp.question_idx,
+                                time_group
+                            });
+                        }
+                    }
+
+                }
+            }
+        },
         data: () => ({
             dragging: false,
-            mOptions: [],
             allows: [
                 'multiple_choice',
                 'checkboxes',
                 'dropdown_list',
                 'priority'
             ],
-            addRadio: 'Add option'
+            addRadio: 'Add option',
+            dragDropContext: {},
         }),
         watch: {
-            options: function (n) {
-                this.mOptions = n;
+            mOptions: function (n) {
+                this.$nextTick(() => {
+                    this.registerTextData();
+                })
+            },
+            type: function (n) {
                 this.$nextTick(() => {
                     this.registerTextData();
                 })
             }
         },
         methods: {
-
+            ...mapMutations(['setMoveQuestionSectionOptionsDataStack', 'setMovementQuestionSectionDataStack']),
             preIdSchema() {
                 return `section-${this.sectionIndex}-question-${this.question_idx}-aws-${this.answer_schema_index}-op-`;
             },
@@ -121,26 +155,27 @@
                     answer_schema_index: this.answer_schema_index,
                     index: i,
                     id_schema: this.preIdSchema(),
-                    length: this.options.length
+                    length: this.mOptions.length
                 })
             },
             addRadioFn() {
                 this.$emit('onAddOptionAnswerClick', {
                     question_idx: this.question_idx,
                     answer_schema_index: this.answer_schema_index,
-                    new_id_idx: this.IdSchema(this.options.length),
+                    new_id_idx: this.IdSchema(this.mOptions.length),
                     id_schema: this.preIdSchema(),
-                    length: this.options.length
+                    length: this.mOptions.length
                 })
             },
             onMove({relatedContext, draggedContext}) {
-                let relatedIndex = relatedContext.index;
-                relatedContext.element.answer_id = draggedContext.index;
-                draggedContext.element.answer_id = relatedIndex;
+                this.dragDropContext = {related: relatedContext, dragged: draggedContext};
                 return true;
             },
             registerTextData() {
-                let classSchema = `.radio-input.text-data`,
+                if (!this.allows.includes(this.type)) {
+                    return;
+                }
+                let classSchema = `.radio-input.text-data.SectionIndex-${this.sectionIndex}-QuestionIndex-${this.question_idx}-type-${this.type}`,
                     els = this.jq(classSchema);
                 els.each((idx, item) => {
                     item.removeEventListener('input', this.assignSchemaTextData, true);
@@ -166,7 +201,6 @@
             this.registerTextData();
         },
         created() {
-            this.mOptions = this.$utils.clone(this.options);
             this.setTextValueChanged = this.debounce(this.setTextValueChanged, 200);
         }
     }

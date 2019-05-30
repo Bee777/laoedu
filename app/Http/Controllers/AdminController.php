@@ -10,16 +10,15 @@ use App\Models\InstituteCategory;
 use App\Models\InstituteParentCategory;
 use App\Models\Posts;
 use App\Responses\Admin\AssessmentActionResponse;
+use App\Responses\Admin\UsersAssessmentActionResponse;
 use App\Responses\IndexAdminResponse;
 use App\Responses\ContactInfoResponse;
 use App\Responses\AboutInfoResponse;
 use App\Responses\NewsResponse;
 use App\Responses\ActivityResponse;
-use App\Responses\OrganizeChartRangeResponse;
 use App\Responses\ScholarshipResponse;
 use App\Responses\BannerResponse;
 use App\Responses\FileResponse;
-use App\Responses\SponsorResponse;
 
 use App\Models\Site;
 use App\Traits\UserRoleTrait;
@@ -243,7 +242,7 @@ class AdminController extends Controller
             'email' => 'required|string|email|max:191',
             'address' => 'required|string',
         ]);
-        return new ContactInfoResponse("manage");
+        return new ContactInfoResponse('manage');
     }
     /**
      * @Responses ContactAction
@@ -530,6 +529,41 @@ class AdminController extends Controller
 
         return new AssessmentActionResponse('create');
     }
+
+    public function responseActionFecthAsessment(Request $request, $id)
+    {
+        return new AssessmentActionResponse('fetch');
+    }
+
+    public function responseActionUpdateAsessment(Request $request, $id)
+    {
+        $this->validate($request, [
+            'assessment' => 'required',
+            'sections' => 'required',
+        ]);
+        return new AssessmentActionResponse('update');
+    }
+
+    public function responseActionUpdateStatusAsessment(Request $request, $id)
+    {
+        $this->validate($request, [
+            'status' => 'required',
+        ]);
+        return new AssessmentActionResponse('update-status');
+    }
+
+    public function responseActionDeleteAsessment(Request $request, $id)
+    {
+        return new AssessmentActionResponse('delete');
+    }
+
+    public function responseActionFetchSendAsessmentUsers(Request $request)
+    {
+        return new UsersAssessmentActionResponse('fetch-send');
+    }
+    public function responseActionSendAsessmenUsers(Request $request, $type){
+        return new UsersAssessmentActionResponse('post-send');
+    }
     /**
      * @Response @EndAssessmentAction
      *
@@ -726,10 +760,7 @@ class AdminController extends Controller
                 foreach ($request->fields as $k => $f) {
                     if ($f === 'created_at' || $f === 'updated_at') {
                         if (Helpers::isEngText($text)) {
-                            $query->orWhere($f, 'LIKE', "%{$text}
-
-%
-");
+                            $query->orWhere($f, 'LIKE', "%{$text}%");
                         } else {
                             continue;
                         }
@@ -744,6 +775,8 @@ class AdminController extends Controller
                 unset($d->instituteParentCategories);
                 return $d;
             });
+        } else if ($type === 'assessments') {
+            $data = (new AssessmentActionResponse('get', ['text' => $text, 'limit' => $paginateLimit]))->get($request);
         } else if ($type === 'news') {
             $data = (new NewsResponse('get', ['text' => $text, 'limit' => $paginateLimit]))->get($request);
         } else if ($type === 'activity') {

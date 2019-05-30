@@ -66,9 +66,15 @@ Route::group(['prefix' => '/', 'middleware' => ['cors', 'parseToken', 'auth:api'
         });
 
         Route::group(['prefix' => '/assessment', 'middleware' => []], function () {
-            Route::post('/create', 'AdminController@responseActionCreateAsessment')->name('api.admin.get.assessment.create');
-        });
+            Route::post('/create', 'AdminController@responseActionCreateAsessment')->name('api.admin.post.assessment.create');
+            Route::get('/fetch/{id}', 'AdminController@responseActionFecthAsessment')->name('api.admin.get.assessment.fetch');
+            Route::post('/update/{id}', 'AdminController@responseActionUpdateAsessment')->name('api.admin.post.assessment.update');
+            Route::post('/update-status/{id}', 'AdminController@responseActionUpdateStatusAsessment')->name('api.admin.post.assessment.update-status');
+            Route::delete('/delete/{id}', 'AdminController@responseActionDeleteAsessment')->name('api.admin.delete.assessment.delete');
+            Route::get('send-users',  'AdminController@responseActionFetchSendAsessmentUsers')->name('api.admin.fetch.send-assessment-users');
 
+            Route::post('send/{type}',  'AdminController@responseActionSendAsessmenUsers')->name('api.admin.post.send-assessment-users');
+        });
 
 
         /*** @Department ** */

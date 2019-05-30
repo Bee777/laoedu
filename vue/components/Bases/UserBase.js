@@ -32,15 +32,8 @@ export default Vue.extend({
             editingItems: {oldCount: 0, items: []},
             isNavigator: false,
             //for profile settings
-            options: {workCategories: [], organization: [], educationDegrees: []},
+            options: {institutes: [], field_inspectors: [], assessments: []},
             isLoading: false,
-            userProfile: {
-                profile_image_base64: '',
-                yearOfGraduated: {text: '', value: ''},
-                dateOfBirth: '',
-                personalDescription: '',
-                member_educations: [],
-            },
             emptyText: 'Not specified',
             //for profile settings
         }
@@ -63,7 +56,7 @@ export default Vue.extend({
     },
     methods: {
         ...mapMutations(['setClearValidate', 'setClearSuccess']),
-        ...mapActions(['setPageTitle', 'showErrorToast', 'showInfoToast', 'fetchSearches', 'fetchAuthUserInfo', 'fetchOptionProfileData', 'fetchDashboardData', 'postManagePostsStatus']),
+        ...mapActions(['setPageTitle', 'showErrorToast', 'showInfoToast', 'fetchSearches', 'fetchAuthUserInfo', 'fetchOptionSendAssessmentData', 'fetchDashboardData', 'postManagePostsStatus']),
         registerWatches() {
             if (this.watchers) {
                 this.$watch(`searchesData.${this.type}`, (n, o) => {
@@ -165,39 +158,21 @@ export default Vue.extend({
         limitText(count) {
             return `and ${count} more.`
         },
-        getYearsOption(more=0) {
-            let now = new Date(), options = [];
-            for (let i = now.getFullYear() + more; i >= 1960; i--) {
-                options.push({text: `${i}`, value: i});
-            }
-            return options;
-        },
-        getMaritalStatusOption() {
-            let options = [];
-            options.push({text: 'Not specified', value: 'none'});
-            options.push({text: 'Single', value: 'single'});
-            options.push({text: 'Married', value: 'married'});
-            return options;
-        },
         getOptions(nl = true) {
             if (nl)
                 this.isLoading = true;
-            this.fetchOptionProfileData()
+            this.fetchOptionSendAssessmentData()
                 .then(res => {
                     let s = res.success, d = res.data, op = this.options;
                     if (s) {
-                        op.organization = d.organizes;
-                        op.workCategories = d.departments;
-                        op.educationDegrees = d.education_degrees;
-                        if (!this.$utils.isEmptyVar(d.user_profile)) {
-                            this.userProfile = d.user_profile;
-                        }
-                        this.fetchAuthUserInfo();
+                        op.assessments = d.assessments;
+                        op.institutes = d.institutes;
+                        op.field_inspectors = d.field_inspectors;
                     }
                     this.isLoading = false;
                 })
                 .catch(err => {
-                    this.showErrorToast({msg: 'Failed to load your profile!', dt: 3500});
+                    this.showErrorToast({msg: 'Failed to load users!', dt: 3500});
                     this.isLoading = false;
                 })
         },

@@ -1,17 +1,18 @@
 <template>
     <div>
         <draggable
-            :list="mQuestions"
+            v-model="mQuestions"
             group="questions"
             :handle="'.drap-area'"
             :move="onMove"
-            @start="dragging=true"
-            @end="dragging=false">
+            @start="onStart"
+            @end="onEnd">
 
             <div v-for="(ques, idx) in mQuestions" class="q-li"
                  :class="{'q-li-focus': isItemFocus(idx)}"
                  :id="`items-sec-${sectionIndex}-ques-${idx}`"
-                 :key="idx"
+                 :key="`items-sec-${sectionIndex}-ques-${idx}`"
+                 :data-schema="`${JSON.stringify({sectionIndex, question_index: idx, hash_id: ques.hash_id})}`"
                  @click="focusItem($event, idx)">
 
                 <div class="drap-area">
@@ -52,14 +53,13 @@
                     <OptionsQuestion
                         :type="ques.types"
                         :sectionIndex="sectionIndex"
-                        :currentSectionIndex="currentSectionIndex"
+                        :currentSectionIndex="currentFocusIndexes.sectionIndex"
                         :focusIndex="focusIndex"
                         :options="content.option_answers"
                         :question_idx="idx"
                         :answer_schema_index="idx1"
                         @onDeleteOptionAnswerClick="deleteOptionRadio"
-                        @onAddOptionAnswerClick="addOptionRadio"
-                    />
+                        @onAddOptionAnswerClick="addOptionRadio"/>
 
                     <!--@EndOptionsQuestionQuestions-->
 
@@ -79,9 +79,8 @@
                     <ScaleOptionsQuestion
                         :type="ques.types"
                         :sectionIndex="sectionIndex"
-                        :currentSectionIndex="currentSectionIndex"
+                        :currentSectionIndex="currentFocusIndexes.sectionIndex"
                         :focusIndex="focusIndex"
-                        :content="content"
                         :question_idx="idx"
                         :answer_schema_index="idx1"
                         @onDeleteOptionAnswerClick="deleteOptionRadio"
@@ -98,7 +97,7 @@
                             </li>
                             <li>
                                 <i class="material-icons"
-                                   @click="deleteListFn(idx)">delete</i>
+                                   @click="deleteListFn($event, idx)">delete</i>
                             </li>
                             <li>
                                 <div class="group">
@@ -126,11 +125,9 @@
 <script>
 
     import draggable from 'vuedraggable';
-
-    import {getSectionFocusQuestionScrollHeight} from '@com/Admin/Assets/PlaceElements.js'
-
     import OptionsQuestion from './OptionsQuestion.vue';
     import ScaleOptionsQuestion from './ScaleOptionsQuestion.vue';
+    import {mapMutations, mapState} from 'vuex'
 
     export default {
         name: "Questionnaire",
@@ -143,36 +140,51 @@
             sectionIndex: {
                 default: 0
             },
-            currentSectionIndex: {
-                default: 0
-            },
-            popFocusIndex: {
-                default: 0
-            },
-            questions: {
-                default: function () {
-                    return []
+            focusIndex: {
+                default: -1,
+            }
+        },
+        computed: {
+            ...mapState(['mSectionsStack', 'currentFocusIndexes']),
+            mQuestions: {
+                get() {
+                    return this.mSectionsStack[this.sectionIndex].questions;
+                },
+                set(data) {
+                    let time_group = new Date().getTime();
+                    this.setMoveQuestionSectionDataStack({
+                        type: 'questions',
+                        component: this.$parent.$parent,
+                        questions: data,
+                        sectionIndex: this.sectionIndex,
+                        time_group
+                    });
+                    if (this.dragDropContext.related && this.dragDropContext.dragged) {
+                        let targetComp = this.dragDropContext.related.component.$parent;
+                        let dragged = this.dragDropContext.dragged.element;
+                        let placedIndex = targetComp.mQuestions.findIndex((item) => {
+                            return item.hash_id === dragged.hash_id;
+                        });
+                        if (placedIndex !== -1) {
+                            this.setMovementQuestionSectionDataStack({
+                                sectionIndex: targetComp.sectionIndex,
+                                questionIndex: placedIndex,
+                                time_group
+                            });
+                        }
+                    }
                 }
             }
         },
         watch: {
-            popFocusIndex: function (n) {
+            mQuestions: function (n, o) {
                 this.$nextTick(() => {
-                    this.focusIndex = n;
-                });
-            },
-            questions: function (n, o) {
-                this.mQuestions = n;
-                this.$nextTick(() => {
-                    this.setScrollVertical();
                     this.registerTextData();
                 })
             }
         },
         data: () => ({
-            mQuestions: [],
             dragging: false,
-            focusIndex: 0,
             selectOptions: [
                 {name: 'Short answer', value: 'short_answer'},
                 {name: 'Paragraph', value: 'paragraph'},
@@ -184,20 +196,35 @@
                 {name: 'Priority', value: 'priority'}
             ],
             defaultOption: 'multiple_choice',
+            dragDropContext: {},
         }),
         methods: {
+            ...mapMutations(['setMoveQuestionSectionDataStack', 'setCurrentFocusQuestionIndex', 'setMovementQuestionSectionDataStack']),
             onMove({relatedContext, draggedContext}) {
-                this.focusIndex = relatedContext.index;
+                this.dragDropContext = {related: relatedContext, dragged: draggedContext};
+                this.setCurrentFocusQuestionIndex({
+                    sectionIndex: this.sectionIndex,
+                    questionIndex: relatedContext.index
+                });
                 return true;
+            },
+            onStart(e) {
+                this.dragging = true;
+            },
+            onEnd({from, to}) {
+                this.dragging = false;
             },
             focusItem(event, i) {
                 let classList = event.target.classList;
-                if (classList.contains('el-icon-delete') || classList.contains('icon-copy') || this.focusIndex === i) return;
-                this.focusIndex = i;
-                this.$emit('onFocusQuestionItemClick', i)
+                if (classList.contains('el-icon-delete') || classList.contains('icon-copy') ||
+                    (this.focusIndex === i && this.currentFocusIndexes.questionIndexes.sectionIndex === this.sectionIndex)) return;
+                this.setCurrentFocusQuestionIndex({
+                    sectionIndex: this.sectionIndex,
+                    questionIndex: i
+                });
             },
             isItemFocus(idx) {
-                return this.focusIndex === idx && this.currentSectionIndex === this.sectionIndex;
+                return this.focusIndex === idx && this.currentFocusIndexes.questionIndexes.sectionIndex === this.sectionIndex;
             },
             addOptionRadio(data_schema_index) {
                 this.$emit('onAddOptionItemClick', data_schema_index)
@@ -208,15 +235,9 @@
             copyListFn(question_idx) {
                 this.$emit('onCopyQuestionClick', question_idx)
             },
-            deleteListFn(question_idx) {
+            deleteListFn($event, question_idx) {
+                $event.stopPropagation();
                 this.$emit('onDeleteQuestionClick', question_idx)
-            },
-            setScrollVertical() {
-                let lastDone = this.done[this.done.length - 1] || {};
-                if (lastDone.type === "setAssessmentTextValueChangeDataStack") {//prevent page scroll on empty state call
-                    return;
-                }
-                this.$utils.scrollToY('main-container', getSectionFocusQuestionScrollHeight(this));
             },
             setTextValueChanged(el, key, value, schema) {
                 let parseSchema = this.$utils.parseJSON(schema);
@@ -248,7 +269,6 @@
             this.registerTextData();
         },
         created() {
-            this.mQuestions = this.$utils.clone(this.questions);
             this.setTextValueChanged = this.debounce(this.setTextValueChanged, 200);
         }
     }

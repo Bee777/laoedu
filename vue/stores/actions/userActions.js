@@ -26,19 +26,6 @@ export const createActions = (utils) => {
         },
         /***  @UsersSettings Profile **/
         /*** @UserProfile **/
-        fetchOptionProfileData(c, data) {
-            return new Promise((r, n) => {
-                client.get(`${apiUrl}/users/profile-options`, ajaxToken(c))
-                    .then(res => {
-                        c.commit('setClearMsg');
-                        r(res.data);
-                    })
-                    .catch(err => {
-                        c.dispatch('HandleError', err.response);
-                        n(err);
-                    });
-            });
-        },
         postManageUserProfile(c, data) {
             return new Promise((r, n) => {
                 utils.Validate(data, {

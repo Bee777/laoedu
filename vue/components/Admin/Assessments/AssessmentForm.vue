@@ -2,64 +2,79 @@
     <div>
         <div class="form-header" :style="`top: ${top}px; right: ${$utils.isMobile() ? '0': right}px;`">
             <div class="navigator">
-                <div class="nav-left">
-                    <div>
-                        <button @click="Route({name: 'assessment' })" class="v-md-button v-md-icon-button theme-blue"><i
-                            class="material-icons">arrow_back</i>
-                        </button>
-                    </div>
-                    <div>Assessments</div>
-                </div>
-                <div class="nav-right">
-                    <div class="actions" v-if="edit">
+                <template v-if="hasSlot('navigator')">
+                    <slot name="navigator"></slot>
+                </template>
+                <template v-else>
+                    <div class="nav-left">
                         <div>
-                            <button class="v-md-button v-md-icon-button theme-blue"><i
-                                class="material-icons">visibility</i></button>
+                            <button @click="Route({name: 'assessment' })"
+                                    class="v-md-button v-md-icon-button theme-blue"><i
+                                class="material-icons">arrow_back</i>
+                            </button>
                         </div>
-                        <div>
-                            <button class="v-md-button primary"> Send</button>
+                        <div class="title-nav">Assessments</div>
+                    </div>
+                    <div class="nav-right">
+                        <div class="actions" v-if="mEditAssessment">
+                            <div>
+                                <a target="_blank" :href="`/admin/me/assessment/preview-assessment/${mAssessment.id}`"
+                                        class="v-md-button v-md-icon-button theme-blue"><i
+                                    class="material-icons">visibility</i></a>
+                            </div>
+                            <div>
+                                <button @click="SaveEditAssessmentHandle()" class="v-md-button primary"> {{SaveText}}
+                                </button>
+                            </div>
+                            <div>
+                                <button class="v-md-button primary"> Send</button>
+                            </div>
+                        </div>
+                        <div class="actions" v-else>
+                            <div>
+                                <button @click="saveAssessmentHandle" class="v-md-button primary"> {{SaveText}}</button>
+                            </div>
                         </div>
                     </div>
-                    <div class="actions" v-else>
-                        <div>
-                            <button @click="saveAssessmentHandle" class="v-md-button primary"> {{SaveText}}</button>
-                        </div>
-                    </div>
-                </div>
+                </template>
             </div>
             <div class="shadow" :style="`opacity: 1;`">
 
             </div>
         </div>
-        <div class="form-create-wrap">
-            <div class="wrap">
-                <div class="content-wrap">
-                    <HeaderBanner title="Assessment Info"/>
-                    <div class="item title title-focus main-form">
-                        <div class="li main-form">
-                            <textarea class="form-title no-resize normal-element"
+        <template v-if="hasSlot('form-wrap')">
+            <slot name="form-wrap"></slot>
+        </template>
+        <template v-else>
+            <div class="form-create-wrap">
+                <div class="wrap">
+                    <div class="content-wrap">
+                        <HeaderBanner title="Assessment Info"/>
+                        <div class="item title title-focus main-form">
+                            <div class="li main-form">
+                            <textarea class="form-title no-resize"
                                       placeholder="Assessment title"
                                       v-model="mAssessment.title"
                                       @focus="$autoText($event)"
                                       @input="$autoText($event)"
                                       @keypress.enter="$disableEnterNewLine"
-                                      ref="assessment-title-text-id"
-                            ></textarea>
-                        </div>
-                        <div class="li main-form">
+                                      ref="assessment-title-text-id"></textarea>
+                            </div>
+                            <div class="li main-form">
                             <textarea placeholder="Assessment description (optional)"
                                       v-model="mAssessment.description"
                                       @focus="$autoText($event)"
-                                      class="form-desc normal-element"
+                                      class="form-desc"
                                       @input="$autoText($event)"
                                       ref="assessment-desc-text-id"></textarea>
+                            </div>
+
                         </div>
 
                     </div>
-
                 </div>
             </div>
-        </div>
+        </template>
     </div>
 </template>
 
@@ -75,15 +90,15 @@
         data: () => ({
             top: 148,
             right: 0,
-            edit: false,
-            SaveText: 'Save'
+            SaveText: 'Save',
+            isSaving: false,
         }),
         computed: {
-            ...mapState(['mAssessment']),
+            ...mapState(['mAssessment', 'mEditAssessment', 'mInitEmptyStateCalled']),
         },
         methods: {
             ...mapMutations(['setAssessmentTextValueChangeDataStack', 'setEditAssessmentStatus']),
-            ...mapActions(['saveAssessment']),
+            ...mapActions(['saveAssessment', 'updateAssessment']),
             scrollHandler(e) {
                 if (e >= 48) {
                     this.top = 48;
@@ -114,6 +129,9 @@
             registerTextData() {
                 let elTitle = this.$refs['assessment-title-text-id'],
                     elDesc = this.$refs['assessment-desc-text-id'];
+                if (!(elTitle || elDesc)) {
+                    return;
+                }
                 elTitle.addEventListener('input', (e) => {
                     this.setTitleTextValueChanged(e.target, 'title', e.target.value);
                 });
@@ -121,22 +139,64 @@
                     this.setDescTextValueChanged(e.target, 'description', e.target.value);
                 });
             },
+            setSaveTextState(state) {
+                this.isSaving = false;
+                if (state.restore) {
+                    this.SaveText = 'Save';
+                    return;
+                }
+                if (state.first_auto) {
+                    this.SaveText = 'Auto Saving...';
+                    this.isSaving = false;
+                    return;
+                }
+                if (state.first) {
+                    this.SaveText = 'Saving...';
+                    this.isSaving = true;
+                    return;
+                }
+                this.SaveText = 'Saved';
+                setTimeout(() => {
+                    this.SaveText = 'Save';
+                }, 1000);
+            },
             saveAssessmentHandle() {
-                this.SaveText = 'Saving...';
+                if (this.isSaving) {
+                    return;
+                }
+                this.setSaveTextState({first: true});
                 this.saveAssessment().then(res => {
                     if (res.success) {
                         this.Route({name: 'create-assessment', query: {assessment_id: res.data.assessment.id}});
                         this.setEditAssessmentStatus(true);
-                        this.edit = true;
                     }
-                    this.SaveText = 'Saved';
-                    setTimeout(() => {
-                        this.SaveText = 'Save';
-                    }, 1000)
+                    this.setSaveTextState({});
                 }).catch(err => {
                     console.log(err);
-                    this.SaveText = 'Save';
+                    this.setSaveTextState({restore: true});
                 })
+            },
+            SaveEditAssessmentHandle(auto) {
+                if (this.isSaving) {
+                    return;
+                }
+                this.setSaveTextState({first_auto: auto, first: true});
+                this.updateAssessment({id: this.mAssessment.id})
+                    .then(res => {
+                        if (res.success) {
+                            this.$emit('SavedEditAssessment', res.data);
+                        }
+                        this.setSaveTextState({});
+                    })
+                    .catch(err => {
+                        console.log(err);
+                        this.setSaveTextState({restore: true});
+                    });
+            },
+            AutoSaveEditAssessmentHandle() {
+                if (!this.mInitEmptyStateCalled) {
+                    this.SaveEditAssessmentHandle(true);
+                }
             }
         },
         beforeDestroy() {
@@ -150,6 +210,7 @@
         created() {
             this.setDescTextValueChanged = this.debounce(this.setDescTextValueChanged, 200);
             this.setTitleTextValueChanged = this.debounce(this.setTitleTextValueChanged, 200);
+            this.AutoSaveEditAssessmentHandle = this.debounce(this.AutoSaveEditAssessmentHandle, 800);
         }
     }
 </script>
@@ -168,7 +229,7 @@
         font-weight: bold;
         background-color: #eceff1;
         border-bottom: 1px solid rgba(0, 0, 0, 0.12);
-
+        z-index: 10;
         .navigator {
             display: -webkit-box;
             display: -moz-box;
@@ -218,6 +279,12 @@
 
             i {
                 color: rgba(0, 0, 0, 0.54);
+            }
+
+            .title-nav {
+                @media screen and (max-width: 320px) {
+                    display: none;
+                }
             }
         }
 

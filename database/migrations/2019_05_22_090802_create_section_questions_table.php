@@ -22,6 +22,7 @@ class CreateSectionQuestionsTable extends Migration
                 ->references('id')->on('assessment_sections')
                 ->onUpdate('cascade')
                 ->onDelete('cascade');
+            $table->softDeletes();
             $table->timestamps();
         });
     }

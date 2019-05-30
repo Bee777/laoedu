@@ -7,6 +7,9 @@ import routes from '@route/routesAdmin';
 import '@com/Admin/Assets/index.css'
 import {
     Button,
+    CheckboxGroup,
+    Checkbox,
+    Radio,
     Select,
     Dropdown,
     DropdownItem,
@@ -30,8 +33,9 @@ import iconfont from '@com/Admin/Assets/iconfont/iconfont.js'
 Vue.use(iconfont);
 import TextAreaPlugin from '@vue/plugin/textarea-plugin.js'
 Vue.use(TextAreaPlugin);
-
-
+Vue.use(CheckboxGroup)
+Vue.use(Checkbox)
+Vue.use(Radio)
 Vue.use(Button)
 Vue.use(Select)
 Vue.use(Dialog)

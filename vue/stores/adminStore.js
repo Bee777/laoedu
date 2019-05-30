@@ -1,11 +1,8 @@
-import {createActions, axiosClient} from "./actions/adminActions";
-import {
-    createInit,
-    defaultStates,
-    defaultGetters,
-    defaultMutations,
-    defaultActions
-} from '../initial/initializer';
+import {axiosClient, createActions} from "./actions/adminActions";
+import {createInit, defaultActions, defaultGetters, defaultMutations, defaultStates} from '../initial/initializer';
+//@end set vue prototype
+//@Vue UNDO REDO
+import VuexUndoRedo from '../plugin/vuex-undo-redo-plugin.js';
 
 /**
  * @initialize
@@ -26,10 +23,8 @@ Vue.prototype.initRouter = initRouter;
 Vue.prototype.apiUrl = apiUrl;
 Vue.prototype.ajaxConfig = ajaxConfig;
 Vue.prototype.client = client;
-//@end set vue prototype
-//@Vue UNDO REDO
-import VuexUndoRedo from '../plugin/vuex-undo-redo-plugin.js';
 
+//declare default empty state
 Vue.use(VuexUndoRedo, {
     watchOnly: true, watchMutations: [
         'setAssessmentTextValueChangeDataStack',
@@ -41,6 +36,14 @@ Vue.use(VuexUndoRedo, {
         'deleteRadioOptionQuestionDataStack',
         'setTextValueChangeDataStack',
         'setOptionValueChangeDataStack',
+        'setMoveQuestionSectionDataStack',
+        'setMoveQuestionSectionOptionsDataStack',
+        'setMovementQuestionSectionDataStack',
+        'setOptionsScaleChangeDataStack',
+    ],
+    exceptNewMutations: [
+        'setCurrentFocusQuestionIndex',
+        'setCurrentFocusSectionIndex',
     ]
 });
 //@END VUE UNDO REDO
@@ -70,9 +73,10 @@ export default new Vuex.Store({
             scholarship: {},
             banner: {},
             file: {},
-            users_checker: [],
-            users_field_inspector: [],
-            users_institute: [],
+            users_checker: {},
+            users_field_inspector: {},
+            users_institute: {},
+            assessments: {},
         },
         searchesAllowed: {
             institute_category: true,
@@ -84,19 +88,16 @@ export default new Vuex.Store({
             users_checker: true,
             users_field_inspector: true,
             users_institute: true,
+            assessments: true,
         },
+        //@stack state
         mEditAssessment: false,
-        mAssessment: {title: '', description: ''},
-        mSectionsStack: [
-            {
-                title: '',
-                desc: '',
-                focusIndex: -1,
-                questions: []
-            }
-        ],
-        mUndo: [],
-        mRedo: [],
+        mAssessmentEmptyState: {},
+        mAssessment: {},
+        mSectionsStackEmptyState: [],
+        mSectionsStack: [],
+        mInitEmptyStateCalled: false,
+        currentFocusIndexes: {sectionIndex: 0, questionIndexes: {sectionIndex: 0, questionIndex: -1}}
     },
     getters: {
         ...defaultGetters,
@@ -148,33 +149,74 @@ export default new Vuex.Store({
             let schema = Object.assign({}, p.schema);//to spilt up questions section
             schema.questions = Object.assign([], schema.questions);//we need to clone array object if not they will connect each other
             s.mSectionsStack.splice(p.index, 0, schema);
+            s.currentFocusIndexes.sectionIndex = p.type && p.type === 'duplicate' ? p.index + 1 : p.index;
+            if (!schema.questions.length) {
+                s.currentFocusIndexes.questionIndexes.sectionIndex = s.currentFocusIndexes.sectionIndex;
+                s.currentFocusIndexes.questionIndexes.questionIndex = -1;
+            }
+            if (p.type === 'duplicate') {
+                s.currentFocusIndexes.questionIndexes.sectionIndex = s.currentFocusIndexes.sectionIndex;
+            }
+            //set vertical scroll
+            p.component.setSectionFocusItemPositioner();
         },
         deleteSectionDataStack(s, p) {
             s.mSectionsStack.splice(p.index, 1);
+            s.currentFocusIndexes.sectionIndex = p.index === 0 ? 0 : p.index - 1;
+            //set vertical scroll
+            p.component.setSectionFocusItemPositioner();
         },
         addSectionQuestionDataStack(s, p) {
             let mSection = s.mSectionsStack[p.sectionIndex],
                 question = $utils.deepCopy(p.list);
+            question.hash_id = $utils.hashCode(`sec-${p.sectionIndex}-q-${p.index}-time-${new Date().getMilliseconds()}`);
             mSection.questions.splice(p.index, 0, question);
-            mSection.focusIndex = p.focusIndex;
+            //set current section index
+            s.currentFocusIndexes.sectionIndex = p.sectionIndex;
+            //set focus index
+            s.currentFocusIndexes.questionIndexes.sectionIndex = p.sectionIndex;
+            s.currentFocusIndexes.questionIndexes.questionIndex = p.focusIndex;
+            //set vertical scroll
+            p.component.setSectionQuestionFocusItemPositioner();
+            //set positioner position
+            p.component.setPlacePositioner();
         },
         deleteSectionQuestionDataStack(s, p) {
             let section = s.mSectionsStack[p.sectionIndex];
             section.questions.splice(p.index, 1);
+            //set current section index
+            s.currentFocusIndexes.sectionIndex = p.sectionIndex;
+            //@set focus index
+            //set focus index
+            s.currentFocusIndexes.questionIndexes.sectionIndex = p.sectionIndex;
+            s.currentFocusIndexes.questionIndexes.questionIndex = p.focusIndex;
+            //set vertical scroll
+            p.component.setSectionQuestionFocusItemPositioner();
+            //set positioner position
+            p.component.setPlacePositioner();
         },
         addRadioOptionQuestionDataStack(s, p) {
             let mSection = s.mSectionsStack[p.sectionIndex],
-                mQuestion = mSection.questions[p.question_index],
+                mQuestion = mSection.questions[p.question_index], list;
+            if (p.type === 'row') {
+                list = mQuestion.content[p.option_answer_index].row_option_answers;
+            } else {
                 list = mQuestion.content[p.option_answer_index].option_answers;
+            }
             //add answer item
             let index = list.length ? parseInt((list[list.length - 1].description.match(/\d$/g) || []).join('')) + 1 : '1';
             let text = index ? 'Option ' + index : 'Option 1';
-            list.push({answer_id: list.length + 1, description: text});
+            let hash_id = $utils.hashCode(`sec-${p.sectionIndex}-q-${p.question_index}-content${p.option_answer_index}-options-${list.length + 1}-time-${new Date().getMilliseconds()}`);
+            list.push({hash_id, description: text});
         },
         deleteRadioOptionQuestionDataStack(s, p) {
             let mSection = s.mSectionsStack[p.sectionIndex],
-                mQuestion = mSection.questions[p.question_index],
+                mQuestion = mSection.questions[p.question_index], list;
+            if (p.type === 'row') {
+                list = mQuestion.content[p.option_answer_index].row_option_answers;
+            } else {
                 list = mQuestion.content[p.option_answer_index].option_answers;
+            }
             //delete answer item
             list.splice(p.index, 1);
         },
@@ -188,9 +230,10 @@ export default new Vuex.Store({
                 mSection.questions[p.schema.question_index].content[p.schema.content_index].option_answers[p.schema.option_index].description = p.value;
             } else if (p.type === 'option_answers_linear_scale') {
                 let scale = mSection.questions[p.schema.question_index].content[p.schema.content_index][p.key];
-                scale.line_value = p.schema.content.line_value;
-                scale.line_end_value = p.schema.content.line_end_value;
                 scale[p.schema.key] = p.value;
+            } else if (p.type === 'row_option_answers') {
+                let scale = mSection.questions[p.schema.question_index].content[p.schema.content_index].row_option_answers;
+                scale[p.schema.option_index][p.key] = p.value;
             }
         },
         setOptionValueChangeDataStack(s, p) {
@@ -202,31 +245,93 @@ export default new Vuex.Store({
                 mSection.questions[p.schema.question_index].is_required = p.value;
             }
         },
+        setOptionsScaleChangeDataStack(s, p) {
+            let mSection = s.mSectionsStack[p.sectionIndex];
+            let scale = mSection.questions[p.question_index].content[p.answer_schema_index];
+            scale.line_answer = $utils.deepCopy(p.line_answer);
+        },
         setAssessmentTextValueChangeDataStack(s, p) {
             s.mAssessment[p.key] = p.value;
+        },
+        setMoveQuestionSectionDataStack(s, p) {
+            let mSection = s.mSectionsStack[p.sectionIndex];
+            mSection.questions = $utils.deepCopy(p.questions);
+            p.component.setPlacePositioner();
+        },
+        setMovementQuestionSectionDataStack(s, p) {
+            s.currentFocusIndexes.sectionIndex = p.sectionIndex;
+            s.currentFocusIndexes.questionIndexes.sectionIndex = p.sectionIndex;
+            s.currentFocusIndexes.questionIndexes.questionIndex = p.questionIndex;
+        },
+        setMoveQuestionSectionOptionsDataStack(s, p) {
+            let mSection = s.mSectionsStack[p.sectionIndex],
+                mContent = mSection.questions[p.question_index].content[p.answer_schema_index];
+            if (p.type === 'row_options_scale') {
+                mContent.row_option_answers = $utils.deepCopy(p.options);
+            } else {
+                mContent.option_answers = $utils.deepCopy(p.options);
+            }
         },
         emptyState(s) {
             this.replaceState({
                 ...s,
-                mSectionsStack:
-                    [
-                        {
-                            title: '',
-                            desc: '',
-                            focusIndex: -1,
-                            questions: []
-                        }
-                    ],
-                mAssessment: {title: '', description: ''},
+                mSectionsStack: $utils.deepCopy(s.mSectionsStackEmptyState),
+                mAssessment: $utils.deepCopy(s.mAssessmentEmptyState),
             });
         },
-        setUndoRedoHistory(s, p) {
-            s.mUndo = Object.assign([], p.Undo);
-            s.mRedo = Object.assign([], p.Redo);
-        },
         //@endStack
+        setCurrentFocusQuestionIndex(s, p) {
+            s.currentFocusIndexes.questionIndexes.sectionIndex = p.sectionIndex;
+            s.currentFocusIndexes.questionIndexes.questionIndex = p.questionIndex;
+        },
+        setCurrentFocusSectionIndex(s, p) {
+            s.currentFocusIndexes.sectionIndex = p;
+        },
         setEditAssessmentStatus(s, p) {
             s.mEditAssessment = p;
+        },
+        setInitEmptyStateCalled(s, p) {
+            s.mInitEmptyStateCalled = p;
+        },
+        setInitEditAssessmentEmptyState(s, p) {
+            s.currentFocusIndexes.sectionIndex = 0;
+            if (p.sections.length && p.sections[0].questions.length) {
+                p.sections[0].focusIndex = 0;
+                s.currentFocusIndexes.questionIndexes.sectionIndex = 0;
+                s.currentFocusIndexes.questionIndexes.questionIndex = 0;
+            }
+            s.mAssessmentEmptyState = $utils.deepCopy(p.assessment);
+            s.mAssessment = $utils.deepCopy(p.assessment);
+            s.mSectionsStackEmptyState = $utils.deepCopy(p.sections);
+            s.mSectionsStack = $utils.deepCopy(p.sections);
+            s.mInitEmptyStateCalled = true;
+            s.mEditAssessment = true;
+        },
+        setDefaultAssessmentEmptyState(s) {
+            s.currentFocusIndexes.sectionIndex = 0;
+            s.currentFocusIndexes.questionIndexes.sectionIndex = 0;
+            s.currentFocusIndexes.questionIndexes.questionIndex = -1;
+            s.mAssessmentEmptyState = {id: null, title: '', description: ''};
+            s.mAssessment = {id: null, title: '', description: ''};
+            s.mSectionsStackEmptyState = [
+                {
+                    id: null,
+                    title: '',
+                    desc: '',
+                    focusIndex: -1,
+                    questions: []
+                }
+            ];
+            s.mSectionsStack = [
+                {
+                    id: null,
+                    title: '',
+                    desc: '',
+                    focusIndex: -1,
+                    questions: []
+                }
+            ];
+            s.mInitEmptyStateCalled = true;
         }
     },
     actions: {
@@ -270,12 +375,82 @@ export default new Vuex.Store({
                         r(res.data);
                     })
                     .catch(err => {
-                        c.commit('setClearMsg');
                         c.dispatch('HandleError', err.response);
                         n(err.response);
                     })
             });
         },
         /***@END_SAVE_ASSESSMENT**/
+        /***@GET_ASSESSMENT**/
+        fetchAssessment(c, i) {
+            return new Promise((r, n) => {
+                client.get(`${apiUrl}/admin/assessment/fetch/${i.id}`, ajaxToken(c))
+                    .then(res => {
+                        c.commit('setClearMsg');
+                        let data = res.data;
+                        r(data);
+                        if (data.success) {
+                            data.data.sections.forEach((section, s_idx) => {
+                                section.questions.forEach((q, q_idx) => {
+                                    q.hash_id = $utils.hashCode(`sec-${s_idx}-q-${q_idx}-time-${new Date().getMilliseconds()}`);
+                                    q.content.forEach((c, c_idx) => {
+                                        c.option_answers.forEach((o, o_idx) => {
+                                            o.hash_id = $utils.hashCode(`sec-${s_idx}-q-${q_idx}-content${c_idx}-options-${o_idx + 1}-time-${new Date().getMilliseconds()}`);
+                                        });
+                                        if (!c.row_option_answers) return;
+                                        c.row_option_answers.forEach((o, o_idx) => {
+                                            o.hash_id = $utils.hashCode(`sec-${s_idx}-q-${q_idx}-content${c_idx}-row-options-${o_idx + 1}-time-${new Date().getMilliseconds()}`);
+                                        })
+                                    })
+                                });
+                            });
+                            c.commit('setInitEditAssessmentEmptyState', {
+                                assessment: data.data.assessment,
+                                sections: data.data.sections
+                            });
+                        }
+                    })
+                    .catch(err => {
+                        console.log(err);
+                        c.dispatch('HandleError', err.response);
+                        n(err.response);
+                    });
+            });
+
+        },
+        /***@END_GET_ASSESSMENT**/
+        /***@Update_ASSESSMENT**/
+        updateAssessment(c, i) {
+            return new Promise((r, n) => {
+                client.post(`${apiUrl}/admin/assessment/update/${i.id}`, {
+                    assessment: c.state.mAssessment,
+                    sections: c.state.mSectionsStack
+                }, ajaxToken(c))
+                    .then(res => {
+                        let data = res.data;
+                        r(res.data);
+                        if (data.success) {
+                            //set id for every new data
+                            let sections = data.data.sections;
+                            sections.map((section, idx) => {
+                                let editSection = c.state.mSectionsStack[idx];
+                                if (editSection) {
+                                    editSection.id = section.id;
+                                    let editQuestions = editSection.questions;
+                                    editQuestions.map((question, q_idx) => {
+                                        question.id = (section.questions[q_idx] || {}).id;
+                                    });
+                                }
+                            })
+                        }
+                    })
+                    .catch(err => {
+                        console.log(err);
+                        c.dispatch('HandleError', err.response);
+                        n(err.response);
+                    })
+            });
+        },
+        /***@Update_ASSESSMENT**/
     } //end actions
 });

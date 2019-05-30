@@ -2,7 +2,7 @@
     <div class="header">
         <div class="labelContainer">
             <div class="SolidBackground" :style="`background-color: ${color};`">
-                <div class="headerBannerSectionText">
+                <div class="headerBannerSectionText" :style="titleStyles">
                     {{ title }}
                 </div>
             </div>
@@ -28,6 +28,9 @@
             },
             color: {
                 default: '#323232'
+            },
+            titleStyles: {
+                default: ''
             }
         }
     }

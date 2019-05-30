@@ -4,7 +4,7 @@ use Illuminate\Support\Facades\Schema;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
-class CreateAssessmentSectionsTable extends Migration
+class CreateCheckAssessmentsTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,17 +13,22 @@ class CreateAssessmentSectionsTable extends Migration
      */
     public function up()
     {
-        Schema::create('assessment_sections', function (Blueprint $table) {
+        Schema::create('check_assessments', function (Blueprint $table) {
             $table->bigIncrements('id');
-            $table->text('title');
-            $table->longText('description');
-            $table->integer('section_order');
+            $table->enum('status', ['checking', 'close', 'success'])->default('checking');
+
             $table->unsignedBigInteger('assessment_id');
             $table->foreign('assessment_id')
                 ->references('id')->on('assessments')
                 ->onUpdate('cascade')
                 ->onDelete('cascade');
-            $table->softDeletes();
+
+            $table->unsignedBigInteger('user_id');
+            $table->foreign('user_id')
+                ->references('id')->on('users')
+                ->onUpdate('cascade')
+                ->onDelete('cascade');
+
             $table->timestamps();
         });
     }
@@ -35,9 +40,11 @@ class CreateAssessmentSectionsTable extends Migration
      */
     public function down()
     {
-        Schema::table('assessment_sections', function ($table) {
+
+        Schema::table('check_assessments', function ($table) {
             $table->dropForeign('assessment_id');
+            $table->dropForeign('user_id');
         });
-        Schema::dropIfExists('assessment_sections');
+        Schema::dropIfExists('check_assessments');
     }
 }

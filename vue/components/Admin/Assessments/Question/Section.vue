@@ -14,7 +14,7 @@
                                         @onMenuItemClick="handleDropdownCommand"/>
                     </template>
                 </HeaderBanner>
-                <div class="item title" :class="{'title-focus': sectionIndex === currentSectionIndex}">
+                <div class="item title" :class="{'title-focus': sectionIndex === $store.state.currentFocusIndexes.sectionIndex}">
                     <div class="li">
                         <textarea class="form-title no-resize" placeholder="Section title"
                                   :ref="`${sectionIndex}-title-text-id`"
@@ -63,9 +63,6 @@
             total: {
                 default: 1,
             },
-            currentSectionIndex: {
-                default: -1,
-            }
         },
         components: {
             HeaderBanner,

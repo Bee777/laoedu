@@ -5,7 +5,9 @@ import Checker from '@com/Admin/Members/Checker.vue'
 import FieldInspector from '@com/Admin/Members/FieldInspector.vue'
 
 import Assessment from '@com/Admin/Assessments/All.vue'
+import SendAssessment from '@com/Admin/Assessments/Send.vue'
 import CreateAssessment from '@com/Admin/Assessments/Create.vue'
+import PreviewAssessment from '@com/Admin/Assessments/Preview.vue'
 import ReviewAssessment from '@com/Admin/Assessments/ReviewAssessment.vue'
 
 import Institutes from '@com/Admin/Institutes/All.vue'
@@ -115,9 +117,15 @@ export default [
         meta: metas.authMeta,
     },
     {
+        name: 'preview-assessment',
+        path: `${prefix}/assessment/preview-assessment/:id`,
+        component: PreviewAssessment,
+        meta: metas.authMeta,
+    },
+    {
         name: 'send-assessment',
         path: `${prefix}/assessment/send`,
-        component: Assessment,
+        component: SendAssessment,
         meta: metas.authMeta,
     },
 

@@ -3,6 +3,7 @@
 namespace App;
 
 use App\Http\Controllers\Helpers\Helpers;
+use App\Models\CheckAssessment;
 use App\Models\Role;
 use App\Models\UserProfile;
 use App\Models\UserType;
@@ -115,6 +116,11 @@ class User extends Authenticatable
     public function userProfile(): HasOne
     {
         return $this->hasOne(UserProfile::class);
+    }
+
+    public function assessments(): HasMany
+    {
+        return $this->hasMany(CheckAssessment::class);
     }
 
     public function getTypeOfUserAttribute()

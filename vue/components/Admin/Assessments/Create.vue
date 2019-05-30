@@ -7,7 +7,7 @@
                     <div class="admin-master-detail-card">
                         <div class="md-single-grid assessment-form">
                             <div ad-cell="12" class="theme-blue absolute-parent clearfix">
-                                <FormTop/>
+                                <FormTop ref="AssessmentForm" @SavedEditAssessment="()=> { this.formChanged = false}"/>
                                 <div class="ViewPagePageBreakGap">
                                     <label class="ViewPageGoToPageSelectLabel">
                                         Continue to question sections
@@ -22,7 +22,7 @@
                                                 <div class="ViewFatCard">
                                                     <ActionFormeditor
                                                         :disabled="disableTooltip"
-                                                        @OnAddQuestion="addSectionQuestion(currentSectionIndex)"
+                                                        @OnAddQuestion="addSectionQuestion()"
                                                         @OnAddSection="AddSection()"/>
                                                 </div>
                                             </div>
@@ -30,30 +30,26 @@
 
                                         <QuestionsSection
                                             class="clearfix"
-                                            v-for="(sItem, sIdx ) in mSectionsStack" :key="sIdx"
+                                            v-for="(sItem, sIdx ) in mSectionsStack"
+                                            :key="sIdx"
                                             :section="sItem"
                                             :sectionIndex="sIdx"
-                                            :currentSectionIndex="currentSectionIndex"
                                             :total="mSectionsStack.length"
-                                            @onSectionClick="setCurrentSectionIndex"
+                                            @onSectionClick="setCurrentFocusSectionIndex"
                                             @onDropdownClick="DropdownOptionClick"
                                             :ref="`section-${sIdx}`">
 
                                             <template slot="questions">
-
                                                 <Questionnaire
+                                                    :key="`s-${sIdx}q-`"
                                                     :sectionIndex="sIdx"
-                                                    :currentSectionIndex="currentSectionIndex"
-                                                    :questions="sItem.questions"
-                                                    :popFocusIndex="sItem.focusIndex"
-                                                    @onFocusQuestionItemClick="(idx)=>{setPlacePositioner();sItem.focusIndex=idx}"
+                                                    :focusIndex="sItem.focusIndex"
+                                                    @onFocusQuestionItemClick="()=>{setPlacePositioner();isSectionQuestionClick=true}"
                                                     @onAddOptionItemClick="addRadioFn(sItem, $event)"
                                                     @onDeleteOptionItemClick="deleteRadioFn(sItem, $event)"
                                                     @onCopyQuestionClick="copyListFn(sItem, $event)"
                                                     @onDeleteQuestionClick="deleteListFn(sItem, $event)">
-
                                                 </Questionnaire>
-
                                             </template>
 
                                         </QuestionsSection>
@@ -66,7 +62,7 @@
                                             <div class="FormeditorViewFatCard">
                                                 <ActionFormeditor
                                                     :disabled="disableTooltip"
-                                                    @OnAddQuestion="addSectionQuestion(currentSectionIndex)"
+                                                    @OnAddQuestion="addSectionQuestion()"
                                                     @OnAddSection="AddSection()"/>
                                             </div>
                                         </div>
@@ -93,7 +89,11 @@
     import ActionFormeditor from './Includes/ActionFormeditor.vue'
 
     import {mapActions, mapMutations, mapState} from 'vuex'
-    import {setPlacePositioner, getSectionsScrollHeight} from '../Assets/PlaceElements.js'
+    import {
+        setPlacePositioner,
+        getSectionsScrollHeight,
+        getSectionFocusQuestionScrollHeight
+    } from '../Assets/PlaceElements.js'
 
     let lineEndOptions = Array.apply(null, Array(9)).map((item, i) => {
         return i + 2
@@ -114,11 +114,10 @@
                 watchers: true,
                 tabs: [{name: 'Create Assessment'}],
                 formChanged: false,
-                loading: false,
+                isSectionQuestionClick: false,
                 disableTooltip: false,
                 positioner: null,
                 targetViewPort: null,
-                currentSectionIndex: 0,
                 //@form
                 selectOptions: [
                     {name: 'Short answer', value: 'short_answer'},
@@ -134,27 +133,49 @@
                 addRadio: 'Add option',
                 lineOptions: [0, 1],
                 lineEndOptions: lineEndOptions,
+                undoRedo: {undo: false, redo: false},
                 //@end-form
             }
         },
         computed: {
-            ...mapState(['mEditAssessment', 'mAssessment', 'mSectionsStack', 'mUndo', 'mRedo']),
+            ...mapState(['mEditAssessment', 'mAssessment', 'mSectionsStack', 'mInitEmptyStateCalled', 'currentFocusIndexes']),
         },
         watch: {
+            'currentFocusIndexes.questionIndexes': {
+                deep: true,
+                handler: function (n) {
+                    (this.mSectionsStack[n.sectionIndex] || {}).focusIndex = n.questionIndex;
+                    this.setPlacePositioner();
+                }
+            },
             mAssessment: {
                 deep: true,
                 handler: function (n) {
-                    this.formChanged = true;
+                    if (this.mEditAssessment) {
+                        this.$refs['AssessmentForm'].AutoSaveEditAssessmentHandle();
+                    }
+                    if (!this.mInitEmptyStateCalled) {
+                        this.formChanged = true;
+                    }
                 }
             },
             mSectionsStack: {
                 deep: true,
                 handler: function (n) {
-                    this.formChanged = true;
+
+                    if (this.mEditAssessment && !this.isSectionQuestionClick) {
+                        this.$refs['AssessmentForm'].AutoSaveEditAssessmentHandle();
+                    }
+                    if (!this.mInitEmptyStateCalled) {
+                        this.formChanged = true;
+                    }
+                    if (this.isSectionQuestionClick) {
+                        this.isSectionQuestionClick = false;
+                    }
                 }
             },
-            'mEditAssessment': function (n) {
-                this.getAssessment();
+            '$route.query': function (n) {
+                this.initAssessmentData();
             }
         },
         methods: {
@@ -163,105 +184,121 @@
                 'addSectionDataStack', 'deleteSectionDataStack',
                 'addSectionQuestionDataStack', 'deleteSectionQuestionDataStack',
                 'addRadioOptionQuestionDataStack', 'deleteRadioOptionQuestionDataStack',
-                'setEditAssessmentStatus',
+                'setEditAssessmentStatus', 'setDefaultAssessmentEmptyState',
+                'setCurrentFocusSectionIndex', 'setCurrentFocusQuestionIndex',
             ]),
-            ...mapActions([]),
+            ...mapActions(['fetchAssessment',]),
             /**@ON_REDO_UNDO*/
             onUndo({undone}) {
+                this.undoRedo.undo = true;
+                this.undoRedo.redo = false;
                 if (undone.length) {
                     let lastCheckPoint = undone[undone.length - 1],
-                        payload = lastCheckPoint.payload,
-                        currentSection = this.mSectionsStack[payload.sectionIndex];
-
-                    if (lastCheckPoint.type === "setAssessmentTextValueChangeDataStack") {
+                        payload = lastCheckPoint.payload;
+                    if (lastCheckPoint.type === 'addSectionDataStack') {
+                        this.setCurrentFocusSectionIndex(payload.index - 1)
+                    } else if (lastCheckPoint.type === 'addSectionQuestionDataStack') {
+                        this.setCurrentFocusQuestionIndex({
+                            sectionIndex: payload.sectionIndex,
+                            questionIndex: payload.focusIndex - 1
+                        })
+                    } else if (lastCheckPoint.type === "deleteSectionQuestionDataStack") {
+                        this.setCurrentFocusQuestionIndex({
+                            sectionIndex: payload.sectionIndex,
+                            questionIndex: payload.focusIndex + 1
+                        })
+                    } else if (lastCheckPoint.type === "setAssessmentTextValueChangeDataStack") {
                         payload.el.focus();
                         this.$utils.scrollToY('main-container', payload.el.offsetTop);
                     } else if (lastCheckPoint.type === "setTextValueChangeDataStack") {
                         payload.el.focus();
+                        let className = String(payload.el.className).replace(' ', '.');
+                        if (this.$utils.isEmptyVar(className)) {
+                            return;
+                        }
+                        let focusEls = this.jq(`.${className}`);
+                        if (focusEls.length) {
+                            let focusEl = focusEls[(payload.schema || {}).question_index];
+                            if (focusEl) {
+                                focusEl.focus();
+                            }
+                        }
                     } else if (lastCheckPoint.type === "addRadioOptionQuestionDataStack") {
                         this.$nextTick(() => {
-                            this.setCurrentSectionIndex(payload.sectionIndex);
-                            currentSection.focusIndex = payload.question_index;
                             let input = document.getElementById(payload.id_schema + (payload.length - 1));
                             if (input)
                                 input.focus();
                         });
                     } else if (lastCheckPoint.type === "deleteRadioOptionQuestionDataStack") {
-                        this.setCurrentSectionIndex(payload.sectionIndex);
-                        currentSection.focusIndex = payload.question_index;
                         this.$nextTick(() => {
                             let input = document.getElementById(payload.id_schema + (payload.index));
                             if (input)
                                 input.focus();
                         });
-                    } else if (lastCheckPoint.type === "addSectionDataStack") {
-                        this.setCurrentSectionIndex(payload.index - 1);
-                    } else if (lastCheckPoint.type === "deleteSectionQuestionDataStack") {
-                        this.setCurrentSectionIndex(payload.sectionIndex);
-                        currentSection.focusIndex = payload.index;
-                    } else if (lastCheckPoint.type === "deleteSectionDataStack") {
-                        this.setCurrentSectionIndex(payload.index);
                     }
                 }
             },
             onRedo({done}) {
+                this.undoRedo.undo = false;
+                this.undoRedo.redo = true;
                 if (done.length) {
                     let lastCheckPoint = done[done.length - 1],
-                        payload = lastCheckPoint.payload,
-                        currentSection = this.mSectionsStack[payload.sectionIndex];
-
-                    if (lastCheckPoint.type === "setAssessmentTextValueChangeDataStack") {
+                        payload = lastCheckPoint.payload;
+                    if (lastCheckPoint.type === 'addSectionDataStack') {
+                        this.setCurrentFocusSectionIndex(payload.index)
+                    } else if (lastCheckPoint.type === 'addSectionQuestionDataStack') {
+                        this.setCurrentFocusQuestionIndex({
+                            sectionIndex: payload.sectionIndex,
+                            questionIndex: payload.focusIndex
+                        })
+                    } else if (lastCheckPoint.type === "deleteSectionQuestionDataStack") {
+                        this.setCurrentFocusQuestionIndex({
+                            sectionIndex: payload.sectionIndex,
+                            questionIndex: payload.focusIndex
+                        })
+                    } else if (lastCheckPoint.type === "setAssessmentTextValueChangeDataStack") {
                         payload.el.focus();
                         this.$utils.scrollToY('main-container', payload.el.offsetTop);
                     } else if (lastCheckPoint.type === "setTextValueChangeDataStack") {
                         payload.el.focus();
+                        let className = String(payload.el.className).replace(' ', '.');
+                        if (this.$utils.isEmptyVar(className)) {
+                            return;
+                        }
+                        let focusEls = this.jq(`.${className}`);
+                        if (focusEls.length) {
+                            let focusEl = focusEls[(payload.schema || {}).question_index];
+                            if (focusEl) {
+                                focusEl.focus();
+                            }
+                        }
                     } else if (lastCheckPoint.type === "addRadioOptionQuestionDataStack") {
-                        this.setCurrentSectionIndex(payload.sectionIndex);
-                        currentSection.focusIndex = payload.question_index;
                         this.$nextTick(() => {
                             let input = document.getElementById(payload.id_schema + (payload.length - 1));
                             if (input)
                                 input.focus();
                         });
                     } else if (lastCheckPoint.type === "deleteRadioOptionQuestionDataStack") {
-                        this.setCurrentSectionIndex(payload.sectionIndex);
-                        currentSection.focusIndex = payload.question_index;
                         this.$nextTick(() => {
                             let input = document.getElementById(payload.id_schema + (payload.index - 1));
                             if (input)
                                 input.focus();
                         });
-                    } else if (lastCheckPoint.type === "addSectionDataStack") {
-                        this.setCurrentSectionIndex(payload.index);
-                    } else if (lastCheckPoint.type === "deleteSectionQuestionDataStack") {
-                        this.setCurrentSectionIndex(payload.sectionIndex);
-                        currentSection.focusIndex = payload.focusIndex;
-                    } else if (lastCheckPoint.type === "deleteSectionDataStack") {
-                        this.setCurrentSectionIndex(payload.index - 1);
                     }
                 }
             },
             /**@END_ON_REDO_UNDO*/
             /**@END_SECTION QUESTIONS*/
-            setCurrentSectionIndex(index) {
-                this.currentSectionIndex = index;
-                //set positioner position
-                this.setPlacePositioner();
-            },
             AddSection() {
-                let index = this.currentSectionIndex,
+                let index = this.currentFocusIndexes.sectionIndex,
                     schema = {
+                        id: null,
                         title: '',
                         desc: '',
                         focusIndex: -1,
                         questions: []
                     };
-                this.addSectionDataStack({schema, index: index + 1});
-                this.setCurrentSectionIndex(index + 1);
-                //scroll to new focus section
-                this.$nextTick(() => {
-                    this.$utils.scrollToY('main-container', getSectionsScrollHeight(this));
-                });
+                this.addSectionDataStack({component: this, schema, index: index + 1});
             },
             DropdownOptionClick(schema) {
                 let index = schema.sectionIndex;
@@ -270,19 +307,23 @@
                 }
                 if (schema.action === 'duplicate') {
                     let data = JSON.parse(JSON.stringify(this.mSectionsStack[index]));
+                    //for editing data
+                    data.id = null;
+                    data.questions.map((item) => {
+                        item.id = null;
+                    });
+                    //for editing data
                     //set section stacking data
-                    this.addSectionDataStack({schema: data, index});
-                    this.setCurrentSectionIndex(index + 1);
+                    this.addSectionDataStack({component: this, schema: data, index, type: 'duplicate'});
                 }
                 if (schema.action === 'delete') {
-                    this.deleteSectionDataStack({index});
-                    this.setCurrentSectionIndex(index === 0 ? 0 : index - 1);
+                    this.deleteSectionDataStack({component: this, index});
                     this.unDoToast();
                 }
             },
             /**@END_SECTION QUESTIONS*/
             addSectionQuestion() {
-                let section = this.mSectionsStack[this.currentSectionIndex];
+                let section = this.mSectionsStack[this.currentFocusIndexes.sectionIndex];
                 //@disable tooltip when add question positioner click
                 this.disableTooltip = true;
 
@@ -295,7 +336,9 @@
                         language: 'en',
                         title: '',
                         option_answers: [{
-                            answer_id: 1,
+                            description: 'Option 1'
+                        }],
+                        row_option_answers: [{
                             description: 'Option 1'
                         }],
                         line_answer: {
@@ -310,41 +353,40 @@
 
                 let index = section.focusIndex,
                     list = {
+                        id: null,
                         types: 'multiple_choice',
                         is_required: false,
                         content: contentList
                     };
-
                 //set section stacking data
                 this.addSectionQuestionDataStack({
-                    sectionIndex: this.currentSectionIndex,
+                    component: this,
+                    sectionIndex: this.currentFocusIndexes.sectionIndex,
                     index: index + 1,
                     focusIndex: index + 1,
                     list
                 });
-                //set positioner position
-                this.setPlacePositioner();
             },
             copyListFn(section, question_idx) {
                 let data = JSON.parse(JSON.stringify(section.questions[question_idx]));
+                data.id = null;//for editing data
                 this.addSectionQuestionDataStack({
-                    sectionIndex: this.currentSectionIndex,
+                    component: this,
+                    sectionIndex: this.currentFocusIndexes.sectionIndex,
                     index: question_idx,
                     focusIndex: question_idx + 1,
                     list: data
                 });
-                //set positioner position
-                this.setPlacePositioner();
             },
             deleteListFn(section, question_idx) {
                 let focusIndex = section.questions.length - 1 <= 0 ? -1 : question_idx === 0 ? 0 : question_idx - 1;
                 this.deleteSectionQuestionDataStack({
-                    sectionIndex: this.currentSectionIndex,
+                    component: this,
+                    sectionIndex: this.currentFocusIndexes.sectionIndex,
                     index: question_idx,
                     focusIndex
                 });
                 setTimeout(() => {
-                    section.focusIndex = focusIndex;
                     //set positioner position
                     this.setPlacePositioner();
                     this.unDoToast();
@@ -353,12 +395,13 @@
             /**@RADIO_QUESTION */
             addRadioFn(section, option_schema) {
                 this.addRadioOptionQuestionDataStack({
-                    sectionIndex: this.currentSectionIndex,
+                    sectionIndex: this.currentFocusIndexes.sectionIndex,
                     question_index: option_schema.question_idx,
                     option_answer_index: option_schema.answer_schema_index,
                     full_id_schema: option_schema.new_id_idx,
                     id_schema: option_schema.id_schema,
                     length: option_schema.length,
+                    type: option_schema.type
                 });
                 this.$nextTick(() => {
                     let input = document.getElementById(option_schema.new_id_idx);
@@ -368,12 +411,13 @@
             },
             deleteRadioFn(section, option_schema) {
                 this.deleteRadioOptionQuestionDataStack({
-                    sectionIndex: this.currentSectionIndex,
+                    sectionIndex: this.currentFocusIndexes.sectionIndex,
                     question_index: option_schema.question_idx,
                     option_answer_index: option_schema.answer_schema_index,
                     index: option_schema.index,
                     id_schema: option_schema.id_schema,
                     length: option_schema.length,
+                    type: option_schema.type
                 });
                 let focusOptionIndex = option_schema.index === 0 ? 0 : option_schema.index - 1;
                 this.$nextTick(() => {
@@ -388,6 +432,20 @@
                     setPlacePositioner(this);
                     //@enable tooltip
                     this.disableTooltip = false;
+                });
+            },
+            setSectionFocusItemPositioner() {
+                this.$nextTick(() => {
+                    if (this.undoRedo.undo) {
+                        this.undoRedo.undo = false;
+                        return;
+                    }
+                    this.$utils.scrollToY('main-container', getSectionsScrollHeight(this));
+                });
+            },
+            setSectionQuestionFocusItemPositioner() {
+                this.$nextTick(() => {
+                    this.$utils.scrollToY('main-container', getSectionFocusQuestionScrollHeight(this));
                 });
             },
             scrollHandler() {
@@ -449,38 +507,57 @@
                 this.title = 'Edit Assessment';
                 this.tabs[0].name = 'Assessment';
                 this.setPageTitle(this.title);
+
+                this.fetchAssessment({id})
+                    .then(res => {
+                        this.formChanged = false;
+                        if (!res.success) {
+                            this.Route({name: 'assessment'});
+                        }
+                    }).catch(err => {
+                })
+            },
+            initAssessmentData() {
+                this.done = [];
+                this.undone = [];
+                if (this.$route.query.assessment_id) {
+                    this.getAssessment();
+                } else {
+                    this.setEditAssessmentStatus(false);
+                    this.setDefaultAssessmentEmptyState();
+                    this.setCurrentFocusSectionIndex(0);
+                }
             }
         },
         mounted() {
             this.positioner = this.$refs['ActionPositioner'];
             this.targetViewPort = this.jq('#main-container');
             this.registerHandler();
-            //this.beforeUnload();
+            this.beforeUnload();
         },
         beforeRouteLeave(to, from, next) {
             if (this.formChanged) {
-                this.setUndoRedoHistory({Undo: this.done, Redo: this.undone})
+                let a = confirm('Are you sure you want to leave?');
+                if (a) {
+                    this.formChanged = false;
+                    next();
+                } else {
+                    return;
+                }
+            }
+            if (this.mEditAssessment) {
+                this.initAssessmentData();
             }
             next();
-        },
-        beforeRouteEnter(to, from, next) {
-            next(vm => {
-                if (vm.mUndo.length) {
-                    vm.done = Object.assign([], vm.mUndo);
-                }
-                if (vm.mRedo.length) {
-                    vm.undone = Object.assign([], vm.mRedo);
-                }
-            });
         },
         beforeDestroy() {
             this.unRegisterHandler();
         },
         created() {
             this.setPlacePositioner = this.debounce(this.setPlacePositioner, 100);
-            if (this.$route.query.assessment_id) {
-                this.getAssessment();
-            }
+            this.setSectionFocusItemPositioner = this.debounce(this.setSectionFocusItemPositioner, 100);
+            this.setSectionQuestionFocusItemPositioner = this.debounce(this.setSectionQuestionFocusItemPositioner, 100);
+            this.initAssessmentData();
         },
     });
 </script>

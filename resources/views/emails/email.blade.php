@@ -153,13 +153,13 @@
                                             <tr>
                                                 <td style="width:100%;text-align:left;height:33px" class="logo">
                                                     @php
-                                                        $setting = \App\Site::where('key', 'email_logo')->first();
-                                                        $fresh_setting = \App\Site::where('key', 'fresh_version')->first();
+                                                        $setting = \App\Models\Site::where('key', 'email_logo')->first();
+                                                        $fresh_setting = \App\Models\Site::where('key', 'fresh_version')->first();
                                                         $img  = (isset($setting, $fresh_setting)) ? ($setting->value . $fresh_setting->value) : 'email_logo.png';
                                                     @endphp
                                                     <a href="{{ url('/') }}" target="_blank">
                                                         <img height="33"
-                                                             src="{{url('/')}}{{ \App\Site::$uploadPath }}{{ $img }}"
+                                                             src="{{url('/')}}{{ \App\Models\Site::$uploadPath }}{{ $img }}"
                                                              style="border:0">
                                                     </a>
                                                 </td>
@@ -375,7 +375,7 @@
                                         style="font-size: 12px; font-family: Helvetica, Arial, sans-serif; color: #aeaeae;"
                                         class="padding">&copy; {{ date('Y') }} <a
                                             style="font-size: 12px; font-family: Helvetica, Arial, sans-serif; color: #aeaeae; text-decoration: none; color: #aeaeae;"
-                                            href="{{ url('/')}}">Jaol Site </a>
+                                            href="{{ url('/')}}">Lao Education Quality Assurance</a>
                                         <p> All rights reserved</p>
                                     </td>
                                 </tr>

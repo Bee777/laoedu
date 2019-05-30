@@ -50,6 +50,12 @@ Route::group(['prefix' => 'users/me', 'middleware' => []], function () {
     Route::get('/download-files', 'UserController@index')->name('get.user.downloadFile');
 });
 /***** @UserRoutes ***** */
+/***** @FieldInspector ***** */
+Route::group(['prefix' => 'field-inspector/me', 'middleware' => []], function () {
+    Route::get('/', 'FieldInspector@index')->name('field-inspector.get.index');
+    Route::get('/assessments', 'FieldInspector@index')->name('field-inspector.get.assessments');
+});
+/***** @FieldInspector ***** */
 
 
 

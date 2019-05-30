@@ -4113,6 +4113,11 @@ button.navbar-alert-menu-button-bell {
     color: #78909c;
     margin-right: 8px;
 }
+.admin-settings-cameo .cameo-button-abs {
+    position: absolute;
+    right: 15px;
+    cursor: pointer;
+}
 
 .form-multi-select-container .multiselect__tag,
 .form-multi-select-container .multiselect__option--highlight,

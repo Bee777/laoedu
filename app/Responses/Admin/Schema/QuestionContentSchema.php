@@ -47,16 +47,16 @@ class QuestionContentSchema implements QuestionSchemaInterface
     public function build($questionRaw): void
     {
         if (is_object($questionRaw)) {
-            if (in_array($questionRaw->types, $this->allowTypes(), true)) {
+            if (in_array($questionRaw->types ?? 'multiple_choice', $this->allowTypes(), true)) {
                 $this->types = $questionRaw->types;
             }
-            $this->is_required = $questionRaw->is_required;
-            $rawContents = $questionRaw->content;
+            $this->is_required = $questionRaw->is_required ?? false;
+            $rawContents = $questionRaw->content ?? '';
             if (is_array($rawContents)) {
                 $contents = [];
-                foreach ($rawContents as $key => $content) {
+                foreach ($rawContents as $key => $rawContent) {
                     $singleContent = $this->singleContent();
-                    $singleContent->build($content);
+                    $singleContent->build($rawContent);
                     $contents[] = $singleContent->toArray();
                 }
                 if (count($contents) > 0) {
@@ -82,6 +82,7 @@ class SingleQuestionContent
     protected $language = 'en';
     protected $title = '';
     protected $option_answers = [];
+    protected $row_option_answers = [];
     protected $line_answer;
     protected $text_answer = '';
 
@@ -91,6 +92,7 @@ class SingleQuestionContent
     public function __construct()
     {
         $this->option_answers[] = (new OptionAnswer())->toArray();
+        $this->row_option_answers[] = (new OptionAnswer())->toArray();
         $this->line_answer = (new LineAnswer())->toArray();
     }
 
@@ -120,6 +122,14 @@ class SingleQuestionContent
     }
 
     /**
+     * @return array
+     */
+    public function getRowOptionAnswers(): array
+    {
+        return $this->row_option_answers;
+    }
+
+    /**
      * @return mixed
      */
     public function getLineAnswer()
@@ -139,26 +149,47 @@ class SingleQuestionContent
     {
         if (is_object($raw)) {
             //content
-            $this->language = $raw->language;
-            $this->title = $raw->title;
+            $this->language = $raw->language ?? 'en';
+            $this->title = $raw->title ?? '';
             //line answer
             $lineAnswer = new LineAnswer();
-            $lineAnswer->build($raw->line_answer);
+            $lineAnswer->build($raw->line_answer ?? '');
             $this->line_answer = $lineAnswer->toArray();
             //option answers
             $option_answers = [];
-            $raw_option_answers = $raw->option_answers;
+            $raw_option_answers = $raw->option_answers ?? '';
             if (is_array($raw_option_answers)) {
                 foreach ($raw_option_answers as $raw_option_answer) {
                     $option_answer = new OptionAnswer();
                     if (is_object($raw_option_answer)) {
-                        $option_answer->setDescription($raw_option_answer->description);
+                        $option_answer->setDescription($raw_option_answer->description ?? 'Option 1');
                     }
                     $option_answers[] = $option_answer->toArray();
                 }
             }
-            $this->text_answer = $raw->text_answer;
+            if (count($option_answers) <= 0) {
+                $option_answer = new OptionAnswer();
+                $option_answers[] = $option_answer->toArray();
+            }
             $this->option_answers = $option_answers;
+            //row option answers
+            $row_option_answers = [];
+            $raw_row_option_answers = $raw->row_option_answers ?? '';
+            if (is_array($raw_row_option_answers)) {
+                foreach ($raw_row_option_answers as $raw_row_option_answer) {
+                    $row_option_answer = new OptionAnswer();
+                    if (is_object($raw_row_option_answer)) {
+                        $row_option_answer->setDescription($raw_row_option_answer->description ?? 'Option 1');
+                    }
+                    $row_option_answers[] = $row_option_answer->toArray();
+                }
+            }
+            if (count($row_option_answers) <= 0) {
+                $row_option_answer = new OptionAnswer();
+                $row_option_answers[] = $row_option_answer->toArray();
+            }
+            $this->row_option_answers = $row_option_answers;
+            $this->text_answer = $raw->text_answer ?? '';
         }
     }
 
@@ -210,8 +241,11 @@ class LineAnswer
     public function build($raw): void
     {
         if (is_object($raw)) {
-            $this->line_tag = $raw->line_tag;
-            $this->line_end_tag = $raw->line_end_tag;
+            $this->line_value = $raw->line_value ?? 0;
+            $this->line_end_value = $raw->line_end_value ?? '';
+
+            $this->line_tag = $raw->line_tag ?? '';
+            $this->line_end_tag = $raw->line_end_tag ?? '';
         }
     }
 

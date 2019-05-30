@@ -259,6 +259,7 @@
                             if (r.success) {
                                 this.showInfoToast({msg: 'The Category was deleted!', dt});
                                 this.getItems();
+                                this.getParentCategories();
                             } else {
                                 this.showErrorToast({msg: 'Failed to delete the category!', dt});
                             }
@@ -275,6 +276,7 @@
                     .then(r => {
                         if (r.success) {
                             this.getItems();
+                            this.getParentCategories();
                             ft.show = false;
                             this.models.formTop = {imageSrc: null, have_parent: false};
                         }
@@ -293,6 +295,7 @@
                         if (r.success) {
                             this.showInfoToast({msg: 'The category was updated!', dt});
                             this.getItems();
+                            this.getParentCategories();
                         } else {
                             this.showErrorToast({msg: 'Failed to update the category!', dt});
                         }
