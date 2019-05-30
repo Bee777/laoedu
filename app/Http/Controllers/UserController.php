@@ -1,5 +1,4 @@
 <?php
-
 namespace App\Http\Controllers;
 
 use App\Responses\Admin\DashboardResponse;
@@ -37,7 +36,7 @@ class UserController extends Controller
      */
     public function __construct()
     {
-        $this->middleware('api-mode-user-management:super_admin,admin,user', $this->excepts);
+        $this->middleware('api-mode-user-management:super_admin,admin,institute,checker,field_inspector', $this->excepts);
     }
 
     /**

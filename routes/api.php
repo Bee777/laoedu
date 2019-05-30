@@ -217,6 +217,20 @@ Route::group(['prefix' => '/', 'middleware' => ['cors', 'parseToken', 'auth:api'
         Route::post('member-careers/manage', 'UserController@responseActionManageMemberCareers')->name('api.users.post.ManageMemberCareers');
         /*** @postMemberEducationsProfile */
     });
+
+
+
+
+ /**
+     ***************** @AdminSection routes ************************
+     */
+    Route::group(['prefix' => '/institute', 'middleware' => []], function () {
+    Route::post('/profile-manage', 'InstituteProfileController@responseProfileManage')->name('api.user.get.responseProfileManage');
+    Route::post('/profile-manage', 'InstituteProfileController@responseProfileManage')->name('api.user.get.profileManage');
+    });
+
+    /******************** @InstituteSection ****************** */
+
     /******************** @UserSection ****************** */
     /** @Logout */
     Route::post('/logout', 'Auth\LoginController@logout')->name('api.get.logout');

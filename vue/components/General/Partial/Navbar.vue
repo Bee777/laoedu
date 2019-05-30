@@ -124,11 +124,11 @@
                     <li class="nav-item">
                       <router-link :to="{name: 'news'}" active-class="active" exact>ຂ່າວສານ</router-link>
                     </li>
-                    <!-- <li class="nav-item">
+                    <li class="nav-item">
                           <router-link :to="{name: 'scholarships'}" active-class="active" exact>
                         ທຶນການສຶກສາ
                     </router-link>
-                    </li> -->
+                    </li>
                     <li class="nav-item">
                       <router-link :to="{name: 'activities'}" active-class="active" exact>ກິດຈະກຳ</router-link>
                     </li>

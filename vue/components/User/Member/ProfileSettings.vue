@@ -394,28 +394,6 @@
                                     </MasterDetailCardMenu>
                                     <!--Reset Password end-->
                                 </MasterDetailCardItem>
-                                <!-- <MasterDetailCardItem :header='{ title: " SMS " }'>
-                                    <MasterDetailCardMenu
-                                        :header='{
-                                        title: "การยืนยันทาง SMS",
-                                        content: `อนุญาตให้ผู้ใช้ลงชื่อเข้าใช้ด้วยรหัสผ่านแบบใช้ครั้งเดียวที่ส่งเป็น SMS ไปยังโทรศัพท์มือถือ`}'
-                                        :menuItem='{name: "การยืนยันที่อยู่อีเมล", icon: "email", selected: true}'>
-                                        <form @submit.prevent class="admin-form admin-template-form">
-                                            <div class="layout-align-space-around-start layout-row">
-                                                <AdminInput
-                                                    :value="'%LOGIN_CODE% is your verification code for %APP_NAME%.'"
-                                                    :label="' ข้อความ '"
-                                                    :inputType="'text'"/>
-                                            </div>
-                                            <div class="actions">
-                                                <div class="layout-align-end-center layout-row">
-                                                    <button class="v-md-button secondary"> ยกเลิก</button>
-                                                    <button class="v-md-button primary"> บันทึก</button>
-                                                </div>
-                                            </div>
-                                        </form>
-                                    </MasterDetailCardMenu>
-                                </MasterDetailCardItem> -->
                             </div>
                         </template>
                     </MasterDetailCard>

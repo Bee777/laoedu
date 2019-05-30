@@ -8,12 +8,13 @@
 
 namespace App\Responses\User;
 
-use App\EducationDegree;
+
 use App\Http\Controllers\Helpers\Helpers;
 use App\User;
 use Illuminate\Contracts\Support\Responsable;
-use App\Organize;
-use App\Department;
+// use App\EducationDegree;
+// use App\Organize;
+// use App\Department;
 
 class UserProfileOptions implements Responsable
 {
@@ -28,25 +29,25 @@ class UserProfileOptions implements Responsable
     {
         $data = [];
         if (Helpers::isAjax($request)) {
-            $data['organizes'] = Organize::select('id', 'name')->orderBy('id', 'desc')
-                ->get()->map(function ($data) {
-                    $data->label = $data->name;
-                    $data->value = $data->id;
-                    return $data;
-                });
-            $data['departments'] = Department::select('id', 'name')->orderBy('id', 'desc')
-                ->get()->map(function ($data) {
-                    $data->label = $data->name;
-                    $data->value = $data->id;
-                    return $data;
-                });
+            // $data['organizes'] = Organize::select('id', 'name')->orderBy('id', 'desc')
+            //     ->get()->map(function ($data) {
+            //         $data->label = $data->name;
+            //         $data->value = $data->id;
+            //         return $data;
+            //     });
+            // $data['departments'] = Department::select('id', 'name')->orderBy('id', 'desc')
+            //     ->get()->map(function ($data) {
+            //         $data->label = $data->name;
+            //         $data->value = $data->id;
+            //         return $data;
+            //     });
 
-            $data['education_degrees'] = EducationDegree::select('id', 'name')->orderBy('id', 'desc')
-                ->get()->map(function ($data) {
-                    $data->label = $data->name;
-                    $data->value = $data->id;
-                    return $data;
-                });
+            // $data['education_degrees'] = EducationDegree::select('id', 'name')->orderBy('id', 'desc')
+            //     ->get()->map(function ($data) {
+            //         $data->label = $data->name;
+            //         $data->value = $data->id;
+            //         return $data;
+            //     });
 
             $data['user_profile'] = $this->transformUserProfile($request->user());
             return response()->json(['success' => true, 'data' => $data]);
@@ -72,8 +73,8 @@ class UserProfileOptions implements Responsable
                 }
                 $data['marital_status'] = ['text' => $this->getTextMaritalStatus($userProfile->marital_status), 'value' => $userProfile->marital_status];
             }
-            $data['member_educations'] = $user->member_educations();
-            $data['member_careers'] = $user->member_careers();
+            // $data['member_educations'] = $user->member_educations();
+            // $data['member_careers'] = $user->member_careers();
         }
         return $data;
     }

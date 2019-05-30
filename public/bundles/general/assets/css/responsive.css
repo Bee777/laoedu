@@ -149,6 +149,9 @@
 	padding: 10px 40px 40px;
 }
 
+.footer-link.suppor{
+	margin-top: 0px;
+}
 
 
 }
@@ -279,7 +282,7 @@
 
 #about-part {
 	padding-bottom: 10px;
-	padding-top: 15px;
+	/* padding-top: 15px; */
 }
 
 #apply-aprt {
@@ -299,8 +302,8 @@
 	padding-bottom: 70px;
 }
 #publication-part {
-	padding-top: 65px;
-	padding-bottom: 70px;
+	padding-top: 35px;
+	padding-bottom: 40px;
 }
 #testimonial {
 	padding-top: 65px;
@@ -361,8 +364,8 @@
 	padding-bottom: 70px;
 }
 #corses-singel {
-	padding-top: 40px;
-	padding-bottom: 70px;
+	padding-top: 0px;
+	padding-bottom: 20px;
 }
 .releted-courses.pt-95 {
 	padding-top: 45px;
@@ -387,12 +390,12 @@
 	padding-bottom: 70px;
 }
 #blog-page {
-	padding-top: 40px;
-	padding-bottom: 70px;
+	padding-top: 0px;
+	padding-bottom: 20px;
 }
 #blog-singel {
-	padding-top: 40px;
-	padding-bottom: 70px;
+	padding-top: 10px;
+	padding-bottom: 0px;
 }
 #shop-page {
 	padding-top: 70px;
@@ -637,8 +640,8 @@
 	padding-bottom: 70px;
 }
 #publication-part {
-	padding-top: 65px;
-	padding-bottom: 70px;
+	padding-top: 35px;
+	padding-bottom: 40px;
 }
 #testimonial {
 	padding-top: 65px;
@@ -699,8 +702,8 @@
 	padding-bottom: 70px;
 }
 #corses-singel {
-	padding-top: 40px;
-	padding-bottom: 70px;
+	padding-top: 0px;
+	padding-bottom: 20px;
 }
 .releted-courses.pt-95 {
 	padding-top: 45px;
@@ -725,12 +728,12 @@
 	padding-bottom: 70px;
 }
 #blog-page {
-	padding-top: 40px;
-	padding-bottom: 70px;
+	padding-top: 0px;
+	padding-bottom: 20px;
 }
 #blog-singel {
-	padding-top: 40px;
-	padding-bottom: 70px;
+	padding-top: 10px;
+	padding-bottom: 0px;
 }
 #shop-page {
 	padding-top: 70px;
@@ -809,7 +812,7 @@
 	left: 80%;
 }
 .logo {
-	text-align: center;
+	text-align: left;
 }
 
 .header-contact ul li {
@@ -1264,8 +1267,8 @@
 	padding-bottom: 70px;
 }
 #publication-part {
-	padding-top: 65px;
-	padding-bottom: 70px;
+	padding-top: 35px;
+	padding-bottom: 40px;
 }
 #testimonial {
 	padding-top: 65px;
@@ -1326,8 +1329,8 @@
 	padding-bottom: 70px;
 }
 #corses-singel {
-	padding-top: 40px;
-	padding-bottom: 70px;
+	padding-top: 0px;
+	padding-bottom: 20px;
 }
 .releted-courses.pt-95 {
 	padding-top: 45px;
@@ -1352,12 +1355,12 @@
 	padding-bottom: 70px;
 }
 #blog-page {
-	padding-top: 40px;
-	padding-bottom: 70px;
+	padding-top: 0px;
+	padding-bottom: 20px;
 }
 #blog-singel {
-	padding-top: 40px;
-	padding-bottom: 70px;
+	padding-top: 10px;
+	padding-bottom: 0px;
 }
 #shop-page {
 	padding-top: 70px;
@@ -1378,5 +1381,11 @@
 .header-logo-support{
 	display: none;
 }   
+.footer-link.suppor{
+	margin-top: 0px;
+}
+.mobile-left{
+	    margin-left: 15px;
+}
 
 }

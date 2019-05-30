@@ -359,10 +359,12 @@ export const defaultActions = (api) => {
                             const type = iRes.user.type;
                             if (type === $utils.b64EncodeUnicode('admin') || type === $utils.b64EncodeUnicode('super_admin')) {
                                 $utils.Location('/admin/me')
-                            } else if (type === $utils.b64EncodeUnicode('volunteer')) {
-                                $utils.Location('/volunteer/me');
-                            } else if (type === $utils.b64EncodeUnicode('organize')) {
-                                $utils.Location('/organize/me');
+                            } else if (type === $utils.b64EncodeUnicode('checker')) {
+                                $utils.Location('/checker/me');
+                            } else if (type === $utils.b64EncodeUnicode('institute')) {
+                                $utils.Location('/institute/me');
+                            } else if (type === $utils.b64EncodeUnicode('field_inspector')) {
+                                $utils.Location('/field_inspector/me');
                             }
                         } else {
                             $utils.Location('/');

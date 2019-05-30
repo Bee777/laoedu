@@ -1,13 +1,13 @@
 <template>
   <div>
     <!--====== BLOG PART START ======-->
-    <section id="blog-page" class="pt-20 pb-120 gray-bg">
+    <section id="blog-page" class="pb-20 gray-bg">
       <div class="container">
         <div class="fire-spinner" v-if="shouldLoading(type)"></div>
         <div class="row">
           <div class="col-lg-8">
             <div
-              class="singel-blog mt-30"
+              class="singel-blog mt-10"
               v-for="(activity, idx) in postsData.activities.posts.data"
               :key="idx"
             >
@@ -31,7 +31,19 @@
               </div>
             </div>
             <!-- singel blog -->
-            <nav class="courses-pagination mt-50">
+               <!-- Search Form -->
+               <div class="col-lg-8" v-if="isNotFound()">
+            <div class="devsite-article mt-20">
+              <h1 class="devsite-page-title">
+                Search results for
+                <span class="devsite-search-term">
+                  <span class="devsite-search-term">{{ query }}</span>
+                </span>
+              </h1>
+            </div>
+            <div class="result-snippet">No Results</div>
+          </div>
+            <nav class="courses-pagination mt-20">
               <ul class="pagination justify-content-lg-end justify-content-center">
                 <li class="page-item">
                   <a
@@ -55,17 +67,6 @@
               </ul>
             </nav>
           </div>
-          <div class="col-lg-8" v-if="isNotFound()">
-            <div class="devsite-article">
-              <h1 class="devsite-page-title">
-                Search results for
-                <span class="devsite-search-term">
-                  <span class="devsite-search-term">{{ query }}</span>
-                </span>
-              </h1>
-            </div>
-            <div class="result-snippet">No Results</div>
-          </div>
           <div class="col-lg-4">
             <div class="saidbar">
               <div class="row">
@@ -74,7 +75,7 @@
                 </div>
                 <!-- search -->
                 <div class="col-lg-12 col-md-6">
-                  <div class="saidbar-post mt-30">
+                  <div class="saidbar-post mt-10">
                     <h4>ກິດຈະກຳອື່ນໆ</h4>
                     <ul>
                       <li v-for="(activity, idx) in postsData.activities.mostViews" :key="idx">
@@ -105,8 +106,6 @@
       </div>
       <!-- container -->
     </section>
-
-    <!--====== BLOG PART ENDS ======-->
   </div>
 </template>
 <style scoped>

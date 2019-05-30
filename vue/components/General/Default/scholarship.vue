@@ -1,13 +1,13 @@
 <template>
   <div>
     <!--====== BLOG PART START ======-->
-    <section id="blog-page" class="pt-20 pb-120 gray-bg">
+    <section id="blog-page" class="pb-20 gray-bg">
       <div class="container">
         <div class="fire-spinner" v-if="shouldLoading(type)"></div>
         <div class="row">
           <div class="col-lg-8">
             <div
-              class="singel-blog mt-30"
+              class="singel-blog mt-10"
               v-for="(scholarship, idx) in postsData.scholarships.posts.data"
               :key="idx"
             >
@@ -44,7 +44,19 @@
               </div>
             </div>
             <!-- singel blog -->
-            <nav class="courses-pagination mt-50">
+              <!--Search Form-->
+                        <div class="col-lg-8" v-if="isNotFound()">
+            <div class="devsite-article mt-20">
+              <h1 class="devsite-page-title">
+                Search results for
+                <span class="devsite-search-term">
+                  <span class="devsite-search-term">{{ query }}</span>
+                </span>
+              </h1>
+            </div>
+            <div class="result-snippet">No Results</div>
+          </div>
+            <nav class="courses-pagination mt-20">
               <ul class="pagination justify-content-lg-end justify-content-center">
                 <li class="page-item">
                   <a
@@ -68,17 +80,6 @@
               </ul>
             </nav>
           </div>
-          <div class="col-lg-8" v-if="isNotFound()">
-            <div class="devsite-article">
-              <h1 class="devsite-page-title">
-                Search results for
-                <span class="devsite-search-term">
-                  <span class="devsite-search-term">{{ query }}</span>
-                </span>
-              </h1>
-            </div>
-            <div class="result-snippet">No Results</div>
-          </div>
           <div class="col-lg-4">
             <div class="saidbar">
               <div class="row">
@@ -88,10 +89,10 @@
                 <!-- search -->
                 <div class="col-lg-12 col-md-6">
                   <div
-                    class="saidbar-post mt-30"
+                    class="saidbar-post mt-10"
                     v-if="postsData.scholarships.mostViews.length > 0"
                   >
-                    <h4>ທຶນອື່ນໆ</h4>
+                    <h4>ທຶນການສຶກສາອື່ນໆ</h4>
                     <ul>
                       <li v-for="(scholarship, idx) in postsData.scholarships.mostViews" :key="idx">
                         <a @click="getDetail('scholarship', scholarship)">

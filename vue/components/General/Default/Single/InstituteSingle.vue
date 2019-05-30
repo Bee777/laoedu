@@ -1,7 +1,7 @@
 <template>
   <div>
     <!--====== COURSES SINGEl PART START ======-->
-    <section id="corses-singel" class="pt-20 pb-40 gray-bg">
+    <section id="corses-singel" class="pt-10 pb-20 gray-bg">
       <div class="container">
         <div class="row">
           <div class="col-lg-8">
@@ -13,16 +13,10 @@
               <div class="course-terms">
                 <ul>
                   <li>
-                    <div class="teacher-name">
-                      <div class="thum">
-                        <img
-                          :src="`${baseUrl}${baseRes}/assets/images/course/teacher/t-1.jpg`"
-                          alt="Teacher"
-                        >
-                      </div>
+                    <div class="course-category">
                       <div class="name">
-                        <span>Teacher</span>
-                        <h6>Mark anthem</h6>
+                        <span>Published</span>
+                        <h6>22 May,2019</h6>
                       </div>
                     </div>
                   </li>
@@ -32,18 +26,22 @@
                       <h6>ພາກລັດ</h6>
                     </div>
                   </li>
+                  <li>
+                    <div class="course-category">
+                      <span>ວັນສ້າງຕັ້ງ</span>
+                      <h6>22.5.2009</h6>
+                    </div>
+                  </li>
                 </ul>
               </div>
               <!-- course terms -->
-
               <div class="corses-singel-image pt-50">
                 <img :src="`${baseUrl}${baseRes}/assets/images/course/cu-1.jpg`" alt="Courses">
               </div>
               <!-- corses singel image -->
-
               <div class="corses-tab mt-30">
                 <ul class="nav nav-justified" id="myTab" role="tablist">
-                  <li class="nav-item">
+                  <li class="nav-item institute">
                     <a
                       class="active"
                       id="overview-tab"
@@ -52,9 +50,9 @@
                       role="tab"
                       aria-controls="overview"
                       aria-selected="true"
-                    >ກ່ຽວກັບສະຖານການສຶກສາ</a>
+                    >ລາຍລະອຽດກ່ຽວກັບສະຖານການສຶກສາ</a>
                   </li>
-                  <li class="nav-item">
+                  <!-- <li class="nav-item">
                     <a
                       id="curriculam-tab"
                       data-toggle="tab"
@@ -73,7 +71,7 @@
                       aria-controls="instructor"
                       aria-selected="false"
                     >ຂໍ້ມູນຕິດຕໍ່</a>
-                  </li>
+                  </li>-->
                 </ul>
                 <div class="tab-content" id="myTabContent">
                   <div
@@ -93,321 +91,6 @@
                       </div>
                     </div>
                     <!-- overview description -->
-                  </div>
-                  <div
-                    class="tab-pane fade"
-                    id="curriculam"
-                    role="tabpanel"
-                    aria-labelledby="curriculam-tab"
-                  >
-                    <div class="curriculam-cont">
-                      <div class="title">
-                        <h6>Learn basis javascirpt Lecture Started</h6>
-                      </div>
-                      <div class="accordion" id="accordionExample">
-                        <div class="card">
-                          <div class="card-header" id="headingOne">
-                            <a
-                              href="#"
-                              data-toggle="collapse"
-                              data-target="#collapseOne"
-                              aria-expanded="true"
-                              aria-controls="collapseOne"
-                            >
-                              <ul>
-                                <li>
-                                  <i class="fa fa-file-o"></i>
-                                </li>
-                                <li>
-                                  <span class="lecture">Lecture 1.1</span>
-                                </li>
-                                <li>
-                                  <span class="head">What is javascirpt</span>
-                                </li>
-                                <li>
-                                  <span class="time d-none d-md-block">
-                                    <i class="fa fa-clock-o"></i>
-                                    <span>00.30.00</span>
-                                  </span>
-                                </li>
-                              </ul>
-                            </a>
-                          </div>
-
-                          <div
-                            id="collapseOne"
-                            class="collapse show"
-                            aria-labelledby="headingOne"
-                            data-parent="#accordionExample"
-                          >
-                            <div class="card-body">
-                              <p>Ut quis scelerisque risus, et viverra nisi. Phasellus ultricies luctus augue, eget maximus felis laoreet quis. Maecenasbibendum tempor eros.</p>
-                            </div>
-                          </div>
-                        </div>
-
-                        <div class="card">
-                          <div class="card-header" id="headingTow">
-                            <a
-                              href="#"
-                              data-toggle="collapse"
-                              class="collapsed"
-                              data-target="#collapseTow"
-                              aria-expanded="true"
-                              aria-controls="collapseTow"
-                            >
-                              <ul>
-                                <li>
-                                  <i class="fa fa-file-o"></i>
-                                </li>
-                                <li>
-                                  <span class="lecture">Lecture 1.2</span>
-                                </li>
-                                <li>
-                                  <span class="head">What is javascirpt</span>
-                                </li>
-                                <li>
-                                  <span class="time d-none d-md-block">
-                                    <i class="fa fa-clock-o"></i>
-                                    <span>00.30.00</span>
-                                  </span>
-                                </li>
-                              </ul>
-                            </a>
-                          </div>
-
-                          <div
-                            id="collapseTow"
-                            class="collapse"
-                            aria-labelledby="headingTow"
-                            data-parent="#accordionExample"
-                          >
-                            <div class="card-body">
-                              <p>Ut quis scelerisque risus, et viverra nisi. Phasellus ultricies luctus augue, eget maximus felis laoreet quis. Maecenasbibendum tempor eros.</p>
-                            </div>
-                          </div>
-                        </div>
-
-                        <div class="card">
-                          <div class="card-header" id="headingThree">
-                            <a
-                              href="#"
-                              data-toggle="collapse"
-                              class="collapsed"
-                              data-target="#collapseThree"
-                              aria-expanded="false"
-                              aria-controls="collapseThree"
-                            >
-                              <ul>
-                                <li>
-                                  <i class="fa fa-file-o"></i>
-                                </li>
-                                <li>
-                                  <span class="lecture">Lecture 1.3</span>
-                                </li>
-                                <li>
-                                  <span class="head">What is javascirpt</span>
-                                </li>
-                                <li>
-                                  <span class="time d-none d-md-block">
-                                    <i class="fa fa-clock-o"></i>
-                                    <span>00.30.00</span>
-                                  </span>
-                                </li>
-                              </ul>
-                            </a>
-                          </div>
-                          <div
-                            id="collapseThree"
-                            class="collapse"
-                            aria-labelledby="headingThree"
-                            data-parent="#accordionExample"
-                          >
-                            <div class="card-body">
-                              <p>Ut quis scelerisque risus, et viverra nisi. Phasellus ultricies luctus augue, eget maximus felis laoreet quis. Maecenasbibendum tempor eros.</p>
-                            </div>
-                          </div>
-                        </div>
-
-                        <div class="card">
-                          <div class="card-header" id="headingFore">
-                            <a
-                              href="#"
-                              data-toggle="collapse"
-                              class="collapsed"
-                              data-target="#collapseFore"
-                              aria-expanded="false"
-                              aria-controls="collapseFore"
-                            >
-                              <ul>
-                                <li>
-                                  <i class="fa fa-file-o"></i>
-                                </li>
-                                <li>
-                                  <span class="lecture">Lecture 1.4</span>
-                                </li>
-                                <li>
-                                  <span class="head">What is javascirpt</span>
-                                </li>
-                                <li>
-                                  <span class="time d-none d-md-block">
-                                    <i class="fa fa-clock-o"></i>
-                                    <span>00.30.00</span>
-                                  </span>
-                                </li>
-                              </ul>
-                            </a>
-                          </div>
-                          <div
-                            id="collapseFore"
-                            class="collapse"
-                            aria-labelledby="headingFore"
-                            data-parent="#accordionExample"
-                          >
-                            <div class="card-body">
-                              <p>Ut quis scelerisque risus, et viverra nisi. Phasellus ultricies luctus augue, eget maximus felis laoreet quis. Maecenasbibendum tempor eros.</p>
-                            </div>
-                          </div>
-                        </div>
-
-                        <div class="card">
-                          <div class="card-header" id="headingFive">
-                            <a
-                              href="#"
-                              data-toggle="collapse"
-                              class="collapsed"
-                              data-target="#collapseFive"
-                              aria-expanded="false"
-                              aria-controls="collapseFive"
-                            >
-                              <ul>
-                                <li>
-                                  <i class="fa fa-file-o"></i>
-                                </li>
-                                <li>
-                                  <span class="lecture">Lecture 1.5</span>
-                                </li>
-                                <li>
-                                  <span class="head">What is javascirpt</span>
-                                </li>
-                                <li>
-                                  <span class="time d-none d-md-block">
-                                    <i class="fa fa-clock-o"></i>
-                                    <span>00.30.00</span>
-                                  </span>
-                                </li>
-                              </ul>
-                            </a>
-                          </div>
-                          <div
-                            id="collapseFive"
-                            class="collapse"
-                            aria-labelledby="headingFive"
-                            data-parent="#accordionExample"
-                          >
-                            <div class="card-body">
-                              <p>Ut quis scelerisque risus, et viverra nisi. Phasellus ultricies luctus augue, eget maximus felis laoreet quis. Maecenasbibendum tempor eros.</p>
-                            </div>
-                          </div>
-                        </div>
-
-                        <div class="card">
-                          <div class="card-header" id="headingSix">
-                            <a
-                              href="#"
-                              data-toggle="collapse"
-                              class="collapsed"
-                              data-target="#collapseSix"
-                              aria-expanded="false"
-                              aria-controls="collapseSix"
-                            >
-                              <ul>
-                                <li>
-                                  <i class="fa fa-file-o"></i>
-                                </li>
-                                <li>
-                                  <span class="lecture">Lecture 1.6</span>
-                                </li>
-                                <li>
-                                  <span class="head">What is javascirpt</span>
-                                </li>
-                                <li>
-                                  <span class="time d-none d-md-block">
-                                    <i class="fa fa-clock-o"></i>
-                                    <span>00.30.00</span>
-                                  </span>
-                                </li>
-                              </ul>
-                            </a>
-                          </div>
-                          <div
-                            id="collapseSix"
-                            class="collapse"
-                            aria-labelledby="headingSix"
-                            data-parent="#accordionExample"
-                          >
-                            <div class="card-body">
-                              <p>Ut quis scelerisque risus, et viverra nisi. Phasellus ultricies luctus augue, eget maximus felis laoreet quis. Maecenasbibendum tempor eros.</p>
-                            </div>
-                          </div>
-                        </div>
-
-                        <div class="card">
-                          <div class="card-header" id="headingSeven">
-                            <a
-                              href="#"
-                              data-toggle="collapse"
-                              class="collapsed"
-                              data-target="#collapseSeven"
-                              aria-expanded="false"
-                              aria-controls="collapseSeven"
-                            >
-                              <ul>
-                                <li>
-                                  <i class="fa fa-file-o"></i>
-                                </li>
-                                <li>
-                                  <span class="lecture">Lecture 1.7</span>
-                                </li>
-                                <li>
-                                  <span class="head">What is javascirpt</span>
-                                </li>
-                                <li>
-                                  <span class="time d-none d-md-block">
-                                    <i class="fa fa-clock-o"></i>
-                                    <span>00.30.00</span>
-                                  </span>
-                                </li>
-                              </ul>
-                            </a>
-                          </div>
-                          <div
-                            id="collapseSeven"
-                            class="collapse"
-                            aria-labelledby="headingSeven"
-                            data-parent="#accordionExample"
-                          >
-                            <div class="card-body">
-                              <p>Ut quis scelerisque risus, et viverra nisi. Phasellus ultricies luctus augue, eget maximus felis laoreet quis. Maecenasbibendum tempor eros.</p>
-                            </div>
-                          </div>
-                        </div>
-                      </div>
-                    </div>
-                    <!-- curriculam cont -->
-                  </div>
-                  <div
-                    class="tab-pane fade"
-                    id="instructor"
-                    role="tabpanel"
-                    aria-labelledby="instructor-tab"
-                  >
-                    <div class="instructor-cont">
-                      <div class="instructor-description pt-25">
-                        <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Delectus fuga ratione molestiae unde provident quibusdam sunt, doloremque. Error omnis mollitia, ex dolor sequi. Et, quibusdam excepturi. Animi assumenda, consequuntur dolorum odio sit inventore aliquid, optio fugiat alias. Veritatis minima, dicta quam repudiandae repellat non sit, distinctio, impedit, expedita tempora numquam?</p>
-                      </div>
-                    </div>
-                    <!-- instructor cont -->
                   </div>
                 </div>
                 <!-- tab content -->
@@ -434,52 +117,75 @@
             <div class="row">
               <div class="col-lg-12 col-md-6">
                 <div class="course-features mt-30">
-                  <h4>Institute Features</h4>
+                  <h4>ຂໍ້ມູນຕິດຕໍ່</h4>
                   <ul>
                     <li>
-                      <i class="fa fa-clock-o"></i>ອາຈານທັງໝົດ :
-                      <span>50 ຄົນ</span>
+                      <div class="icon">
+                        <i class="fa fa-phone"></i>
+                      </div>
+                      <div class="cont">
+                        <p>020 50454544</p>
+                      </div>
                     </li>
                     <li>
-                      <i class="fa fa-clone"></i>ປອ :
-                      <span>09</span>
+                      <div class="icon">
+                        <i class="far fa-envelope"></i>
+                      </div>
+                      <div class="cont">
+                        <p>example@gmail.com</p>
+                      </div>
                     </li>
                     <li>
-                      <i class="fa fa-beer"></i>ປທ :
-                      <span>11</span>
+                      <div class="icon">
+                        <i class="fa fa-home"></i>
+                      </div>
+                      <div class="cont">
+                        <p>Address</p>
+                      </div>
                     </li>
                     <li>
-                      <i class="fa fa-beer"></i>ປຕ :
-                      <span>25</span>
+                      <div class="icon">
+                        <i class="fas fa-globe"></i>
+                      </div>
+                      <div class="cont">
+                        <p>www.google.com</p>
+                      </div>
                     </li>
-                    <li>
-                      <i class="fa fa-beer"></i>ຊັ້ນກາງ :
-                      <span>05</span>
-                    </li>
-                    <li>
-                      <i class="fa fa-user-o"></i>ນັກສຶກສາທັງໝົດ :
-                      <span>1000</span>
-                    </li>
+                    <li></li>
                   </ul>
+                  <div>
+                    <ul class="share social">
+                      <li class="title">Social :</li>
+                      <li>
+                        <a target="_blank" href="#">
+                          <i class="fab fa-facebook-f"></i>
+                        </a>
+                      </li>
+                      <li>
+                        <a target="_blank" href="#">
+                          <i class="fab fa-twitter"></i>
+                        </a>
+                      </li>
+                    </ul>
+                  </div>
                 </div>
                 <!-- course features -->
               </div>
               <div class="col-lg-12 col-md-6">
                 <div class="You-makelike mt-30">
                   <h4>ແຜນທີ່ສະຖານການສຶກສາ</h4>
-                  
-            <div class="gmap mt-10">
-              <iframe
-                src="https://www.google.com/maps/embed?pb=!1m14!1m8!1m3!1d15175.027535503485!2d102.6322612026245!3d18.03648292309852!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x31245d38b6cb9d2b%3A0xd933c8032521d049!2z4Lqh4Lqw4Lqr4Lqy4Lqn4Lq04LqX4Lqw4LqN4Lqy4LuE4Lql4LuB4Lqr4LuI4LqH4LqK4Lqy4LqU!5e0!3m2!1slo!2sla!4v1557239144195!5m2!1slo!2sla"
-                frameborder="0"
-                scrolling="no"
-                marginheight="0"
-                marginwidth="0"
-                style="width: 100%;
+
+                  <div class="gmap mt-10">
+                    <iframe
+                      src="https://www.google.com/maps/embed?pb=!1m14!1m8!1m3!1d15175.027535503485!2d102.6322612026245!3d18.03648292309852!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x31245d38b6cb9d2b%3A0xd933c8032521d049!2z4Lqh4Lqw4Lqr4Lqy4Lqn4Lq04LqX4Lqw4LqN4Lqy4LuE4Lql4LuB4Lqr4LuI4LqH4LqK4Lqy4LqU!5e0!3m2!1slo!2sla!4v1557239144195!5m2!1slo!2sla"
+                      frameborder="0"
+                      scrolling="no"
+                      marginheight="0"
+                      marginwidth="0"
+                      style="width: 100%;
                    height: 228px;"
-              ></iframe>
-            </div>
-              
+                    ></iframe>
+                  </div>
                 </div>
               </div>
             </div>
@@ -503,10 +209,11 @@
                         >
                       </div>
                     </div>
-                    <div class="cont">
+                    <div class="cont institute">
                       <a href="courses-singel.html">
                         <h4>ສະຖາບັນຂົງຈື້</h4>
                       </a>
+                      <p>Lorem ipsum dolor sit amet consectetur, adipisicing elit. In aliquid provident nesciunt inventore ipsa odit quisquam repellat praesentium?</p>
                       <div class="course-teacher">
                         <div class="name-course">
                           <a href="#">
@@ -515,15 +222,10 @@
                             </h6>
                           </a>
                         </div>
-                        <div class="student">
+                        <div>
                           <ul>
                             <li>
-                              <i class="fa fa-user"></i>
-                              <span>ອາຈານ 300</span>
-                            </li>
-                            <li>
-                              <i class="fa fa-heart"></i>
-                              <span>ນັກສຶກສາ 7000</span>
+                              <span>Updated 22/4/2019</span>
                             </li>
                           </ul>
                         </div>
@@ -542,10 +244,11 @@
                         >
                       </div>
                     </div>
-                    <div class="cont">
+                    <div class="cont institute">
                       <a href="courses-singel.html">
                         <h4>ສະຖາບັນລາວ-ເກົາຫຼີ</h4>
                       </a>
+                      <p>Lorem ipsum dolor sit amet consectetur, adipisicing elit. In aliquid provident nesciunt inventore ipsa odit quisquam repellat praesentium?</p>
                       <div class="course-teacher">
                         <div class="name-course">
                           <a href="#">
@@ -554,15 +257,10 @@
                             </h6>
                           </a>
                         </div>
-                        <div class="student">
+                        <div>
                           <ul>
                             <li>
-                              <i class="fa fa-user"></i>
-                              <span>ອາຈານ 300</span>
-                            </li>
-                            <li>
-                              <i class="fa fa-heart"></i>
-                              <span>ນັກສຶກສາ 7000</span>
+                              <span>Updated 22/4/2019</span>
                             </li>
                           </ul>
                         </div>
@@ -581,10 +279,11 @@
                         >
                       </div>
                     </div>
-                    <div class="cont">
+                    <div class="cont institute">
                       <a href="courses-singel.html">
                         <h4>ສະຖາບັນລາວ-ເກົາຫຼີ</h4>
                       </a>
+                      <p>Lorem ipsum dolor sit amet consectetur, adipisicing elit. In aliquid provident nesciunt inventore ipsa odit quisquam repellat praesentium?</p>
                       <div class="course-teacher">
                         <div class="name-course">
                           <a href="#">
@@ -593,15 +292,10 @@
                             </h6>
                           </a>
                         </div>
-                        <div class="student">
+                        <div>
                           <ul>
                             <li>
-                              <i class="fa fa-user"></i>
-                              <span>ອາຈານ 300</span>
-                            </li>
-                            <li>
-                              <i class="fa fa-heart"></i>
-                              <span>ນັກສຶກສາ 7000</span>
+                              <span>Updated 22/4/2019</span>
                             </li>
                           </ul>
                         </div>
@@ -628,3 +322,4 @@ export default {
   data: {}
 };
 </script>
+

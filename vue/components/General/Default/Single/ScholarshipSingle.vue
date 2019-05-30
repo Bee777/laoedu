@@ -1,7 +1,7 @@
 <template>
   <div>
     <!--POST CONTENT -->
-    <section id="blog-singel" class="pt-20 pb-20 gray-bg">
+    <section id="blog-singel" class="pt-10 pb-10 gray-bg">
       <div class="container">
         <div class="fire-spinner" v-if="shouldLoadingSingle(type)"></div>
         <div class="row">
@@ -61,8 +61,7 @@
                   </li>
                 </ul>
                 <div class="blog-content">
-                  <!-- <p class="content" v-html="singlePostsData.news.data.description"></p> -->
-                  <div class="content" v-html="singlePostsData.scholarships.data.description"></div>
+                  <p class="content" v-html="singlePostsData.scholarships.data.description"></p>
                 </div>
                 <div v-if="singlePostsData.scholarships.data.id">
                   <ul class="share">
@@ -94,7 +93,7 @@
           </div>
         </div>
         <!-- Sigle blog footer -->
-        <div class="row course-slied mt-30">
+        <div class="row course-slied mt-10">
           <div
             class="col-lg-4 pb-10"
             v-for="(item, idx) in singlePostsData.scholarships.others"

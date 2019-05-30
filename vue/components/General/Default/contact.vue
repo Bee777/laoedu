@@ -9,7 +9,7 @@
             <!--  contact from -->
           </div>
           <div class="col-lg-5">
-            <div class="contact-address mt-30">
+            <div class="contact-address">
               <ul v-if="!$utils.isEmptyVar( s )">
                 <li>
                   <div class="singel-address">
@@ -56,7 +56,7 @@
                 marginheight="0"
                 marginwidth="0"
                 style="width: 100%;
-                   height: 228px;"
+                   height: 250px;"
               ></iframe>
             </div>
 

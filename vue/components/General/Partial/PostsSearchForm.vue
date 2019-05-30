@@ -1,6 +1,6 @@
 <template>
-  <div class="saidbar-search mt-30">
-    <form action="#">
+  <div class="saidbar-search mt-10">
+    <form v-on:submit.prevent="searchEnter">
       <input
         @keyup.enter="triggerButton"
         v-model="inputText"
@@ -10,8 +10,7 @@
       >
       <button ref="search-button" @click="searchEnter" type="button">
         <i class="fa fa-search"></i>
-      </button>
-      
+      </button> 
     </form>
   </div>
   <!-- saidbar search -->
