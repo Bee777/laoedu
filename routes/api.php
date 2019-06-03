@@ -71,9 +71,9 @@ Route::group(['prefix' => '/', 'middleware' => ['cors', 'parseToken', 'auth:api'
             Route::post('/update/{id}', 'AdminController@responseActionUpdateAsessment')->name('api.admin.post.assessment.update');
             Route::post('/update-status/{id}', 'AdminController@responseActionUpdateStatusAsessment')->name('api.admin.post.assessment.update-status');
             Route::delete('/delete/{id}', 'AdminController@responseActionDeleteAsessment')->name('api.admin.delete.assessment.delete');
-            Route::get('send-users',  'AdminController@responseActionFetchSendAsessmentUsers')->name('api.admin.fetch.send-assessment-users');
-
-            Route::post('send/{type}',  'AdminController@responseActionSendAsessmenUsers')->name('api.admin.post.send-assessment-users');
+            Route::get('/send-users', 'AdminController@responseActionFetchSendAsessmentUsers')->name('api.admin.fetch.send-assessment-users');
+            Route::post('/send/{type}', 'AdminController@responseActionSendAsessmentUsers')->name('api.admin.post.send-assessment-users');
+            Route::post('/check-assessment/change-status/{id}', 'AdminController@responseActionChangeCheckAsessmentStatus')->name('api.admin.post.assessment.change-check-assessment-status');
         });
 
 
@@ -119,21 +119,6 @@ Route::group(['prefix' => '/', 'middleware' => ['cors', 'parseToken', 'auth:api'
         Route::get('/aboutinfo', 'AdminController@getAboutInfo');
         Route::post('/aboutinfo/manage', 'AdminController@manageAboutInfo');
         /** @AboutInfo ** */
-        /***@OrganizeInfo ** */
-        Route::get('/organizeinfo', 'AdminController@getOrganizeInfo');
-        Route::post('/organizeinfo/manage', 'AdminController@manageOrganizeInfo');
-        /** @OrganizeCharRange ** */
-        Route::get('/chart-ranges', 'AdminController@getChartRangeOptions');
-        Route::get('/chart-ranges/{id}', 'AdminController@getChartRangeMembers');
-        Route::post('/chart-ranges/create', 'AdminController@insertCharRange');
-        Route::post('/chart-ranges/update/{id}', 'AdminController@updateChartRange');
-        Route::delete('/chart-ranges/delete/{id}', 'AdminController@deleteChartRange');
-        /***@OrganizeCharRange ** */
-        /** @ChartRangeMembers */
-        Route::post('/chart-range-members/create', 'AdminController@createChartRangeMember');
-        Route::post('/chart-range-members/update/{id}', 'AdminController@updateChartRangeMember');
-        Route::delete('/chart-range-members/delete/{id}', 'AdminController@deleteChartRangeMember');
-        /** @ChartRangeMembers */
         /***@Banner ** */
         Route::post('/banner/create', 'AdminController@insertBanner');
         Route::post('/banner/update/{id}', 'AdminController@updateBanner');
@@ -144,11 +129,6 @@ Route::group(['prefix' => '/', 'middleware' => ['cors', 'parseToken', 'auth:api'
         Route::post('/file/update/{id}', 'AdminController@updateFile');
         Route::delete('/file/delete/{id}', 'AdminController@deleteFile');
         /***@File ** */
-        /***@Sponsor ** */
-        Route::post('/sponsor/create', 'AdminController@insertSponsor');
-        Route::post('/sponsor/update/{id}', 'AdminController@updateSponsor');
-        Route::delete('/sponsor/delete/{id}', 'AdminController@deleteSponsor');
-        /***@Sponsor ** */
 
         /*** @UploadPostsImage * */
         Route::post('posts/upload-images', 'AdminController@responseActionUploadImages')->name('api.admin.post.posts.uploadImages');
@@ -187,49 +167,30 @@ Route::group(['prefix' => '/', 'middleware' => ['cors', 'parseToken', 'auth:api'
         /*** @DashboardData Make it can accessible for admin and user * */
         Route::get('/dashboard-data', 'UserController@responseDashboardData')->name('api.user.get.dashboardData');
         /*** @DashboardData Make it can accessible for admin and user * */
-        /*** @News ** */
-        Route::post('/news/create', 'UserController@insertNews');
-        Route::post('/news/update/{id}', 'UserController@updateNews');
-        Route::delete('/news/delete/{id}', 'UserController@DeleteNews');
-        /***@News ** */
-        /*** @Activity ** */
-        Route::post('/activity/create', 'UserController@insertActivity');
-        Route::post('/activity/update/{id}', 'UserController@updateActivity');
-        Route::delete('/activity/delete/{id}', 'UserController@DeleteActivity');
-        /***@Activity ** */
-        /*** @Event ** */
-        Route::post('/event/create', 'UserController@insertEvent');
-        Route::post('/event/update/{id}', 'UserController@updateEvent');
-        Route::delete('/event/delete/{id}', 'UserController@DeleteEvent');
-        /***@Event ** */
-        /*** @Scholarship ** */
-        Route::post('/scholarship/create', 'UserController@insertScholarship');
-        Route::post('/scholarship/update/{id}', 'UserController@updateScholarship');
-        Route::delete('/scholarship/delete/{id}', 'UserController@DeleteScholarship');
-        /***@Scholarship ** */
-        /*** @postManagePostsStatus * */
-        Route::post('posts-status/manage', 'UserController@responseActionManagePostsStatus')->name('api.users.post.posts.ManagePostsStatus');
-        /*** @postManagePostsStatus * */
-        /*** @postMemberEducationsProfile */
-        Route::post('member-educations/manage', 'UserController@responseActionManageMemberEducations')->name('api.users.post.ManageMemberEducations');
-        /*** @postMemberEducationsProfile */
-        /*** @postMemberEducationsProfile */
-        Route::post('member-careers/manage', 'UserController@responseActionManageMemberCareers')->name('api.users.post.ManageMemberCareers');
-        /*** @postMemberEducationsProfile */
+        Route::group(['prefix' => '/assessment', 'middleware' => []], function () {
+            Route::get('/fetch/{id}', 'UserController@responseActionFecthAsessment')->name('api.user.get.assessment.fetch');
+        });
+
+        /**@CheckAssessmentComment */
+        Route::get('/check-assessment-comments', 'UserController@getCheckAssessmentComments');
+        Route::post('/check-assessment-comments-manage', 'UserController@manageCheckAssessmentComments');
+        Route::delete('/check-assessment-comments-delete', 'UserController@deleteCheckAssessmentComments');
+        /**@CheckAssessmentComment */
+
     });
+    /******************** @UserSection ****************** */
+    /******************** @Institute ****************** */
+    Route::group(['prefix' => '/institute', 'middleware' => []], function () {
+        Route::get('/dashboard-data', 'InstituteProfileController@responseDashboardData')->name('api.institute.get.dashboardData');
+        Route::get('/profile-options', 'InstituteProfileController@responseProfileOptions')->name('api.institute.get.responseProfileOptions');
+        Route::post('/profile-manage', 'InstituteProfileController@responseProfileManage')->name('api.institute.post.responseProfileManage');
+        Route::post('/check-assessment/save-answer/{id}', 'InstituteProfileController@responseSaveAessmentAnswer')->name('api.institute.post.assessment.saveAnswer');
+    });
+    /******************** @Institute ****************** */
 
-
-
-
- /**
+    /**
      ***************** @AdminSection routes ************************
      */
-    Route::group(['prefix' => '/institute', 'middleware' => []], function () {
-    Route::post('/profile-manage', 'InstituteProfileController@responseProfileManage')->name('api.user.get.responseProfileManage');
-    Route::post('/profile-manage', 'InstituteProfileController@responseProfileManage')->name('api.user.get.profileManage');
-    });
-
-    /******************** @InstituteSection ****************** */
 
     /******************** @UserSection ****************** */
     /** @Logout */

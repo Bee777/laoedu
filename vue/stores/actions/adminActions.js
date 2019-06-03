@@ -773,7 +773,30 @@ export const createActions = (utils) => {
                     n(e);
                 })
             });
-        }
+        },
         /*** @postSendAssessmentForUsers **/
+        /*** @postUpdateStatusCheckAssessment **/
+        postUpdateStatusCheckAssessment(c, i) {
+            return new Promise((r, n) => {
+                utils.Validate(i.data, {
+                    id: ['required'],//check assessment id
+                    status: ["required"],
+                }).then(v => {
+                    client.post(`${apiUrl}/admin/assessment/check-assessment/change-status/${i.data.id}`, i.data, ajaxToken(c))
+                        .then(res => {
+                            c.commit('setClearMsg');
+                            r(res.data)
+                        })
+                        .catch(err => {
+                            c.dispatch('HandleError', err.response);
+                            n(err)
+                        })
+                }).catch(e => {
+                    c.commit('setValidated', {errors: e.errors});
+                    n(e);
+                })
+            });
+        },
+        /*** @postUpdateStatusCheckAssessment **/
     }
 };

@@ -11,9 +11,7 @@ import PreviewAssessment from '@com/Admin/Assessments/Preview.vue'
 import ReviewAssessment from '@com/Admin/Assessments/ReviewAssessment.vue'
 
 import Institutes from '@com/Admin/Institutes/All.vue'
-import SingleInstituteProfile from '@com/Admin/Institutes/SingleInstituteProfile.vue'
 import InstituteCategory from '@com/Admin/Institutes/InstituteCategory.vue'
-import InstituteProfile from '@com/Admin/Institutes/InstituteProfile.vue'
 
 import SiteSetting from '../components/Admin/Default/SiteSetting.vue'
 import ContactInfo from '@com/Admin/Posts/ContactInfo.vue'
@@ -139,18 +137,6 @@ export default [
         name: 'institute-category',
         path: `${prefix}/institute-categories`,
         component: InstituteCategory,
-        meta: metas.authMeta,
-    },
-    {
-        name: 'institutes-profile',
-        path: `${prefix}/institute-profile`,
-        component: InstituteProfile,
-        meta: metas.authMeta,
-    },
-    {
-        name: 'institute-profile',
-        path: `${prefix}/institute-profile/:user_id`,
-        component: SingleInstituteProfile,
         meta: metas.authMeta,
     },
 ];

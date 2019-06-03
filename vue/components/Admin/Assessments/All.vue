@@ -165,7 +165,7 @@
                         name: 'Open Assessment',
                         active: false,
                         type: 'info',
-                        message: `Assessments with closed status, other users cannot checking them.`,
+                        message: `Assessments with opened status, other users can checking them.`,
                         action: {act: this.postUpdateStatusAssessment, params: {status: 'open'}, text: 'Open'},
                         data: data
                     }

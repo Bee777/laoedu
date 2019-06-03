@@ -7,7 +7,10 @@
                         class="app-sidebar-logo-lockup-icon"
                         :src="`${baseUrl}/assets/images/${s.website_logo}${s.fresh_version}`"
                         alt="Admin Icon Logo"
-                    > ສປຄ
+                    >
+                    <img class="app-sidebar-logo-lockup-logotype logotype-white"
+                         :src="`${baseUrl}/assets/images/admin-logo.svg${s.fresh_version}`"
+                         alt="Admin Text Logo">
                     <!--   src="https://www.gstatic.com/mobilesdk/160503_mobilesdk/logo/2x/firebase_28dp.png"-->
                     <!-- <img
                         class="app-sidebar-logo-lockup-logotype logotype-white"
@@ -156,7 +159,7 @@
                                 params: {name: "assessment"} //required
                             },
                             {
-                                name: "ບົດປະເມີນທີ່ກວດສອບແລ້ວ",
+                                name: "ບົດປະເມີນທີ່ກວດສອບ",
                                 icon: "assignment_turned_in", //required
                                 action: this.Route, //required
                                 params: {name: "review-assessment"} //required

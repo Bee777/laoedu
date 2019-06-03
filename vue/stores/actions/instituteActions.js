@@ -11,11 +11,37 @@ const ajaxToken = (c, formData = false) => {
 };
 export const axiosClient = () => createAxiosClient();
 export const createActions = (utils) => {
-     return {
-        /*** @UserProfile **/
+    return {
+        fetchSearches(c, i) {
+            let request = `limit=${i.limit}&page=${i.page}&q=${i.q}`;
+            c.commit('setValidated', {errors: {loading_searches: true}});
+            client.get(`${apiUrl}/users/searches/${i.type}?${request}`, ajaxToken(c))
+                .then(res => {
+                    c.commit('setSearchesData', {type: i.type, data: res.data.data});
+                    c.commit('setClearMsg');
+                })
+                .catch(err => {
+                    c.dispatch('HandleError', err.response);
+                });
+        },
+        /*** @UserProfileOptions **/
+        fetchInstituteParentCategories(c, id) {
+            return new Promise((r, n) => {
+                client.get(`${apiUrl}/guest/institute/category/list-parents/${id}`, ajaxConfig.getHeaders())
+                    .then(res => {
+                        c.commit('setClearMsg');
+                        r(res.data.data);
+                    })
+                    .catch(err => {
+                        c.dispatch('HandleError', err.response);
+                        n(err.response);
+                    });
+            });
+
+        },
         fetchOptionProfileData(c, data) {
             return new Promise((r, n) => {
-                client.get(`${apiUrl}/users/profile-options`, ajaxToken(c))
+                client.get(`${apiUrl}/institute/profile-options`, ajaxToken(c))
                     .then(res => {
                         c.commit('setClearMsg');
                         r(res.data);
@@ -26,6 +52,8 @@ export const createActions = (utils) => {
                     });
             });
         },
+        /*** @UserProfileOptions **/
+        /*** @UserProfile **/
         postManageUserProfile(c, data) {
             return new Promise((r, n) => {
                 utils.Validate(data, {
@@ -33,6 +61,9 @@ export const createActions = (utils) => {
                     'short_institute_name': ['required', {max: 191}],
                     'phone_number': ['phone number', {max: 191}],
                     'profile_image': [{mimes: 'jpeg,jpg,png,gif,svg'}, {max: 3000}],
+                    'public_email': ['email', {max: 191}],
+                    'institute_category': ['required'],
+                    'parent_institute_category': [{required: {when: 'institute_category.have_parent', equals: 'yes'}}],
                 }).then(v => {
                     let info = utils.clone(data);
                     for (let i in info) {
@@ -40,24 +71,21 @@ export const createActions = (utils) => {
                             if (utils.isEmptyVar(info[i])) {
                                 info[i] = '';
                             }
-                            if (i === 'marital_status' && info[i]) {
-                                info[i] = info[i].value;
+                            if (i === 'parent_institute_category' && info[i]) {
+                                info[i] = info[i].id;
                             }
-                            // if (i === 'typeOfOrganize' && info[i]) {
-                            //     info[i] = info[i].value;
-                            // }
-                            // if (i === 'work_categories' && info[i]) {
-                            //     info[i] = String(utils.arrayToText(info[i], 'value')).replace(/\s/g, '');
-                            // }
+                            if (i === 'institute_category' && info[i]) {
+                                info[i] = info[i].id;
+                            }
                         }
                     }
                     let formData = new FormData();
-                    utils.addDataForm(['institute_name', 'short_institute_name', 'phone_number', 'dateOfBirth',
-                        'marital_status', 'personalDescription', 'placeOfBirth', 'placeOfResident'], formData, info);
+                    utils.addDataForm(['institute_name', 'short_institute_name', 'phone_number', 'parent_institute_category',
+                        'public_email', 'address', 'facebook', 'googlemap', 'website', 'about', 'founded', 'institute_category'], formData, info);
                     if (info.profile_image) {//check if user change image
                         formData.append('profile_image', info.profile_image.file);
                     }
-                    client.post(`${apiUrl}/users/profile-manage`, formData, ajaxToken(c, true))
+                    client.post(`${apiUrl}/institute/profile-manage`, formData, ajaxToken(c, true))
                         .then(res => {
                             c.commit('setClearMsg');
                             r(res.data);
@@ -74,6 +102,7 @@ export const createActions = (utils) => {
             });
         },
         /*** @UserProfile **/
+
         /*** @UserCredentials **/
         postChangeCredentialsUser(c, data) {
             return new Promise((r, n) => {
@@ -105,7 +134,7 @@ export const createActions = (utils) => {
         /*** @DashboardData **/
         fetchDashboardData(c, d) {
             c.commit('setValidated', {errors: {loading_dashboard_data: true}});
-            client.get(`${apiUrl}/users/dashboard-data`, ajaxToken(c))
+            client.get(`${apiUrl}/institute/dashboard-data`, ajaxToken(c))
                 .then(res => {
                     c.commit('setClearMsg');
                     c.commit('setDashboardData', res.data.data);
@@ -115,86 +144,121 @@ export const createActions = (utils) => {
                 });
         },
         /*** @DashboardData **/
-        /*** @News **/
-        postCreateNews(c, data) {
+        /***@GET_ASSESSMENT**/
+        fetchAssessment(c, i) {
+            return new Promise((r, n) => {
+                client.get(`${apiUrl}/users/assessment/fetch/${i.id}`, ajaxToken(c))
+                    .then(res => {
+                        c.commit('setClearMsg');
+                        r(res.data);
+                    }).catch(err => {
+                    c.dispatch('HandleError', err.response);
+                    n(err);
+                });
+            });
+        },
+        /***@GET_ASSESSMENT**/
+        /***@SAVE_CHECK_ASSESSMENT*/
+        postSaveCheckAssessmentAnswer(c, data) {
             return new Promise((r, n) => {
                 utils.Validate(data, {
-                    title: ["required"],
-                    image: ["required", {mimes: 'jpeg,jpg,png,gif'}, {max: 3000}],
-                    description: ["required"]
+                    'check_assessment_sections': ['required'],
                 }).then(v => {
-                    let formData = new FormData();
-                    utils.addDataForm(['title', 'description'], formData, data);
-                    formData.append('image', data.image.file);
-                    client.post(`${apiUrl}/users/news/create`, formData, ajaxToken(c))
+                    client.post(`${apiUrl}/institute/check-assessment/save-answer/${data.id}`, data, ajaxToken(c))
                         .then(res => {
                             c.commit('setClearMsg');
-                            r(res.data)
+                            r(res.data);
                         })
                         .catch(err => {
                             c.dispatch('HandleError', err.response);
-                            n(err)
-                        })
+                            n(err);
+                        });
+
                 }).catch(e => {
                     c.commit('setValidated', {errors: e.errors});
                     n(e);
                 });
             });
         },
-
-
-        /*** @postManagePostsStatus **/
-        postManagePostsStatus(c, data) {
+        /***@SAVE_CHECK_ASSESSMENT*/
+        /***@manageComments */
+        postMangeComment(c, data) {
             return new Promise((r, n) => {
-                utils.Validate(data, {
-                    id: ["required", {max: 191}],
-                    changeStatusTo: ["required", {max: 191}],
-                }).then(v => {
-                    client.post(`${apiUrl}/users/posts-status/manage`, data, ajaxToken(c))
+                let i, actions = {edit: true, reply: true, 'edit-reply': true};
+                if (data.comment.action === 'edit-reply') {
+                    i = utils.clone(data.child.data);
+                } else {
+                    i = utils.clone(data);
+                }
+                if (actions[i.comment.action]) {
+                    i.text = data.comment.poster.text;
+                }
+                utils.Validate(i, {
+                    'text': ['required'],
+                }).then((v) => {
+                    //clear old invalid validate data
+                    data.validated = {};
+                    client.post(`${apiUrl}/users/check-assessment-comments-manage`, i, ajaxToken(c))
                         .then(res => {
                             c.commit('setClearMsg');
-                            r(res.data)
+                            r(res.data);
+                            if (res.data.success && data.comment.poster) {
+                                data.comment.poster.text = '';
+                            }
+                            if (i.comment.action === 'post') {
+                                c.commit('setCheckAssessmentComments', {data: res.data.comment, position: 'top'});
+                            }
                         })
                         .catch(err => {
                             c.dispatch('HandleError', err.response);
-                            n(err)
-                        })
+                            n(err.response);
+                        });
                 }).catch(e => {
-                    c.commit('setValidated', {errors: e.errors});
+                    if (actions[i.comment.action]) {
+                        data.validated = e.errors;
+                    } else {
+                        c.commit('setValidated', {errors: e.errors});
+                    }
                     n(e);
                 });
-            });
+            })
         },
-        /*** @postManagePostsStatus **/
-        /*** @postMemberEducationsProfile **/
-        postManageMemberEducations(c, data) {
+        /***@manageComments */
+        /***@GetComments */
+        fetchComments(c, i) {
             return new Promise((r, n) => {
-                client.post(`${apiUrl}/users/member-educations/manage`, {educations: data}, ajaxToken(c))
+                let request = `&limit=${i.limit}&page=${i.page}`;
+                client.get(`${apiUrl}/users/check-assessment-comments?check_assessment_id=${i.id}${request}`, ajaxToken(c))
                     .then(res => {
                         c.commit('setClearMsg');
+                        if (i.firstLoad) {
+                            c.commit('setCheckAssessmentComments', {data: [], position: 'reset'});
+                        }
+                        c.commit('setCheckAssessmentComments', {data: res.data.data.data, position: 'bottom'});
                         r(res.data)
                     })
                     .catch(err => {
                         c.dispatch('HandleError', err.response);
                         n(err)
-                    })
+                    });
             });
         },
-        /*** @postMemberEducationsProfile **/
-        /*** @postManageMemberCareers **/
-        postManageMemberCareers(c, data) {
+        /***@GetComments */
+        /***@deleteComments */
+        deleteComment(c, data) {
             return new Promise((r, n) => {
-                client.post(`${apiUrl}/users/member-careers/manage`, {careers: data}, ajaxToken(c))
+                client.delete(`${apiUrl}/users/check-assessment-comments-delete?id=${data.id}&check_assessment_id=${data.check_assessment_id}&isReplyComment=${data.isReplyComment}`, ajaxToken(c))
                     .then(res => {
                         c.commit('setClearMsg');
-                        r(res.data)
+                        r(res.data);
                     })
                     .catch(err => {
+                        console.log(err);
                         c.dispatch('HandleError', err.response);
-                        n(err)
-                    })
+                        n(err.response);
+                    });
             });
-        }
-        /*** @postManageMemberCareers **/
+        },
+        /***@deleteComments */
     }
 };

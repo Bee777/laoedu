@@ -12,10 +12,7 @@ namespace App\Responses\Admin;
 use App\Http\Controllers\Helpers\Helpers;
 use App\Jobs\SendNewUpdatedCheckingAssessmentForUsers;
 use App\Models\Assessment;
-use App\Models\AssessmentSection;
 use App\Models\CheckAssessment;
-use App\Models\SectionQuestion;
-use App\Responses\Admin\Schema\QuestionContentSchema;
 use App\Traits\UserRoleTrait;
 use App\User;
 use Illuminate\Contracts\Support\Responsable;
@@ -92,7 +89,7 @@ class UsersAssessmentActionResponse implements Responsable
         return $data;
     }
 
-    public function postSend($request)
+    public function postSend($request): array
     {
         $data = [];
         $send = false;
@@ -108,7 +105,7 @@ class UsersAssessmentActionResponse implements Responsable
                     if (isset($user)) {
                         foreach ($field_inspector_assessments as $field_inspector_assessment) {
                             $assessment = Assessment::whereIn('status', ['open', 'opening'])->where('id', $field_inspector_assessment['id'])->first();
-                            if(isset($assessment)){
+                            if (isset($assessment)) {
                                 $exist_check_assessment = CheckAssessment::where('assessment_id', $assessment->id)->where('user_id', $user->id)->first();
                                 if (!isset($exist_check_assessment)) {
                                     $check_assessment = new CheckAssessment();
@@ -116,11 +113,16 @@ class UsersAssessmentActionResponse implements Responsable
                                     $check_assessment->user_id = $user->id;
                                     $check_assessment->save();
                                     $send = true;
+                                    //change assessment status
+                                    $assessment->status = 'opening';
                                 } else if ($exist_check_assessment->status === 'close') {
                                     $exist_check_assessment->status = 'checking';
                                     $exist_check_assessment->save();//make user can check assessment again
                                     $send = true;
+                                    //change assessment status
+                                    $assessment->status = 'opening';
                                 }
+                                $assessment->save();
                             }
                         }
                         if ($send) {
@@ -141,7 +143,7 @@ class UsersAssessmentActionResponse implements Responsable
                         ->where('users.id', $institute['id'])->first();
                     if (isset($user)) {
                         $assessment = Assessment::whereIn('status', ['open', 'opening'])->where('id', $institute_assessment['id'])->first();
-                        if(isset($assessment)){
+                        if (isset($assessment)) {
                             $exist_check_assessment = CheckAssessment::where('assessment_id', $assessment->id)->where('user_id', $user->id)->first();
                             if (!isset($exist_check_assessment)) {
                                 $check_assessment = new CheckAssessment();
@@ -149,12 +151,17 @@ class UsersAssessmentActionResponse implements Responsable
                                 $check_assessment->user_id = $user->id;
                                 $check_assessment->save();
                                 $send = true;
+                                //change assessment status
+                                $assessment->status = 'opening';
                             } else if ($exist_check_assessment->status === 'close') {
                                 $exist_check_assessment->status = 'checking';
                                 $exist_check_assessment->save();//make user can check assessment again
                                 $send = true;
+                                //change assessment status
+                                $assessment->status = 'opening';
                             }
                             if ($send) {
+                                $assessment->save();
                                 $data = ['msg' => 'Save and send assessment to users was successfully.'];
                                 dispatch(new SendNewUpdatedCheckingAssessmentForUsers($user));
                             }

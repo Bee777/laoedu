@@ -36,10 +36,10 @@
                                             <div class="admin-settings-cameo template-brand-settings">
                                                 <div class="settings-container no-border-left" border-bottom>
                                                     <div class="cameo-header">
-                                                   <i class="material-icons cameo-header-icon">business</i>
+                                                        <i class="material-icons cameo-header-icon">business</i>
                                                         <span> Institute Information</span>
                                                     </div>
-                                                    <div class="cameo-content">
+                                                    <div class="cameo-content" style="padding-bottom: 14px;">
                                                         <div class="layout-align-space-around-start layout-row">
                                                             <div class="form-input-container dense">
                                                                 <label class="is-center"> Profile Picture </label>
@@ -84,7 +84,8 @@
                                                                         :validateText="validated().short_institute_name"
                                                                         :containerClass="'is-second-input dense'"
                                                                         :inputType="'text'">
-                                                                <p class="template-tip">{{ userProfile.short_institute_name ||
+                                                                <p class="template-tip">{{
+                                                                    userProfile.short_institute_name ||
                                                                     emptyText }}</p>
                                                             </AdminInput>
                                                         </div>
@@ -101,28 +102,40 @@
                                                                 class="form-input-container flex is-second-input dense"
                                                                 full>
                                                                 <label>Date of Founded</label>
-                                                                <Datetime v-model="userProfile.dateOfBirth"
+                                                                <Datetime v-model="userProfile.founded"
                                                                           value-zone="Asia/Vientiane"
                                                                           zone="Asia/Vientiane"
                                                                           format="dd-MM-yyyy"
-                                                                          input-id="dateOfBirth"
+                                                                          input-id="dateOfFounded"
                                                                           :input-class="'admin-input-datepicker'"/>
-                                                                <p class="template-tip" v-if="userProfile.dateOfBirth">
-                                                                    {{$utils.formatTimestmp(userProfile.dateOfBirth,
+                                                                <p class="template-tip" v-if="userProfile.founded">
+                                                                    {{$utils.formatTimestmp(userProfile.founded,
                                                                     false)}}</p>
                                                                 <p class="template-tip" v-else>{{emptyText }}</p>
                                                             </div>
                                                         </div>
+
+                                                        <div class="layout-align-space-around-start layout-row">
+                                                            <AdminInput :label="' Public Email '"
+                                                                        v-model="userProfile.public_email"
+                                                                        :validateText="validated().public_email"
+                                                                        :containerClass="'dense'"
+                                                                        :inputType="'text'">
+                                                                <p class="template-tip">{{ userProfile.public_email ||
+                                                                    emptyText }}</p>
+                                                            </AdminInput>
+                                                        </div>
+
                                                     </div>
                                                 </div>
                                             </div>
                                             <!--Personal Info-->
-                                                        <!--Institute Category Info -->
+                                            <!--Institute Category Info -->
                                             <div class="admin-settings-cameo template-brand-settings">
                                                 <div class="settings-container no-border-left no-margin-top"
                                                      border-bottom>
                                                     <div class="cameo-header">
-                                                       <i class="material-icons cameo-header-icon">school</i>
+                                                        <i class="material-icons cameo-header-icon">category</i>
                                                         <span>Institute Category</span>
                                                     </div>
                                                     <div class="cameo-content">
@@ -131,34 +144,80 @@
                                                                 class="form-multi-select-container flex dense"
                                                                 full>
                                                                 <multiselect class="select-multiple"
-                                                                            
-                                                                             label="text" track-by="id"
-                                                                            placeholder="Select institute category"
+                                                                             label="name" track-by="id"
+                                                                             v-model="userProfile.institute_category"
+                                                                             placeholder="Select institute category"
                                                                              open-direction="bottom"
-                                                                             
                                                                              :show-no-results="false"
                                                                              :preserve-search="true"
                                                                              :hide-selected="false"
-                                                                            
-                                                                             >
+                                                                             :options="options.institute_categories"
+                                                                             @input="getParentCategories">
                                                                 </multiselect>
-                                                                  <div v-if="validated().institute_category"
-                                                                             class="general-input-validate-text-container">
-                                                                            <div class="inner"><span class="span-icon"><svg
-                                                                                xmlns="http://www.w3.org/2000/svg"
-                                                                                width="16" height="16"
-                                                                                viewBox="0 0 24 24"
-                                                                                fill="rgb(229, 28, 35)"><path
-                                                                                d="M0 0h24v24H0z"
-                                                                                fill="none"></path><path
-                                                                                d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm1 15h-2v-2h2v2zm0-4h-2V7h2v6z"></path></svg></span>{{
-                                                                                validated().institute_category }}
+                                                                <template v-if="validated().institute_category">
+                                                                    <div class="form-input-container">
+                                                                        <input v-show="false"/>
+                                                                        <div admin-messages>
+                                                                            <div admin-message
+                                                                                 class="message-required ">
+                                                                                {{ validated().institute_category }}
                                                                             </div>
                                                                         </div>
-                                                                <p class="template-tip">{{ (userProfile.marital_status && userProfile.marital_status.text) || emptyText }}</p>
+                                                                    </div>
+                                                                </template>
+                                                                <p class="template-tip">{{
+                                                                    (userProfile.institute_category &&
+                                                                    userProfile.institute_category.name) || emptyText
+                                                                    }}</p>
                                                             </div>
                                                         </div>
                                                     </div>
+
+                                                    <template
+                                                        v-if="userProfile.institute_category && userProfile.institute_category.have_parent==='yes'">
+                                                        <div class="cameo-header">
+                                                            <i class="material-icons cameo-header-icon">supervised_user_circle</i>
+                                                            <span>Parent Institute Category</span>
+                                                        </div>
+                                                        <div class="cameo-content">
+                                                            <div class="layout-align-space-around-start layout-row">
+                                                                <div
+                                                                    class="form-multi-select-container flex dense"
+                                                                    full>
+                                                                    <multiselect class="select-multiple"
+                                                                                 label="name" track-by="id"
+                                                                                 v-model="userProfile.parent_institute_category"
+                                                                                 placeholder="Select institute category"
+                                                                                 open-direction="bottom"
+                                                                                 :show-no-results="false"
+                                                                                 :preserve-search="true"
+                                                                                 :hide-selected="false"
+                                                                                 :options="parentCategories">
+                                                                    </multiselect>
+                                                                    <template
+                                                                        v-if="validated().parent_institute_category">
+                                                                        <div class="form-input-container">
+                                                                            <input v-show="false"/>
+                                                                            <div admin-messages>
+                                                                                <div admin-message
+                                                                                     class="message-required ">
+                                                                                    {{
+                                                                                    validated().parent_institute_category
+                                                                                    }}
+                                                                                </div>
+                                                                            </div>
+                                                                        </div>
+                                                                    </template>
+                                                                    <p class="template-tip">{{
+                                                                        (userProfile.parent_institute_category &&
+                                                                        userProfile.parent_institute_category.name) ||
+                                                                        emptyText }}</p>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </template>
+
+
                                                 </div>
                                             </div>
                                             <!--Institute Category Info -->
@@ -166,45 +225,56 @@
                                             <div class="admin-settings-cameo template-brand-settings">
                                                 <div class="settings-container no-border-left no-margin-top">
                                                     <div class="cameo-header">
-                                                         <i class="material-icons cameo-header-icon">account_box</i>
-                                                        <span> Contact Information & Description</span>
+                                                        <i class="material-icons cameo-header-icon">account_box</i>
+                                                        <span> Contact Information & About</span>
                                                     </div>
                                                     <div class="cameo-content">
                                                         <div class="layout-align-space-around-start layout-row">
-                                                            <AdminInput :label="' Address '"
-                                                                        v-model="userProfile.placeOfBirth"
+                                                            <AdminInput :label="' Address'"
+                                                                        v-model="userProfile.address"
+                                                                        :validateText="validated().address"
                                                                         :containerClass="'dense'"
-                                                                        :inputType="'text'">
-                                                                <p class="template-tip">{{ userProfile.placeOfBirth ||
-                                                                    emptyText }}</p></AdminInput>
+                                                                        :inputType="'textarea'">
+                                                                <p class="template-tip">{{ userProfile.address ||
+                                                                    emptyText }}</p>
+                                                            </AdminInput>
+                                                        </div>
+                                                        <div class="layout-align-space-around-start layout-row">
+                                                            <AdminInput
+                                                                :label="' Facebook '"
+                                                                v-model="userProfile.facebook"
+                                                                :containerClass="'dense'"
+                                                                :inputType="'text'"><p class="template-tip">{{
+                                                                userProfile.facebook ||
+                                                                emptyText }}</p></AdminInput>
                                                         </div>
                                                         <div class="layout-align-space-around-start layout-row">
                                                             <AdminInput
                                                                 :label="' Google Map '"
-                                                                v-model="userProfile.placeOfResident"
+                                                                v-model="userProfile.googlemap"
                                                                 :containerClass="'dense'"
                                                                 :inputType="'text'"><p class="template-tip">{{
-                                                                userProfile.placeOfResident ||
+                                                                userProfile.googlemap ||
                                                                 emptyText }}</p></AdminInput>
                                                         </div>
-                                                         <div class="layout-align-space-around-start layout-row">
+                                                        <div class="layout-align-space-around-start layout-row">
                                                             <AdminInput
                                                                 :label="'Website'"
-                                                                v-model="userProfile.placeOfResident"
+                                                                v-model="userProfile.website"
                                                                 :containerClass="'dense'"
                                                                 :inputType="'text'"><p class="template-tip">{{
-                                                                userProfile.placeOfResident ||
+                                                                userProfile.website ||
                                                                 emptyText }}</p></AdminInput>
                                                         </div>
                                                         <div class="layout-align-space-around-start layout-row"
                                                              v-if="!isEdit">
                                                             <AdminInput
-                                                                :label="'Institute Description'"
+                                                                :label="'About Institute'"
                                                                 :containerClass="'dense'"
                                                                 :inputType="'textarea'">
                                                                 <p class="template-tip"
-                                                                   v-if="userProfile.personalDescription"
-                                                                   v-html="userProfile.personalDescription"></p>
+                                                                   v-if="userProfile.about"
+                                                                   v-html="userProfile.about"></p>
                                                                 <p class="template-tip"
                                                                    v-else>{{ emptyText
                                                                     }}</p>
@@ -214,7 +284,7 @@
                                                              v-show="isEdit">
                                                             <Editor
                                                                 id="description_jaol_editor"
-                                                                v-model="userProfile.personalDescription"
+                                                                v-model="userProfile.about"
                                                                 :containerClass="'dense'"
                                                                 label="Institute Description"
                                                                 @editorMounted="(ed)=> editor = ed"/>
@@ -231,8 +301,7 @@
                                                         Cancel
                                                     </button>
                                                     <button @click="saveProfileSettings" class="v-md-button primary">
-                                                        Save
-                                                        Changes
+                                                        Save Changes
                                                     </button>
                                                 </div>
                                             </div>
@@ -328,28 +397,6 @@
                                     </MasterDetailCardMenu>
                                     <!--Reset Password end-->
                                 </MasterDetailCardItem>
-                                <!-- <MasterDetailCardItem :header='{ title: " SMS " }'>
-                                    <MasterDetailCardMenu
-                                        :header='{
-                                        title: "การยืนยันทาง SMS",
-                                        content: `อนุญาตให้ผู้ใช้ลงชื่อเข้าใช้ด้วยรหัสผ่านแบบใช้ครั้งเดียวที่ส่งเป็น SMS ไปยังโทรศัพท์มือถือ`}'
-                                        :menuItem='{name: "การยืนยันที่อยู่อีเมล", icon: "email", selected: true}'>
-                                        <form @submit.prevent class="admin-form admin-template-form">
-                                            <div class="layout-align-space-around-start layout-row">
-                                                <AdminInput
-                                                    :value="'%LOGIN_CODE% is your verification code for %APP_NAME%.'"
-                                                    :label="' ข้อความ '"
-                                                    :inputType="'text'"/>
-                                            </div>
-                                            <div class="actions">
-                                                <div class="layout-align-end-center layout-row">
-                                                    <button class="v-md-button secondary"> ยกเลิก</button>
-                                                    <button class="v-md-button primary"> บันทึก</button>
-                                                </div>
-                                            </div>
-                                        </form>
-                                    </MasterDetailCardMenu>
-                                </MasterDetailCardItem> -->
                             </div>
                         </template>
                     </MasterDetailCard>
@@ -361,11 +408,9 @@
 
 <script>
     import {mapActions} from 'vuex'
-    import UserBase from '@bases/InstituteBase.js'
-    import EducationProfile from '@com/User/Member/EducationProfile.vue'
-    import CareerProfile from '@com/User/Member/CareerProfile.vue'
+    import InstituteBase from '@bases/InstituteBase.js'
 
-    export default UserBase.extend({
+    export default InstituteBase.extend({
         name: "ProfileSettings",
         data: () => ({
             title: 'My Profile Settings',
@@ -373,42 +418,25 @@
             userCredential: {},
             isEdit: false,
             editor: null,
-            member: {educations: [], careers: []},
+            parentCategories: [],
         }),
-        components: {
-            EducationProfile,
-            CareerProfile
-        },
         watch: {
             isEdit: function (n, o) {
                 if (!n) {
-                   this.resetMemberData();
+                    this.resetMemberData();
                 }
+            },
+            userProfile: function (n) {
+                this.setHeightAdminCard();
             }
         },
         methods: {
-            ...mapActions(['postManageUserProfile', 'postChangeCredentialsUser']),
+            ...mapActions(['postManageUserProfile', 'postChangeCredentialsUser', 'fetchInstituteParentCategories']),
             resetMemberData() {
                 this.setClearValidate(this.userProfile);
                 this.setClearValidate(this.userCredential);
                 this.getOptions(false);
                 this.userCredential = {};
-            },
-            reFetchData(type){
-                this.fetchOptionProfileData()
-                    .then(res => {
-                        let s = res.success, d = res.data, op = this.options;
-                        if (s) {
-                            op.organization = d.organizes;
-                            op.workCategories = d.departments;
-                            op.educationDegrees = d.education_degrees;
-                            if (!this.$utils.isEmptyVar(d.user_profile)) {
-                                this.userProfile[type] = d.user_profile[type];
-                            }
-                            this.fetchAuthUserInfo();
-                        }
-                    })
-                    .catch(err => {})
             },
             stateChanged() {
                 this.isEdit = false;
@@ -422,10 +450,6 @@
             },
             getImageProfileExt() {
                 return this.$utils.getFileExtension(this.authUserInfo.thumb_image);
-            },
-            getMemberState() {
-                let mbs = this.userProfile.memberOfState;
-                return mbs === true || mbs === false || mbs === 'true';
             },
             chooseProfileImage() {
                 if (this.isEdit) {
@@ -456,6 +480,8 @@
                     .then(res => {
                         if (res.success) {
                             this.getOptions();
+                            this.userCredential = {};
+                            this.isEdit = false;
                             this.showInfoToast({msg: 'Your credentials was updated!', dt});
                         } else {
                             this.showErrorToast({msg: 'Failed to update your credentials!', dt});
@@ -466,10 +492,31 @@
                         this.showErrorToast({msg: 'Failed to update your credentials!', dt});
                         this.isLoading = false;
                     });
-            }
+            },
+            getParentCategories() {
+                if (!this.userProfile.institute_category) {
+                    this.parentCategories = [];
+                    return;
+                }
+                this.fetchInstituteParentCategories(this.userProfile.institute_category.id)
+                    .then(res => {
+                        this.parentCategories = res;
+                    }).catch(() => {
+                })
+            },
+            setHeightAdminCard() {
+                let card = this.jq('.admin-master-card');
+                if (card.get(0).clientHeight > 600) {
+                    card.get(0).style.height = '100vh';
+                    setTimeout(() => {
+                        card.get(0).style.height = 'auto';
+                    }, 800)
+                }
+            },
         },
         created() {
             this.getOptions();
+            this.setHeightAdminCard = this.debounce(this.setHeightAdminCard, 200);
         },
     });
 </script>

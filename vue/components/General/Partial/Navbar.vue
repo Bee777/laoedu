@@ -75,7 +75,7 @@
                     <a
                       @click="Logout()"
                       class="main-btn"
-                      :class="[ validated().loading ? 'button is-loading' : '']"
+                      :class="[ validated().loading ? 'is-loading' : '']"
                     >
                       <strong>Sign out</strong>
                     </a>

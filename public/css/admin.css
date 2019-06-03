@@ -3798,7 +3798,7 @@ button.navbar-alert-menu-button-bell {
     -webkit-transition: opacity .3s cubic-bezier(0.4, 0.0, 0.2, 1), width .3s cubic-bezier(0.4, 0.0, 0.2, 1);
     transition: opacity .3s cubic-bezier(0.4, 0.0, 0.2, 1), width .3s cubic-bezier(0.4, 0.0, 0.2, 1);
     z-index: 1;
-
+    height: auto;
 }
 
 .emails-card-lists {
@@ -3937,6 +3937,20 @@ button.navbar-alert-menu-button-bell {
 .admin-master-card-template .details .form-input-container p,
 .admin-master-card-template .details .form-multi-select-container p {
     display: block;
+    --x-height-multiplier: 0.375;
+    --baseline-multiplier: 0.17;
+    letter-spacing: .01rem;
+    line-height: 1.58;
+    letter-spacing: -.003em;
+    overflow-wrap: break-word;
+    word-wrap: break-word;
+    -ms-word-break: break-all;
+    word-break: break-all;
+    word-break: break-word;
+    -ms-hyphens: auto;
+    -moz-hyphens: auto;
+    -webkit-hyphens: auto;
+    hyphens: auto;
 }
 
 .admin-master-card-template .details .form-input-container input,

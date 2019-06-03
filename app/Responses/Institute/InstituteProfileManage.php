@@ -7,12 +7,14 @@
  */
 
 namespace App\Responses\Institute;
+
 use App\Http\Controllers\Helpers\Helpers;
+use App\User;
 use Illuminate\Contracts\Support\Responsable;
 use App\Models\UserProfile;
 use Image, File;
 
-class UserProfileManage implements Responsable
+class InstituteProfileManage implements Responsable
 {
     protected $req;
     protected $uploadPath = '/assets/images/posts/';
@@ -35,8 +37,8 @@ class UserProfileManage implements Responsable
             $user = $request->user();
             if (isset($user)) {
                 //Personal Information
-                $user->institute_name = $request->get('institute_name');
-                $user->short_institute_name = $request->get('short_institute_name');
+                $user->name = $request->get('institute_name');
+                $user->last_name = $request->get('short_institute_name');
                 $this->saveImageProfile($user);
                 $user->save();
                 //Personal Information
@@ -47,40 +49,39 @@ class UserProfileManage implements Responsable
                 }
                 //check if admin return back
                 $hasProfile = true;
-                $userProfile = $user->profile;
+                $userProfile = $user->userProfile;
                 if (!isset($userProfile)) {
                     $userProfile = new UserProfile();
                     $hasProfile = false;
                 }
-                //Marital Information
-                if (in_array($request->get('marital_status'), $this->getMaritalStatus(), true)) {
-                    $userProfile->marital_status = $request->get('marital_status');
-                } else {
-                    $userProfile->marital_status = 'none';
-                }
-                //Marital Information
                 //Address Information & Description
-                if ($request->has('placeOfBirth')) {
-                    $userProfile->place_of_birth = $request->get('placeOfBirth');
+                $userProfile->about = $request->get('about') ?? '';
 
-                }
-                if ($request->has('placeOfResident')) {
-                    $userProfile->current_address = $request->get('placeOfResident');;
-                }
-                if ($request->has('personalDescription')) {
-                    $userProfile->description = $request->get('personalDescription');;
-                }
+                $userProfile->facebook = $request->get('facebook') ?? '';
+
+                $userProfile->public_email = $request->get('public_email') ?? '';
+
+                $userProfile->address = $request->get('address') ?? '';
+
+                $userProfile->googlemap = $request->get('googlemap') ?? '';
+
+                $userProfile->institute_category_id = $request->get('institute_category');
+
+                $userProfile->parent_institute_category_id = $request->get('parent_institute_category') ?? null;
+
+                $userProfile->website = $request->get('website') ?? '';
                 //Address Information & Description
-
                 //Personal Information
-                if ($request->has('dateOfBirth')) {
-                    $userProfile->date_of_birth = Helpers::toFormatDateString($request->get('dateOfBirth'), 'Y-m-d H:i:s');
+                if ($request->has('founded')) {
+                    $userProfile->founded = Helpers::toFormatDateString($request->get('founded'), 'Y-m-d H:i:s');
                 }
                 if ($request->has('phone_number')) {
                     if ($request->get('phone_number') !== null && !Helpers::isValidPhoneNumber($request->get('phone_number'))) {
                         return response()->json(['errors' => ['phone_number' => ['Your phone number is invalid.']]], 422);
                     }
                     $userProfile->phone_number = $request->get('phone_number');
+                } else {
+                    $userProfile->phone_number = '';
                 }
                 //Personal Information
                 //@Save User Profile
@@ -131,10 +132,5 @@ class UserProfileManage implements Responsable
             $user->image = $img_filename;
             $user->save();
         }
-    }
-
-    public function getMaritalStatus()
-    {
-        return ['none', 'single', 'married'];
     }
 }

@@ -10,6 +10,7 @@ use App\Models\InstituteCategory;
 use App\Models\InstituteParentCategory;
 use App\Models\Posts;
 use App\Responses\Admin\AssessmentActionResponse;
+use App\Responses\Admin\CheckAssessmentActionResponse;
 use App\Responses\Admin\UsersAssessmentActionResponse;
 use App\Responses\IndexAdminResponse;
 use App\Responses\ContactInfoResponse;
@@ -21,6 +22,7 @@ use App\Responses\BannerResponse;
 use App\Responses\FileResponse;
 
 use App\Models\Site;
+use App\Responses\User\UserCheckAssessmentsResponse;
 use App\Traits\UserRoleTrait;
 use App\User;
 use Illuminate\Http\JsonResponse;
@@ -197,34 +199,6 @@ class AdminController extends Controller
     /**
      * @Responses FileAction
      */
-    /**
-     * @Responses SponsorAction
-     */
-    public function insertSponsor(Request $request)
-    {
-        $this->validate($request, [
-            'name' => 'required|string|max:191',
-            'image' => 'required|max:3000|mimes:jpeg,png,jpg,gif',
-        ]);
-        return new SponsorResponse("insert");
-    }
-
-    public function updateSponsor(Request $request)
-    {
-        $this->validate($request, [
-            'name' => 'required|string|max:191',
-            'image' => 'max:3000|mimes:jpeg,png,jpg,gif',
-        ]);
-        return new SponsorResponse('update');
-    }
-
-    public function deleteSponsor()
-    {
-        return new SponsorResponse('delete');
-    }
-    /**
-     * @Responses SponsorAction
-     */
 
     /**
      * @Responses ContactAction
@@ -309,43 +283,6 @@ class AdminController extends Controller
     }
     /**
      * @Responses ActivityAction
-     */
-    /**
-     * @Responses EventAction
-     */
-
-    public function insertEvent(Request $request)
-    {
-        $this->validate($request, [
-            'title' => 'required|string|max:191',
-            'image' => 'required|max:3000|mimes:jpeg,png,jpg,gif',
-            'start_event' => 'required',
-            'end_event' => 'required',
-            'place' => 'required',
-            'description' => 'required|string',
-        ]);
-        return new EventResponse('insert');
-    }
-
-    public function updateEvent(Request $request)
-    {
-        $this->validate($request, [
-            'title' => 'required|string|max:191',
-            'image' => 'max:3000|mimes:jpeg,png,jpg,gif',
-            'start_event' => 'required',
-            'end_event' => 'required',
-            'place' => 'required',
-            'description' => 'required|string',
-        ]);
-        return new EventResponse('update');
-    }
-
-    public function deleteEvent()
-    {
-        return new EventResponse('delete');
-    }
-    /**
-     * @Responses EventAction
      */
     /**
      * @Responses ScholarshipAction
@@ -561,13 +498,25 @@ class AdminController extends Controller
     {
         return new UsersAssessmentActionResponse('fetch-send');
     }
-    public function responseActionSendAsessmenUsers(Request $request, $type){
+
+    public function responseActionSendAsessmentUsers(Request $request, $type)
+    {
         return new UsersAssessmentActionResponse('post-send');
+    }
+
+    public function responseActionChangeCheckAsessmentStatus(Request $request, $id)
+    {
+        $this->validate($request, [
+            'id' => 'required',//check assessment id
+            'status' => 'required',
+        ]);
+        return new CheckAssessmentActionResponse('change-status');
     }
     /**
      * @Response @EndAssessmentAction
      *
      */
+
 
     /**
      * @todo reset user password
@@ -787,6 +736,8 @@ class AdminController extends Controller
             $data = (new BannerResponse('get', ['text' => $text, 'limit' => $paginateLimit]))->get($request);
         } else if ($type === 'file') {
             $data = (new FileResponse('get', ['text' => $text, 'limit' => $paginateLimit]))->get($request);
+        } else if ($type === 'check_assessments') {
+            $data = (new UserCheckAssessmentsResponse('get', ['text' => $text, 'limit' => $paginateLimit]))->get($request);
         }
 
         if (count($data) > 0) {

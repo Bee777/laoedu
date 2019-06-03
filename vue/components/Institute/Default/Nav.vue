@@ -85,8 +85,8 @@
                                                         <!--Google+</a><span aria-hidden="true">–</span><a-->
                                                         <!--href="#"-->
                                                         <!--target="_blank">Privacy</a></div>-->
-                                                        <a @click="goTo($event, 'members-profile')"
-                                                           class="user-square-top-right-account">Jaol Account</a>
+                                                        <a @click="goTo($event, 'profile-settings')"
+                                                           class="user-square-top-right-account">My Account</a>
                                                     </div>
                                                 </div>
                                                 <div class="splitter-loading"
@@ -96,7 +96,7 @@
                                                 <div class="user-square-footer-container">
                                                     <div>
                                                         <a class="user-square-footer-button"
-                                                           @click="goTo($event,'user-profile-settings')">Profile
+                                                           @click="goTo($event,'profile-settings')">Profile
                                                             Settings</a>
                                                     </div>
                                                     <div>
@@ -188,8 +188,8 @@
                                                         <!--Google+</a><span aria-hidden="true">–</span><a-->
                                                         <!--href="#"-->
                                                         <!--target="_blank">Privacy</a></div>-->
-                                                        <a @click="goTo($event,'members-profile')"
-                                                           class="user-square-top-right-account">Jaol Account</a>
+                                                        <a @click="goTo($event,'profile-settings')"
+                                                           class="user-square-top-right-account">My Account</a>
 
                                                     </div>
                                                 </div>
@@ -199,7 +199,7 @@
                                                 </div>
                                                 <div class="user-square-footer-container">
                                                     <div><a class="user-square-footer-button"
-                                                            @click="goTo($event,'user-profile-settings')">Profile
+                                                            @click="goTo($event,'profile-settings')">Profile
                                                         Settings</a>
                                                     </div>
                                                     <div><a @click="Logout" class="user-square-footer-button"
@@ -305,6 +305,7 @@
                         this.scrollNavBgColor = `${this.getBgColor()};`;
                     }
                 }
+                this.Event.fire('scrolling', this.el.scrollTop());
             },
             scrollNavHandler() {
                 this.el = this.jq('#main-container');

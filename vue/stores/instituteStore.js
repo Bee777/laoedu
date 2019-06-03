@@ -34,31 +34,17 @@ export default new Vuex.Store({
         menuContextItemClicked: {},
         searchQuery: {text: '', filters: {}},
         dashboardData: {
-            activities_count: 0,
-            latest_members_count: 0,
-            events_count: {active: 0, all: 0},
-            scholarships_count: {active: 0, all: 0},
-            news_count: 0,
-            dictionaries_count: 0
+            latest_institutes_count: 0,
+            assessments: {checking: 0, all: 0, success: 0},
         },
         searchesData: {
-            members: {},
-            dictionaries: {},
-            news: {},
-            activity: {},
-            event: {},
-            scholarship: {},
-            downloadFiles: {},
+            check_assessments: {},
         },
         searchesAllowed: {
-            dictionaries: true,
-            news: true,
-            activity: true,
-            event: true,
-            scholarship: true,
-            members: true,
-            downloadFiles: true,
+            check_assessments: true,
         },
+        mSectionsAssessmentAnswer: [],
+        checkAssessmentComments: [],
     },
     getters: {
         ...defaultGetters,
@@ -104,6 +90,19 @@ export default new Vuex.Store({
         },
         setDashboardData(s, p) {
             s.dashboardData = p;
+        },
+        setSectionsAssessmentAnswer(s, p) {
+            s.mSectionsAssessmentAnswer = p;
+        },
+        setCheckAssessmentComments(s, p) {
+            if (p.position === 'top') {
+                s.checkAssessmentComments.unshift(p.data);
+                s.checkAssessmentComments.pop();
+            } else if(p.position === 'reset') {
+                s.checkAssessmentComments = p.data;
+            } else {
+                s.checkAssessmentComments = s.checkAssessmentComments.concat(p.data);
+            }
         }
     },
     actions: {

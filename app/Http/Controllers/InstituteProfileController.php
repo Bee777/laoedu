@@ -1,14 +1,19 @@
 <?php
+
 namespace App\Http\Controllers;
 
-use App\Responses\Admin\DashboardResponse;
+use App\Models\InstituteCategory;
+use App\Models\InstituteParentCategory;
 use App\Responses\IndexInstituteResponse;
 use App\Http\Controllers\Helpers\Helpers;
+use App\Responses\Institute\InstituteProfileManage;
+use App\Responses\Institute\InstituteProfileOptions;
+use App\Responses\Institute\SaveAssessmentsResponse;
 use Illuminate\Http\JsonResponse;
 use App\Models\InstituteProfile;
 use App\Models\UserProfile;
 use Illuminate\Http\Request;
-
+use App\Responses\Institute\DashboardResponse;
 use App\Models\Site;
 use Illuminate\Support\Facades\DB;
 
@@ -21,6 +26,7 @@ class InstituteProfileController extends Controller
         'except' => [
         ]
     ];
+
     /**
      * @description @ApiMode Only admin, super admin and user can access and do works
      * AdminController constructor.
@@ -35,56 +41,74 @@ class InstituteProfileController extends Controller
      */
     /**
      * @param Request $request
-     * @return IndexUserResponse
+     * @return IndexInstituteResponse
      */
     public function index(Request $request): IndexInstituteResponse
     {
         return new IndexInstituteResponse($this->options($request));
     }
 
-    public function responseProfileManage(Request $request): InstituteProfileManage
+    public function responseDashboardData(): DashboardResponse
+    {
+        return new DashboardResponse();
+    }
+
+    /****@ResponsesUserProfile  api and action  *** */
+    public function responseProfileOptions(Request $request): InstituteProfileOptions
+    {
+        return new InstituteProfileOptions();
+    }
+
+    public function responseProfileManage(Request $request)
     {
         $this->validate($request, [
             'institute_name' => 'required|string|max:191',
             'short_institute_name' => 'required|string|max:191',
             'profile_image' => 'max:3000|mimes:jpeg,png,jpg,gif,svg',
             'phone_number' => 'max:191',
+            'institute_category' => 'required|string|max:191'
         ]);
+        $public_email = $request->get('public_email');
+        if ($public_email !== null && $public_email !== '') {
+            $this->validate($request, [
+                'public_email' => 'email|max:191',
+            ]);
+        }
+        $user = $request->user();
+        $item = InstituteCategory::find($request->input('institute_category'));
+        if (!isset($item)) {
+            return response()->json(['errors' => ['institute_category' => ['Your entered institute category is not exists in our system.']]], 422);
+        }
+        $checking_name = UserProfile::where('institute_name', $request->get('institute_name'))
+            ->where('user_id', '!=', $user->id)->first();
+        if (isset($checking_name)) {
+            return response()->json(['errors' => ['institute_name' => ['Your entered institute name already exists in our system.']]], 422);
+        }
+        $checking_short_name = UserProfile::where('short_institute_name', $request->get('short_institute_name'))
+            ->where('user_id', '!=', $user->id)->first();
+        if (isset($checking_short_name)) {
+            return response()->json(['errors' => ['short_institute_name' => ['Your entered short institute name already exists in our system.']]], 422);
+        }
+
+        if ($item->have_parent === 'yes') {
+            $parent_item = InstituteParentCategory::where('child', $item->id)->where('parent_id', $request->input('parent_institute_category'));
+            if (!isset($parent_item)) {
+                return response()->json(['errors' => ['parent_institute_category' => ['Your entered parent institute category is not exists in our system.']]], 422);
+            }
+        } else {
+            $request->request->set('parent_institute_category', null);
+        }
+
         return new InstituteProfileManage($request);
     }
 
-
-
-    /****@ResponsesUserCredentials  api and action  *** */
-
-    public function responseCredentialsManage(Request $request)
+    public function responseSaveAessmentAnswer(Request $request, $id)
     {
-
-        $this->validate($request, ['current_password' => 'required|min:6|max:191']);
-
-        $user = User::find(auth()->user()->id);//current user
-
-        if ($this->isNeedToValidate($request, 'new_email')) {
-            $this->validate($request, ['new_email' => 'email|max:191']);
-            if ($this->userExists($request->get('new_email'))) {
-                return response()->json(['errors' => ['new_email' => ['Your entered email already exists in our system.']]], 422);
-            }
-        }
-
-        if ($this->isNeedToValidate($request, 'new_password')) {
-            $this->validate($request, [
-                'new_password' => 'confirmed|min:6|max:191|different:current_password',
-                'password_confirmation' => 'min:6|max:191'
-            ]);
-        }
-
-        if (!(isset($user) && Hash::check($request->get('current_password'), $user->password))) {
-            return response()->json(['errors' => ['current_password' => ['Your entered current password is not match your current password.']]], 422);
-        }
-        //check if enter current password matched the current password
-        return new UserCredentials($user);
+        $this->validate($request, [
+            'check_assessment_sections' => 'required',
+        ]);
+        return new SaveAssessmentsResponse();
     }
-
 
     /**
      * @return array
@@ -100,7 +124,7 @@ class InstituteProfileController extends Controller
         return $s;
     }
 
-      /**
+    /**
      * @param Request $request
      * @return array
      */

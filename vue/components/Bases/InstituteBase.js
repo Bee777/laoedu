@@ -32,14 +32,12 @@ export default Vue.extend({
             editingItems: {oldCount: 0, items: []},
             isNavigator: false,
             //for profile settings
-            options: {workCategories: [], organization: [], educationDegrees: []},
+            options: {institute_categories: []},
             isLoading: false,
             userProfile: {
                 profile_image_base64: '',
-                yearOfGraduated: {text: '', value: ''},
-                dateOfBirth: '',
-                personalDescription: '',
-                member_educations: [],
+                founded: '',
+                about: '',
             },
             emptyText: 'Not specified',
             //for profile settings
@@ -63,7 +61,8 @@ export default Vue.extend({
     },
     methods: {
         ...mapMutations(['setClearValidate', 'setClearSuccess']),
-        ...mapActions(['setPageTitle', 'showErrorToast', 'showInfoToast', 'fetchSearches', 'fetchAuthUserInfo', 'fetchOptionProfileData', 'fetchDashboardData', 'postManagePostsStatus']),
+        ...mapActions(['setPageTitle', 'showErrorToast', 'showInfoToast', 'fetchSearches', 'fetchAuthUserInfo',
+            'fetchOptionProfileData', 'fetchDashboardData']),
         registerWatches() {
             if (this.watchers) {
                 this.$watch(`searchesData.${this.type}`, (n, o) => {
@@ -165,20 +164,6 @@ export default Vue.extend({
         limitText(count) {
             return `and ${count} more.`
         },
-        getYearsOption(more=0) {
-            let now = new Date(), options = [];
-            for (let i = now.getFullYear() + more; i >= 1960; i--) {
-                options.push({text: `${i}`, value: i});
-            }
-            return options;
-        },
-        getMaritalStatusOption() {
-            let options = [];
-            options.push({text: 'Not specified', value: 'none'});
-            options.push({text: 'Single', value: 'single'});
-            options.push({text: 'Married', value: 'married'});
-            return options;
-        },
         getOptions(nl = true) {
             if (nl)
                 this.isLoading = true;
@@ -186,9 +171,7 @@ export default Vue.extend({
                 .then(res => {
                     let s = res.success, d = res.data, op = this.options;
                     if (s) {
-                        op.organization = d.organizes;
-                        op.workCategories = d.departments;
-                        op.educationDegrees = d.education_degrees;
+                        op.institute_categories = d.institute_categories;
                         if (!this.$utils.isEmptyVar(d.user_profile)) {
                             this.userProfile = d.user_profile;
                         }

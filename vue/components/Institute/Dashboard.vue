@@ -6,7 +6,8 @@
                     <div class="p-header" p-header-host :style="`background: ${theme.bgColor};`">
                         <div>
                             <!--Make app-nav-bar transparent works -->
-                            <div class="fire-feature-bar-image" p-header-host-1 :style="`background: ${theme.bgColor};`"></div>
+                            <div class="fire-feature-bar-image" p-header-host-1
+                                 :style="`background: ${theme.bgColor};`"></div>
                             <!--Make app-nav-bar transparent works -->
                             <div class="feature-bar-content" p-content>
                                 <div class="feature-bar-core" p-content>
@@ -21,9 +22,9 @@
                                             </div>
                                         </div>
                                     </div>
-                                    <div @click="goTo('members')" style="cursor: pointer;" class="count-items">
-                                        <div>Latest Users Count</div>
-                                        <div class="value">{{ dashboardData.latest_members_count }}</div>
+                                    <div @click="$utils.Location('/posts/institute')" style="cursor: pointer;" class="count-items">
+                                        <div>Latest Institutes Count</div>
+                                        <div class="value">{{ dashboardData.latest_institutes_count }}</div>
                                     </div>
                                 </div>
                             </div>
@@ -34,27 +35,31 @@
                             <!--Overview Items-->
                             <div class="items items-stability">
                                 <section>
-                                    <h2 class="items-title">Overview Posts</h2>
+                                    <h2 class="items-title">Overview Assessments</h2>
                                     <div class="items-row sidekick items-hero">
                                         <div class="p-card">
                                             <div class="admin-mat-card">
                                                 <div class="p-card-header">
                                                     <i class="material-icons"> chrome_reader_mode </i>
-                                                    <h3 @click="goTo('event')" class="p-card-title"> Events,
-                                                        Scholarship. </h3>
+                                                    <h3 @click="goTo('event')" class="p-card-title"> Total
+                                                        Assessments. </h3>
                                                 </div>
                                                 <SpinnerLoading v-if="validated().loading_dashboard_data"/>
                                                 <div class="p-posts-card">
                                                     <div class="p-columns">
                                                         <!--Events Count-->
                                                         <div class="p-column">
-                                                            <div @click="goTo('event')" style="cursor: pointer;"
+                                                            <div @click="goTo('assessments')" style="cursor: pointer;"
                                                                  class="items-counter align-horizontal-center target-host">
                                                                 <div class="counter-header">
                                                                     <div class="counter-title-label">
-                                                                        <h4 class="counter-title">Active Events
-                                                                            Count</h4>
+                                                                        <h4 class="counter-title">Checking
+                                                                            Assessments</h4>
                                                                         <div class="p-label">(Current)</div>
+                                                                    </div>
+                                                                </div>
+                                                                <div class="value-delta">
+                                                                    <div class="value"><span class="value-container">{{ dashboardData.assessments.checking }} Assessment(s)</span>
                                                                     </div>
                                                                 </div>
                                                             </div>
@@ -80,22 +85,22 @@
                                         <!-- items-hero  -->
                                         <!--News Card-->
                                         <CounterCard :isLoading="validated().loading_dashboard_data"
-                                                     @onCardClick="goTo('news')" title="News" icon="rss_feed"
-                                                     :count="{text: 'Posts', value: dashboardData.news_count}"/>
+                                                     @onCardClick="goTo('assessments')" title="Current Checking Assessments" icon="list_alt"
+                                                     :count="{text: 'Assessment(s)', value: dashboardData.assessments.checking}"/>
                                         <!--News Card-->
                                         <!--Activities Card-->
                                         <CounterCard :isLoading="validated().loading_dashboard_data"
-                                                     @onCardClick="goTo('activity')" title="Activities"
+                                                     @onCardClick="goTo('assessments')" title="All Assessments"
                                                      icon="list_alt"
-                                                     :count="{text: 'Posts', value: dashboardData.activities_count }"/>
+                                                     :count="{text: 'Assessment(s)', value: dashboardData.assessments.all }"/>
                                         <!--Activities Card-->
                                     </div>
                                     <div class="items-row sidekick">
                                         <!--Scholarships Card-->
                                         <CounterCard :isLoading="validated().loading_dashboard_data"
-                                                     @onCardClick="goTo('dictionary')" title="Dictionaries"
-                                                     icon="g_translate"
-                                                     :count="{text: 'Word(s)', value: dashboardData.dictionaries_count }"/>
+                                                     @onCardClick="goTo('assessments')" title="Success Assessments"
+                                                     icon="list_alt"
+                                                     :count="{text: 'Assessment(s)', value: dashboardData.assessments.success }"/>
                                         <!--Scholarships Card-->
                                     </div>
                                 </section>
@@ -110,10 +115,10 @@
     </div>
 </template>
 <script>
-    import UserBase from '@bases/UserBase.js'
+    import InstituteBase from '@bases/InstituteBase.js'
     import CounterCard from '@cus-com/Admin/DashboardItems/CounterItemCard.vue';
 
-    export default UserBase.extend({
+    export default InstituteBase.extend({
         components: {
             CounterCard
         },

@@ -79,7 +79,7 @@
                                                                       @focus="$autoText($event)"
                                                                       class="form-desc assessment-form-description medium-font-size"
                                                                       @input="$autoText($event)"
-                                                                      ref="assessment-desc-text-id"></textarea>
+                                                                      :ref="`assessment-desc-text-id-${item_idx}`"></textarea>
                                                         </div>
                                                     </div>
 

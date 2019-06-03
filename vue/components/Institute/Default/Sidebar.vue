@@ -73,58 +73,31 @@
                         contentHeader: {
                             expanded: true,
                             name: 'Institute Info',
-                            description: 'Manage, Authentication, Approval, Searching',
+                            description: 'Manage, Authentication',
                             icon: 'keyboard_arrow_up',
                         }, items: [
                             {
                                 name: 'My Profile Settings',//required
                                 icon: 'group',//required
                                 action: this.Route,//required
-                                params: {name: 'user-profile-settings'},//required
-                            },
-                            {
-                                name: 'Members Profile',
-                                icon: 'account_box',//required
-                                action: this.Route,//required
-                                params: {name: 'members-profile'},//required
+                                params: {name: 'profile-settings'},//required
                             },
                         ]
                     },
                     {
                         contentHeader: {
                             expanded: true,
-                            name: "My Institute Assessment",
-                            description: "Manage My Jaol posts information",
+                            name: "My Assessments",
+                            description: "Manage my assessments information",
                             icon: "keyboard_arrow_up"
                         },
                         items: [
                             {
-                                name: "News", //required
-                                icon: "rss_feed", //required
+                                name: "Assessments", //required
+                                icon: "collections_bookmark", //required
                                 action: this.Route, //required
-                                params: {name: "news"} //required
-                            },
-                            {
-                                name: "Activity", //required
-                                icon: "list_alt", //required
-                                action: this.Route, //required
-                                params: {name: "activity"} //required
-                            },                        ]
-                    },
-                    {
-                        contentHeader: {
-                            expanded: true,
-                            name: "Jaol Documents File",
-                            description: "Jaol document information files, download document files.",
-                            icon: "keyboard_arrow_up"
-                        },
-                        items: [
-                            {
-                                name: "Download File", //required
-                                icon: "cloud_download", //required
-                                action: this.Route, //required
-                                params: {name: "download-file"} //required
-                            },
+                                params: {name: "check-assessments"} //required
+                            }
                         ]
                     }
                 ]
@@ -150,7 +123,7 @@
                 this.routeActions(i);
             },
             GoToProfileSetting() {
-                let i = {name: 'My Profile Settings', params: {name: 'user-profile-settings'}};
+                let i = {name: 'My Profile Settings', params: {name: 'profile-settings'}};
                 this.routeActions(i);
             },
             GoToHomePage() {

@@ -12,4 +12,8 @@ class CheckAssessment extends Model
     {
         return $this->belongsTo(Assessment::class);
     }
+
+    public function checkAssessmentSections() {
+        return $this->hasMany(CheckAssessmentSection::class, 'assessment_id');
+    }
 }

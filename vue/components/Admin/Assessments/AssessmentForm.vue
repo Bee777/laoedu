@@ -1,6 +1,7 @@
 <template>
     <div>
-        <div class="form-header" :style="`top: ${top}px; right: ${$utils.isMobile() ? '0': right}px;`">
+        <div v-if="showNavigator" class="form-header"
+             :style="`top: ${top}px; right: ${$utils.isMobile() ? '0': right}px;`">
             <div class="navigator">
                 <template v-if="hasSlot('navigator')">
                     <slot name="navigator"></slot>
@@ -19,7 +20,7 @@
                         <div class="actions" v-if="mEditAssessment">
                             <div>
                                 <a target="_blank" :href="`/admin/me/assessment/preview-assessment/${mAssessment.id}`"
-                                        class="v-md-button v-md-icon-button theme-blue"><i
+                                   class="v-md-button v-md-icon-button theme-blue"><i
                                     class="material-icons">visibility</i></a>
                             </div>
                             <div>
@@ -86,6 +87,11 @@
         name: "AssessmentForm",
         components: {
             HeaderBanner
+        },
+        props: {
+            showNavigator: {
+                default: true
+            }
         },
         data: () => ({
             top: 148,
@@ -230,6 +236,7 @@
         background-color: #eceff1;
         border-bottom: 1px solid rgba(0, 0, 0, 0.12);
         z-index: 10;
+
         .navigator {
             display: -webkit-box;
             display: -moz-box;

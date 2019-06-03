@@ -77,6 +77,7 @@ export default new Vuex.Store({
             users_field_inspector: {},
             users_institute: {},
             assessments: {},
+            check_assessments: {},
         },
         searchesAllowed: {
             institute_category: true,
@@ -89,6 +90,7 @@ export default new Vuex.Store({
             users_field_inspector: true,
             users_institute: true,
             assessments: true,
+            check_assessments: true,
         },
         //@stack state
         mEditAssessment: false,
@@ -97,7 +99,10 @@ export default new Vuex.Store({
         mSectionsStackEmptyState: [],
         mSectionsStack: [],
         mInitEmptyStateCalled: false,
-        currentFocusIndexes: {sectionIndex: 0, questionIndexes: {sectionIndex: 0, questionIndex: -1}}
+        currentFocusIndexes: {sectionIndex: 0, questionIndexes: {sectionIndex: 0, questionIndex: -1}},
+        //@stack state
+        mSectionsAssessmentAnswer: [],
+        checkAssessmentComments: [],
     },
     getters: {
         ...defaultGetters,
@@ -332,6 +337,19 @@ export default new Vuex.Store({
                 }
             ];
             s.mInitEmptyStateCalled = true;
+        },
+        setSectionsAssessmentAnswer(s, p) {
+            s.mSectionsAssessmentAnswer = p;
+        },
+        setCheckAssessmentComments(s, p) {
+            if (p.position === 'top') {
+                s.checkAssessmentComments.unshift(p.data);
+                s.checkAssessmentComments.pop();
+            } else if(p.position === 'reset') {
+                s.checkAssessmentComments = p.data;
+            } else {
+                s.checkAssessmentComments = s.checkAssessmentComments.concat(p.data);
+            }
         }
     },
     actions: {

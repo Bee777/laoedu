@@ -27,6 +27,7 @@ class AssessmentSection extends Model
         foreach ($sorted as $question) {
             $decodeQuestion = json_decode($question->schema);
             $decodeQuestion->id = $question->id;
+            $decodeQuestion->updated_at = $question->updated_at;
             $questionsJson[] = $decodeQuestion;
             unset($question->schema);
         }
