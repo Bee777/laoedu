@@ -9,6 +9,7 @@ import SendAssessment from '@com/Admin/Assessments/Send.vue'
 import CreateAssessment from '@com/Admin/Assessments/Create.vue'
 import PreviewAssessment from '@com/Admin/Assessments/Preview.vue'
 import ReviewAssessment from '@com/Admin/Assessments/ReviewAssessment.vue'
+import CheckAssessmentSingle from '@com/Admin/Assessments/CheckAssessment/CheckAssessmentSingle.vue'
 
 import Institutes from '@com/Admin/Institutes/All.vue'
 import InstituteCategory from '@com/Admin/Institutes/InstituteCategory.vue'
@@ -20,6 +21,9 @@ import News from '@com/Admin/Posts/News.vue'
 import Activity from '@com/Admin/Posts/Activity.vue'
 import Scholarship from '@com/Admin/Posts/Scholarship.vue'
 import UploadFile from '@com/Admin/Posts/Uploadfile.vue'
+import ReviewAssessmentFieldInspector from "@com/Admin/Assessments/ReviewAssessmentFieldInspector.vue";
+import CheckAssessmentFieldInspectorSingle
+    from "@com/Admin/Assessments/CheckAssessment/CheckAssessmentFieldInspectorSingle.vue";
 
 const prefix = '/admin/me';
 const metas = {
@@ -103,6 +107,12 @@ export default [
         meta: metas.authMeta,
     },
     {
+        name: 'check-assessment-single',
+        path: `${prefix}/review-assessment/:check_assessment_id`,
+        component: CheckAssessmentSingle,
+        meta: metas.authMeta,
+    },
+    {
         name: 'assessment',
         path: `${prefix}/assessment`,
         component: Assessment,
@@ -137,6 +147,18 @@ export default [
         name: 'institute-category',
         path: `${prefix}/institute-categories`,
         component: InstituteCategory,
+        meta: metas.authMeta,
+    },
+    {
+        name: 'review-assessments-field-inspector',
+        path: `${prefix}/review-assessments-field-inspector`,
+        component: ReviewAssessmentFieldInspector,
+        meta: metas.authMeta,
+    },
+    {
+        name: 'review-assessments-field-inspector-single',
+        path: `${prefix}/review-assessments-field-inspector/:check_assessment_id`,
+        component: CheckAssessmentFieldInspectorSingle,
         meta: metas.authMeta,
     },
 ];

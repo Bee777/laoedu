@@ -570,9 +570,6 @@
         min-height: 799px;
     }
     .questions-section.clearfix {
-        top: 224px;
-        @media screen and (max-width: 692px) {
-            top: auto;
-        }
+        top: auto;
     }
 </style>

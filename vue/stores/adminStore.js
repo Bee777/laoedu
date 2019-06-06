@@ -78,6 +78,7 @@ export default new Vuex.Store({
             users_institute: {},
             assessments: {},
             check_assessments: {},
+            check_assessments_field_inspector: {},
         },
         searchesAllowed: {
             institute_category: true,
@@ -91,6 +92,7 @@ export default new Vuex.Store({
             users_institute: true,
             assessments: true,
             check_assessments: true,
+            check_assessments_field_inspector: true,
         },
         //@stack state
         mEditAssessment: false,

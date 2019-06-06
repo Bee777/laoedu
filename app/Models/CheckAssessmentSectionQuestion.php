@@ -11,6 +11,7 @@ class CheckAssessmentSectionQuestion extends Model
         $decodeAnswer = json_decode($this->schema);
         $decodeAnswer->id = $this->id;
         $decodeAnswer->status = $this->status;
+        $decodeAnswer->status_approved = $this->status === 'success';
         $decodeAnswer->section_id = $this->section_id;
         $decodeAnswer->updated_at = $this->updated_at;
         unset($this->schema);

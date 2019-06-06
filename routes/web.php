@@ -12,7 +12,6 @@
 */
 
 Route::get('/', 'HomeController@index')->name('get.home.index');
-
 Route::get('/login', 'HomeController@index')->name('get.home.login');
 Route::get('/logout', 'Auth\LoginController@sessionLogout')->name('logout');
 Route::get('/users-logout', 'HomeController@index')->name('get.home.users-logout');
@@ -29,8 +28,6 @@ Route::group(['prefix' => 'posts/{type}'], function () {
     Route::get('/single/{id}', 'HomeController@responsePostsSingle')->name('get.home.posts.single');
 });
 /**@Posts */
-Route::get('/forum', 'HomeController@index')->name('get.home.forum');
-Route::get('/organization-charts', 'HomeController@index')->name('get.home.organization-charts');
 
 /**@ResetPasswordForm */
 Route::get('password/reset/{token}', 'HomeController@index')->name('password.reset');
@@ -52,19 +49,28 @@ Route::group(['prefix' => 'users/me', 'middleware' => []], function () {
 /***** @UserRoutes ***** */
 /***** @FieldInspector ***** */
 Route::group(['prefix' => 'field-inspector/me', 'middleware' => []], function () {
-    Route::get('/', 'FieldInspector@index')->name('field-inspector.get.index');
-    Route::get('/assessments', 'FieldInspector@index')->name('field-inspector.get.assessments');
+    Route::get('/', 'FieldInspectorController@index')->name('field-inspector.get.index');
+    Route::get('/check-assessments', 'FieldInspectorController@index')->name('field-inspector.get.check-assessments');
+    Route::get('/check-assessments/{id}', 'FieldInspectorController@index')->name('field-inspector.get.check-assessments.single');
 });
 /***** @FieldInspector ***** */
 
 /***** @InstituteRoutes ***** */
-Route::group([ 'prefix' => 'institute/me', 'middleware' => []], function () {
-    Route::get('/', 'InstituteProfileController@index')->name('get.institute.index');
-    Route::get('/institute-profile', 'InstituteProfileController@index')->name('get.user.instituteProfile');
-
+Route::group(['prefix' => 'institute/me', 'middleware' => []], function () {
+    Route::get('/', 'InstituteProfileController@index')->name('institute.get.index');
+    Route::get('/profile-settings', 'InstituteProfileController@index')->name('institute.get.profile-settings');
+    Route::get('/check-assessments', 'InstituteProfileController@index')->name('institute.get.check-assessments');
+    Route::get('/check-assessments/{id}', 'InstituteProfileController@index')->name('institute.get.check-assessments.single');
 });
 /***** @InstituteRoutes ***** */
 
+/***** @CheckerRoutes ***** */
+Route::group(['prefix' => 'checker/me', 'middleware' => []], function () {
+    Route::get('/', 'CheckerController@index')->name('checker.get.index');
+    Route::get('/check-assessments', 'CheckerController@index')->name('checker.get.check-assessments');
+    Route::get('/check-assessments/{id}', 'CheckerController@index')->name('checker.get.check-assessments.single');
+});
+/***** @CheckerRoutes ***** */
 
 
 

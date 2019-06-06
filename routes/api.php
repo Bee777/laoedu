@@ -73,15 +73,7 @@ Route::group(['prefix' => '/', 'middleware' => ['cors', 'parseToken', 'auth:api'
             Route::delete('/delete/{id}', 'AdminController@responseActionDeleteAsessment')->name('api.admin.delete.assessment.delete');
             Route::get('/send-users', 'AdminController@responseActionFetchSendAsessmentUsers')->name('api.admin.fetch.send-assessment-users');
             Route::post('/send/{type}', 'AdminController@responseActionSendAsessmentUsers')->name('api.admin.post.send-assessment-users');
-            Route::post('/check-assessment/change-status/{id}', 'AdminController@responseActionChangeCheckAsessmentStatus')->name('api.admin.post.assessment.change-check-assessment-status');
         });
-
-
-        /*** @Department ** */
-        Route::post('/department/create', 'AdminController@responseActionCreateDepartment')->name('api.admin.post.department.create');
-        Route::post('/department/update/{id}', 'AdminController@responseActionUpdateDepartment')->name('api.admin.post.department.update');
-        Route::delete('/department/delete/{id}', 'AdminController@responseActionDeleteDepartment')->name('api.admin.delete.department.delete');
-        /*** @Department ** */
         // Phoud
         /*** @SiteInfo ** */
         Route::post('site-info/manage', 'AdminController@responseActionManageSiteInfo')->name('api.admin.post.site-info.manage');
@@ -168,14 +160,23 @@ Route::group(['prefix' => '/', 'middleware' => ['cors', 'parseToken', 'auth:api'
         Route::get('/dashboard-data', 'UserController@responseDashboardData')->name('api.user.get.dashboardData');
         /*** @DashboardData Make it can accessible for admin and user * */
         Route::group(['prefix' => '/assessment', 'middleware' => []], function () {
-            Route::get('/fetch/{id}', 'UserController@responseActionFecthAsessment')->name('api.user.get.assessment.fetch');
+            Route::get('/fetch/{id}', 'UserController@responseActionFetchAssessment')->name('api.user.get.assessment.fetch');
+            Route::post('/check-assessment/change-status/{id}', 'UserController@responseActionChangeCheckAsessmentStatus')->name('api.user.post.assessment.change-check-assessment-status');
+            Route::post('/check-assessment/save-answer-status-score/{id}', 'UserController@responseActionSaveCheckAsessmentAnswerStatusScore')->name('api.user.post.assessment.save-answer-status-score');
+            Route::post('/check-assessment/save-answer/{id}', 'UserController@responseSaveAessmentAnswer')->name('api.user.post.assessment.saveAnswer');
+            Route::get('/institute/fetch', 'UserController@responseActionFetchInstituteUsers')->name('api.user.fetch.institutes');
         });
 
         /**@CheckAssessmentComment */
-        Route::get('/check-assessment-comments', 'UserController@getCheckAssessmentComments');
-        Route::post('/check-assessment-comments-manage', 'UserController@manageCheckAssessmentComments');
-        Route::delete('/check-assessment-comments-delete', 'UserController@deleteCheckAssessmentComments');
+        Route::get('/check-assessment-comments', 'UserController@getCheckAssessmentComments')->name('api.user.fetch.comments');
+        Route::post('/check-assessment-comments-manage', 'UserController@manageCheckAssessmentComments')->name('api.user.save.comments');
+        Route::delete('/check-assessment-comments-delete', 'UserController@deleteCheckAssessmentComments')->name('api.user.delete.comments');
         /**@CheckAssessmentComment */
+
+        /**@CheckAssessmentFieldInspector */
+        Route::get('/assessment-field-inspector/fetch/{id}', 'UserController@getCheckAssessmentFieldInspector')->name('api.user.fetch.field-inspector.assessment');
+        Route::post('/assessment-field-inspector/check-assessment/save-answer/{id}', 'UserController@responseSaveCheckAessmentAnswerFieldInspector')->name('api.user.fetch.field-inspector.save-check-assessment');
+        /**@CheckAssessmentFieldInspector */
 
     });
     /******************** @UserSection ****************** */
@@ -184,9 +185,23 @@ Route::group(['prefix' => '/', 'middleware' => ['cors', 'parseToken', 'auth:api'
         Route::get('/dashboard-data', 'InstituteProfileController@responseDashboardData')->name('api.institute.get.dashboardData');
         Route::get('/profile-options', 'InstituteProfileController@responseProfileOptions')->name('api.institute.get.responseProfileOptions');
         Route::post('/profile-manage', 'InstituteProfileController@responseProfileManage')->name('api.institute.post.responseProfileManage');
-        Route::post('/check-assessment/save-answer/{id}', 'InstituteProfileController@responseSaveAessmentAnswer')->name('api.institute.post.assessment.saveAnswer');
     });
     /******************** @Institute ****************** */
+
+    /******************** @Field-inspector ****************** */
+    Route::group(['prefix' => '/field-inspector', 'middleware' => []], function () {
+        Route::get('/dashboard-data', 'FieldInspectorController@responseDashboardData')->name('api.field-inspector.get.dashboardData');
+        Route::get('/profile-options', 'FieldInspectorController@responseProfileOptions')->name('api.field-inspector.get.responseProfileOptions');
+        Route::post('/profile-manage', 'FieldInspectorController@responseProfileManage')->name('api.field-inspector.post.responseProfileManage');
+    });
+    /******************** @Field-inspector ****************** */
+    /******************** @Checker ****************** */
+    Route::group(['prefix' => '/checker', 'middleware' => []], function () {
+        Route::get('/dashboard-data', 'CheckerController@responseDashboardData')->name('api.checker.get.dashboardData');
+        Route::get('/profile-options', 'CheckerController@responseProfileOptions')->name('api.checker.get.responseProfileOptions');
+        Route::post('/profile-manage', 'CheckerController@responseProfileManage')->name('api.checker.post.responseProfileManage');
+    });
+    /******************** @Checker ****************** */
 
     /**
      ***************** @AdminSection routes ************************

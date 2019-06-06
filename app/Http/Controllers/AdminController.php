@@ -10,8 +10,8 @@ use App\Models\InstituteCategory;
 use App\Models\InstituteParentCategory;
 use App\Models\Posts;
 use App\Responses\Admin\AssessmentActionResponse;
-use App\Responses\Admin\CheckAssessmentActionResponse;
-use App\Responses\Admin\UsersAssessmentActionResponse;
+use App\Responses\Admin\SendUsersAssessmentActionResponse;
+use App\Responses\FieldInspector\CheckAssessmentsFieldInspectorResponse;
 use App\Responses\IndexAdminResponse;
 use App\Responses\ContactInfoResponse;
 use App\Responses\AboutInfoResponse;
@@ -496,21 +496,12 @@ class AdminController extends Controller
 
     public function responseActionFetchSendAsessmentUsers(Request $request)
     {
-        return new UsersAssessmentActionResponse('fetch-send');
+        return new SendUsersAssessmentActionResponse('fetch-send');
     }
 
     public function responseActionSendAsessmentUsers(Request $request, $type)
     {
-        return new UsersAssessmentActionResponse('post-send');
-    }
-
-    public function responseActionChangeCheckAsessmentStatus(Request $request, $id)
-    {
-        $this->validate($request, [
-            'id' => 'required',//check assessment id
-            'status' => 'required',
-        ]);
-        return new CheckAssessmentActionResponse('change-status');
+        return new SendUsersAssessmentActionResponse('post-send');
     }
     /**
      * @Response @EndAssessmentAction
@@ -738,6 +729,8 @@ class AdminController extends Controller
             $data = (new FileResponse('get', ['text' => $text, 'limit' => $paginateLimit]))->get($request);
         } else if ($type === 'check_assessments') {
             $data = (new UserCheckAssessmentsResponse('get', ['text' => $text, 'limit' => $paginateLimit]))->get($request);
+        } else if ($type === 'check_assessments_field_inspector') {
+            $data = (new CheckAssessmentsFieldInspectorResponse('get', ['text' => $text, 'limit' => $paginateLimit]))->get($request);
         }
 
         if (count($data) > 0) {

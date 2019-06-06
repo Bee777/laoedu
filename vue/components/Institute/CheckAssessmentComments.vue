@@ -99,6 +99,9 @@
         props: {
             check_assessment_id: {
                 required: true
+            },
+            type: {
+                default: 'institute'
             }
         },
         components: {
@@ -167,6 +170,7 @@
                     if (item.isReplyComment) {
                         item.check_assessment_id = this.check_assessment_id;
                     }
+                    item.type = this.type;
                     this.isLoading = true;
                     this.deleteComment(item)
                         .then(res => {
@@ -200,6 +204,7 @@
                 let actions = {reply: true};
                 data.loggedIn = this.LoggedIn();
                 data.check_assessment_id = this.check_assessment_id;
+                data.type = this.type;
                 this.isLoading = true;
                 if (actions[data.comment.action]) {
                     this.setPosterUser(data);
@@ -234,6 +239,7 @@
             updateComment(data) {
                 data.loggedIn = this.LoggedIn();
                 this.isLoading = true;
+                data.type = this.type;
                 this.postMangeComment(data)
                     .then(res => {
                         this.isLoading = false;
@@ -266,7 +272,8 @@
                 this.fetchComments({
                     firstLoad: this.firstLoad,
                     id: this.check_assessment_id,
-                    limit: this.paginate.per_page, page: this.paginate.current_page
+                    limit: this.paginate.per_page, page: this.paginate.current_page,
+                    type: this.type
                 }).then(res => {
                     this.isLoading = false;
                     this.paginate = res.data;

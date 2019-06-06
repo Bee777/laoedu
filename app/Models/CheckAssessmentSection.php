@@ -6,7 +6,7 @@ use Illuminate\Database\Eloquent\Model;
 
 class CheckAssessmentSection extends Model
 {
-    protected $fillable = ['status', 'assessment_id'];//assessment_id checking id
+    protected $fillable = ['score', 'status', 'check_assessment_id', 'type'];
 
     public function checkAssessmentSectionQuestions()
     {
@@ -22,6 +22,7 @@ class CheckAssessmentSection extends Model
             $decodeAnswer = json_decode($answer->schema);
             $decodeAnswer->id = $answer->id;
             $decodeAnswer->status = $answer->status;
+            $decodeAnswer->status_approved = $answer->status === 'success';
             $decodeAnswer->section_id = $answer->section_id;
             $decodeAnswer->updated_at = $answer->updated_at;
             $answersJson[] = $decodeAnswer;

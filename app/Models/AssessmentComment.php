@@ -12,11 +12,6 @@ class AssessmentComment extends Model
         return $this->belongsTo(User::class);
     }
 
-    public function checkAssessment()
-    {
-        return $this->belongsTo(CheckAssessment::class);
-    }
-
     public function replies()
     {
         return $this->hasMany(AssessmentCommentReply::class, 'assessment_comment_id');

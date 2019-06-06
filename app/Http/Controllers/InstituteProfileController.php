@@ -8,9 +8,6 @@ use App\Responses\IndexInstituteResponse;
 use App\Http\Controllers\Helpers\Helpers;
 use App\Responses\Institute\InstituteProfileManage;
 use App\Responses\Institute\InstituteProfileOptions;
-use App\Responses\Institute\SaveAssessmentsResponse;
-use Illuminate\Http\JsonResponse;
-use App\Models\InstituteProfile;
 use App\Models\UserProfile;
 use Illuminate\Http\Request;
 use App\Responses\Institute\DashboardResponse;
@@ -102,13 +99,6 @@ class InstituteProfileController extends Controller
         return new InstituteProfileManage($request);
     }
 
-    public function responseSaveAessmentAnswer(Request $request, $id)
-    {
-        $this->validate($request, [
-            'check_assessment_sections' => 'required',
-        ]);
-        return new SaveAssessmentsResponse();
-    }
 
     /**
      * @return array

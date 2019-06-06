@@ -12,6 +12,7 @@ namespace App\Responses\User\CheckAssessmentComment;
 use App\Models\CheckAssessment;
 use App\Models\AssessmentComment;
 use App\Http\Controllers\Helpers\Helpers;
+use App\Models\CheckAssessmentFieldInspector;
 use Illuminate\Contracts\Support\Responsable;
 
 class CheckAssessmentCommentResponse implements Responsable
@@ -39,7 +40,8 @@ class CheckAssessmentCommentResponse implements Responsable
         if (Helpers::isAjax($request)) {
             $user = $request->user('api');
             //@check dictionary
-            $check_assessment_id = $this->getCheckAssessmentId($request->get('check_assessment_id'));
+            $type = $request->get('type') === 'field_inspector' ? 'field_inspector' : 'institute';
+            $check_assessment_id = $this->getCheckAssessmentId($request->get('check_assessment_id'), $type);
             if (!isset($check_assessment_id)) {
                 return response()->json(['success' => false, 'msg' => 'The check assessment does not exits!']);
             }
@@ -47,7 +49,7 @@ class CheckAssessmentCommentResponse implements Responsable
             if ($this->type === 'get') {
                 $paginateLimit = ($request->exists('limit') && !empty($request->get('limit'))) ? $request->get('limit') : 12;
                 $paginateLimit = Helpers::isNumber($paginateLimit) ? $paginateLimit : 12;
-                $comments = AssessmentComment::where('check_assessment_id', $check_assessment_id)->orderBy('id', 'desc')->paginate($paginateLimit);
+                $comments = AssessmentComment::where('check_assessment_id', $check_assessment_id)->where('type', $type)->orderBy('id', 'desc')->paginate($paginateLimit);
                 $comments->appends(['limit' => $paginateLimit]);
                 $comments->map(function ($comment) use ($user) {
                     $this->mapComment($comment, $user);
@@ -72,7 +74,7 @@ class CheckAssessmentCommentResponse implements Responsable
                  * @ForComment
                  */
                 $comment = null;
-                $exist_comment = $this->getCheckAssessmentComment($request->get('id'), $user);
+                $exist_comment = $this->getCheckAssessmentComment($request->get('id'), $user, $type);
 
                 if (!isset($exist_comment) && isset($request->get('comment')['action']) && $request->get('comment')['action'] === 'edit') {
                     return response()->json(['success' => false, 'msg' => 'The check assessment comment does not exits!']);
@@ -86,6 +88,7 @@ class CheckAssessmentCommentResponse implements Responsable
                     $comment = new AssessmentComment();
                     $comment->user_id = $user->id;
                     $comment->check_assessment_id = $check_assessment_id;
+                    $comment->type = $type;
                     $comment->text = $request->get('text');
                     $comment->save();
                 }
@@ -107,7 +110,7 @@ class CheckAssessmentCommentResponse implements Responsable
                  * @EndForReplyComment
                  */
 
-                $exist_comment = $this->getCheckAssessmentComment($request->get('id'), $user);
+                $exist_comment = $this->getCheckAssessmentComment($request->get('id'), $user, $type);
                 if (isset($exist_comment)) {
                     AssessmentComment::find($exist_comment->id)->delete();
                     return response()->json(['success' => true, 'msg' => 'The comment was successfully deleted.']);
@@ -117,19 +120,23 @@ class CheckAssessmentCommentResponse implements Responsable
         }
     }
 
-    public function getCheckAssessmentId($id)
+    public function getCheckAssessmentId($id, $type)
     {
-        $data = CheckAssessment::find($id);
+        if ($type === 'field_inspector') {
+            $data = CheckAssessmentFieldInspector::find($id);
+        } else {
+            $data = CheckAssessment::find($id);
+        }
         if (isset($data)) {
             return $data->id;
         }
         return null;
     }
 
-    public function getCheckAssessmentComment($id, $user)
+    public function getCheckAssessmentComment($id, $user, $type)
     {
         if (isset($user)) {
-            return AssessmentComment::find($id);
+            return AssessmentComment::where('id', $id)->where('type', $type)->first();
         }
         return null;
     }

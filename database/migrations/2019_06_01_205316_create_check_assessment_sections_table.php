@@ -15,13 +15,10 @@ class CreateCheckAssessmentSectionsTable extends Migration
     {
         Schema::create('check_assessment_sections', function (Blueprint $table) {
             $table->bigIncrements('id');
-            $table->unsignedBigInteger('assessment_id');
-            $table->enum('score', ['0', '1', '2', '3', '4', '5'])->default('0');
+            $table->unsignedBigInteger('check_assessment_id');
+            $table->integer('score')->default('0');
+            $table->enum('type', ['institute', 'field_inspector'])->default('institute');
             $table->enum('status', ['checking', 'success'])->default('checking');
-            $table->foreign('assessment_id')
-                ->references('id')->on('check_assessments')
-                ->onUpdate('cascade')
-                ->onDelete('cascade');
             $table->timestamps();
         });
     }
@@ -33,9 +30,6 @@ class CreateCheckAssessmentSectionsTable extends Migration
      */
     public function down()
     {
-        Schema::table('check_assessment_sections', function ($table) {
-            $table->dropForeign('assessment_id');
-        });
         Schema::dropIfExists('check_assessment_sections');
     }
 }

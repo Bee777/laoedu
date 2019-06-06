@@ -4,6 +4,7 @@ import $utils from './utilities.js'
 import {crypter} from './encryter.js'
 import debounce from 'lodash/debounce'
 import throttle from 'lodash/throttle'
+
 /*** @DataSpecific Init ***/
 let encrypter = crypter(), cipter, decipher, jsEncode = encrypter.jsEncode;
 let salt = "qGAlWFR1uS3x6jEjamO340pprYixIOIAB4f4OGJdj5XAlQNEYmzLKjKXl0S6";//change you want
@@ -364,7 +365,7 @@ export const defaultActions = (api) => {
                             } else if (type === $utils.b64EncodeUnicode('institute')) {
                                 $utils.Location('/institute/me');
                             } else if (type === $utils.b64EncodeUnicode('field_inspector')) {
-                                $utils.Location('/field_inspector/me');
+                                $utils.Location('/field-inspector/me');
                             }
                         } else {
                             $utils.Location('/');

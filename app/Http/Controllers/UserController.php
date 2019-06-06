@@ -3,9 +3,14 @@
 namespace App\Http\Controllers;
 
 use App\Responses\Admin\DashboardResponse;
+use App\Responses\Admin\SendUsersAssessmentActionResponse;
+use App\Responses\FieldInspector\CheckAssessmentsFieldInspectorResponse;
 use App\Responses\FileResponse;
 use App\Responses\IndexUserResponse;
+use App\Responses\User\CheckAssessmentActionResponse;
 use App\Responses\User\CheckAssessmentComment\CheckAssessmentCommentResponse;
+use App\Responses\User\SaveAssessmentsFieldInspectorResponse;
+use App\Responses\User\SaveAssessmentsResponse;
 use App\Responses\User\UserCheckAssessmentsResponse;
 use App\Responses\User\UserCredentials;
 use App\Responses\User\UserProfileManage;
@@ -63,11 +68,55 @@ class UserController extends Controller
         return response()->json(['success' => true, 'auth' => $authUser->transformUser()]);
     }
 
-    public function responseActionFecthAsessment(Request $request, $id): UserCheckAssessmentsResponse
+    public function responseActionFetchAssessment(Request $request, $id): UserCheckAssessmentsResponse
     {
         return new UserCheckAssessmentsResponse('fetch');
     }
 
+    public function responseActionChangeCheckAsessmentStatus(Request $request, $id)
+    {
+        $this->validate($request, [
+            'id' => 'required',//check assessment id
+            'status' => 'required',
+        ]);
+        return new CheckAssessmentActionResponse('change-status');
+    }
+
+    public function responseSaveAessmentAnswer(Request $request, $id)
+    {
+        $this->validate($request, [
+            'check_assessment_sections' => 'required',
+        ]);
+        return new SaveAssessmentsResponse();
+    }
+
+
+    public function responseSaveCheckAessmentAnswerFieldInspector(Request $request, $id)
+    {
+        $this->validate($request, [
+            'check_assessment_sections' => 'required',
+        ]);
+        return new  SaveAssessmentsFieldInspectorResponse();
+    }
+
+
+    public function responseActionSaveCheckAsessmentAnswerStatusScore(Request $request, $id)
+    {
+        $this->validate($request, [
+            'check_assessment_sections' => 'required',
+        ]);
+        return new CheckAssessmentActionResponse('save-answer-status-score');
+    }
+
+    public function responseActionFetchInstituteUsers(Request $request)
+    {
+        return new SendUsersAssessmentActionResponse('fetch-send', ['only' => 'institutes']);
+    }
+
+    public function getCheckAssessmentFieldInspector(Request $request, $id)
+    {
+        return new  CheckAssessmentsFieldInspectorResponse('fetch');
+    }
 
     /**
      *

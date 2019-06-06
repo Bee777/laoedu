@@ -18,7 +18,7 @@ class CreateAssessmentCommentsTable extends Migration
             $table->longText('text');
             $table->unsignedBigInteger('check_assessment_id');
             $table->unsignedBigInteger('user_id')->nullable();
-            $table->foreign('check_assessment_id')->references('id')->on('check_assessments')->onUpdate('cascade')->onDelete('cascade');
+            $table->enum('type', ['institute', 'field_inspector'])->default('institute');
             $table->foreign('user_id')->references('id')->on('users')->onUpdate('cascade')->onDelete('cascade');
             $table->timestamps();
         });
@@ -32,7 +32,6 @@ class CreateAssessmentCommentsTable extends Migration
     public function down()
     {
         Schema::table('assessment_comments', function ($table) {
-            $table->dropForeign('check_assessment_id');
             $table->dropForeign('user_id');
         });
         Schema::dropIfExists('assessment_comments');

@@ -15,7 +15,6 @@
                                        :isLoading="validated().loading_searches"
                                        :formTopState="formTopState"
                                        @onItemPerPageClick="getItems"
-                                       @onSearchActionButton="toggleFormTop(true)"
                                        @onSearchReLoadButtonClick="getItems"
                                        @onSearchInputEnter="getItems"
                                        @onSearchInputClose="getItems"
@@ -26,7 +25,7 @@
                             <!--Slot Actions row context-->
                             <template slot-scope="{fireEvent, position, data}" slot="action-row-context">
                                 <button
-                                    @click="Route({name: 'check-assessment-single', params: { check_assessment_id: data.row.data.id } })"
+                                    @click="Route({name: 'check-assessment-single', params: { check_assessment_id: data.row.data.id }, query: {user_id: data.row.data.user_id, type: data.row.data.type_user} })"
                                     class="v-md-button v-md-icon-button">
                                     <i class="material-icons v-icon">description</i>
                                 </button>
@@ -169,7 +168,7 @@
                             class: 'hide-xs',
                             textColor: data.statusColor,
                         },
-                        {data: data.user_name, type: 'text', class: 'hide-xs'},
+                        {data: data.user_name, type: 'text', class: 'hide-xs', textColor: data.userColor},
                         {data: this.$utils.formatTimestmp(data.updated_at), type: 'text', class: 'hide-xs'},
                         {
                             data: data.title, type: 'action', class: '',

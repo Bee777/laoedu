@@ -314,7 +314,7 @@
                                     <MasterDetailCardMenu
                                         :header='{
                                     title: "Credentials",
-                                    content: `<p> You can change your password or even your email address, both use to login to Jaol site, <strong>When you have changed your credentials please use the new credentials to login to Jaol Site</strong>.<br><strong>Note: Please use truly email address</strong>.</p>`}'
+                                    content: `<p> You can change your password or even your email address, both use to login to Jaol site, <strong>When you have changed your credentials please use the new credentials to login to this site</strong>.<br><strong>Note: Please use truly email address</strong>.</p>`}'
                                         :menuItem='{name: "Credentials", icon: "email", selected: false}'>
                                         <form @submit.prevent class="admin-form admin-template-form" novalidate>
 

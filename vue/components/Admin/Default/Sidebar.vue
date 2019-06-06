@@ -119,12 +119,6 @@
                         },
                         items: [
                             {
-                                name: "ລາຍລະອຽດສະຖານການສຶກສາ",
-                                icon: "account_circle", //required
-                                action: this.Route, //required
-                                params: {name: "institute-profile"} //required
-                            },
-                            {
                                 name: "ໝວດໝູ່ສະຖານການສຶກສາ",
                                 icon: "category",
                                 action: this.Route,

@@ -13,6 +13,7 @@ use App\Http\Controllers\Helpers\Helpers;
 use App\Models\AssessmentComment;
 use App\Models\AssessmentCommentReply;
 use App\Models\CheckAssessment;
+use App\Models\CheckAssessmentFieldInspector;
 use Illuminate\Contracts\Support\Responsable;
 
 class CheckAssessmentReplyCommentResponse implements Responsable
@@ -38,9 +39,10 @@ class CheckAssessmentReplyCommentResponse implements Responsable
     public function toResponse($request)
     {
         if (Helpers::isAjax($request)) {
+            $type = $request->get('type') === 'field_inspector' ? 'field_inspector' : 'institute';
             $user = $request->user('api');
             //@check dictionary
-            $check_assessment_id = $this->getCheckAssessmentId($request->get('check_assessment_id'));
+            $check_assessment_id = $this->getCheckAssessmentId($request->get('check_assessment_id'), $type);
             if (!isset($check_assessment_id)) {
                 return response()->json(['success' => false, 'msg' => 'The check assessment does not exits!']);
             }
@@ -49,7 +51,7 @@ class CheckAssessmentReplyCommentResponse implements Responsable
             if ($this->type === 'manage') {//create and update
                 $reply_comment = null;
                 $action = $request->get('comment')['action'] ?? '';
-                $exist_comment = $this->getAssessmentComment($request->get('id'), $action, $user);
+                $exist_comment = $this->getAssessmentComment($request->get('id'), $action, $user, $type);
                 $exist_reply_comment = $this->getCheckAssessmentReplyComment($request->get('id'), $user);
                 if (!isset($exist_comment) && $action === 'reply') {
                     return response()->json(['success' => false, 'msg' => 'The check assessment comment does not exits!']);
@@ -85,9 +87,13 @@ class CheckAssessmentReplyCommentResponse implements Responsable
         }
     }
 
-    public function getCheckAssessmentId($id)
+    public function getCheckAssessmentId($id, $type)
     {
-        $data = CheckAssessment::find($id);
+        if ($type === 'field_inspector') {
+            $data = CheckAssessmentFieldInspector::find($id);
+        } else {
+            $data = CheckAssessment::find($id);
+        }
         if (isset($data)) {
             return $data->id;
         }
@@ -102,10 +108,10 @@ class CheckAssessmentReplyCommentResponse implements Responsable
         return null;
     }
 
-    public function getAssessmentComment($id, $type, $user)
+    public function getAssessmentComment($id, $action, $user, $user_type)
     {
-        if (isset($user) || $type === 'reply') {
-            return AssessmentComment::where('id', $id)->first();
+        if (isset($user) || $action === 'reply') {
+            return AssessmentComment::where('id', $id)->where('type', $user_type)->first();
         }
         return null;
     }

@@ -18,14 +18,18 @@ use App\Models\SectionQuestion;
 use App\Responses\Admin\Schema\AccessAnswerSchema;
 use App\Responses\Admin\Schema\AnswerContentSchema;
 use App\Responses\Admin\Schema\QuestionContentSchema;
+use App\Traits\UserRoleTrait;
 use App\User;
 use Illuminate\Contracts\Support\Responsable;
 use Illuminate\Support\Facades\DB;
 
 class UserCheckAssessmentsResponse implements Responsable
 {
+    use UserRoleTrait;
+
     private $actions;
     private $options;
+    private $req;
 
     /**
      * AssessmentActionResponse constructor.
@@ -47,7 +51,7 @@ class UserCheckAssessmentsResponse implements Responsable
 
         //check if admin return back
         $user = $request->user();
-        if (User::isAdminUser($user)) {
+        if ($user->hasActions('view_check_assessments')) {
             $data = CheckAssessment::select(array_merge($fields, ['type_users.name as type_user', 'users.id as user_id', 'users.name as user_name',
                 DB::raw("CONCAT (users.name, ' ', users.last_name) as full_name")]))->join('assessments', 'assessments.id', 'check_assessments.assessment_id');
             $data->join('users', 'users.id', 'check_assessments.user_id')
@@ -68,7 +72,7 @@ class UserCheckAssessmentsResponse implements Responsable
                 $query->orWhere($f, 'LIKE', "%{$text}%");
             }
 
-            if (User::isAdminUser($user)) {
+            if ($user->hasActions('view_check_assessments')) {
                 $query->orWhere('type_users.name', 'LIKE', "%{$text}%");
                 $query->orWhere(
                     DB::raw("CONCAT (users.name, ' ', users.last_name)"),
@@ -79,7 +83,10 @@ class UserCheckAssessmentsResponse implements Responsable
 
         });
         $data = $data->orderBy('check_assessments.updated_at', 'desc')->paginate($paginateLimit);
-        $data->map(function ($d) {
+        $data->map(function ($d) use ($user) {
+            if ($user->hasActions('view_check_assessments')) {
+                $d->userColor = $d->type_user === 'field_inspector' ? '#00bfa5' : 'rgb(3, 155, 229)';
+            }
             $d->statusColor = $d->status === 'success' ? '#00bfa5' : ($d->status === 'close' ? '#d50000' : '');
             return $d;
         });
@@ -96,6 +103,7 @@ class UserCheckAssessmentsResponse implements Responsable
     {
         if (Helpers::isAjax($request)) {
             $data = [];
+            $this->req = $request;
             if ($this->actions === 'fetch') {
                 $data = $this->fetch($request);
             }
@@ -114,11 +122,10 @@ class UserCheckAssessmentsResponse implements Responsable
         unset($assessmentModel->sections);
         //for first time add or changed section size we will remove all sections and questions please be check surely before send assessment.
         $isSameSectionsSize = true;
-        if (count($checkAssessmentModel->checkAssessmentSections) !== count($sections)) {
-            $checkAssessmentModel->checkAssessmentSections()->delete();
+        if (count($checkAssessmentModel->sections()) !== count($sections)) {
+            $checkAssessmentModel->sectionsDelete();
             $isSameSectionsSize = false;
         }
-
         $sections = $sections->map(function ($section, $sKey) use ($isSameSectionsSize, $checkAssessmentModel) {
             $section->desc = $section->description;
             $section->focusIndex = -1;
@@ -130,8 +137,10 @@ class UserCheckAssessmentsResponse implements Responsable
             }
             return $section;
         });
+        //assign answers
+        $checkAssessmentModel = CheckAssessment::find($checkAssessmentModel->id);//re-get data
         //check sections and questions answer
-        foreach ($checkAssessmentModel->checkAssessmentSections as $sKey => $checkAssessmentSection) {
+        foreach ($checkAssessmentModel->sections() as $sKey => $checkAssessmentSection) {
             $questions = $checkAssessmentSection->checkAssessmentSectionQuestions;
             if (count($questions) !== count($sections[$sKey]->questions)) {
                 $checkAssessmentSection->checkAssessmentSectionQuestions()->delete();
@@ -163,15 +172,21 @@ class UserCheckAssessmentsResponse implements Responsable
             }
         }
         //assign answers
-        $check_sections = $checkAssessmentModel->checkAssessmentSections;
+        $checkAssessmentModel = CheckAssessment::find($checkAssessmentModel->id);//re-get data
+        $check_sections = $checkAssessmentModel->sections();
         $check_sections->map(function ($section) {
             $section->questionsJson();
         });
         $sorted = $sections->sortBy('section_order')->values()->all();
+        $user = $this->req->user();
+        if ($user->hasActions('view_check_assessments')) {
+            $user = User::find($checkAssessmentModel->user_id);
+        }
         return [
             'assessment' => $assessmentModel,
             'sections' => $sorted,
-            'check_sections' => $check_sections
+            'check_sections' => $check_sections,
+            'user_name' => $user->name,
         ];
     }
 
@@ -197,16 +212,24 @@ class UserCheckAssessmentsResponse implements Responsable
 
     public function addAnswer($access, $question, CheckAssessmentSectionQuestion $checkAssessmentSectionQuestion)
     {
+        $questionDecode = $question->toJsonDecode();
+        $checkQuestionDecode = $checkAssessmentSectionQuestion->toJsonDecode();
         #build answer
         $questionSchema = new QuestionContentSchema();
-        $questionSchema->build($question->toJsonDecode());
+        $questionSchema->build($questionDecode);
         $accessAnswer = new AccessAnswerSchema();
         $accessAnswer->setSectionIndex($access->sectionIndex);
         $accessAnswer->setQuestionIndex($access->questionIndex);
         $accessAnswer->setQuestionId($question->id);
         $accessAnswer->setUpdatedAt($question->updated_at->format('Y-m-d H:i:s'));
         $answerSchema = new  AnswerContentSchema($questionSchema, $accessAnswer);
-        $answerSchema->build(['en' => null]);
+
+        if ($questionDecode->types === $checkQuestionDecode->question->types
+            && ($questionDecode->types === 'short_answer' || $questionDecode->types === 'paragraph')) {
+            $answerSchema->build(json_decode(json_encode($checkQuestionDecode->schema), true));
+        } else {
+            $answerSchema->build(['en' => null]);
+        }
         #build answer
         $checkAssessmentSectionQuestion->schema = $answerSchema->toJson();
         $checkAssessmentSectionQuestion->save();
@@ -215,11 +238,18 @@ class UserCheckAssessmentsResponse implements Responsable
     public function fetch($request)
     {
         $user = $request->user();
-        $checkAssessmentModel = CheckAssessment::where('user_id', $user->id)->whereIn('status', ['checking', 'success'])->where('id', $request->id)->first();
+        if ($user->hasActions('view_check_assessments')) {
+            $checkAssessmentModel = CheckAssessment::where('user_id', $request->user_id)->whereIn('status', ['checking', 'success'])->where('id', $request->id)->first();
+
+        } else {
+            $checkAssessmentModel = CheckAssessment::where('user_id', $user->id)->whereIn('status', ['checking', 'success'])->where('id', $request->id)->first();
+        }
+
         if (isset($checkAssessmentModel)) {
             $assessmentModel = Assessment::find($checkAssessmentModel->assessment_id);
             return $this->getAssessmentSchema($checkAssessmentModel, $assessmentModel);
         }
         return false;
     }
+
 }

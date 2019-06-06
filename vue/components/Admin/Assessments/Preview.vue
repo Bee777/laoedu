@@ -61,7 +61,7 @@
 
                                 <!--Form Content-->
 
-                                <div class="questions-section clearfix" style="top: 224px;">
+                                <div class="questions-section clearfix" style="top: auto;">
                                     <div class="questions">
 
                                         <div class="form-create-wrap add-after"

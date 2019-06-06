@@ -37,8 +37,8 @@ export const createActions = (utils) => {
                         n(err.response);
                     });
             });
-
         },
+        /*** @UserProfileOptions **/
         fetchOptionProfileData(c, data) {
             return new Promise((r, n) => {
                 client.get(`${apiUrl}/institute/profile-options`, ajaxToken(c))
@@ -164,7 +164,7 @@ export const createActions = (utils) => {
                 utils.Validate(data, {
                     'check_assessment_sections': ['required'],
                 }).then(v => {
-                    client.post(`${apiUrl}/institute/check-assessment/save-answer/${data.id}`, data, ajaxToken(c))
+                    client.post(`${apiUrl}/users/assessment/check-assessment/save-answer/${data.id}`, data, ajaxToken(c))
                         .then(res => {
                             c.commit('setClearMsg');
                             r(res.data);
@@ -186,6 +186,7 @@ export const createActions = (utils) => {
             return new Promise((r, n) => {
                 let i, actions = {edit: true, reply: true, 'edit-reply': true};
                 if (data.comment.action === 'edit-reply') {
+                    data.child.data.type = data.type;
                     i = utils.clone(data.child.data);
                 } else {
                     i = utils.clone(data);
@@ -227,7 +228,7 @@ export const createActions = (utils) => {
         /***@GetComments */
         fetchComments(c, i) {
             return new Promise((r, n) => {
-                let request = `&limit=${i.limit}&page=${i.page}`;
+                let request = `&limit=${i.limit}&page=${i.page}&type=${i.type}`;
                 client.get(`${apiUrl}/users/check-assessment-comments?check_assessment_id=${i.id}${request}`, ajaxToken(c))
                     .then(res => {
                         c.commit('setClearMsg');
@@ -247,7 +248,7 @@ export const createActions = (utils) => {
         /***@deleteComments */
         deleteComment(c, data) {
             return new Promise((r, n) => {
-                client.delete(`${apiUrl}/users/check-assessment-comments-delete?id=${data.id}&check_assessment_id=${data.check_assessment_id}&isReplyComment=${data.isReplyComment}`, ajaxToken(c))
+                client.delete(`${apiUrl}/users/check-assessment-comments-delete?id=${data.id}&check_assessment_id=${data.check_assessment_id}&isReplyComment=${data.isReplyComment}&type=${data.type}`, ajaxToken(c))
                     .then(res => {
                         c.commit('setClearMsg');
                         r(res.data);

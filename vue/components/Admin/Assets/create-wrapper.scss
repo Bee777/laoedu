@@ -662,6 +662,12 @@ $green: #039be5;
                 position: relative;
                 border-bottom: 1px solid rgba(0, 0, 0, 0.12);
 
+                &[aria-disabled="true"] {
+                    &:after {
+                        content: none;
+                    }
+                }
+
                 &:after {
                     background-color: #323232;
                     content: '';

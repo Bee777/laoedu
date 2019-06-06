@@ -2,12 +2,13 @@ import Dashboard from '@com/Institute/Dashboard.vue'
 import UserProfileSettings from '@com/Institute/Detail/ProfileSettings.vue'
 import CheckAssessments from '@com/Institute/CheckAssessments.vue'
 import CheckAssessmentSingle from '@com/Institute/CheckAssessmentSingle.vue'
+
 const prefix = '/institute/me';
 let adminTypes = ['admin', 'super_admin'];
 const metas = {
     authMeta: {
         requiresAuth: true,
-      allows: adminTypes.concat(['institute']),
+        allows: adminTypes.concat(['institute']),
     },
     guestMeta: {
         requiresVisitor: true,
@@ -25,7 +26,7 @@ export default [
         name: 'dashboard',
         meta: metas.authMeta,
     },
-        {
+    {
         name: 'profile-settings',
         path: `${prefix}/profile-settings`,
         component: UserProfileSettings,

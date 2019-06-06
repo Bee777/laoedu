@@ -13,18 +13,22 @@
 
 Route::group(['prefix' => 'admin/me', 'middleware' => []], function () {
     Route::get('/', 'AdminController@index')->name('admin.get.index');
-    Route::get('/members', 'AdminController@index')->name('admin.get.index.members');
-    Route::get('/organizations', 'AdminController@index')->name('admin.get.index.organizations');
-    Route::get('/departments', 'AdminController@index')->name('admin.get.index.departments');
-    Route::get('/members-profile', 'AdminController@index')->name('admin.get.index.membersProfile');
-    Route::get('/members-profile/{id}', 'AdminController@index')->name('admin.get.singleMemberProfile');
+    Route::get('/members/checker', 'AdminController@index')->name('admin.get.index.members.checker');
+    Route::get('/members/field-inspector', 'AdminController@index')->name('admin.get.index.members.field-inspector');
+    Route::get('/about-us', 'AdminController@index')->name('admin.get.about-us');
     Route::get('/sitesetting', 'AdminController@index')->name('admin.get.sitesetting');
     Route::get('/contactinfo', 'AdminController@index')->name('admin.get.contactinfo');
-    Route::get('/aboutjaol', 'AdminController@index')->name('admin.get.aboutjaol');
     Route::get('/news', 'AdminController@index')->name('admin.get.news');
     Route::get('/activity', 'AdminController@index')->name('admin.get.activity');
-    Route::get('/event', 'AdminController@index')->name('admin.get.event');
     Route::get('/scholarship', 'AdminController@index')->name('admin.get.scholarship');
-    Route::get('/organize-chart-ranges', 'AdminController@index')->name('admin.get.organizeChart');
-    Route::get('/uploadfile', 'AdminController@index')->name('admin.get.uploadfile');
+    Route::get('/upload-files', 'AdminController@index')->name('admin.get.uploadfile');
+    Route::get('/review-assessment', 'AdminController@index')->name('admin.get.review-assessment');
+    Route::get('/review-assessment/{id}', 'AdminController@index')->name('admin.get.review-assessment.single');
+    Route::get('/assessment', 'AdminController@index')->name('admin.get.assessment');
+    Route::get('/assessment/start-assessment', 'AdminController@index')->name('admin.get.assessment.create');
+    Route::get('/assessment/preview-assessment/{id}', 'AdminController@index')->name('admin.get.assessment.preview.single');
+    Route::get('/assessment/send', 'AdminController@index')->name('admin.get.assessment.send');
+    Route::get('/members/institute', 'AdminController@index')->name('admin.get.members.institute');
+    Route::get('/institute-categories', 'AdminController@index')->name('admin.get.institute-categories');
+    Route::get('/review-assessments-field-inspector', 'AdminController@index')->name('admin.get.review-assessments-field-inspector');
 });

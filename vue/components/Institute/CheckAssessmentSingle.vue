@@ -185,11 +185,19 @@
                                             <div class="wrap">
                                                 <div class="content-wrap comments">
                                                     <HeaderBanner :titleStyles="`font-size: 1.1rem;`"
-                                                                  title="Assessment Comments" color="#039be5"/>
+                                                                  title="Assessment Comments" color="#039be5">
+                                                        <template slot="action">
+                                                            <button @click="refreshComments"
+                                                                    class="v-md-button v-md-icon-button theme-blue">
+                                                                <i class="material-icons">
+                                                                    refresh
+                                                                </i></button>
+                                                        </template>
+                                                    </HeaderBanner>
                                                     <div class="q-wrap">
                                                         <div class="p-question">
-                                                            <Comments
-                                                                :check_assessment_id="$route.params.check_assessment_id"/>
+                                                            <Comments ref="ref-comments"
+                                                                      :check_assessment_id="$route.params.check_assessment_id"/>
                                                         </div>
                                                     </div>
                                                 </div>
@@ -315,6 +323,10 @@
             goToComments() {
                 let comment = this.jq('#comments-sections');
                 this.$utils.scrollToY('main-container', this.$utils.findPos(comment.get(0)).y - 200);
+            },
+            refreshComments() {
+                let comment = this.$refs['ref-comments'];
+                comment.getComments();
             }
         },
         beforeRouteLeave(to, from, next) {
@@ -337,7 +349,7 @@
     }
 
     .questions-section.answer {
-        top: 224px;
+        top: auto;
         @media screen and (max-width: 692px) {
             top: auto;
         }
