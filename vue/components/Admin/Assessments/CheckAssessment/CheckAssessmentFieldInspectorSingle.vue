@@ -266,7 +266,7 @@
         },
         methods: {
             ...mapMutations(['setSectionsAssessmentAnswer']),
-            ...mapActions(['fetchCheckAssessmentFieldInspector', 'postSaveCheckAssessmentAnswer']),
+            ...mapActions(['fetchCheckAssessmentFieldInspector', 'showInfoToast', 'postSaveCheckAssessmentAnswer']),
             setSaveTextState(state) {
                 this.isSaving = false;
                 if (state.restore) {
@@ -328,6 +328,12 @@
                     check_assessment_sections: this.mSectionsAssessmentAnswer,
                     type: 'field_inspector',
                 }).then(res => {
+                    if (!res.success) {
+                        this.showInfoToast({
+                            msg: 'Cannot save the info maybe the checking assessment was closed!.',
+                            dt: 4500
+                        })
+                    }
                     this.setSaveTextState({});
                 }).catch(err => {
                     console.log(err);

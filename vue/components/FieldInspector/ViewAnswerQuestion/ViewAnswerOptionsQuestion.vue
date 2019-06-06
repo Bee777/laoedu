@@ -1,11 +1,12 @@
 <template>
-    <div class="q-item" v-if="allows.includes(type)">
+    <div class="q-item" v-if="allows.includes(type)" :aria-disabled="!editable">
         <template v-if="type==='multiple_choice'">
             <div class="q-radio" v-for="(item, i) in options" :key="i">
                 <div class="drap-area area-temp">
                     <i class="iconfont icon-menu-drag-head"></i>
                 </div>
                 <el-radio
+                    :disabled="!editable"
                     v-model="mSectionsAssessmentAnswer[section_index].answers[question_index].schema[content.language]"
                     :label="item.description">{{ item.description }}
                 </el-radio>
@@ -13,8 +14,11 @@
         </template>
         <template v-else-if="type==='checkboxes'">
             <el-checkbox-group
+                :disabled="!editable"
                 v-model="mSectionsAssessmentAnswer[section_index].answers[question_index].schema[content.language]">
-                <el-checkbox :key="i" class="q-radio" v-for="(item, i) in options" :label="item.description">{{
+                <el-checkbox
+                    :disabled="!editable"
+                    :key="i" class="q-radio" v-for="(item, i) in options" :label="item.description">{{
                     item.description }}
                 </el-checkbox>
             </el-checkbox-group>
@@ -26,10 +30,12 @@
                     <i class="iconfont icon-menu-drag-head"></i>
                 </div>
                 <el-select class="q-select"
+                           :disabled="!editable"
                            v-model="mSectionsAssessmentAnswer[section_index].answers[question_index].schema[content.language]"
                            filterable
                            placeholder="Choose">
                     <el-option
+                        :disabled="!editable"
                         v-for="(o, j) in options"
                         :key="j"
                         :label="o.description"
@@ -46,9 +52,14 @@
                 <div class="icon-radio">{{h + 1}}.</div>
                 <div class="priority-container">
                     <div class="radio-input text-data">{{ q.description }}</div>
-                    <el-select class="q-select" v-model="mSectionsAssessmentAnswer[section_index].answers[question_index].schema[content.language][objectKey(q.description)]" filterable clearable
-                               placeholder="Choose">
+                    <el-select
+                        :disabled="!editable"
+                        class="q-select"
+                        v-model="mSectionsAssessmentAnswer[section_index].answers[question_index].schema[content.language][objectKey(q.description)]"
+                        filterable clearable
+                        placeholder="Choose">
                         <el-option
+                            :disabled="!editable"
                             v-for="(o, j) in allowSelectPriorities"
                             :key="j"
                             :label="o"
@@ -85,6 +96,9 @@
             },
             question_index: {
                 default: -1,
+            },
+            editable: {
+                default: true
             }
         },
         data: () => ({

@@ -239,15 +239,16 @@ class UserCheckAssessmentsResponse implements Responsable
     {
         $user = $request->user();
         if ($user->hasActions('view_check_assessments')) {
-            $checkAssessmentModel = CheckAssessment::where('user_id', $request->user_id)->whereIn('status', ['checking', 'success'])->where('id', $request->id)->first();
+            $checkAssessmentModel = CheckAssessment::where('user_id', $request->user_id)->where('id', $request->id)->first();
 
         } else {
             $checkAssessmentModel = CheckAssessment::where('user_id', $user->id)->whereIn('status', ['checking', 'success'])->where('id', $request->id)->first();
         }
-
         if (isset($checkAssessmentModel)) {
             $assessmentModel = Assessment::find($checkAssessmentModel->assessment_id);
-            return $this->getAssessmentSchema($checkAssessmentModel, $assessmentModel);
+            if (isset($assessmentModel)) {
+                return $this->getAssessmentSchema($checkAssessmentModel, $assessmentModel);
+            }
         }
         return false;
     }

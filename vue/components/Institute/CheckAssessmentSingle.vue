@@ -355,6 +355,33 @@
         }
     }
 
+    [aria-disabled="true"] {
+        .el-select.q-select {
+            width: 100%;
+        }
+
+        .el-radio__input.is-disabled .el-radio__inner, .el-input.is-disabled .el-input__inner,
+        .el-checkbox__input.is-disabled .el-checkbox__inner {
+            background-color: #ffffff;
+            border-color: #bfd3d9;
+            cursor: not-allowed;
+        }
+
+        .el-select .el-input.is-disabled .el-input__inner:hover {
+            border-color: transparent;
+        }
+
+        .el-checkbox__input.is-disabled + .el-checkbox__label, .el-radio__input.is-disabled + .el-radio__label,
+        .el-input.is-disabled .el-input__inner {
+            color: #1f363d;
+        }
+
+    }
+
+    .comments .theme-blue i {
+        color: rgba(0, 0, 0, 0.54);
+    }
+
     .summary-score.q-wrap {
         .el-radio__label {
             padding-left: 0;

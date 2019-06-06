@@ -84,7 +84,7 @@ class CheckAssessmentActionResponse implements Responsable
         $checkAssessmentModel = CheckAssessment::where('user_id', $request->user_id)->whereIn('status', ['checking', 'success'])->where('id', $request->id)->first();
         if ($type === 'field_inspector') {
             $checkAssessmentModel = CheckAssessmentFieldInspector::where('id', $request->id)
-                ->where('field_inspector_id', $request->user_id)->first();
+                ->whereIn('status', ['checking', 'success'])->where('field_inspector_id', $request->user_id)->first();
         }
         if (isset($checkAssessmentModel)) {
             $check_sections = $checkAssessmentModel->sections();

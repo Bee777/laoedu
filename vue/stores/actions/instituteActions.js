@@ -232,6 +232,9 @@ export const createActions = (utils) => {
                 client.get(`${apiUrl}/users/check-assessment-comments?check_assessment_id=${i.id}${request}`, ajaxToken(c))
                     .then(res => {
                         c.commit('setClearMsg');
+                        if(!res.data.success){
+                            return;
+                        }
                         if (i.firstLoad) {
                             c.commit('setCheckAssessmentComments', {data: [], position: 'reset'});
                         }

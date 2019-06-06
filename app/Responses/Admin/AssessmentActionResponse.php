@@ -12,6 +12,7 @@ namespace App\Responses\Admin;
 use App\Http\Controllers\Helpers\Helpers;
 use App\Models\Assessment;
 use App\Models\AssessmentSection;
+use App\Models\CheckAssessment;
 use App\Models\SectionQuestion;
 use App\Responses\Admin\Schema\QuestionContentSchema;
 use Illuminate\Contracts\Support\Responsable;
@@ -289,7 +290,12 @@ class AssessmentActionResponse implements Responsable
     {
         $assessmentModel = Assessment::find($request->id);
         if (isset($assessmentModel) && $this->allowStatuses($request->status)) {
-            $assessmentModel->status = $request->status;
+            $isChecking = CheckAssessment::where('assessment_id', $assessmentModel->id)->exists();
+            if($request->status==='open' && $isChecking){
+                $assessmentModel->status = 'opening';
+            }else{
+                $assessmentModel->status = $request->status;
+            }
             $assessmentModel->save();
             return ['msg' => 'The assessment status has been changed!'];
         }

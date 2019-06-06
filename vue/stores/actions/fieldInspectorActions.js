@@ -219,6 +219,9 @@ export const createActions = (utils) => {
                 let request = `&limit=${i.limit}&page=${i.page}&type=${i.type}`;
                 client.get(`${apiUrl}/users/check-assessment-comments?check_assessment_id=${i.id}${request}`, ajaxToken(c))
                     .then(res => {
+                        if(!res.data.success){
+                            return;
+                        }
                         c.commit('setClearMsg');
                         if (i.firstLoad) {
                             c.commit('setCheckAssessmentComments', {data: [], position: 'reset'});
@@ -227,6 +230,7 @@ export const createActions = (utils) => {
                         r(res.data)
                     })
                     .catch(err => {
+                        console.log(err);
                         c.dispatch('HandleError', err.response);
                         n(err)
                     });

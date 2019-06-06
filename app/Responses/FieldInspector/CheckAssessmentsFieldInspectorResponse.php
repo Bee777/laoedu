@@ -263,14 +263,15 @@ class CheckAssessmentsFieldInspectorResponse implements Responsable
             if (!isset($checkAssessmentFieldInspectorModel)) {
                 return false;
             }
-            $checkAssessmentModel = CheckAssessment::where('user_id', $request->user_id)->whereIn('status', ['checking', 'success'])->where('id', $checkAssessmentFieldInspectorModel->check_assessment_id)->first();
+            $checkAssessmentModel = CheckAssessment::where('user_id', $request->user_id)->where('id', $checkAssessmentFieldInspectorModel->check_assessment_id)->first();
         } else {
             $checkAssessmentModel = CheckAssessment::where('user_id', $user->id)->whereIn('status', ['checking', 'success'])->where('id', $request->id)->first();
         }
-
         if (isset($checkAssessmentModel, $institute)) {
             $assessmentModel = Assessment::find($checkAssessmentModel->assessment_id);
-            return $this->getAssessmentSchema($checkAssessmentModel, $assessmentModel, $institute);
+            if (isset($assessmentModel)) {
+                return $this->getAssessmentSchema($checkAssessmentModel, $assessmentModel, $institute);
+            }
         }
         return false;
     }

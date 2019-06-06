@@ -30,12 +30,6 @@
                                     class="v-md-button v-md-icon-button">
                                     <i class="material-icons v-icon">description</i>
                                 </button>
-
-                                <button
-                                    class="v-md-button v-md-icon-button">
-                                    <i class="material-icons v-icon">save_alt</i>
-                                </button>
-
                             </template>
                             <!--Slot Actions row context-->
                         </TablePaginate>

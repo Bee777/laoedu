@@ -256,7 +256,7 @@
         },
         methods: {
             ...mapMutations(['setSectionsAssessmentAnswer']),
-            ...mapActions(['fetchCheckAssessment', 'postSaveCheckAssessmentAnswer']),
+            ...mapActions(['fetchCheckAssessment', 'showInfoToast', 'postSaveCheckAssessmentAnswer']),
             setSaveTextState(state) {
                 this.isSaving = false;
                 if (state.restore) {
@@ -280,8 +280,12 @@
             },
             getAssessment() {
                 if (this.$route.query.type === 'field_inspector') {
-                    this.Route({name: 'review-assessments-field-inspector', query: {field_inspector_id: this.$route.query.user_id,
-                        check_assessment_id: this.$route.params.check_assessment_id}});
+                    this.Route({
+                        name: 'review-assessments-field-inspector', query: {
+                            field_inspector_id: this.$route.query.user_id,
+                            check_assessment_id: this.$route.params.check_assessment_id
+                        }
+                    });
                     return;
                 }
                 let id = this.$route.params.check_assessment_id;
@@ -314,6 +318,12 @@
                     user_id: this.$route.query.user_id,
                     check_assessment_sections: this.mSectionsAssessmentAnswer
                 }).then(res => {
+                    if (!res.success) {
+                        this.showInfoToast({
+                            msg: 'Cannot save the info maybe the checking assessment was closed!.',
+                            dt: 4500
+                        })
+                    }
                     this.setSaveTextState({});
                 }).catch(err => {
                     console.log(err);

@@ -29,6 +29,10 @@
                                                         class="material-icons">
                                                         comment
                                                     </i></button>
+                                                    <button
+                                                        class="v-md-button v-md-icon-button theme-blue">
+                                                        <i class="material-icons v-icon">save_alt</i>
+                                                    </button>
                                                 </div>
                                                 <div v-if="!$utils.isEmptyVar(this.institute)">
                                                     <button @click="SaveCheckAssessment" class="v-md-button primary">{{
@@ -105,8 +109,8 @@
                                                     <div class="FormviewerViewAccentBanner AccentBackground"></div>
                                                     <div class="item title main-form">
                                                         <div aria-disabled="true" class="li main-form">
-                                                            <div class="assessment-form-title">{{mAssessment.title ||
-                                                                'Assessment title'}}
+                                                            <div class="assessment-form-title">{{ mAssessment.title ||
+                                                                'Assessment title' }} <small>{{ checkStatus }}</small>
                                                             </div>
                                                         </div>
                                                         <div aria-disabled="true" class="li main-form">
@@ -156,6 +160,7 @@
 
                                                     <div class="q-wrap">
                                                         <ViewAnswerQuestionnaire
+                                                            :editable="check_assessment_field_inspector.status==='checking'"
                                                             :section_index="item_idx"
                                                             :question_index="q_idx"
                                                             :question="question"
@@ -305,13 +310,17 @@
                 SaveText: 'Save',
                 isSaving: false,
                 summaryScores: [1, 2, 3, 4, 5],
-                check_assessment_field_inspector: null,
+                check_assessment_field_inspector: {status: ''},
                 institute: null,
                 institutes: [],
             }
         },
         computed: {
             ...mapState(['mSectionsAssessmentAnswer']),
+            checkStatus() {
+                let status = { close: ' (Closed)', success: ' (Success)'};
+                return status[this.check_assessment_field_inspector.status] || '';
+            }
         },
         watch: {
             mSectionsAssessmentAnswer: {
@@ -383,9 +392,10 @@
                                 name: 'check-assessment-single',
                                 params: {check_assessment_id: id},
                                 query: {institute_id: this.institute.id}
-                            })
+                            });
                         }
                     }).catch(err => {
+                    console.log(err);
                 })
             },
             initAssessmentData() {
@@ -447,6 +457,33 @@
         @media screen and (max-width: 692px) {
             top: auto;
         }
+    }
+
+    [aria-disabled="true"] {
+        .el-select.q-select {
+            width: 100%;
+        }
+
+        .el-radio__input.is-disabled .el-radio__inner, .el-input.is-disabled .el-input__inner,
+        .el-checkbox__input.is-disabled .el-checkbox__inner {
+            background-color: #ffffff;
+            border-color: #bfd3d9;
+            cursor: not-allowed;
+        }
+
+        .el-select .el-input.is-disabled .el-input__inner:hover {
+            border-color: transparent;
+        }
+
+        .el-checkbox__input.is-disabled + .el-checkbox__label, .el-radio__input.is-disabled + .el-radio__label,
+        .el-input.is-disabled .el-input__inner {
+            color: #1f363d;
+        }
+
+    }
+
+    .comments .theme-blue i {
+        color: rgba(0, 0, 0, 0.54);
     }
 
     .summary-score.q-wrap {

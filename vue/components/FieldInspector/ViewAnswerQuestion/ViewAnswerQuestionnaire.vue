@@ -32,18 +32,21 @@
                     </div>
                 </div>
 
-                <OptionsQuestion :section_index="section_index"
-                                 :question_index="question_index"
-                                 :content="content"
-                                 :type="question.types"
-                                 :options="content.option_answers"
-                                 :key="idx"/>
+                <OptionsQuestion
+                    :editable="editable"
+                    :section_index="section_index"
+                    :question_index="question_index"
+                    :content="content"
+                    :type="question.types"
+                    :options="content.option_answers"
+                    :key="idx"/>
 
                 <div class="q-item text-wrap spaced-bottom non-options preview-item"
                      v-if="question.types === 'short_answer'">
 
                     <div class="short-answer-text">
                         <input
+                            :disabled="!editable"
                             v-model="mSectionsAssessmentAnswer[section_index].answers[question_index].schema[content.language]"
                             type="text" placeholder="Your answer">
                     </div>
@@ -52,8 +55,9 @@
                 <div class="q-item"
                      v-if="question.types === 'paragraph'">
                     <div class="paragraph-answer-text">
-                        <div class="li main-form">
+                        <div class="li main-form" :aria-disabled="!editable">
                             <textarea placeholder="Your answer"
+                                      :disabled="!editable"
                                       @focus="$autoText($event)"
                                       @input="$autoText($event)"
                                       v-model="mSectionsAssessmentAnswer[section_index].answers[question_index].schema[content.language]"
@@ -80,6 +84,7 @@
                             <div class="ragePlaceholder ragePlaceholder-padding">{{ item }}</div>
                             <div class="ragePlaceholder ScalecontentInput">
                                 <el-radio
+                                    :disabled="!editable"
                                     v-model="mSectionsAssessmentAnswer[section_index].answers[question_index].schema[content.language]"
                                     :label="item">&nbsp;
                                 </el-radio>
@@ -116,6 +121,7 @@
                                                 <div class="ViewItemsGridCell" :key="`row-col-answer-${cIdx}`"
                                                      v-for="(col, cIdx) in content.option_answers">
                                                      <el-radio
+                                                         :disabled="!editable"
                                                          v-model="mSectionsAssessmentAnswer[section_index].answers[question_index].schema[content.language][objectKey(row.description)]"
                                                          :label="col.description">&nbsp;</el-radio>
                                                 </div>
@@ -154,6 +160,9 @@
             },
             question_index: {
                 default: -1,
+            },
+            editable: {
+                default: true
             }
         },
         computed: {
@@ -208,5 +217,8 @@
 </script>
 
 <style scoped>
-
+    .form-create-wrap .q-wrap .checking-status .el-checkbox__input.is-checked .el-checkbox__inner {
+        border-color: #4ca2ae;
+        background: #01c5df;
+    }
 </style>
