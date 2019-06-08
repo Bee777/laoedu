@@ -65,9 +65,6 @@
 @section('scripts_footer')
     @include('main.general.defaultData')
     {{--<!--Template JS-->--}}
-    <!--====== jquery js ======-->
-    <script type="text/javascript" src="{{url('/')}}/bundles/general/assets/js/vendor/modernizr-3.6.0.min.js"></script>
-    <script type="text/javascript" src="{{url('/')}}/bundles/general/assets/js/vendor/jquery-1.12.4.min.js"></script>
     <!--====== Bootstrap js ======-->
     <script type="text/javascript" src="{{url('/')}}/bundles/general/assets/js/bootstrap.min.js"></script>
     <!--====== Slick js ======-->
