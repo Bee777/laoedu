@@ -54,7 +54,7 @@
                         :type="ques.types"
                         :sectionIndex="sectionIndex"
                         :currentSectionIndex="currentFocusIndexes.sectionIndex"
-                        :focusIndex="focusIndex"
+                        :isFocus="isItemFocus(idx)"
                         :options="content.option_answers"
                         :question_idx="idx"
                         :answer_schema_index="idx1"
@@ -80,7 +80,7 @@
                         :type="ques.types"
                         :sectionIndex="sectionIndex"
                         :currentSectionIndex="currentFocusIndexes.sectionIndex"
-                        :focusIndex="focusIndex"
+                        :isFocus="isItemFocus(idx)"
                         :question_idx="idx"
                         :answer_schema_index="idx1"
                         @onDeleteOptionAnswerClick="deleteOptionRadio"
@@ -138,7 +138,7 @@
         },
         props: {
             sectionIndex: {
-                default: 0
+                default: -1
             },
             focusIndex: {
                 default: -1,

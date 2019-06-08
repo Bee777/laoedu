@@ -27,14 +27,14 @@
                        :data-schema="`${JSON.stringify({sectionIndex, question_index: question_idx, content_index: answer_schema_index, option_index: i})}`"
                        :id="IdSchema(i)"
                        v-model="item.description">
-                <i class="el-icon-close" v-if="isItemFocus(question_idx)"
+                <i class="el-icon-close" v-if="isFocus"
                    @click="deleteRadioFn(i)"></i>
             </div>
 
         </draggable>
 
 
-        <div class="q-radio" v-if="isItemFocus(question_idx)">
+        <div class="q-radio" v-if="isFocus">
             <div class="drap-area area-temp">
                 <i class="iconfont icon-menu-drag-head"></i>
             </div>
@@ -69,8 +69,8 @@
             currentSectionIndex: {
                 default: 0
             },
-            focusIndex: {
-                default: 0
+            isFocus: {
+                default: false
             },
             question_idx: {
                 default: 0
@@ -145,9 +145,6 @@
              */
             IdSchema(i) {
                 return `section-${this.sectionIndex}-question-${this.question_idx}-aws-${this.answer_schema_index}-op-${i}`;
-            },
-            isItemFocus(idx) {
-                return this.focusIndex === idx && this.currentSectionIndex === this.sectionIndex;
             },
             deleteRadioFn(i) {
                 this.$emit('onDeleteOptionAnswerClick', {

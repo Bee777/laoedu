@@ -20,6 +20,9 @@ class CreatePostsTable extends Migration
             $table->string('title' );
             $table->string('image');
             $table->longText('description');
+            $table->text('place')->nullable()->default(null);
+            $table->string('scholarship_type')->nullable()->default(null);
+            $table->timestamp('start_date')->nullable()->default(null);
             $table->timestamp('deadline')->nullable()->default(null);
             $table->timestamps();
             $table->unsignedBigInteger('user_id');

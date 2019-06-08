@@ -147,14 +147,18 @@
                         contextMenu.splice(0, 0, itemStatusMenu);//add item at second position
                     }
                 }
-                contextMenu.splice(contextMenu.length, 0, {
-                    name: 'Export Check Assessment',
-                    active: false,
-                    type: 'info',
-                    message: `Save as Microsoft Office Word File.`,
-                    action: {act: null, params: {}, text: 'Export'},
-                    data: data
-                });
+
+                if (data.type_user !== 'field_inspector') {
+                    contextMenu.splice(contextMenu.length, 0, {
+                        name: 'Export Check Assessment',
+                        active: false,
+                        type: 'info',
+                        message: `Save as Microsoft Office Word File.`,
+                        action: {act: null, params: {}, text: 'Export'},
+                        data: data
+                    });
+                }
+
                 //add item menu status
                 return {
                     rowContent: {

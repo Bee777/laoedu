@@ -104,13 +104,13 @@
                                :id="IdSchema(i, 'row')"
                                v-model="item.description">
                         <i class="el-icon-close"
-                           v-if="isItemFocus(question_idx)"
+                           v-if="isFocus"
                            @click="deleteRowRadioFn(i)"></i>
                     </div>
 
                 </draggable>
 
-                <div class="q-radio" v-if="isItemFocus(question_idx)">
+                <div class="q-radio" v-if="isFocus">
                     <div class="drap-area area-temp">
                         <i class="iconfont icon-menu-drag-head"></i>
                     </div>
@@ -149,13 +149,13 @@
                                :id="IdSchema(i, 'column')"
                                v-model="item.description">
                         <i class="el-icon-close"
-                           v-if="isItemFocus(question_idx)"
+                           v-if="isFocus"
                            @click="deleteRadioFn(i)"></i>
                     </div>
 
                 </draggable>
 
-                <div class="q-radio" v-if="isItemFocus(question_idx)">
+                <div class="q-radio" v-if="isFocus">
                     <div class="drap-area area-temp">
                         <i class="iconfont icon-menu-drag-head"></i>
                     </div>
@@ -194,8 +194,8 @@
             currentSectionIndex: {
                 default: 0
             },
-            focusIndex: {
-                default: 0
+            isFocus: {
+                default: false
             },
             question_idx: {
                 default: 0
@@ -302,9 +302,6 @@
              */
             IdSchema(i, t) {
                 return `section-${this.sectionIndex}-question-${this.question_idx}-aws-${this.answer_schema_index}-matrix-${i}-${t}`;
-            },
-            isItemFocus(idx) {
-                return this.focusIndex === idx && this.currentSectionIndex === this.sectionIndex;
             },
             optionsSelectScaleChanged(n) {
                 this.setOptionsScaleChangeDataStack({

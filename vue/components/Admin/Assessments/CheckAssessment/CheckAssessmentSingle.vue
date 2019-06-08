@@ -320,7 +320,7 @@
                 }).then(res => {
                     if (!res.success) {
                         this.showInfoToast({
-                            msg: 'Cannot save the info maybe the checking assessment was closed!.',
+                            msg: 'Cannot save maybe the checking assessment was closed!.',
                             dt: 4500
                         })
                     }

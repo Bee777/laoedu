@@ -10,6 +10,7 @@ namespace App\Responses\User;
 
 
 use App\Http\Controllers\Helpers\Helpers;
+use App\Jobs\CheckSuccessChangeStatusCheckAssessmentFieldInspectorJob;
 use App\Jobs\CheckSuccessCheckAssessmentJob;
 use App\Models\CheckAssessment;
 use App\Models\CheckAssessmentFieldInspector;
@@ -66,6 +67,11 @@ class CheckAssessmentActionResponse implements Responsable
         if (isset($check_assessment) && $this->allowStatuses($request->status)) {
             $check_assessment->status = $request->status;
             $check_assessment->save();
+            if ($type !== 'field_inspector') {
+                dispatch(new CheckSuccessChangeStatusCheckAssessmentFieldInspectorJob($check_assessment))->delay(now()->addSeconds(5));
+            }else{
+                dispatch(new CheckSuccessCheckAssessmentJob($check_assessment, ['type' => $type, 'forceStatus' => true]))->delay(now()->addSeconds(5));
+            }
             return $check_assessment;
         }
         return null;
@@ -81,6 +87,7 @@ class CheckAssessmentActionResponse implements Responsable
     public function saveAnswerStatusScore($request)
     {
         $type = $request->get('type') ?? 'institute';
+        $isStatusChanged = false;
         $checkAssessmentModel = CheckAssessment::where('user_id', $request->user_id)->whereIn('status', ['checking', 'success'])->where('id', $request->id)->first();
         if ($type === 'field_inspector') {
             $checkAssessmentModel = CheckAssessmentFieldInspector::where('id', $request->id)
@@ -112,12 +119,15 @@ class CheckAssessmentActionResponse implements Responsable
                                     && $check_sections_question->id === $question->id) {
                                     $check_sections_question->status = $question->status_approved ? 'success' : 'checking';
                                     $check_sections_question->save();
+                                    $isStatusChanged = true;
                                 }
                             }
                         }
                         #set question status
                     }
-                    dispatch(new CheckSuccessCheckAssessmentJob($checkAssessmentModel));
+                    if ($isStatusChanged) {
+                        dispatch(new CheckSuccessCheckAssessmentJob($checkAssessmentModel, ['type' => $type]))->delay(now()->addSeconds(5));
+                    }
                     return ['msg' => 'The scores and statuses was successfully saved!.'];
                 }
             }

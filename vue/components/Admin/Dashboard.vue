@@ -38,10 +38,34 @@
                                     <div class="items-row sidekick items-hero">
                                         <div class="p-card">
                                             <div class="admin-mat-card">
+                                                <div class="p-card-header">
+                                                    <i class="material-icons"> chrome_reader_mode </i>
+                                                    <h3 @click="goTo('assessment')" class="p-card-title"> Assessments,
+                                                        Scholarship. </h3>
+                                                </div>
                                                 <SpinnerLoading v-if="validated().loading_dashboard_data"/>
                                                 <div class="p-posts-card">
                                                     <div class="p-columns">
-                                                        <!--Events Count-->
+                                                        <!--Assessment Count-->
+                                                        <div class="p-column">
+                                                            <div @click="goTo('assessment')" style="cursor: pointer;"
+                                                                 class="items-counter align-horizontal-center target-host">
+                                                                <div class="counter-header">
+                                                                    <div class="counter-title-label">
+                                                                        <h4 class="counter-title">Checking Assessment
+                                                                            Count</h4>
+                                                                        <div class="p-label">(Current)</div>
+                                                                    </div>
+                                                                </div>
+                                                                <div class="value-delta">
+                                                                    <div class="value">
+                                                                        <span class="value-container">{{dashboardData.assessment_count.active}} Posts</span>
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                        <!--End Assessment Count-->
+                                                        <!--Scholarship Count-->
                                                         <div class="p-column">
                                                             <div @click="goTo('scholarship')" style="cursor: pointer;"
                                                                  class="items-counter align-horizontal-center target-host">
@@ -59,8 +83,8 @@
                                                                 </div>
                                                             </div>
                                                         </div>
-                                                        <!--End Events Count-->
-                                                                </div>
+                                                        <!--End Scholarship Count-->
+                                                    </div>
                                                 </div>
                                             </div>
                                         </div>
@@ -69,13 +93,84 @@
                             </div>
                             <!--End Overview Items-->
                             <!--<hr class="splitter-items">-->
-
-
+                            <!--Assessment Overview Items-->
+                            <div class="items">
+                                <!-- items-stability -->
+                                <section>
+                                    <h2 class="items-title">All Assessment Status</h2>
+                                    <div class="items-row sidekick">
+                                        <CounterCard :isLoading="validated().loading_dashboard_data"
+                                                     @onCardClick="goTo('create-assessment')"
+                                                     title="Success"
+                                                     :count="{text: 'Post(s)', value: dashboardData.assessment_count.success }"
+                                                     icon="verified_user"/>
+                                        <CounterCard :isLoading="validated().loading_dashboard_data"
+                                                     @onCardClick="goTo('send-assessment')"
+                                                     title="Checking"
+                                                     :count="{text: 'Member(s)', value: dashboardData.assessment_count.active }"
+                                                     icon="description"/>
+                                    </div>
+                                    <div class="items-row sidekick">
+                                        <CounterCard :isLoading="validated().loading_dashboard_data"
+                                                     @onCardClick="goTo('assessment')"
+                                                     title="Close"
+                                                     :count="{text: 'Member(s)', value: dashboardData.assessment_count.close }"
+                                                     icon="watch_later"/>
+                                        <CounterCard :isLoading="validated().loading_dashboard_data"
+                                                     @onCardClick="goTo('assessment')"
+                                                     title="All"
+                                                     :count="{text: 'Member(s)', value: dashboardData.assessment_count.all }"
+                                                     icon="collections_bookmark"/>
+                                    </div>
+                                </section>
+                            </div>
+                            <!--End Assessment Overview Items-->
+                            <!--Member Overview Items-->
+                            <div class="items">
+                                <!-- items-stability -->
+                                <section>
+                                    <h2 class="items-title">All Members Status</h2>
+                                    <div class="items-row sidekick">
+                                        <!--Institute Card-->
+                                        <CounterCard :isLoading="validated().loading_dashboard_data"
+                                                     @onCardClick="goTo('institute')"
+                                                     title="Institute"
+                                                     :count="{text: 'Member(s)', value: dashboardData.members.institute_count }"
+                                                     icon="business"/>
+                                        <!--Institute Card-->
+                                        <!--Field Inspector Card-->
+                                        <CounterCard :isLoading="validated().loading_dashboard_data"
+                                                     @onCardClick="goTo('field-inspector')"
+                                                     title="Field Inspector"
+                                                     :count="{text: 'Member(s)', value: dashboardData.members.field_inspector_count }"
+                                                     icon="directions_walk"/>
+                                        <!--Field Inspector Card-->
+                                    </div>
+                                    <div class="items-row sidekick">
+                                        <!--Checker Card-->
+                                        <CounterCard :isLoading="validated().loading_dashboard_data"
+                                                     @onCardClick="goTo('checker')"
+                                                     title="Institute"
+                                                     :count="{text: 'Member(s)', value: dashboardData.members.checker_count }"
+                                                     icon="group"/>
+                                        <!--Checker Card-->
+                                    </div>
+                                </section>
+                            </div>
+                            <!--End Member Overview Items-->
                             <!--Posts Items-->
                             <div class="items">
                                 <!-- items-stability -->
                                 <section>
                                     <h2 class="items-title">All Posts Status</h2>
+                                    <div class="items-row sidekick">
+                                        <!--Scholarships Card-->
+                                        <CounterCard :isLoading="validated().loading_dashboard_data"
+                                                     @onCardClick="goTo('scholarship')" title="Scholarships"
+                                                     icon="school"
+                                                     :count="{text: 'Posts', value: dashboardData.scholarships_count.all }"/>
+                                        <!--Scholarships Card-->
+                                    </div>
                                     <div class="items-row sidekick">
                                         <!-- items-hero  -->
                                         <!--News Card-->
@@ -116,8 +211,7 @@
         computed: {
             ...mapState(['isMobile', 'isSidebarCollapsed', 'dashboardData']),
         },
-        watch: {
-        },
+        watch: {},
         methods: {
             ...mapActions(['setPageTitle', 'fetchDashboardData']),
             setEnterParentData() {

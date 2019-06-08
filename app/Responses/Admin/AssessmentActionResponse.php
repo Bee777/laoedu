@@ -10,9 +10,12 @@ namespace App\Responses\Admin;
 
 
 use App\Http\Controllers\Helpers\Helpers;
+use App\Jobs\CheckAssessmentStatusJob;
 use App\Models\Assessment;
 use App\Models\AssessmentSection;
 use App\Models\CheckAssessment;
+use App\Models\CheckAssessmentFieldInspector;
+use App\Models\CheckAssessmentSection;
 use App\Models\SectionQuestion;
 use App\Responses\Admin\Schema\QuestionContentSchema;
 use Illuminate\Contracts\Support\Responsable;
@@ -279,6 +282,7 @@ class AssessmentActionResponse implements Responsable
                     $existSectionModel->questions()->delete();
                 }
             }
+            $this->deleteCheckAssessments($assessmentModel);
             $assessmentModel->sections()->delete();
             $assessmentModel->delete();
             return ['msg' => 'The assessment has been deleted!'];
@@ -291,12 +295,13 @@ class AssessmentActionResponse implements Responsable
         $assessmentModel = Assessment::find($request->id);
         if (isset($assessmentModel) && $this->allowStatuses($request->status)) {
             $isChecking = CheckAssessment::where('assessment_id', $assessmentModel->id)->exists();
-            if($request->status==='open' && $isChecking){
+            if ($request->status === 'open' && $isChecking) {
                 $assessmentModel->status = 'opening';
-            }else{
+            } else {
                 $assessmentModel->status = $request->status;
             }
             $assessmentModel->save();
+            dispatch(new CheckAssessmentStatusJob($assessmentModel))->delay(now()->addSeconds(5));
             return ['msg' => 'The assessment status has been changed!'];
         }
         return false;
@@ -306,6 +311,18 @@ class AssessmentActionResponse implements Responsable
     {
         $statuses = ['close', 'open', 'opening', 'success'];
         return in_array($title, $statuses, true);
+    }
+
+    public function deleteCheckAssessments($assessmentModel): void
+    {
+        $check_assessments = CheckAssessment::where('assessment_id', $assessmentModel->id)->get();
+        foreach ($check_assessments as $check_assessment) {
+            $check_assessment_field_inspectors = CheckAssessmentFieldInspector::where('check_assessment_id', $check_assessment->id)->get();
+            foreach ($check_assessment_field_inspectors as $check_assessment_field_inspector) {
+                CheckAssessmentSection::where('type', 'field_inspector')->where('check_assessment_id', $check_assessment_field_inspector->id)->delete();
+            }
+            CheckAssessmentSection::where('type', 'institute')->where('check_assessment_id', $check_assessment->id)->delete();
+        }
     }
 }
 

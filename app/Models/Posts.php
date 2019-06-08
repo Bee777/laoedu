@@ -8,7 +8,7 @@ use App\Http\Controllers\Helpers\Helpers;
 
 class Posts extends Model
 {
-    protected $dates = ['deadline'];
+    protected $dates = ['start_date', 'deadline'];
     public static $uploadPath = '/assets/images/posts/';
 
     public function user()

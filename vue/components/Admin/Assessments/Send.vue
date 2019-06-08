@@ -441,3 +441,8 @@
         }
     });
 </script>
+<style scoped>
+    .admin-settings-cameo .multiselect {
+        min-height: 43px;
+    }
+</style>

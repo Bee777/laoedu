@@ -65,6 +65,8 @@ export default new Vuex.Store({
             latest_members_count: 0,
             news_count: 0,
             scholarships_count: {active: 0, all: 0},
+            assessment_count: {active: 0, all: 0, close: 0, success: 0},
+            members: {institute_count: 0, field_inspector_count: 0, checker_count: 0},
         },
         searchesData: {
             institute_category: {},
@@ -293,6 +295,7 @@ export default new Vuex.Store({
         },
         setCurrentFocusSectionIndex(s, p) {
             s.currentFocusIndexes.sectionIndex = p;
+            s.currentFocusIndexes.questionIndexes.sectionIndex = p;
         },
         setEditAssessmentStatus(s, p) {
             s.mEditAssessment = p;
@@ -347,7 +350,7 @@ export default new Vuex.Store({
             if (p.position === 'top') {
                 s.checkAssessmentComments.unshift(p.data);
                 s.checkAssessmentComments.pop();
-            } else if(p.position === 'reset') {
+            } else if (p.position === 'reset') {
                 s.checkAssessmentComments = p.data;
             } else {
                 s.checkAssessmentComments = s.checkAssessmentComments.concat(p.data);
