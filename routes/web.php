@@ -50,6 +50,7 @@ Route::group(['prefix' => 'users/me', 'middleware' => []], function () {
 /***** @FieldInspector ***** */
 Route::group(['prefix' => 'field-inspector/me', 'middleware' => []], function () {
     Route::get('/', 'FieldInspectorController@index')->name('field-inspector.get.index');
+    Route::get('/profile-settings', 'FieldInspectorController@index')->name('field-inspector.get.profile-settings');
     Route::get('/check-assessments', 'FieldInspectorController@index')->name('field-inspector.get.check-assessments');
     Route::get('/check-assessments/{id}', 'FieldInspectorController@index')->name('field-inspector.get.check-assessments.single');
 });

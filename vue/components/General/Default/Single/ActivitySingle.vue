@@ -1,7 +1,7 @@
 <template>
   <div>
     <!--POST CONTENT -->
-    <section id="blog-singel" class="pt-10 pb-10 gray-bg">
+    <section id="blog-singel" class="pt-10 pb-10 gray-bg" style="min-height: 499px;">
       <div class="container">
         <div class="fire-spinner" v-if="shouldLoadingSingle(type)"></div>
         <div class="row">
@@ -16,7 +16,7 @@
                   :alt="singlePostsData.activities.data.image"
                 >
               </div>
-              <div class="cont">
+              <div class="cont" style="min-height: 499px;">
                 <div class="blog-header-title">
                   <h1 v-if="shouldLoadingSingle(type)">
                     <div class="loading-text"></div>

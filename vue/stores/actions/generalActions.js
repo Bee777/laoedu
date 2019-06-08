@@ -66,13 +66,13 @@ export const createActions = (utils) => {
         registerInstitute(c, user) {
             return new Promise((r, n) => {
                 utils.Validate(user, {
-                    'institute_name': ['required', { max: 191 }],
-                    'short_name': ['required', { max: 90 }],
+                    'institute_name': ['required', {max: 191}],
+                    'short_name': ['required', {max: 90}],
                     'email': ['email', 'required'],
                     'password': ['required', 'confirm', {min: 6}],
                     'password_confirmation': ['required', {min: 6}],
                     'institute_category': ['required'],
-                    'parent_institute_category': [{required: { when: 'institute_category.have_parent', equals: 'yes'}}],
+                    'parent_institute_category': [{required: {when: 'institute_category.have_parent', equals: 'yes'}}],
                 }).then((v) => {
                     c.commit('setValidated', {errors: {loading: 'yes'}});
                     client.post(`${apiUrl}/guest/${user.url}-post`, user, ajaxConfig)
@@ -150,7 +150,13 @@ export const createActions = (utils) => {
         /*** @ResetPasswordActionsAndData **/
         /*** @PostsData **/
         fetchPostsData(c, i) {
-            let request = `limit=${i.limit}&page=${i.page}&q=${i.q}`;
+            let options_request = '';
+            for (let o in i.options) {
+                if (i.options.hasOwnProperty(o)) {
+                    options_request += `&${o}=${i.options[o] | ''}`;
+                }
+            }
+            let request = `limit=${i.limit}&page=${i.page}&q=${i.q}${options_request}`;
             c.commit('setValidated', {errors: {loading_search_posts: true}});
             client.get(`${apiUrl}/home/posts/${i.type}?${request}`, ajaxConfig.getHeaders())
                 .then(res => {

@@ -75,8 +75,7 @@
                     <a
                       @click="Logout()"
                       class="main-btn"
-                      :class="[ validated().loading ? 'is-loading' : '']"
-                    >
+                      :class="[ validated().loading ? 'is-loading' : '']">
                       <strong>Sign out</strong>
                     </a>
                   </template>
@@ -114,12 +113,12 @@
                       </ul>
                     </li> -->
                     <li class="nav-item">
-                      <router-link :to="{name: 'institute'}" active-class="active" exact>ສະຖານການສຶກສາ</router-link>
-                      <ul class="sub-menu">
-                        <li>
-                          <router-link to="/posts/institute/single/:id">Institute Single</router-link>
-                        </li>
-                      </ul>
+                      <router-link :to="{name: 'institute'}" active-class="active">ສະຖານການສຶກສາ</router-link>
+                      <!--<ul class="sub-menu">-->
+                        <!--<li>-->
+                          <!--<router-link to="/posts/institute/single/:id">Institute Single</router-link>-->
+                        <!--</li>-->
+                      <!--</ul>-->
                     </li>
                     <li class="nav-item">
                       <router-link :to="{name: 'news'}" active-class="active" exact>ຂ່າວສານ</router-link>

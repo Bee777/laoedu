@@ -18,6 +18,6 @@
     <script src="{{ asset('/js') }}/vue-datetime.min.js{{$s["fresh_version"]}}" type="text/javascript"></script>
 
     <script type="text/javascript"
-            src="{{url('/bundles/generated/admin')}}/admin.c0298bd4719ea201e3a3.bundle.js"></script>
+            src="{{url('/bundles/generated/admin')}}/admin.812f7c391dd9c05e9e4f.bundle.js"></script>
 
 @endsection

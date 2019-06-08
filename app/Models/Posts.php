@@ -2,12 +2,14 @@
 
 namespace App\Models;
 
+use App\Traits\UserRoleTrait;
 use App\User;
 use Illuminate\Database\Eloquent\Model;
 use App\Http\Controllers\Helpers\Helpers;
 
 class Posts extends Model
 {
+    use UserRoleTrait;
     protected $dates = ['start_date', 'deadline'];
     public static $uploadPath = '/assets/images/posts/';
 
@@ -19,6 +21,27 @@ class Posts extends Model
     public static function getPosts($type, $limit)
     {
         $mLimit = Helpers::isNumber($limit) ? $limit : 3;
+
+        if ($type === 'institute') {
+            $fields = ['users.id', 'user_profiles.institute_name', 'user_profiles.short_institute_name', 'user_profiles.public_email', 'user_profiles.updated_at', 'user_profiles.founded', 'user_profiles.phone_number'];
+
+            $data = User::select(array_merge(['users.image', 'user_profiles.institute_category_id', 'user_profiles.parent_institute_category_id'], $fields))->join('user_types', 'user_types.user_id', 'users.id')
+                ->join('user_profiles', 'user_profiles.user_id', 'users.id')
+                ->where('user_types.type_user_id', (new self)->getTypeUserId('institute'))
+                ->where('status', 'approved')
+                ->limit($mLimit)->orderBy('id', 'desc')->get();
+
+            $data->map(function ($d) {
+                $category = (new self())->getInstituteCategory($d);
+                $d->category = $category ?? ['id' => '', 'name' => 'No data.'];
+                $d->image = "/assets/images/user_profiles/{$d->image}";
+                $d->formatted_founded = !empty($d->founded) ? Helpers::toFormatDateString($d->founded, 'M d Y') : 'N/A';
+                return $d;
+            });
+
+            return $data;
+        }
+
         $posts = self::where('type', $type)->limit($mLimit)->orderBy('id', 'desc')->where('status', 'open')->get();
         $posts->map(function ($post) {
             $post->author = $post->user->name;
@@ -45,5 +68,17 @@ class Posts extends Model
             ++$c->view;
             $c->save();
         }
+    }
+
+    public function getInstituteCategory($user_profile)
+    {
+
+        if (isset($user_profile->parent_institute_category_id)) {
+            $category = InstituteCategory::find($user_profile->parent_institute_category_id);
+            return $category;
+        }
+
+        $category = InstituteCategory::find($user_profile->institute_category_id);
+        return $category;
     }
 }

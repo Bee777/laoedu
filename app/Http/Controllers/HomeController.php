@@ -6,7 +6,6 @@ use App\Jobs\SendContactInfo;
 use App\Models\InstituteCategory;
 use App\Responses\Home\PostsResponse;
 use App\Responses\Home\SinglePostsResponse;
-use App\Responses\OrganizeChartMemberResponse;
 use App\Traits\DefaultData;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
@@ -75,12 +74,12 @@ class HomeController extends Controller
         $data = [];
         $data['banners'] = Banner::getBanners(8);
         $data['latest_news'] = Posts::getPosts('news', 5);
-        // $data['About'] = Site::getAbout();
         $data['latest_scholarship'] = Posts::getPosts('scholarship', 3);
-        $data['latest_activity'] = Posts::getPosts('activity', 4);
+        $data['latest_activity'] = Posts::getPosts('activity', 3);
         $data['mostViewScholarship'] = Posts::where('type', 'scholarship')->where('status', 'open')->orderBy('view', 'desc')->first();
         $data['instituteCategories'] = InstituteCategory::select('id', 'name', 'have_parent')->orderBy('id', 'desc')->get();
-        $data['instituteCategoriesHome'] = InstituteCategory::select('id', 'name')->where('have_parent','no')->orderBy('id', 'desc')->get();
+        $data['instituteCategoriesHome'] = InstituteCategory::select('id', 'name')->where('have_parent', 'no')->orderBy('id', 'desc')->get();
+        $data['latest_institutes'] = Posts::getPosts('institute', 3);
 
         if ($data['mostViewScholarship']) {//set image
             $data['mostViewScholarship']->image = Posts::$uploadPath . $data['mostViewScholarship']->image;
@@ -114,7 +113,7 @@ class HomeController extends Controller
     public function getInstituteParentCategories(Request $request, $id)
     {
         $data = InstituteCategory::find($id);
-        if(!isset($data)){
+        if (!isset($data)) {
             return response()->json(['data' => []]);
         }
         $data = $data->selectedParentCategories();

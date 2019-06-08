@@ -31,4 +31,5 @@ Route::group(['prefix' => 'admin/me', 'middleware' => []], function () {
     Route::get('/members/institute', 'AdminController@index')->name('admin.get.members.institute');
     Route::get('/institute-categories', 'AdminController@index')->name('admin.get.institute-categories');
     Route::get('/review-assessments-field-inspector', 'AdminController@index')->name('admin.get.review-assessments-field-inspector');
+    Route::get('/review-assessments-field-inspector/{id}', 'AdminController@index')->name('admin.get.review-assessments-field-inspector-single');
 });

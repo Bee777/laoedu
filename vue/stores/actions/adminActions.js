@@ -16,7 +16,7 @@ export const createActions = (utils) => {
             let options_request = '';
             for (let o in i.options) {
                 if (i.options.hasOwnProperty(o)) {
-                    options_request += `&${o}=${i.options[o]}`;
+                    options_request += `&${o}=${i.options[o] | ''}`;
                 }
             }
             let request = `limit=${i.limit}&page=${i.page}&q=${i.q}${options_request}`;
@@ -892,7 +892,7 @@ export const createActions = (utils) => {
                 client.get(`${apiUrl}/users/check-assessment-comments?check_assessment_id=${i.id}${request}`, ajaxToken(c))
                     .then(res => {
                         c.commit('setClearMsg');
-                        if(!res.data.success){
+                        if (!res.data.success) {
                             return;
                         }
                         if (i.firstLoad) {
