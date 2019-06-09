@@ -79,7 +79,6 @@ export default Base.extend({
     ContactForm
   },
   created() {
-    this.fetchHomeData();
     this.setPageTitle(`Contact Us`);
   }
 });

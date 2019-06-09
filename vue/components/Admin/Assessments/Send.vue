@@ -303,7 +303,7 @@
         },
         data() {
             return {
-                title: 'Send Assessment',
+                title: 'ສົ່ງບົດປະເມີນ',
                 type: 'none',
                 watchers: true,
                 tabs: [{name: 'Send Assessment'}],

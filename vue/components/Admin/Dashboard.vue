@@ -59,7 +59,7 @@
                                                                 </div>
                                                                 <div class="value-delta">
                                                                     <div class="value">
-                                                                        <span class="value-container">{{dashboardData.assessment_count.active}} Posts</span>
+                                                                        <span class="value-container">{{dashboardData.assessment_count.active}} Assessments</span>
                                                                     </div>
                                                                 </div>
                                                             </div>
@@ -97,29 +97,29 @@
                             <div class="items">
                                 <!-- items-stability -->
                                 <section>
-                                    <h2 class="items-title">All Assessment Status</h2>
+                                    <h2 class="items-title">All Assessments Status</h2>
                                     <div class="items-row sidekick">
                                         <CounterCard :isLoading="validated().loading_dashboard_data"
                                                      @onCardClick="goTo('create-assessment')"
                                                      title="Success"
-                                                     :count="{text: 'Post(s)', value: dashboardData.assessment_count.success }"
+                                                     :count="{text: 'Assessment(s)', value: dashboardData.assessment_count.success }"
                                                      icon="verified_user"/>
                                         <CounterCard :isLoading="validated().loading_dashboard_data"
                                                      @onCardClick="goTo('send-assessment')"
                                                      title="Checking"
-                                                     :count="{text: 'Member(s)', value: dashboardData.assessment_count.active }"
+                                                     :count="{text: 'Assessment(s)', value: dashboardData.assessment_count.active }"
                                                      icon="description"/>
                                     </div>
                                     <div class="items-row sidekick">
                                         <CounterCard :isLoading="validated().loading_dashboard_data"
                                                      @onCardClick="goTo('assessment')"
                                                      title="Close"
-                                                     :count="{text: 'Member(s)', value: dashboardData.assessment_count.close }"
+                                                     :count="{text: 'Assessment(s)', value: dashboardData.assessment_count.close }"
                                                      icon="watch_later"/>
                                         <CounterCard :isLoading="validated().loading_dashboard_data"
                                                      @onCardClick="goTo('assessment')"
                                                      title="All"
-                                                     :count="{text: 'Member(s)', value: dashboardData.assessment_count.all }"
+                                                     :count="{text: 'Assessment(s)', value: dashboardData.assessment_count.all }"
                                                      icon="collections_bookmark"/>
                                     </div>
                                 </section>

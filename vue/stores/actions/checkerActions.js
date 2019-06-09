@@ -124,10 +124,33 @@ export const createActions = (utils) => {
                 });
         },
         /*** @DashboardData **/
-        /***@GET_ASSESSMENT**/
-        fetchAssessment(c, i) {
+        /*** @postUpdateStatusCheckAssessment **/
+        postUpdateStatusCheckAssessment(c, i) {
             return new Promise((r, n) => {
-                client.get(`${apiUrl}/users/assessment/fetch/${i.id}`, ajaxToken(c))
+                utils.Validate(i.data, {
+                    id: ['required'],//check assessment id
+                    status: ["required"],
+                }).then(v => {
+                    client.post(`${apiUrl}/users/assessment/check-assessment/change-status/${i.data.id}`, i.data, ajaxToken(c))
+                        .then(res => {
+                            c.commit('setClearMsg');
+                            r(res.data)
+                        })
+                        .catch(err => {
+                            c.dispatch('HandleError', err.response);
+                            n(err)
+                        })
+                }).catch(e => {
+                    c.commit('setValidated', {errors: e.errors});
+                    n(e);
+                })
+            });
+        },
+        /*** @postUpdateStatusCheckAssessment **/
+        /***@GET_ASSESSMENT**/
+        fetchCheckAssessment(c, i) {
+            return new Promise((r, n) => {
+                client.get(`${apiUrl}/users/assessment/fetch/${i.id}?user_id=${i.user_id}`, ajaxToken(c))
                     .then(res => {
                         c.commit('setClearMsg');
                         r(res.data);
@@ -138,13 +161,13 @@ export const createActions = (utils) => {
             });
         },
         /***@GET_ASSESSMENT**/
-        /***@SAVE_CHECK_ASSESSMENT*/
+        /***@SAVE_CHECK_ASSESSMENT_SCORE_STATUS*/
         postSaveCheckAssessmentAnswer(c, data) {
             return new Promise((r, n) => {
                 utils.Validate(data, {
                     'check_assessment_sections': ['required'],
                 }).then(v => {
-                    client.post(`${apiUrl}/users/assessment/check-assessment/save-answer/${data.id}`, data, ajaxToken(c))
+                    client.post(`${apiUrl}/users/assessment/check-assessment/save-answer-status-score/${data.id}?user_id=${data.user_id}&type=${data.type}`, data, ajaxToken(c))
                         .then(res => {
                             c.commit('setClearMsg');
                             r(res.data);
@@ -160,7 +183,7 @@ export const createActions = (utils) => {
                 });
             });
         },
-        /***@SAVE_CHECK_ASSESSMENT*/
+        /***@SAVE_CHECK_ASSESSMENT_SCORE_STATUS*/
         /***@manageComments */
         postMangeComment(c, data) {
             return new Promise((r, n) => {
@@ -212,7 +235,7 @@ export const createActions = (utils) => {
                 client.get(`${apiUrl}/users/check-assessment-comments?check_assessment_id=${i.id}${request}`, ajaxToken(c))
                     .then(res => {
                         c.commit('setClearMsg');
-                        if(!res.data.success){
+                        if (!res.data.success) {
                             return;
                         }
                         if (i.firstLoad) {
@@ -222,6 +245,7 @@ export const createActions = (utils) => {
                         r(res.data)
                     })
                     .catch(err => {
+                        console.log(err);
                         c.dispatch('HandleError', err.response);
                         n(err)
                     });
@@ -244,5 +268,19 @@ export const createActions = (utils) => {
             });
         },
         /***@deleteComments */
+        /***@GET_ASSESSMENT_FIELD_INSPECTOR**/
+        fetchCheckAssessmentFieldInspector(c, i) {
+            return new Promise((r, n) => {
+                client.get(`${apiUrl}/users/assessment-field-inspector/fetch/${i.id}?user_id=${i.user_id}&institute_id=${i.institute_id}`, ajaxToken(c))
+                    .then(res => {
+                        c.commit('setClearMsg');
+                        r(res.data);
+                    }).catch(err => {
+                    c.dispatch('HandleError', err.response);
+                    n(err);
+                });
+            });
+        },
+        /***@GET_ASSESSMENT_FIELD_INSPECTOR**/
     }
 };

@@ -72,7 +72,7 @@
                     {
                         contentHeader: {
                             expanded: true,
-                            name: 'Institute Info',
+                            name: 'Checker Info',
                             description: 'Manage, Authentication',
                             icon: 'keyboard_arrow_up',
                         }, items: [
@@ -87,7 +87,7 @@
                     {
                         contentHeader: {
                             expanded: true,
-                            name: "My Assessments",
+                            name: "Review Assessments",
                             description: "Manage my assessments information",
                             icon: "keyboard_arrow_up"
                         },

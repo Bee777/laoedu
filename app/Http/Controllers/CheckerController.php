@@ -18,7 +18,7 @@ use Illuminate\Http\Request;
 
 class CheckerController extends Controller
 {
-    protected $rootView = 'main.field_inspector';
+    protected $rootView = 'main.checker';
 
     protected $excepts = [
         'except' => [

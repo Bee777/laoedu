@@ -77,7 +77,7 @@
         name: "AllFieldInspectors",
         data() {
             return {
-                title: 'All Field Inspectors',
+                title: 'ຜູ້ກວດສອບພາກສະໜາມ',
                 type: 'users_field_inspector',
                 watchers: true,
                 tabs: [{name: 'Field Inspectors'}],

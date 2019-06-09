@@ -208,9 +208,9 @@
 
 <script>
     import {mapActions} from 'vuex'
-    import InstituteBase from '@bases/InstituteBase.js'
+    import FieldInspectorBase from '@bases/FieldInspectorBase.js'
 
-    export default InstituteBase.extend({
+    export default FieldInspectorBase.extend({
         name: "ProfileSettings",
         data: () => ({
             title: 'My Profile Settings',
@@ -306,7 +306,7 @@
             },
             setHeightAdminCard() {
                 let card = this.jq('.admin-master-card');
-                if (card.get(0).clientHeight > 600) {
+                if ((card.get(0) || {}).clientHeight > 600) {
                     card.get(0).style.height = '100vh';
                     setTimeout(() => {
                         card.get(0).style.height = 'auto';

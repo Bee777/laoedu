@@ -22,9 +22,9 @@
                                             </div>
                                         </div>
                                     </div>
-                                    <div @click="$utils.Location('/posts/institute')" style="cursor: pointer;" class="count-items">
-                                        <div>Latest Institutes Count</div>
-                                        <div class="value">{{ dashboardData.latest_institutes_count }}</div>
+                                    <div style="cursor: pointer;" class="count-items">
+                                        <div>Latest Checker Count</div>
+                                        <div class="value">{{ dashboardData.latest_checker_count }}</div>
                                     </div>
                                 </div>
                             </div>
@@ -59,7 +59,7 @@
                                                                     </div>
                                                                 </div>
                                                                 <div class="value-delta">
-                                                                    <div class="value"><span class="value-container">{{ dashboardData.assessments.checking }} Assessment(s)</span>
+                                                                    <div class="value"><span class="value-container">{{ dashboardData.assessments.active }} Assessment(s)</span>
                                                                     </div>
                                                                 </div>
                                                             </div>
@@ -78,30 +78,29 @@
                             <div class="items">
                                 <!-- items-stability -->
                                 <section>
-                                    <h2 class="items-title">All Posts Status</h2>
+                                    <h2 class="items-title">All Assessments Status</h2>
                                     <div class="items-row sidekick">
                                     </div>
                                     <div class="items-row sidekick">
-                                        <!-- items-hero  -->
-                                        <!--News Card-->
                                         <CounterCard :isLoading="validated().loading_dashboard_data"
-                                                     @onCardClick="goTo('assessments')" title="Current Checking Assessments" icon="list_alt"
-                                                     :count="{text: 'Assessment(s)', value: dashboardData.assessments.checking}"/>
-                                        <!--News Card-->
-                                        <!--Activities Card-->
-                                        <CounterCard :isLoading="validated().loading_dashboard_data"
-                                                     @onCardClick="goTo('assessments')" title="All Assessments"
-                                                     icon="list_alt"
-                                                     :count="{text: 'Assessment(s)', value: dashboardData.assessments.all }"/>
-                                        <!--Activities Card-->
-                                    </div>
-                                    <div class="items-row sidekick">
-                                        <!--Scholarships Card-->
+                                                     @onCardClick="goTo('assessments')"
+                                                     title="Current Checking Assessments" icon="verified_user"
+                                                     :count="{text: 'Assessment(s)', value: dashboardData.assessments.active}"/>
                                         <CounterCard :isLoading="validated().loading_dashboard_data"
                                                      @onCardClick="goTo('assessments')" title="Success Assessments"
-                                                     icon="list_alt"
+                                                     icon="description"
                                                      :count="{text: 'Assessment(s)', value: dashboardData.assessments.success }"/>
-                                        <!--Scholarships Card-->
+                                    </div>
+                                    <div class="items-row sidekick">
+                                        <CounterCard :isLoading="validated().loading_dashboard_data"
+                                                     @onCardClick="goTo('assessments')" title="Close Assessments"
+                                                     icon="watch_later"
+                                                     :count="{text: 'Assessment(s)', value: dashboardData.assessments.close }"/>
+
+                                        <CounterCard :isLoading="validated().loading_dashboard_data"
+                                                     @onCardClick="goTo('assessments')" title="All Assessments"
+                                                     icon="collections_bookmark"
+                                                     :count="{text: 'Assessment(s)', value: dashboardData.assessments.all }"/>
                                     </div>
                                 </section>
                             </div>

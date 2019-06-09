@@ -203,7 +203,7 @@
     export default AdminBase.extend({
         name: "InstituteCategory",
         data: () => ({
-            title: 'Institute Categories',
+            title: 'ໝວດໝູ່ສະຖານການສຶກສາ',
             type: 'institute_category',
             watchers: true,
             tabs: [{name: 'Institute Categories'}],

@@ -153,9 +153,6 @@ export default Base.extend({
           }
         });
     }
-  },
-  created() {
-    this.fetchHomeData();
   }
 });
 </script>

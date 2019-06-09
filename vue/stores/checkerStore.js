@@ -39,9 +39,11 @@ export default new Vuex.Store({
         },
         searchesData: {
             check_assessments: {},
+             check_assessments_field_inspector: {},
         },
         searchesAllowed: {
             check_assessments: true,
+            check_assessments_field_inspector: true,
         },
         mSectionsAssessmentAnswer: [],
         checkAssessmentComments: [],

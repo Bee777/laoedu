@@ -134,11 +134,13 @@ class UserController extends Controller
         $paginateLimit = ($request->exists('limit') && !empty($request->get('limit'))) ? $request->get('limit') : 10;
         $paginateLimit = Helpers::isNumber($paginateLimit) ? $paginateLimit : 10;
         $text = $request->get('q');
-
+        $user = $request->user();
         if ($type === 'check_assessments') {
             $data = (new UserCheckAssessmentsResponse('get', ['text' => $text, 'limit' => $paginateLimit]))->get($request);
         } else if ($type === 'downloadFiles') {
             $data = (new FileResponse('get', ['text' => $text, 'limit' => $paginateLimit]))->get($request);
+        } else if ($type === 'check_assessments_field_inspector' && $user->hasActions('view_check_assessments')) {
+            $data = (new CheckAssessmentsFieldInspectorResponse('get', ['text' => $text, 'limit' => $paginateLimit]))->get($request);
         }
         if (count($data) > 0) {
             $data->appends(['limit' => $request->exists('limit'), 'q' => $request->get('q')]);

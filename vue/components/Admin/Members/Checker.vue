@@ -77,7 +77,7 @@
         name: "AllCheckers",
         data() {
             return {
-                title: 'All Checkers',
+                title: 'ຜູ້ກວດສອບບົດປະເມີນ',
                 type: 'users_checker',
                 watchers: true,
                 tabs: [{name: 'Checkers'}],

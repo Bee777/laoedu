@@ -85,7 +85,7 @@
         name: "ReviewAssessments",
         data() {
             return {
-                title: 'Review Assessments',
+                title: 'ບົດປະເມີນທີ່ກວດສອບ',
                 type: 'check_assessments',
                 watchers: true,
                 tabs: [{name: 'Review Assessments'}],

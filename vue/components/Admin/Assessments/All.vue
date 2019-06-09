@@ -123,7 +123,7 @@
         name: "AllAssessments",
         data() {
             return {
-                title: 'All Assessments',
+                title: 'ບົດປະເມີນທັງໝົດ',
                 type: 'assessments',
                 watchers: true,
                 tabs: [{name: 'Assessments'}],

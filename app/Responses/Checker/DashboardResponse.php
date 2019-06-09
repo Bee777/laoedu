@@ -10,6 +10,7 @@ namespace App\Responses\Checker;
 
 
 use App\Http\Controllers\Helpers\Helpers;
+use App\Models\Assessment;
 use App\Models\CheckAssessment;
 use App\Traits\UserRoleTrait;
 use App\User;
@@ -41,9 +42,10 @@ class DashboardResponse implements Responsable
     public function getAssessmentCount(): array
     {
         $data = [];
-        $data['checking'] = CheckAssessment::where('user_id', Auth::user()->id)->where('status', 'checking')->get()->count();
-        $data['success'] = CheckAssessment::where('user_id', Auth::user()->id)->where('status', 'success')->get()->count();
-        $data['all'] = CheckAssessment::where('user_id', Auth::user()->id)->get()->count();
+        $data['active'] = Assessment::where('status', 'opening')->count();
+        $data['all'] = Assessment::all()->count();
+        $data['close'] = Assessment::where('status', 'close')->count();
+        $data['success'] = Assessment::where('status', 'success')->count();
         return $data;
     }
 }

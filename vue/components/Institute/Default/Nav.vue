@@ -100,7 +100,7 @@
                                                             Settings</a>
                                                     </div>
                                                     <div>
-                                                        <a @click="Logout" class="user-square-footer-button"
+                                                        <a @click="Logout()" class="user-square-footer-button"
                                                            target="_top">Sign out</a>
                                                     </div>
                                                 </div>
@@ -202,7 +202,7 @@
                                                             @click="goTo($event,'profile-settings')">Profile
                                                         Settings</a>
                                                     </div>
-                                                    <div><a @click="Logout" class="user-square-footer-button"
+                                                    <div><a @click="Logout()" class="user-square-footer-button"
                                                             target="_top">Sign out</a>
                                                     </div>
                                                 </div>

@@ -68,8 +68,11 @@ Route::group(['prefix' => 'institute/me', 'middleware' => []], function () {
 /***** @CheckerRoutes ***** */
 Route::group(['prefix' => 'checker/me', 'middleware' => []], function () {
     Route::get('/', 'CheckerController@index')->name('checker.get.index');
+    Route::get('/profile-settings', 'CheckerController@index')->name('checker.get.profile-settings');
     Route::get('/check-assessments', 'CheckerController@index')->name('checker.get.check-assessments');
     Route::get('/check-assessments/{id}', 'CheckerController@index')->name('checker.get.check-assessments.single');
+    Route::get('/review-assessments-field-inspector', 'CheckerController@index')->name('checker.get.review-assessments-field-inspector');
+    Route::get('/review-assessments-field-inspector/{id}', 'CheckerController@index')->name('checker.get.review-assessments-field-inspector.single');
 });
 /***** @CheckerRoutes ***** */
 

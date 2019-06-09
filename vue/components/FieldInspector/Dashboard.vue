@@ -78,7 +78,7 @@
                             <div class="items">
                                 <!-- items-stability -->
                                 <section>
-                                    <h2 class="items-title">All Posts Status</h2>
+                                    <h2 class="items-title">All Assessments Status</h2>
                                     <div class="items-row sidekick">
                                     </div>
                                     <div class="items-row sidekick">

@@ -109,7 +109,7 @@
         },
         data() {
             return {
-                title: 'Create New Assessment',
+                title: 'ສ້າງບົດປະເມີນ',
                 type: 'none',
                 watchers: true,
                 tabs: [{name: 'Create Assessment'}],

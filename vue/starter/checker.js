@@ -4,8 +4,6 @@ import store from '@store/checkerStore';
 import VueRouter from 'vue-router';
 import routes from '@route/routesChecker';
 
-
-
 import '@com/Admin/Assets/index.css'
 import {
     Button,
@@ -105,7 +103,7 @@ Vue.prototype.initRouter(router, store).StartRouteGuard();
 
 Vue.prototype.$context_name = "app_checker";
 Vue.prototype.Route = Vue.prototype.initRouter(router, store).Route;
-Vue.prototype.theme = {bgColor: 'linear-gradient(to right, rgb(92, 107, 192), rgb(121, 134, 203))'};
+Vue.prototype.theme = {bgColor: 'linear-gradient(to right, rgb(52, 68, 159), rgb(63, 81, 181))'};
 
 export const app = new Vue({
     el: '#app',

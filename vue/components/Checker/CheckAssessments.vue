@@ -15,7 +15,6 @@
                                        :isLoading="validated().loading_searches"
                                        :formTopState="formTopState"
                                        @onItemPerPageClick="getItems"
-                                       @onSearchActionButton="toggleFormTop(true)"
                                        @onSearchReLoadButtonClick="getItems"
                                        @onSearchInputEnter="getItems"
                                        @onSearchInputClose="getItems"
@@ -24,18 +23,12 @@
                                        @paginateNavigate="paginateNavigator"
                                        @onMenuContextClick="showModalAction">
                             <!--Slot Actions row context-->
-                            <template slot-scope="{fireEvent, position, data}" slot="action-row">
+                            <template slot-scope="{fireEvent, position, data}" slot="action-row-context">
                                 <button
-                                    @click="Route({name: 'check-assessment-single', params: { check_assessment_id: data.row.data.id } })"
+                                    @click="Route({name: 'check-assessment-single', params: { check_assessment_id: data.row.data.id }, query: {user_id: data.row.data.user_id, type: data.row.data.type_user} })"
                                     class="v-md-button v-md-icon-button">
                                     <i class="material-icons v-icon">description</i>
                                 </button>
-
-                                <button
-                                    class="v-md-button v-md-icon-button">
-                                    <i class="material-icons v-icon">save_alt</i>
-                                </button>
-
                             </template>
                             <!--Slot Actions row context-->
                         </TablePaginate>
@@ -44,6 +37,43 @@
                 </div>
             </div>
         </div>
+        <!--Modals -->
+        <!--info-->
+        <AdminModal :isActive="modal.type==='info' && modal.active" @close="modal.active=false">
+            <template slot="title"> {{modal.name}}</template>
+            <div class="fb-dialog-body-section">
+                <div v-html="modal.message"></div>
+                <div>
+                    <div class="form-label"> Assessment Info</div>
+                    <div class="form-input-static-value"> {{ modal.data.title }}</div>
+                </div>
+            </div>
+            <template slot="actions">
+                <button @click="positiveAction()" class="v-md-button primary"> {{modal.action.text}}</button>
+            </template>
+        </AdminModal>
+        <!--info -->
+        <!--warning-->
+        <AdminModal :isActive="modal.type==='warning' && modal.active" @close="modal.active=false">
+            <template slot="title"> {{modal.name}}</template>
+            <div class="fb-dialog-body-section">
+                <div class="body-message-container has-icon is-warning">
+                    <div class="inner">
+                        <i class="material-icons m-icon">warning</i>
+                        <div class="admin-modal-message">{{ modal.message }}</div>
+                    </div>
+                </div>
+                <div>
+                    <div class="form-label"> Assessment Info</div>
+                    <div class="form-input-static-value"> {{ modal.data.title }}</div>
+                </div>
+            </div>
+            <template slot="actions">
+                <button @click="positiveAction()" class="v-md-button warning"> {{ modal.action.text }}</button>
+            </template>
+        </AdminModal>
+        <!--warning -->
+        <!--Modals -->
     </div>
 </template>
 
@@ -52,18 +82,18 @@
     import {mapActions} from 'vuex'
 
     export default CheckerBase.extend({
-        name: "CheckAssessments",
+        name: "ReviewAssessments",
         data() {
             return {
-                title: 'My Assessments',
+                title: 'Review Assessments',
                 type: 'check_assessments',
                 watchers: true,
                 tabs: [{name: 'My Assessments'}],
                 headers: [
-                    {class: 'th-sortable', name: 'Title', width: '200'},
-                    {class: 'hide-xs th-sortable', name: 'Status', width: '15%'},
-                    {class: 'hide-xs th-sortable', name: 'Sent At', width: '25%'},
-                    {class: 'hide-xs th-sortable', name: 'Updated At', width: '25%'},
+                    {class: 'th-sortable', name: 'Title', width: '180'},
+                    {class: 'hide-xs th-sortable', name: 'Status', width: '10%'},
+                    {class: 'hide-xs th-sortable', name: 'User', width: '160'},
+                    {class: 'hide-xs th-sortable', name: 'Updated At', width: '15%'},
                     {class: 'th-not-sortable', name: '', width: '80'},
                 ],
             }
@@ -71,6 +101,65 @@
         methods: {
             ...mapActions(['postUpdateStatusCheckAssessment']),
             callbackBuildItem(data) {
+                let contextMenu, itemStatusMenu;
+                contextMenu = [];
+                //set user status menu
+                if (data.status === 'checking') {
+                    itemStatusMenu = {
+                        name: 'Make as Close',
+                        active: false,
+                        type: 'warning',
+                        message: `Check Assessments with closed status, other users cannot checking them.`,
+                        action: {act: this.postUpdateStatusCheckAssessment, params: {status: 'close'}, text: 'Close'},
+                        data: data
+                    }
+                } else if (data.status === 'close' || data.status === 'success') {
+                    itemStatusMenu = {
+                        name: 'Make as Checking',
+                        active: false,
+                        type: 'info',
+                        message: `Check Assessments with checking status, other users can checking them.`,
+                        action: {
+                            act: this.postUpdateStatusCheckAssessment,
+                            params: {status: 'checking'},
+                            text: 'Check'
+                        },
+                        data: data
+                    }
+                }
+                //set item status menu
+                //add item menu status
+                if (itemStatusMenu) {
+                    contextMenu.splice(0, 0, itemStatusMenu);//add item at second position
+                    if (data.status === 'checking') {
+                        itemStatusMenu = {
+                            name: 'Make as Success',
+                            active: false,
+                            type: 'info',
+                            message: `Check Assessments with success status, other users can see them and means it's successfully.`,
+                            action: {
+                                act: this.postUpdateStatusCheckAssessment,
+                                params: {status: 'success'},
+                                text: 'Success'
+                            },
+                            data: data
+                        };
+                        contextMenu.splice(0, 0, itemStatusMenu);//add item at second position
+                    }
+                }
+
+                if (data.type_user !== 'field_inspector') {
+                    contextMenu.splice(contextMenu.length, 0, {
+                        name: 'Export Check Assessment',
+                        active: false,
+                        type: 'info',
+                        message: `Save as Microsoft Office Word File.`,
+                        action: {act: null, params: {}, text: 'Export'},
+                        data: data
+                    });
+                }
+
+                //add item menu status
                 return {
                     rowContent: {
                         data: data,
@@ -83,10 +172,11 @@
                             class: 'hide-xs',
                             textColor: data.statusColor,
                         },
-                        {data: this.$utils.formatTimestmp(data.created_at), type: 'text', class: 'hide-xs'},
+                        {data: data.user_name, type: 'text', class: 'hide-xs', textColor: data.userColor},
                         {data: this.$utils.formatTimestmp(data.updated_at), type: 'text', class: 'hide-xs'},
                         {
-                            data: data.title, type: 'action', class: '', contextMenu: []
+                            data: data.title, type: 'action', class: '',
+                            contextMenu
                         },
                     ]
                 }

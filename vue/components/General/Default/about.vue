@@ -25,7 +25,6 @@
 import Base from "@com/Bases/GeneralBase.js";
 export default Base.extend({
   created() {
-    this.fetchHomeData();
     this.setPageTitle(`About us`);
   }
 });

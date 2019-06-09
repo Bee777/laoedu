@@ -506,7 +506,7 @@
             },
             setHeightAdminCard() {
                 let card = this.jq('.admin-master-card');
-                if (card.get(0).clientHeight > 600) {
+                if ((card.get(0) || {}).clientHeight > 600) {
                     card.get(0).style.height = '100vh';
                     setTimeout(() => {
                         card.get(0).style.height = 'auto';

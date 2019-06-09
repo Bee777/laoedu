@@ -79,7 +79,7 @@
         name: "all-institute",
         data() {
             return {
-                title: 'All Institutes',
+                title: 'ສະຖານການສຶກສາ',
                 type: 'users_institute',
                 watchers: true,
                 tabs: [{name: 'Institutes'}],
