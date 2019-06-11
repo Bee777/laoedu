@@ -74,14 +74,11 @@ Route::group(['prefix' => '/', 'middleware' => ['cors', 'parseToken', 'auth:api'
             Route::get('/send-users', 'AdminController@responseActionFetchSendAsessmentUsers')->name('api.admin.fetch.send-assessment-users');
             Route::post('/send/{type}', 'AdminController@responseActionSendAsessmentUsers')->name('api.admin.post.send-assessment-users');
         });
-        // Phoud
+
         /*** @SiteInfo ** */
         Route::post('site-info/manage', 'AdminController@responseActionManageSiteInfo')->name('api.admin.post.site-info.manage');
         Route::get('site-info', 'AdminController@getSiteInfo')->name('api.admin.get.site-info');
         /*** @SiteInfo ** */
-
-        //End Phoud
-
         /*** @News ** */
         Route::post('/news/create', 'AdminController@insertNews');
         Route::post('/news/update/{id}', 'AdminController@updateNews');
