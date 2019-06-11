@@ -17,6 +17,6 @@
     <script src="{{ asset('/js') }}/luxon/luxon.min.js" type="text/javascript"></script>
     <script src="{{ asset('/js') }}/vue-datetime.min.js{{$s["fresh_version"]}}" type="text/javascript"></script>
 
-    <script type="text/javascript" src="{{url('/bundles/generated/admin')}}/admin.61e056f453c71985ea0b.bundle.js"></script>
+    <script type="text/javascript" src="{{url('/bundles/generated/admin')}}/admin.d16630d29de7d061fb97.bundle.js"></script>
 
 @endsection

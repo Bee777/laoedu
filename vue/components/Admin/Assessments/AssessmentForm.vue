@@ -28,7 +28,7 @@
                                 </button>
                             </div>
                             <div>
-                                <button class="v-md-button primary"> Send</button>
+                                <button @click="Route({name: 'send-assessment'})" class="v-md-button primary"> Send</button>
                             </div>
                         </div>
                         <div class="actions" v-else>

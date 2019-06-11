@@ -15,7 +15,7 @@
                                        :isLoading="validated().loading_searches"
                                        :formTopState="formTopState"
                                        @onItemPerPageClick="getItems"
-                                       @onSearchActionButton="toggleFormTop(true)"
+                                       @onSearchActionButton="Route({name: 'create-assessment'})"
                                        @onSearchReLoadButtonClick="getItems"
                                        @onSearchInputEnter="getItems"
                                        @onSearchInputClose="getItems"
@@ -23,43 +23,6 @@
                                        :paginateData="paginate"
                                        @paginateNavigate="paginateNavigator"
                                        @onMenuContextClick="showModalAction">
-                            <!--slot form top-->
-                            <template slot="form-top" v-if="formTopState.show">
-                                <form class="admin-form-card user-form" @submit.prevent>
-                                    <div class="user-form-title"> Create new user</div>
-                                    <div class="layout-align-space-around-start layout-row">
-                                        <AdminInput v-model="models.formTop.first_name"
-                                                    :validateText="validated().first_name"
-                                                    :label="'Name'"
-                                                    :inputType="'text'"
-                                                    :focus="true"/>
-                                        <AdminInput v-model="models.formTop.last_name"
-                                                    :validateText="validated().last_name"
-                                                    :containerClass="'is-second-input'"
-                                                    :label="'Last name'"
-                                                    :inputType="'text'"/>
-                                    </div>
-                                    <div class="layout-align-space-around-start layout-row">
-                                        <AdminInput v-model="models.formTop.email" :validateText="validated().email"
-                                                    :autoCompleteText="'username'" :label="'Email'"
-                                                    :inputType="'email'  "/>
-                                        <AdminInput @onInputEnter="createUser" v-model="models.formTop.password"
-                                                    :validateText="validated().password"
-                                                    :containerClass="'is-second-input'"
-                                                    :autoCompleteText="'current-password'" :label="'Password'"
-                                                    :inputType="'password'"/>
-                                    </div>
-                                    <div class="user-form-action layout-align-end-center layout-row">
-                                        <button @click="toggleFormTop(false)"
-                                                class="v-md-button secondary theme-blue">
-                                            Cancel
-                                        </button>
-                                        <button @click="createUser" class="v-md-button primary theme-blue"> Create
-                                        </button>
-                                    </div>
-                                </form>
-                            </template>
-                            <!--slot form top-->
                             <!--Slot Actions row context-->
                             <template slot-scope="{fireEvent, position, data}" slot="action-row-context">
                                 <button
