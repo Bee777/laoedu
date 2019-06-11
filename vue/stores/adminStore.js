@@ -389,6 +389,7 @@ export default new Vuex.Store({
         /***@SAVE_ASSESSMENT**/
         saveAssessment(c) {
             return new Promise((r, n) => {
+                console.log(client);
                 client.post(`${apiUrl}/admin/assessment/create/`, {
                     assessment: c.state.mAssessment,
                     sections: c.state.mSectionsStack
