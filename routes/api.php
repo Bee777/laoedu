@@ -65,8 +65,9 @@ Route::group(['prefix' => '/', 'middleware' => ['cors', 'parseToken', 'auth:api'
 
         });
 
+        Route::post('/post-data/assessment/create', 'AdminController@responseActionCreateAsessment');
         Route::group(['prefix' => '/assessment', 'middleware' => []], function () {
-            Route::post('/create', 'AdminController@responseActionCreateAsessment')->name('api.admin.post.assessment.create');
+//            Route::post('/create', 'AdminController@responseActionCreateAsessment')->name('api.admin.post.assessment.create');
             Route::get('/fetch/{id}', 'AdminController@responseActionFecthAsessment')->name('api.admin.get.assessment.fetch');
             Route::post('/update/{id}', 'AdminController@responseActionUpdateAsessment')->name('api.admin.post.assessment.update');
             Route::post('/update-status/{id}', 'AdminController@responseActionUpdateStatusAsessment')->name('api.admin.post.assessment.update-status');
