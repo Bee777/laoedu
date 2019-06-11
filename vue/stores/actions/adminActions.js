@@ -1,6 +1,4 @@
 import {createAxiosClient} from "../../initial/api/axios-client";
-import axios from 'axios';
-
 let {client, ajaxConfig, apiUrl} = createAxiosClient();
 const ajaxToken = (c, formData = false) => {
     if (formData) {
@@ -943,10 +941,7 @@ export const createActions = (utils) => {
         /***@SAVE_ASSESSMENT**/
         saveAssessment(c) {
             return new Promise((r, n) => {
-                axios.post(`${apiUrl}/admin/assessment/create/`, {
-                    assessment: c.state.mAssessment,
-                    sections: c.state.mSectionsStack
-                }, ajaxToken(c))
+                client.post('', {}, ajaxToken(c))
                     .then(res => {
                         c.commit('setClearMsg');
                         r(res.data);
