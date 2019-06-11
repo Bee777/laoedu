@@ -1,4 +1,5 @@
 import {createAxiosClient} from "../../initial/api/axios-client";
+import axios from 'axios';
 
 let {client, ajaxConfig, apiUrl} = createAxiosClient();
 const ajaxToken = (c, formData = false) => {
@@ -942,11 +943,10 @@ export const createActions = (utils) => {
         /***@SAVE_ASSESSMENT**/
         saveAssessment(c) {
             return new Promise((r, n) => {
-                // {
-                //     assessment: c.state.mAssessment,
-                //         sections: c.state.mSectionsStack
-                // },
-                client.delete(`${apiUrl}/admin/assessment/create/`,  ajaxToken(c))
+                axios.post(`${apiUrl}/admin/assessment/create/`, {
+                    assessment: c.state.mAssessment,
+                    sections: c.state.mSectionsStack
+                }, ajaxToken(c))
                     .then(res => {
                         c.commit('setClearMsg');
                         r(res.data);
@@ -969,14 +969,14 @@ export const createActions = (utils) => {
                         if (data.success) {
                             data.data.sections.forEach((section, s_idx) => {
                                 section.questions.forEach((q, q_idx) => {
-                                    q.hash_id = utils.hashCode(`sec-${s_idx}-q-${q_idx}-time-${new Date().getMilliseconds()}`);
+                                    q.hash_id = $utils.hashCode(`sec-${s_idx}-q-${q_idx}-time-${new Date().getMilliseconds()}`);
                                     q.content.forEach((c, c_idx) => {
                                         c.option_answers.forEach((o, o_idx) => {
-                                            o.hash_id = utils.hashCode(`sec-${s_idx}-q-${q_idx}-content${c_idx}-options-${o_idx + 1}-time-${new Date().getMilliseconds()}`);
+                                            o.hash_id = $utils.hashCode(`sec-${s_idx}-q-${q_idx}-content${c_idx}-options-${o_idx + 1}-time-${new Date().getMilliseconds()}`);
                                         });
                                         if (!c.row_option_answers) return;
                                         c.row_option_answers.forEach((o, o_idx) => {
-                                            o.hash_id = utils.hashCode(`sec-${s_idx}-q-${q_idx}-content${c_idx}-row-options-${o_idx + 1}-time-${new Date().getMilliseconds()}`);
+                                            o.hash_id = $utils.hashCode(`sec-${s_idx}-q-${q_idx}-content${c_idx}-row-options-${o_idx + 1}-time-${new Date().getMilliseconds()}`);
                                         })
                                     })
                                 });
