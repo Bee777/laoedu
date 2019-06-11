@@ -7,7 +7,7 @@ import VuexUndoRedo from '../plugin/vuex-undo-redo-plugin.js';
 /**
  * @initialize
  */
-let {Vue, Vuex, $utils, debounce, initRouter} = createInit();
+let {Vue, Vuex, $utils, initRouter} = createInit();
 let addedActions = createActions($utils);
 let {client, ajaxConfig, apiUrl} = axiosClient();
 //@start set vue prototype

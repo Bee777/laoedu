@@ -942,10 +942,11 @@ export const createActions = (utils) => {
         /***@SAVE_ASSESSMENT**/
         saveAssessment(c) {
             return new Promise((r, n) => {
-                client.post(`${apiUrl}/admin/assessment/create/`, {
-                    assessment: c.state.mAssessment,
-                    sections: c.state.mSectionsStack
-                }, ajaxToken(c))
+                // {
+                //     assessment: c.state.mAssessment,
+                //         sections: c.state.mSectionsStack
+                // },
+                client.delete(`${apiUrl}/admin/assessment/create/`,  ajaxToken(c))
                     .then(res => {
                         c.commit('setClearMsg');
                         r(res.data);
