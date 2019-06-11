@@ -10,14 +10,6 @@ import VuexUndoRedo from '../plugin/vuex-undo-redo-plugin.js';
 let {Vue, Vuex, $utils, debounce, initRouter} = createInit();
 let addedActions = createActions($utils);
 let {client, ajaxConfig, apiUrl} = axiosClient();
-const ajaxToken = (c, formData = false) => {
-    if (formData) {
-        ajaxConfig.addHeader('Content-Type', 'multipart/form-data');
-    } else {
-        ajaxConfig.addHeader('Content-Type', 'application/json');
-    }
-    return ajaxConfig.addHeader('CL-Token', c.getters.getToken);
-};
 //@start set vue prototype
 Vue.prototype.initRouter = initRouter;
 Vue.prototype.apiUrl = apiUrl;

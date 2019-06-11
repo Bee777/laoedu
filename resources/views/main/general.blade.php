@@ -36,7 +36,10 @@
     <meta itemprop="image" content="{{ url('/') }}/assets/images/{{ $s['website_logo']  }}">
 @stop
 @section('scripts_header')
+
     <link rel="stylesheet" href="{{url('/')}}/css/general.css{{$s['fresh_version']}}">
+    <link rel="stylesheet" href="{{url('/')}}/css/vue-multiselect.min.css">  <!--Multi select-->
+
     <link rel=stylesheet href="{{url('/')}}/bundles/general/assets/css/bootstrap.min.css">
     <link rel=stylesheet href="{{url('/')}}/bundles/general/assets/css/animate.css">
     {{--<!--Template CSS-->--}}
