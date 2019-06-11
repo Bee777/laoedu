@@ -941,7 +941,7 @@ export const createActions = (utils) => {
         /***@SAVE_ASSESSMENT**/
         saveAssessment(c) {
             return new Promise((r, n) => {
-                client.post('', {}, ajaxToken(c))
+                client.post(`${apiUrl}/admin/assessment/create/`, {}, ajaxToken(c))
                     .then(res => {
                         c.commit('setClearMsg');
                         r(res.data);
