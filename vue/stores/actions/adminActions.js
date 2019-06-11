@@ -941,7 +941,7 @@ export const createActions = (utils) => {
         /***@SAVE_ASSESSMENT**/
         saveAssessment(c) {
             return new Promise((r, n) => {
-                client.post(`${apiUrl}/admin/assessment/create-assessment/`, {
+                client.post(`${apiUrl}/admin/assessment-post/create`, {
                     assessment: c.state.mAssessment,
                     sections: c.state.mSectionsStack
                 }, ajaxToken(c))
