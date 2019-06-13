@@ -2,11 +2,7 @@
     <div>
         <!--====== HEADER PART START ======-->
         <header id="header-part">
-<<<<<<< HEAD
 <!--             <div class="header-top d-none d-lg-block">
-=======
-            <!-- <div class="header-top d-none d-lg-block">
->>>>>>> 0f38987ed6f9e6acb76fe1f7a7b471c4d1653965
               <div class="container">
                 <div class="row">
                   <div class="col-lg-6">
@@ -45,11 +41,7 @@
                                         :src="`${baseUrl}/assets/images/${s.website_logo}${s.fresh_version}`"
                                     >
                                 </router-link>
-<<<<<<< HEAD
                                 <span class="site-title">ສູນປະກັນຄຸນນະພາບການສຶກສາລາວ</span>
-=======
-                                <span class="site-title">ສູນປະກັນຄຸນນະພາບການສຶກສາ ສປປ ລາວ</span>
->>>>>>> 0f38987ed6f9e6acb76fe1f7a7b471c4d1653965
                             </div>
                         </div>
                         <div class="col-lg-6 col-md-6">

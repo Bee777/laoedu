@@ -15,7 +15,7 @@
                     >
                   </Router-link>
                 </div>
-                <p>ສູນປະກັນຄຸນນະພາບການສຶກສາ</p>
+                <p>ສູນປະກັນຄຸນນະພາບການສຶກສາລາວ</p>
                 <ul class="mt-20">
                   <li>
                     <a :href="s.facebook" target="_blank" >
