@@ -35,6 +35,7 @@ trait DefaultData
             'scholarships' => json_encode((new PostsResponse([], 'scholarships'))->postsPaginator($request)),
             'instituteCategories' => json_encode(InstituteCategory::select('id', 'name', 'have_parent')->orderBy('id', 'desc')->get()),
             'instituteCategoriesHome' => json_encode(InstituteCategory::select('id', 'name')->where('have_parent', 'no')->orderBy('id', 'desc')->get()),
+            'files' =>json_encode(File::select('id','fileName','filePath')->orderBy('id','desc')->limit(20)->get()),
         ];
     }
 
