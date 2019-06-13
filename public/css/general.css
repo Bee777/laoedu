@@ -1349,8 +1349,13 @@ button.general-input-button-text:not([disabled]):focus, a.general-input-link-tex
         height: 24px;
     }
 
-    .general-from-container:before {
-        /* min-height: 30px; */
+    .general-from-container.no-before:before {
+        content: none;
+        display: none;
+    }
+    .general-from-container.no-after:after {
+        content: none;
+        display: none;
     }
 
     .general-from-container.is-65:after {
@@ -1456,3 +1461,32 @@ button.general-input-button-text:not([disabled]):focus, a.general-input-link-tex
 @end login
  */
 
+.general-input-container .form-multi-select-container .multiselect__tag,
+.general-input-container .form-multi-select-container .multiselect__option--highlight,
+.general-input-container .form-multi-select-container .multiselect__option--highlight:after {
+    background: #1a73e8;
+}
+
+.general-input-container .form-multi-select-container .multiselect__tag-icon:focus,
+.general-input-container .form-multi-select-container .multiselect__tag-icon:hover {
+    background: #1a73e8;
+}
+
+.general-input-container .form-multi-select-container .multiselect--active .multiselect__tags input.multiselect__input {
+    width: 100% !important;
+}
+
+.general-input-container .multiselect__tags {
+    border: 1px solid #dadce0;
+}
+
+.no-tip .multiselect__option--highlight:after {
+    display: none;
+}
+
+.general-input-container .multiselect , .general-input-container .multiselect__select, .general-input-container .multiselect__tags{
+    min-height: 43px;
+}
+.general-from-container .multiselect__single , .general-from-container input.multiselect__input  {
+    margin-top: 2px;
+}

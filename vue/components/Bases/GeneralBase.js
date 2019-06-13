@@ -13,6 +13,7 @@ export default Vue.extend({
             isTyped: false,
             query: '',
             filters: {},
+            options_request: {},
             singleId: -1,
         }
     },
@@ -69,6 +70,7 @@ export default Vue.extend({
             //reset scroll bar position
             this.$utils.animateScrollToY('html,body', t === 'no-scroll' ? 0 : 10);
             this.fetchPostsData({
+                options: this.options_request,
                 type: this.type, q: this.query,
                 limit: this.paginate.per_page, page: this.paginate.current_page
             });

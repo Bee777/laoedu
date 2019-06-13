@@ -3,7 +3,7 @@
 namespace App\Jobs;
 
 use App\Mail\UserActionsEmailNotify;
-use App\Site;
+use App\Models\Site;
 use Illuminate\Bus\Queueable;
 use Illuminate\Queue\SerializesModels;
 use Illuminate\Queue\InteractsWithQueue;

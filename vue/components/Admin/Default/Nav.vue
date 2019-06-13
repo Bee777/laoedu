@@ -86,7 +86,7 @@
                                                         <!--href="#"-->
                                                         <!--target="_blank">Privacy</a></div>-->
                                                         <a @click="goTo($event, 'members-profile')"
-                                                           class="user-square-top-right-account">Account</a>
+                                                           class="user-square-top-right-account">Users Account</a>
                                                     </div>
                                                 </div>
                                                 <div class="splitter-loading"
@@ -99,7 +99,7 @@
                                                            class="user-square-footer-button">Add account</a>
                                                     </div>
                                                     <div>
-                                                        <a @click="Logout" class="user-square-footer-button"
+                                                        <a @click="Logout()" class="user-square-footer-button"
                                                            target="_top">Sign out</a>
                                                     </div>
                                                 </div>
@@ -189,7 +189,7 @@
                                                         <!--href="#"-->
                                                         <!--target="_blank">Privacy</a></div>-->
                                                         <a @click="goTo($event, 'members-profile')"
-                                                           class="user-square-top-right-account">Jaol Account</a>
+                                                           class="user-square-top-right-account">Users Account</a>
 
                                                     </div>
                                                 </div>
@@ -201,7 +201,7 @@
                                                     <div><a @click="goTo($event, 'members')"
                                                             class="user-square-footer-button">Add account</a>
                                                     </div>
-                                                    <div><a @click="Logout" class="user-square-footer-button"
+                                                    <div><a @click="Logout()" class="user-square-footer-button"
                                                             target="_top">Sign out</a>
                                                     </div>
                                                 </div>
@@ -303,6 +303,7 @@
                         this.scrollNavBgColor = `${this.getBgColor()};`;
                     }
                 }
+                this.Event.fire('scrolling', this.el.scrollTop());
             },
             scrollNavHandler() {
                 this.el = this.jq('#main-container');

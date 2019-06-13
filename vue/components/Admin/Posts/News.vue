@@ -201,10 +201,10 @@
             watchers: true,
             tabs: [{name: "News"}],
             headers: [
-                {class: "th-sortable", name: "News title", width: "35%"},
+                {class: "th-sortable", name: "News title", width: "40%"},
                 {class: "hide-xs th-sortable", name: "Image", width: "10%"},
                 {class: "hide-xs th-sortable", name: "Author", width: "20%"},
-                {class: "th-sortable", name: "Status", width: "100"},
+                // {class: "th-sortable", name: "Status", width: "100"},
                 {class: "hide-xs th-sortable", name: "Created", width: "20%"},
                 {class: "th-not-sortable", name: "", width: "80"}
             ],
@@ -237,11 +237,11 @@
                             type: "text",
                             class: "hide-xs"
                         },
-                        {
-                            data: this.$utils.firstUpper(data.status),
-                            type: "text",
-                            textColor: data.statusColor,
-                        },
+                        // {
+                        //     data: this.$utils.firstUpper(data.status),
+                        //     type: "text",
+                        //     textColor: data.statusColor,
+                        // },
                         {
                             data: data.created_at,
                             type: "text",

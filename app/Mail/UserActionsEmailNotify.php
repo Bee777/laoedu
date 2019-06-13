@@ -33,6 +33,7 @@ class UserActionsEmailNotify extends Mailable
     {
         if (isset($this->data['attach']) && $this->data['attach'] === true) {
             return $this->from($this->data['from'])
+                //'->from('test@example.com', 'Example')
                 ->subject($this->data['subject'])
                 ->view('emails.email', $this->data)
                 ->attachData($this->data['fileData'], $this->data['fileName'], [

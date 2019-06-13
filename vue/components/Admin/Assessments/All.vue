@@ -7,15 +7,15 @@
                     <div class="md-single-grid provider-list">
                         <!--Table card-->
                         <TablePaginate v-model="query"
-                                       :searchPlaceholder="'Search by member name, surname, tel or member Email'"
-                                       :searchButtonText="'Add User'"
+                                       :searchPlaceholder="'Search by title, or year'"
+                                       :searchButtonText="'Add Assessment'"
                                        :headers="headers"
-                                       :notFoundText="'Please make sure you type or spell the member information correctly.'"
+                                       :notFoundText="'Please make sure you type or spell the assessment information correctly.'"
                                        :isSearch="isSearch"
                                        :isLoading="validated().loading_searches"
                                        :formTopState="formTopState"
                                        @onItemPerPageClick="getItems"
-                                       @onSearchActionButton="toggleFormTop(true)"
+                                       @onSearchActionButton="Route({name: 'create-assessment'})"
                                        @onSearchReLoadButtonClick="getItems"
                                        @onSearchInputEnter="getItems"
                                        @onSearchInputClose="getItems"
@@ -23,43 +23,15 @@
                                        :paginateData="paginate"
                                        @paginateNavigate="paginateNavigator"
                                        @onMenuContextClick="showModalAction">
-
-                            <template slot="form-top" v-if="formTopState.show">
-                                <form class="admin-form-card user-form" @submit.prevent>
-                                    <div class="user-form-title"> Create new user</div>
-                                    <div class="layout-align-space-around-start layout-row">
-                                        <AdminInput v-model="models.formTop.first_name"
-                                                    :validateText="validated().first_name"
-                                                    :label="'Name'"
-                                                    :inputType="'text'"
-                                                    :focus="true"/>
-                                        <AdminInput v-model="models.formTop.last_name"
-                                                    :validateText="validated().last_name"
-                                                    :containerClass="'is-second-input'"
-                                                    :label="'Last name'"
-                                                    :inputType="'text'"/>
-                                    </div>
-                                    <div class="layout-align-space-around-start layout-row">
-                                        <AdminInput v-model="models.formTop.email" :validateText="validated().email"
-                                                    :autoCompleteText="'username'" :label="'Email'"
-                                                    :inputType="'email'  "/>
-                                        <AdminInput @onInputEnter="createUser" v-model="models.formTop.password"
-                                                    :validateText="validated().password"
-                                                    :containerClass="'is-second-input'"
-                                                    :autoCompleteText="'current-password'" :label="'Password'"
-                                                    :inputType="'password'"/>
-                                    </div>
-                                    <div class="user-form-action layout-align-end-center layout-row">
-                                        <button @click="toggleFormTop(false)"
-                                                class="v-md-button secondary theme-blue">
-                                            Cancel
-                                        </button>
-                                        <button @click="createUser" class="v-md-button primary theme-blue"> Create
-                                        </button>
-                                    </div>
-                                </form>
+                            <!--Slot Actions row context-->
+                            <template slot-scope="{fireEvent, position, data}" slot="action-row-context">
+                                <button
+                                    @click="Route({name: 'create-assessment', query: { assessment_id: data.row.data.id } })"
+                                    class="v-md-button v-md-icon-button">
+                                    <i class="material-icons v-icon">edit</i>
+                                </button>
                             </template>
-
+                            <!--Slot Actions row context-->
                         </TablePaginate>
                         <!--Table card-->
                     </div>
@@ -73,8 +45,8 @@
             <div class="fb-dialog-body-section">
                 <div v-html="modal.message"></div>
                 <div>
-                    <div class="form-label"> User Account</div>
-                    <div class="form-input-static-value"> {{ modal.data.email }}</div>
+                    <div class="form-label"> Assessment Info</div>
+                    <div class="form-input-static-value"> {{ modal.data.title }}</div>
                 </div>
             </div>
             <template slot="actions">
@@ -93,8 +65,8 @@
                     </div>
                 </div>
                 <div>
-                    <div class="form-label"> User Account</div>
-                    <div class="form-input-static-value"> {{ modal.data.email }}</div>
+                    <div class="form-label"> Assessment Info</div>
+                    <div class="form-input-static-value"> {{ modal.data.title }}</div>
                 </div>
             </div>
             <template slot="actions">
@@ -111,101 +83,89 @@
     import {mapActions} from 'vuex'
 
     export default AdminBase.extend({
-        name: "all",
+        name: "AllAssessments",
         data() {
             return {
-                title: 'All Assessments',
-                type: 'users',
+                title: 'ບົດປະເມີນທັງໝົດ',
+                type: 'assessments',
                 watchers: true,
                 tabs: [{name: 'Assessments'}],
                 headers: [
-                    {class: 'th-sortable', name: 'Email', width: '200'},
-                    {class: 'hide-xs hide-md th-sortable', name: 'Image', width: '10%'},
+                    {class: 'th-sortable', name: 'Title', width: '200'},
                     {class: 'hide-xs th-sortable', name: 'Status', width: '15%'},
-                    {class: 'hide-xs th-sortable', name: 'Name', width: '15%'},
-                    {class: 'hide-xs th-sortable', name: 'Last Name', width: '15%'},
                     {class: 'hide-xs th-sortable', name: 'Created At', width: '25%'},
+                    {class: 'hide-xs th-sortable', name: 'Updated At', width: '25%'},
                     {class: 'th-not-sortable', name: '', width: '80'},
                 ],
             }
         },
         methods: {
-            ...mapActions(['postChangeUserStatus', 'postDeleteUser', 'postRegisterUser', 'postSendUserResetPasswordLink']),
+            ...mapActions(['postDeleteAssessment', 'postUpdateStatusAssessment']),
             callbackBuildItem(data) {
-                let contextMenu, userStatusMenu;
+                let contextMenu, itemStatusMenu;
                 contextMenu = [
                     {
-                        name: 'Reset password',
-                        active: false,
-                        type: 'info',
-                        message: `<p> Send an email to get reset password link, <a>the email will send to the user email.</a></p>`,
-                        action: {act: this.postSendUserResetPasswordLink, text: 'Send'},
-                        data: data
-                    },
-                    {
-                        name: 'Delete Account',
+                        name: 'Delete Assessment',
                         active: false,
                         type: 'warning',
-                        message: `When you delete the account, the account will be permanently deleted and cannot be un-deleted.`,
-                        action: {act: this.postDeleteUser, text: 'Delete'},
+                        message: `When you delete the assessment, the assessment will be permanently deleted and cannot be un-deleted.`,
+                        action: {act: this.postDeleteAssessment, text: 'Delete'},
                         data: data,
                     }
                 ];
-
                 //set user status menu
-                if (data.status === 'approved') {
-                    userStatusMenu = {
-                        name: 'Disable Account',
+                if (data.status === 'open' || data.status === 'opening') {
+                    itemStatusMenu = {
+                        name: 'Close Assessment',
                         active: false,
                         type: 'warning',
-                        message: `Users with disabled accounts cannot sign in.`,
-                        action: {act: this.postChangeUserStatus, params: {status: 'disabled'}, text: 'Disable'},
+                        message: `Assessments with closed status, other users cannot checking them.`,
+                        action: {act: this.postUpdateStatusAssessment, params: {status: 'close'}, text: 'Close'},
                         data: data
                     }
-                } else if (data.status === 'disabled') {
-                    userStatusMenu = {
-                        name: 'Enable Account',
+                } else if (data.status === 'close') {
+                    itemStatusMenu = {
+                        name: 'Open Assessment',
                         active: false,
                         type: 'info',
-                        message: `<p>Users with enabled accounts can sign in.</p>`,
-                        action: {act: this.postChangeUserStatus, params: {status: 'approved'}, text: 'Enable'},
-                        data: data
-
-                    }
-                } else {
-                    userStatusMenu = {
-                        name: 'Approve Account',
-                        active: false,
-                        type: 'info',
-                        message: `<p>Approve the user account then the user can sign in and <a>user can start create profile.</p>`,
-                        action: {act: this.postChangeUserStatus, params: {status: 'approved'}, text: 'Approve'},
+                        message: `Assessments with opened status, other users can checking them.`,
+                        action: {act: this.postUpdateStatusAssessment, params: {status: 'open'}, text: 'Open'},
                         data: data
                     }
                 }
-                //set user status menu
-                //add user menu status
-                contextMenu.splice(1, 0, userStatusMenu);//add item at second position
-                //add user menu status
+                //set item status menu
+                //add item menu status
+                if (itemStatusMenu) {
+                    contextMenu.splice(0, 0, itemStatusMenu);//add item at second position
+                    if (data.status === 'opening') {
+                        itemStatusMenu = {
+                            name: 'Make Success',
+                            active: false,
+                            type: 'info',
+                            message: `Assessments with success status, other users cannot checking them and means it's successfully.`,
+                            action: {act: this.postUpdateStatusAssessment, params: {status: 'success'}, text: 'Success'},
+                            data: data
+                        };
+                        contextMenu.splice(0, 0, itemStatusMenu);//add item at second position
+                    }
+                }
+                //add item menu status
                 return {
-                    rowContent: {},
+                    rowContent: {
+                        data: data,
+                    },
                     rows: [
-                        {data: data.email, type: 'id', class: 'user-email'},
-                        {
-                            data: `${this.baseUrl}${data.image}`,
-                            type: 'image',
-                            class: 'hide-xs hide-md'
-                        },
+                        {data: data.title, type: 'id', class: 'user-email'},
                         {
                             data: this.$utils.firstUpper(data.status),
                             type: 'text',
                             class: 'hide-xs',
                             textColor: data.statusColor,
                         },
-                        {data: data.name, type: 'text', class: 'hide-xs'},
-                        {data: data.last_name, type: 'text', class: 'hide-xs'},
                         {data: this.$utils.formatTimestmp(data.created_at), type: 'text', class: 'hide-xs'},
+                        {data: this.$utils.formatTimestmp(data.updated_at), type: 'text', class: 'hide-xs'},
                         {
-                            data: data.email, type: 'action', class: '',
+                            data: data.title, type: 'action', class: '',
                             contextMenu
                         },
                     ]
@@ -235,22 +195,6 @@
                         });
                 }
             },
-            createUser() {
-                let ft = this.formTopState;
-                ft.loading = true;
-                this.postRegisterUser(this.models.formTop)
-                    .then(res => {
-                        if (res.success) {
-                            this.getItems();
-                            ft.show = false;
-                            this.models.formTop = {imageSrc: null};
-                        }
-                        ft.loading = false;
-                    })
-                    .catch(er => {
-                        ft.loading = false;
-                    })
-            }
         },
         created() {
             this.getItems = this.debounce(this.getItems, 150);

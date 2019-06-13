@@ -1,3 +1,5 @@
+let that = this, toString = Object.prototype.toString;
+
 export default {
     Log() {
         for (var i = 0; i < arguments.length; i++) {
@@ -184,7 +186,8 @@ export default {
 
                 /**@RequiredObject Section **/
                 if (rule.required) {
-                    if (rule.required.when && data[rule.required.when] === rule.required.equals && keyRuleNames[ol[i]] === ol[i] && (value === '' || value === null)) {
+                    if (rule.required.when && this.accessObjectLevels(data, rule.required.when) === rule.required.equals && keyRuleNames[ol[i]] === ol[i] && (value === '' || value === null ||
+                        (typeof value === 'object' && this.isArray(value) && value.length <= 0))) {
                         errorsObj[ol[i]] = `The ${attribName} field is required.`;
                     }
                 }
@@ -365,8 +368,11 @@ export default {
         });
         return f;
     },
-    parse(dataString) {
-        return JSON.parse(dataString)
+    parseJSON(dataString) {
+        if (/^[\],:{}\s]*$/.test(dataString.replace(/\\["\\\/bfnrtu]/g, '@').replace(/"[^"\\\n\r]*"|true|false|null|-?\d+(?:\.\d*)?(?:[eE][+\-]?\d+)?/g, ']').replace(/(?:^|:|,)(?:\s*\[)+/g, ''))) {
+            return JSON.parse(dataString)
+        }
+        return {};
     },
     isEmptyObject(obj) {
         for (var prop in obj) {
@@ -463,6 +469,14 @@ export default {
             '][0-9]|1[0-9][0-9]|[1-9][0-9]|[0-9])?',
             '(:[0-9]+)?(\/[^\\s]*)?$'
         ].join(''), 'i').test(str);
+    },
+    accessObjectLevels(obj, level) {
+        level = String(level).split(".");
+        let cObj = obj;
+        for (let i = 0; i < level.length; i++) {
+            cObj = (cObj || {})[level[i]];
+        }
+        return cObj;
     },
     LocationHack(href, delay) {
         if (delay !== null) {
@@ -661,7 +675,8 @@ export default {
         return x
     },
     sub(t, l = 21) {
-        t = t.toString();
+        if (this.isEmptyVar(t)) return '';
+        t = String(t);
         return (t.length > l) ? t.substring(0, l - 3) + '..' : t
     },
     formatDate(date) {
@@ -747,6 +762,47 @@ export default {
         }
 
         throw new Error("Unable to copy obj! Its type isn't supported.");
+    },
+    deepCopy(obj) {
+        let rv;
+        switch (typeof obj) {
+            case "object":
+                if (obj === null) {
+                    // null => null
+                    rv = null;
+                } else {
+                    switch (toString.call(obj)) {
+                        case "[object Array]":
+                            // It's an array, create a new array with
+                            // deep copies of the entries
+                            rv = obj.map(that.a.deepCopy);
+                            break;
+                        case "[object Date]":
+                            // Clone the date
+                            rv = new Date(obj);
+                            break;
+                        case "[object RegExp]":
+                            // Clone the RegExp
+                            rv = new RegExp(obj);
+                            break;
+                        // ...probably a few others
+                        default:
+                            // Some other kind of object, deep-copy its
+                            // properties into a new object
+                            rv = Object.keys(obj).reduce((prev, key) => {
+                                prev[key] = that.a.deepCopy(obj[key]);
+                                return prev;
+                            }, {});
+                            break;
+                    }
+                }
+                break;
+            default:
+                // It's a primitive, copy via assignment
+                rv = obj;
+                break;
+        }
+        return rv;
     },
     firstUpper(s) {
         if (this.isEmptyVar(s))
@@ -1193,6 +1249,42 @@ export default {
                 field.setAttribute('style', 'display:none;position:absolute;');
             }, 50);
         }, 50);
+    },
+    setCaretPosition(el, caretPos) {
+        el.value = el.value;
+        // ^ this is used to not only get "focus", but
+        // to make sure we don't have it everything -selected-
+        // (it causes an issue in chrome, and having it doesn't hurt any other browser)
+        if (el !== null) {
+            if (el.createTextRange) {
+                var range = el.createTextRange();
+                range.move('character', caretPos);
+                range.select();
+                return true;
+            } else {
+                // (el.selectionStart === 0 added for Firefox bug)
+                if (el.selectionStart || el.selectionStart === 0) {
+                    el.focus();
+                    el.setSelectionRange(caretPos, caretPos);
+                    return true;
+                } else { // fail city, fortunately this never happens (as far as I've tested) :)
+                    el.focus();
+                    return false;
+                }
+            }
+        }
+    },
+    isMobile() {
+        return (/Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent));
+    },
+    hashCode(str) {
+        var hash = 0, i, chr;
+        if (str.length === 0) return hash;
+        for (i = 0; i < str.length; i++) {
+            chr = str.charCodeAt(i);
+            hash = ((hash << 5) - hash) + chr;
+            hash |= 0; // Convert to 32bit integer
+        }
+        return hash;
     }
-
 }

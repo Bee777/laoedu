@@ -9,15 +9,15 @@
             <!--  contact from -->
           </div>
           <div class="col-lg-5">
-            <div class="contact-address mt-30">
-              <ul v-if="!$utils.isEmptyVar( homeData.ContactInfo )">
+            <div class="contact-address">
+              <ul v-if="!$utils.isEmptyVar( s )">
                 <li>
                   <div class="singel-address">
                     <div class="icon">
                       <i class="fa fa-home"></i>
                     </div>
                     <div class="cont">
-                      <p>{{homeData.ContactInfo.address}}</p>
+                      <p>{{s.address}}</p>
                     </div>
                   </div>
                   <!-- singel address -->
@@ -28,7 +28,7 @@
                       <i class="fa fa-phone"></i>
                     </div>
                     <div class="cont">
-                      <p>{{homeData.ContactInfo.phone}}</p>
+                      <p>{{s.phone}}</p>
                     </div>
                   </div>
                   <!-- singel address -->
@@ -39,7 +39,7 @@
                       <i class="fas fa-envelope"></i>
                     </div>
                     <div class="cont">
-                      <p>{{homeData.ContactInfo.email}}</p>
+                      <p>{{s.email}}</p>
                     </div>
                   </div>
                   <!-- singel address -->
@@ -56,7 +56,7 @@
                 marginheight="0"
                 marginwidth="0"
                 style="width: 100%;
-                   height: 228px;"
+                   height: 250px;"
               ></iframe>
             </div>
 
@@ -79,7 +79,6 @@ export default Base.extend({
     ContactForm
   },
   created() {
-    this.fetchHomeData();
     this.setPageTitle(`Contact Us`);
   }
 });

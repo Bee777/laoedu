@@ -10,7 +10,7 @@ namespace App\Responses;
 
 use App\Http\Controllers\Helpers\Helpers;
 use Illuminate\Contracts\Support\Responsable;
-use App\Banner;
+use App\Models\Banner;
 use Image;
 
 class BannerResponse implements Responsable
@@ -33,9 +33,9 @@ class BannerResponse implements Responsable
      */
     public function get($request)
     {
-        $fields = ['id', 'name','description', 'order', 'link', 'image', 'created_at', 'updated_at'];
+        $fields = ['id', 'name', 'description', 'order', 'link', 'image', 'created_at', 'updated_at'];
         $request->request->add(['fields' => $fields]);
-        $text = $this->options["text"];
+        $text = $this->options['text'];
         $paginateLimit = $this->options['limit'];
         $data = Banner::select($fields);
         $data->where(function ($query) use ($request, $text) {
@@ -121,7 +121,8 @@ class BannerResponse implements Responsable
                     $data = $info;
                 }
             }
-            return response()->json(['success' => true, "data" => $data]);
+            return response()->json(['success' => true, 'data' => $data]);
         }
+        return response()->json(['success' => false, 'data' => null]);
     }
 }

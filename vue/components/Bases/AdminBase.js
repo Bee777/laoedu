@@ -2,7 +2,6 @@ import Vue from 'vue'
 import {mapActions, mapGetters, mapMutations, mapState} from 'vuex'
 import Editor from "@cus-com/Admin/TinyEditor.vue";
 import Multiselect from 'vue-multiselect'
-
 //set local
 const {Settings} = luxon;
 Settings.defaultLocale = 'en';
@@ -26,6 +25,7 @@ export default Vue.extend({
             models: {formTop: {}},
             modal: {data: {}, action: {}},
             query: '',
+            options_request: {},
             isSearch: false,
             formTopState: {show: false, loading: false, t: 0},
             paginate: {items: [], per_page: 10, current_page: 1, last_page: 0, total: 0},
@@ -122,6 +122,7 @@ export default Vue.extend({
             //check if should reset current page
             this.isSearch = false;//set user searching to false
             this.fetchSearches({
+                options: this.options_request,
                 type: this.type, q: this.query,
                 limit: this.paginate.per_page, page: this.paginate.current_page
             });

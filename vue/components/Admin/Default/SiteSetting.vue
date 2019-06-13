@@ -9,7 +9,7 @@
                         <MasterSingleDetailCard
                             :isLoading="isLoading"
                             @onBackButtonClick="onBackButtonClick"
-                            :header="{ title: 'Site Info For Jaol', content: '<p> Changes Logo, Favorite Icon, Site Name, etc..</p>'}"
+                            :header="{ title: 'Site Infomation', content: '<p> Changes Logo, Favorite Icon, Site Name, etc..</p>'}"
                             :menuItem="{ name: 'Site Info', icon: 'account_circle'}">
                             <div class="details is-edit">
                                 <form @submit.prevent class="admin-form admin-template-form">
@@ -18,7 +18,7 @@
                                                     v-model="siteInfo.site_name"
                                                     :containerClass="'dense'"
                                                     :validateText="validated().site_name"
-                                                    placeholder="Jaol.com"
+                                                    placeholder="Laoedu.com"
                                                     @onInputEnter="saveSiteInfo"
                                                     :inputType="'text'">
                                         </AdminInput>

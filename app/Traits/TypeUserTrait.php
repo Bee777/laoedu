@@ -8,7 +8,7 @@
 
 namespace App\Traits;
 
-use App\TypeUser;
+use App\Models\TypeUser;
 
 trait TypeUserTrait
 {

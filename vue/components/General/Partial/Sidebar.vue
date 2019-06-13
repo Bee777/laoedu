@@ -17,7 +17,7 @@
           <div class="drawer-unlogin" v-if="!LoggedIn()">
             <router-link @click.native.prevent="maskClick()" :to="{ name: 'home' }">
               <a class="drawer-seeker">
-                <span class="line-bottom">ສູນປະກັນຄຸນນະພາບການສຶກສາ ສປປ ລາວ</span>
+                <span class="line-bottom">ສປຄ</span>
               </a>
             </router-link>
             <router-link @click.native.prevent="maskClick()" :to="{ name: 'login' }">
@@ -49,7 +49,7 @@
             </li>
             <li :class="isRoute('institute')">
               <router-link :to="{ name: 'institute' }" @click.native.prevent="maskClick()">
-                <i class="sidebar-icon-md material-icons">today</i>
+                <i class="sidebar-icon-md material-icons">business</i>
                 <span>ສະຖານການສຶກສາ</span>
               </router-link>
             </li>
@@ -60,18 +60,22 @@
               </router-link>
             </li>
             <li :class="isRoute('scholarships')">
-                            <router-link :to="{name: 'scholarships'}" @click.native.prevent="maskClick()">
-                                <i class="sidebar-icon-md material-icons">school</i>
-                                <span>ທຶນການສຶກສາ</span>
-                            </router-link>
+              <router-link :to="{name: 'scholarships'}" @click.native.prevent="maskClick()">
+                <i class="sidebar-icon-md material-icons">school</i>
+                <span>ທຶນການສຶກສາ</span>
+              </router-link>
             </li>
             <li :class="isRoute('activities')">
-                            <router-link :to="{ name: 'activities' }" @click.native.prevent="maskClick()">
-                                <i class="sidebar-icon-md material-icons">
-                                    list_alt
-                                </i>
-                                <span>ກິດຈະກຳ</span>
-                            </router-link>
+              <router-link :to="{ name: 'activities' }" @click.native.prevent="maskClick()">
+                <i class="sidebar-icon-md material-icons">list_alt</i>
+                <span>ກິດຈະກຳ</span>
+              </router-link>
+            </li>
+                        <li :class="isRoute('document')">
+              <router-link :to="{ name: 'document' }" @click.native.prevent="maskClick()">
+                <i class="sidebar-icon-md material-icons v-icon">cloud_download</i>
+                <span>ເອກະສານ</span>
+              </router-link>
             </li>
             <!--<li :class="isRoute('forum')">-->
             <!--<router-link :to="{ name: 'forum' }" @click.native.prevent="maskClick()">-->

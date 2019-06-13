@@ -3,7 +3,9 @@
 namespace App;
 
 use App\Http\Controllers\Helpers\Helpers;
+use App\Models\CheckAssessment;
 use App\Models\Role;
+use App\Models\UserProfile;
 use App\Models\UserType;
 use App\Traits\UserRoleTrait;
 use App\Traits\PersonalAccessTokenTrait;
@@ -57,6 +59,19 @@ class User extends Authenticatable
      * @StartActions
      */
 
+    public function hasActions($name): bool
+    {
+        //the value of an array means user type id
+        $actions = [
+            'view_check_assessments' => [1, 2, 3],
+            'change_check_assessments_status' => [1, 2, 3],
+            'save_check_assessments_status_score' => [1, 2, 3],
+            'save_check_assessments' => [4, 5],
+            'fetch-institutes' => [1, 2, 5]
+        ];
+        return (isset($actions[$name]) && in_array($this->userType->type_user_id, $actions[$name], true));
+    }
+
     /**
      * @todo delete user all related user information
      * @return bool
@@ -77,7 +92,7 @@ class User extends Authenticatable
      */
     public function setStatus($status): bool
     {
-        if ($this->status !== $status && in_array($status, $this->defaultStatus, true)) {
+        if ($this->status !== $status && in_array($status, self::$defaultStatus, true)) {
             $this->status = $status;
             $this->save();
             //check if status changed to disabled and sign user out
@@ -109,6 +124,16 @@ class User extends Authenticatable
     public function userType(): HasOne
     {
         return $this->hasOne(UserType::class);
+    }
+
+    public function userProfile(): HasOne
+    {
+        return $this->hasOne(UserProfile::class);
+    }
+
+    public function assessments(): HasMany
+    {
+        return $this->hasMany(CheckAssessment::class);
     }
 
     public function getTypeOfUserAttribute()

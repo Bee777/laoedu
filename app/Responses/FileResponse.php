@@ -10,7 +10,7 @@ namespace App\Responses;
 
 use App\Http\Controllers\Helpers\Helpers;
 use Illuminate\Contracts\Support\Responsable;
-use App\File;
+use App\Models\File;
 use Image;
 
 class FileResponse implements Responsable

@@ -137,8 +137,7 @@
                 <tr>
                     <td
                         class="admin-spinner-covered"
-                        :colspan="$utils.getFirstTHeadColspan($refs['table-paginate'])"
-                    >
+                        :colspan="$utils.getFirstTHeadColspan($refs['table-paginate'])">
                         <SpinnerLoading v-if="formTopState.loading" style="z-index: 46;"/>
                         <slot name="form-top"></slot>
                     </td>
@@ -158,16 +157,14 @@
                             v-if="td.type==='id'"
                             class="user-email"
                             :class="[td.class]"
-                            @click="openRowContentEditor(i)"
-                        >
+                            @click="openRowContentEditor(i)">
                             <div class="table-cell-wrapper">
                                 <div>
                                     <div class="layout-row layout-align-space-between-center">
                                         <div class="layout-column user-identifier">
                                             <div
                                                 :style="`color: ${td.textColor}`"
-                                                class="user-email-content layout-row"
-                                            >{{ td.data }}
+                                                class="user-email-content layout-row">{{ td.data }}
                                             </div>
                                         </div>
                                     </div>
@@ -193,11 +190,11 @@
                             <div class="table-cell-wrapper">
                                 <div>
                                     <div class="layout-row">
-                      <span>
-                        <div>
-                          <img class="provider-icon" :src="td.data">
-                        </div>
-                      </span>
+                                      <span>
+                                        <div>
+                                          <img class="provider-icon" :src="td.data">
+                                        </div>
+                                      </span>
                                     </div>
                                 </div>
                             </div>
@@ -218,14 +215,23 @@
                                     ></slot>
                                 </template>
                                 <template v-else>
-                                    <button @click="copyData(td.data)" class="v-md-button v-md-icon-button">
-                                        <i class="material-icons v-icon">content_copy</i>
-                                    </button>
+                                    <template v-if="hasSlot('action-row-context')">
+                                        <slot
+                                            name="action-row-context"
+                                            :fireEvent="events.rowContentItemsClick"
+                                            :position="{row: i, column: j}"
+                                            :data="{row: tb.rowContent, column: td}"
+                                        ></slot>
+                                    </template>
+                                    <template v-else>
+                                        <button @click="copyData(td.data)" class="v-md-button v-md-icon-button">
+                                            <i class="material-icons v-icon">content_copy</i>
+                                        </button>
+                                    </template>
                                     <div class="table-action-menu">
                                         <button
                                             @click="setMenuContext({el: $event, menus: td.contextMenu, offsetX: 101, from: contextId })"
-                                            class="v-md-button v-md-icon-button"
-                                        >
+                                            class="v-md-button v-md-icon-button">
                                             <i class="material-icons v-icon">more_vert</i>
                                         </button>
                                     </div>
@@ -235,8 +241,7 @@
                         <td class="hide-xs" v-else>
                             <div
                                 class="table-cell-wrapper"
-                                style="color: #ff5252; white-space: normal;overflow: auto;display: flex;"
-                            >
+                                style="color: #ff5252; white-space: normal;overflow: auto;display: flex;">
                                 <span>The column type is invalid!, (Valid Column Types:['id', 'image-row-content', 'image', 'text', 'action'])</span>
                             </div>
                         </td>
@@ -287,14 +292,14 @@
                             <option value="50">50</option>
                             <option value="100">100</option>
                             <option value="250">250</option>
+                            <option value="500">500</option>
                         </select>
                     </div>
                     {{paginateData.current_page}} - {{paginateData.last_page}} From {{paginateData.total}}
                     <button
                         :disabled="paginateData.current_page===1"
                         @click="prevPage(paginateData.current_page - 1)"
-                        class="v-md-button v-md-icon-button pag"
-                    >
+                        class="v-md-button v-md-icon-button pag">
                         <i class="material-icons">chevron_left</i>
                     </button>
                     <button

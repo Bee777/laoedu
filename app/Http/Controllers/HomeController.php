@@ -3,18 +3,18 @@
 namespace App\Http\Controllers;
 
 use App\Jobs\SendContactInfo;
+use App\Models\InstituteCategory;
 use App\Responses\Home\PostsResponse;
 use App\Responses\Home\SinglePostsResponse;
-use App\Responses\OrganizeChartMemberResponse;
 use App\Traits\DefaultData;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
-use App\ContactInfo;
-use App\AboutJaol;
 use App\Http\Controllers\Helpers\Helpers;
-use App\Banner;
-use App\Posts;
-use App\Sponsor;
+use App\Models\Banner;
+use App\Models\File;
+use App\Models\Site;
+use App\Models\Posts;
+use Illuminate\Support\Str;
 
 class HomeController extends Controller
 {
@@ -74,18 +74,19 @@ class HomeController extends Controller
     {
         $data = [];
         $data['banners'] = Banner::getBanners(8);
-        $data['About'] = AboutJaol::getAbout();
-        $data['ContactInfo'] = ContactInfo::getContactInfo();
         $data['latest_news'] = Posts::getPosts('news', 5);
         $data['latest_scholarship'] = Posts::getPosts('scholarship', 3);
-        $data['latest_event'] = Posts::getPosts('event', 4);
-        $data['latest_activity'] = Posts::getPosts('activity', 4);
+        $data['latest_activity'] = Posts::getPosts('activity', 3);
         $data['mostViewScholarship'] = Posts::where('type', 'scholarship')->where('status', 'open')->orderBy('view', 'desc')->first();
+        $data['instituteCategories'] = InstituteCategory::select('id', 'name', 'have_parent')->orderBy('id', 'desc')->get();
+        $data['instituteCategoriesHome'] = InstituteCategory::select('id', 'name')->where('have_parent', 'no')->orderBy('id', 'desc')->get();
+        $data['latest_institutes'] = Posts::getPosts('institute', 3);
+        $data['files'] = File::select('id','fileName','filePath')->orderBy('id','desc')->limit(20)->get();
+
         if ($data['mostViewScholarship']) {//set image
             $data['mostViewScholarship']->image = Posts::$uploadPath . $data['mostViewScholarship']->image;
             $data['mostViewScholarship']->formatted_deadline = date('H:i A, M d Y', strtotime($data['mostViewScholarship']->deadline));
         }
-        $data['sponsors'] = Sponsor::getSponsor(20);
         return $data;
     }
     /***@Get Home Data */
@@ -108,16 +109,19 @@ class HomeController extends Controller
     }
 
     /***@POST_CONTACTINFO */
-    /***@GET_ChartRangeMembers
-     * @param Request $request
-     * @param $id
-     * @return JsonResponse
+    /**@GET_InstituteParentCategories
+     *
      */
-    public function getChartRangeMembers(Request $request, $id): JsonResponse
+    public function getInstituteParentCategories(Request $request, $id)
     {
-        $text = $request->get('q');
-        $data = (new OrganizeChartMemberResponse('get', ['text' => $text, 'id' => $id]))->get($request);
+        $data = InstituteCategory::find($id);
+        if (!isset($data)) {
+            return response()->json(['data' => []]);
+        }
+        $data = $data->selectedParentCategories();
         return response()->json(['data' => $data]);
     }
-    /***@GET_ChartRangeMembers */
+    /**@ENDGET_InstituteParentCategories
+     *
+     */
 }

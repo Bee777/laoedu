@@ -41,12 +41,37 @@
 @section('title')Latest {{ $post_type_name }}
 @stop
 @section('scripts_header')
-    <link rel="stylesheet" href="{{url('/')}}/css/general.css{{$s["fresh_version"]}}">
-    <link rel="stylesheet" href="{{url('/')}}/css/style.css{{$s["fresh_version"]}}">
+    <link rel="stylesheet" href="{{url('/')}}/css/general.css{{$s['fresh_version']}}">
+    <link rel="stylesheet" href="{{url('/')}}/css/vue-multiselect.min.css">  <!--Multi select-->
+    {{--<!--Template CSS-->--}}
+    <link rel=stylesheet href="{{url('/')}}/bundles/general/assets/css/bootstrap.min.css">
+    <!--====== Animate css ======-->
+    <link rel="stylesheet" href="{{url('/')}}/bundles/general/assets/css/animate.css">
+    <!--====== Default css ======-->
+    <link rel="stylesheet" href="{{url('/')}}/bundles/general/assets/css/default.css">
+    <!--====== Style css ======-->
+    <link rel="stylesheet" href="{{url('/')}}/bundles/general/assets/css/style.css">
+    <!--====== Responsive css ======-->
+    <link rel="stylesheet" href="{{url('/')}}/bundles/general/assets/css/responsive.css">
+    {{--<!--Template CSS-->--}}
+    {{-- @GeneratedResourcesTop--}}
+    {{-- @GeneratedResourcesTop--}}
 @endsection
 @section('scripts_footer')
     @include('main.general.defaultData')
-    <script src="{{ asset('/js') }}/general.bundle.js{{$s["fresh_version"]}}" type="text/javascript"
-            charset="utf-8"></script>
+    {{--<!--Template JS-->--}}
+    <!--====== Bootstrap js ======-->
+    <script type="text/javascript" src="{{url('/')}}/bundles/general/assets/js/bootstrap.min.js"></script>
+    <!--====== Map js ======-->
+    <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDC3Ip9iVC0nIxC6V14CKLQ1HZNF_65qEQ"></script>
+    <script type="text/javascript" src="{{url('/')}}/bundles/general/assets/js/map-script.js"></script>
+    {{--<!--Template JS-->--}}
+    <script>
+        var baseRes = "/bundles/general/";
+        window.$ = jQuery;
+    </script>
+    {{-- @GeneratedResourcesBottom--}}
+    <script type="text/javascript" src="{{url('/bundles/generated/general')}}/general.7c4feaa419f3ee59ae9d.bundle.js"></script>
+    {{-- @GeneratedResourcesBottom--}}
 @endsection
 

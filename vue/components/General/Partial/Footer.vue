@@ -4,26 +4,26 @@
     <footer id="footer-part">
       <div class="footer-top pt-10 pb-40">
         <div class="container">
-          <div class="row">
+          <div class="row mobile-left">
             <div class="col-lg-4 col-md-6">
               <div class="footer-about mt-40">
                 <div class="logo">
-                  <a href="#">
+                  <Router-link to="/">
                     <img
                       :src="`${baseUrl}/assets/images/${s.website_logo}${s.fresh_version}`"
                       alt="Logo"
                     >
-                  </a>
+                  </Router-link>
                 </div>
                 <p>ສູນປະກັນຄຸນນະພາບການສຶກສາ</p>
-                <ul class="mt-20" v-if="!$utils.isEmptyVar( homeData.ContactInfo )">
+                <ul class="mt-20">
                   <li>
-                    <a :href="homeData.ContactInfo.facebook" target="_blank" >
+                    <a :href="s.facebook" target="_blank" >
                       <i class="fab fa-facebook-f"></i>
                     </a>
                   </li>
                   <li>
-                    <a v-if="!$utils.isEmptyVar(homeData.ContactInfo.twitter)" :href="homeData.ContactInfo.twitter" target="_blank">
+                    <a v-if="!$utils.isEmptyVar(s.twitter)" :href="s.twitter" target="_blank">
                       <i class="fab fa-twitter"></i>
                     </a>
                   </li>
@@ -31,7 +31,7 @@
               </div>
               <!-- footer about -->
             </div>
-            <div class="col-lg-3 col-md-6 col-sm-6">
+            <div class="col-lg-4 col-md-6 col-sm-12">
               <div class="footer-link mt-40">
                 <div class="footer-title pb-20">
                   <h6>Sitemap</h6>
@@ -57,19 +57,18 @@
                       <i class="fa fa-angle-right"></i>ຂ່າວສານ
                     </router-link>
                   </li>
-                </ul>
-              </div>
-              <!-- footer link -->
-            </div>
-            <div class="col-lg-2 col-md-6 col-sm-6">
-              <div class="footer-link support mt-40">
-                <div class="footer-title pb-20">
-                  <h6>Related link</h6>
-                </div>
-                <ul>
-                   <li>
+                     <li>
+                   <router-link :to="{name:'scholarships'}">
+                      <i class="fa fa-angle-right"></i>ທຶນການສຶກສາ
+                   </router-link>
+                  </li> <li>
                    <router-link :to="{name:'activities'}">
                       <i class="fa fa-angle-right"></i>ກິດຈະກຳ
+                   </router-link>
+                  </li>
+                  <li>
+                   <router-link :to="{name:'document'}">
+                      <i class="fa fa-angle-right"></i>ເອກະສານ
                    </router-link>
                   </li>
                   <li>
@@ -82,37 +81,22 @@
                       <i class="fa fa-angle-right"></i>ກ່ຽວກັບສູນ
                     </router-link>
                   </li>
-                  <!-- <li>
-                    <a href="#">
-                      <i class="fa fa-angle-right"></i>FAQS
-                    </a>
-                  </li>
-                  <li>
-                    <a href="#">
-                      <i class="fa fa-angle-right"></i>ຜົນສອບເສັງ
-                    </a>
-                  </li>
-                  <li>
-                    <a href="#">
-                      <i class="fa fa-angle-right"></i>ເອກະສານ
-                    </a>
-                  </li> -->
                 </ul>
               </div>
-              <!-- support -->
+              <!-- footer link -->
             </div>
-            <div class="col-lg-3 col-md-6">
+            <div class="col-lg-4 col-md-6">
               <div class="footer-address mt-40">
                 <div class="footer-title pb-20">
                   <h6>Contact Us</h6>
                 </div>
-                <ul v-if="!$utils.isEmptyVar( homeData.ContactInfo )">
+                <ul v-if="!$utils.isEmptyVar( s )">
                   <li>
                     <div class="icon">
                       <i class="fa fa-home"></i>
                     </div>
                     <div class="cont">
-                      <p>{{homeData.ContactInfo.address}}</p>
+                      <p>{{s.address}}</p>
                     </div>
                   </li>
                   <li>
@@ -120,7 +104,7 @@
                       <i class="fa fa-phone"></i>
                     </div>
                     <div class="cont">
-                      <p>{{homeData.ContactInfo.phone}}</p>
+                      <p>{{s.phone}}</p>
                     </div>
                   </li>
                   <li>
@@ -128,7 +112,7 @@
                       <i class="far fa-envelope"></i>
                     </div>
                     <div class="cont">
-                      <p>{{homeData.ContactInfo.email}}</p>
+                      <p>{{s.email}}</p>
                     </div>
                   </li>
                 </ul>

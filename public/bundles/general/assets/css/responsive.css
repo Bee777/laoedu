@@ -149,6 +149,9 @@
 	padding: 10px 40px 40px;
 }
 
+.footer-link.suppor{
+	margin-top: 0px;
+}
 
 
 }
@@ -199,6 +202,11 @@
 
 .category-text{
     text-align: center;
+}
+.category-text h2 {
+	font-size: 22px;
+	color: #fff;
+	padding: 0px 0px 15px 0px;
 }
 
 .apply-color-1 {
@@ -279,7 +287,7 @@
 
 #about-part {
 	padding-bottom: 10px;
-	padding-top: 15px;
+	/* padding-top: 15px; */
 }
 
 #apply-aprt {
@@ -299,8 +307,8 @@
 	padding-bottom: 70px;
 }
 #publication-part {
-	padding-top: 65px;
-	padding-bottom: 70px;
+	padding-top: 35px;
+	padding-bottom: 40px;
 }
 #testimonial {
 	padding-top: 65px;
@@ -361,8 +369,8 @@
 	padding-bottom: 70px;
 }
 #corses-singel {
-	padding-top: 40px;
-	padding-bottom: 70px;
+	padding-top: 0px;
+	padding-bottom: 20px;
 }
 .releted-courses.pt-95 {
 	padding-top: 45px;
@@ -387,12 +395,12 @@
 	padding-bottom: 70px;
 }
 #blog-page {
-	padding-top: 40px;
-	padding-bottom: 70px;
+	padding-top: 0px;
+	padding-bottom: 20px;
 }
 #blog-singel {
-	padding-top: 40px;
-	padding-bottom: 70px;
+	padding-top: 10px;
+	padding-bottom: 0px;
 }
 #shop-page {
 	padding-top: 70px;
@@ -467,7 +475,11 @@
 .slider-cont h1 {
 	font-size: 46px;
 }
-
+.category-text h2 {
+    font-size: 22px;
+    color: #fff;
+    padding: 0px 0px 15px 0px;
+}
 .category-text{
     text-align: center;
 }
@@ -637,8 +649,8 @@
 	padding-bottom: 70px;
 }
 #publication-part {
-	padding-top: 65px;
-	padding-bottom: 70px;
+	padding-top: 35px;
+	padding-bottom: 40px;
 }
 #testimonial {
 	padding-top: 65px;
@@ -699,8 +711,8 @@
 	padding-bottom: 70px;
 }
 #corses-singel {
-	padding-top: 40px;
-	padding-bottom: 70px;
+	padding-top: 0px;
+	padding-bottom: 20px;
 }
 .releted-courses.pt-95 {
 	padding-top: 45px;
@@ -725,12 +737,12 @@
 	padding-bottom: 70px;
 }
 #blog-page {
-	padding-top: 40px;
-	padding-bottom: 70px;
+	padding-top: 0px;
+	padding-bottom: 20px;
 }
 #blog-singel {
-	padding-top: 40px;
-	padding-bottom: 70px;
+	padding-top: 10px;
+	padding-bottom: 0px;
 }
 #shop-page {
 	padding-top: 70px;
@@ -755,7 +767,11 @@
  
 /* Large Mobile :480px. */
 @media only screen and  (max-width: 575.98px) {
-
+	.category-text h2 {
+		font-size: 22px;
+		color: #fff;
+		padding: 0px 0px 15px 0px;
+	}
 .main-btn {
 	padding: 0 20px;
 	font-size: 14px;
@@ -809,7 +825,7 @@
 	left: 80%;
 }
 .logo {
-	text-align: center;
+	text-align: left;
 }
 
 .header-contact ul li {
@@ -1264,8 +1280,8 @@
 	padding-bottom: 70px;
 }
 #publication-part {
-	padding-top: 65px;
-	padding-bottom: 70px;
+	padding-top: 35px;
+	padding-bottom: 40px;
 }
 #testimonial {
 	padding-top: 65px;
@@ -1326,8 +1342,8 @@
 	padding-bottom: 70px;
 }
 #corses-singel {
-	padding-top: 40px;
-	padding-bottom: 70px;
+	padding-top: 0px;
+	padding-bottom: 20px;
 }
 .releted-courses.pt-95 {
 	padding-top: 45px;
@@ -1352,12 +1368,12 @@
 	padding-bottom: 70px;
 }
 #blog-page {
-	padding-top: 40px;
-	padding-bottom: 70px;
+	padding-top: 0px;
+	padding-bottom: 20px;
 }
 #blog-singel {
-	padding-top: 40px;
-	padding-bottom: 70px;
+	padding-top: 10px;
+	padding-bottom: 0px;
 }
 #shop-page {
 	padding-top: 70px;
@@ -1378,5 +1394,11 @@
 .header-logo-support{
 	display: none;
 }   
+.footer-link.suppor{
+	margin-top: 0px;
+}
+.mobile-left{
+	    margin-left: 15px;
+}
 
 }

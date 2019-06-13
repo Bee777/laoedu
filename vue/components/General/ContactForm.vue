@@ -1,5 +1,5 @@
 <template>
-  <div class="general-from-container is-65">
+  <div class="general-from-container is-65 no-before">
     <div class="form-represent is-65" :style="`${isFullWidth ? 'width: 100%' : ''};`">
       <!--Progress bar-->
       <div class="form-represent-top-border form-represent-top-border-z-index" aria-hidden="true">
@@ -153,9 +153,6 @@ export default Base.extend({
           }
         });
     }
-  },
-  created() {
-    this.fetchHomeData();
   }
 });
 </script>

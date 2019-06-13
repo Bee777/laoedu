@@ -85,9 +85,11 @@ body {
     margin: auto;
     vertical-align: center;
 }
-.image img.sponsor{
+
+.image img.sponsor {
     height: auto;
 }
+
 .displayFlex {
     display: -webkit-box !important;
     display: -ms-flexbox !important;
@@ -2019,7 +2021,7 @@ button.navbar-alert-menu-button-bell {
 .admin-fb-featurebar .admin-fb-featurebar-title {
     color: #fff;
     margin: 0;
-    font-family: "Google Sans", sans-serif;
+    font-family: "Google Sans", 'Roboto', 'noto-regular', sans-serif;
     font-size: 26px;
     line-height: 32px;
     font-weight: 500;
@@ -3796,7 +3798,7 @@ button.navbar-alert-menu-button-bell {
     -webkit-transition: opacity .3s cubic-bezier(0.4, 0.0, 0.2, 1), width .3s cubic-bezier(0.4, 0.0, 0.2, 1);
     transition: opacity .3s cubic-bezier(0.4, 0.0, 0.2, 1), width .3s cubic-bezier(0.4, 0.0, 0.2, 1);
     z-index: 1;
-
+    height: auto;
 }
 
 .emails-card-lists {
@@ -3935,6 +3937,20 @@ button.navbar-alert-menu-button-bell {
 .admin-master-card-template .details .form-input-container p,
 .admin-master-card-template .details .form-multi-select-container p {
     display: block;
+    --x-height-multiplier: 0.375;
+    --baseline-multiplier: 0.17;
+    letter-spacing: .01rem;
+    line-height: 1.58;
+    letter-spacing: -.003em;
+    overflow-wrap: break-word;
+    word-wrap: break-word;
+    -ms-word-break: break-all;
+    word-break: break-all;
+    word-break: break-word;
+    -ms-hyphens: auto;
+    -moz-hyphens: auto;
+    -webkit-hyphens: auto;
+    hyphens: auto;
 }
 
 .admin-master-card-template .details .form-input-container input,
@@ -4111,6 +4127,11 @@ button.navbar-alert-menu-button-bell {
     color: #78909c;
     margin-right: 8px;
 }
+.admin-settings-cameo .cameo-button-abs {
+    position: absolute;
+    right: 15px;
+    cursor: pointer;
+}
 
 .form-multi-select-container .multiselect__tag,
 .form-multi-select-container .multiselect__option--highlight,
@@ -4124,7 +4145,14 @@ button.navbar-alert-menu-button-bell {
 }
 
 .form-multi-select-container .multiselect--active .multiselect__tags input.multiselect__input {
-    width: 100% !important;
+    width: auto !important;
+}
+
+@media screen and (max-width: 37.4rem) {
+    .form-multi-select-container .multiselect--active .multiselect__tags input.multiselect__input {
+        width: 100% !important;
+        display: block;
+    }
 }
 
 .form-input-container input.is-input-height-same-multiple {
@@ -4615,8 +4643,7 @@ button.navbar-alert-menu-button-bell {
 .date-time-picker-overlay .module-canvas,
 .date-time-picker-overlay .module-canvas .admin-table-elem > tbody .admin-table-detail-content .admin-table-detail-content-wrapper,
 .image-picker-overlay .module-canvas,
-.image-picker-overlay .module-canvas .admin-table-elem > tbody .admin-table-detail-content .admin-table-detail-content-wrapper
-{
+.image-picker-overlay .module-canvas .admin-table-elem > tbody .admin-table-detail-content .admin-table-detail-content-wrapper {
     z-index: 100;
 }
 
@@ -4771,7 +4798,7 @@ button.navbar-alert-menu-button-bell {
 }
 
 .admin-template-form button.edit-button i,
-.admin-template-form button.remove-button i{
+.admin-template-form button.remove-button i {
     color: rgba(0, 0, 0, .54);
     fill: rgba(0, 0, 0, .54);
 }
@@ -4814,7 +4841,7 @@ button.navbar-alert-menu-button-bell {
     position: relative;
 }
 
- i.icon-check {
+i.icon-check {
     position: absolute;
     font-size: 16px;
     color: #798d99;
@@ -4822,8 +4849,8 @@ button.navbar-alert-menu-button-bell {
     line-height: 20px;
     width: 20px;
     display: none;
-     top: 0;
-     right: 18px;
+    top: 0;
+    right: 18px;
 }
 
 .checklist-item-checkbox label {
@@ -5407,6 +5434,9 @@ section .sidekick .admin-mat-card {
 
 
 /*** Dashboard Page */
+.absolute-parent {
+    position: absolute;
+}
 
 /**
 *@Media Screen

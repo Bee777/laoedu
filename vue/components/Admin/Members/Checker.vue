@@ -7,10 +7,10 @@
                     <div class="md-single-grid provider-list">
                         <!--Table card-->
                         <TablePaginate v-model="query"
-                                       :searchPlaceholder="'Search by member name, surname, tel or member Email'"
-                                       :searchButtonText="'Add User'"
+                                       :searchPlaceholder="'Search by name, last name, or member Email'"
+                                       :showSearchButton="false"
                                        :headers="headers"
-                                       :notFoundText="'Please make sure you type or spell the member information correctly.'"
+                                       :notFoundText="'Please make sure you type or spell the user information correctly.'"
                                        :isSearch="isSearch"
                                        :isLoading="validated().loading_searches"
                                        :formTopState="formTopState"
@@ -23,43 +23,6 @@
                                        :paginateData="paginate"
                                        @paginateNavigate="paginateNavigator"
                                        @onMenuContextClick="showModalAction">
-
-                            <template slot="form-top" v-if="formTopState.show">
-                                <form class="admin-form-card user-form" @submit.prevent>
-                                    <div class="user-form-title"> Create new user</div>
-                                    <div class="layout-align-space-around-start layout-row">
-                                        <AdminInput v-model="models.formTop.first_name"
-                                                    :validateText="validated().first_name"
-                                                    :label="'Name'"
-                                                    :inputType="'text'"
-                                                    :focus="true"/>
-                                        <AdminInput v-model="models.formTop.last_name"
-                                                    :validateText="validated().last_name"
-                                                    :containerClass="'is-second-input'"
-                                                    :label="'Last name'"
-                                                    :inputType="'text'"/>
-                                    </div>
-                                    <div class="layout-align-space-around-start layout-row">
-                                        <AdminInput v-model="models.formTop.email" :validateText="validated().email"
-                                                    :autoCompleteText="'username'" :label="'Email'"
-                                                    :inputType="'email'  "/>
-                                        <AdminInput @onInputEnter="createUser" v-model="models.formTop.password"
-                                                    :validateText="validated().password"
-                                                    :containerClass="'is-second-input'"
-                                                    :autoCompleteText="'current-password'" :label="'Password'"
-                                                    :inputType="'password'"/>
-                                    </div>
-                                    <div class="user-form-action layout-align-end-center layout-row">
-                                        <button @click="toggleFormTop(false)"
-                                                class="v-md-button secondary theme-blue">
-                                            Cancel
-                                        </button>
-                                        <button @click="createUser" class="v-md-button primary theme-blue"> Create
-                                        </button>
-                                    </div>
-                                </form>
-                            </template>
-
                         </TablePaginate>
                         <!--Table card-->
                     </div>
@@ -111,13 +74,13 @@
     import {mapActions} from 'vuex'
 
     export default AdminBase.extend({
-        name: "all",
+        name: "AllCheckers",
         data() {
             return {
-                title: 'All Members',
-                type: 'users',
+                title: 'ຜູ້ກວດສອບບົດປະເມີນ',
+                type: 'users_checker',
                 watchers: true,
-                tabs: [{name: 'Members'}],
+                tabs: [{name: 'Checkers'}],
                 headers: [
                     {class: 'th-sortable', name: 'Email', width: '200'},
                     {class: 'hide-xs hide-md th-sortable', name: 'Image', width: '10%'},
@@ -130,7 +93,7 @@
             }
         },
         methods: {
-            ...mapActions(['postChangeUserStatus', 'postDeleteUser', 'postRegisterUser', 'postSendUserResetPasswordLink']),
+            ...mapActions(['postChangeUserStatus', 'postDeleteUser', 'postSendUserResetPasswordLink']),
             callbackBuildItem(data) {
                 let contextMenu, userStatusMenu;
                 contextMenu = [
@@ -234,27 +197,10 @@
                             this.showErrorToast({msg: 'The action failed!', dt});
                         });
                 }
-            },
-            createUser() {
-                let ft = this.formTopState;
-                ft.loading = true;
-                this.postRegisterUser(this.models.formTop)
-                    .then(res => {
-                        if (res.success) {
-                            this.getItems();
-                            ft.show = false;
-                            this.models.formTop = {imageSrc: null};
-                        }
-                        ft.loading = false;
-                    })
-                    .catch(er => {
-                        ft.loading = false;
-                    })
             }
         },
         created() {
             this.getItems = this.debounce(this.getItems, 150);
-            this.getItems();
         }
     });
 </script>

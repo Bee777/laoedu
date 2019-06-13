@@ -1,12 +1,12 @@
-<template>
+  <template>
     <div>
        <!--====== BLOG PART START ======-->
-        <section id="blog-page" class="pt-20 pb-120 gray-bg">
+        <section id="blog-page" class="pb-20 gray-bg">
         <div class="container">
             <div class="fire-spinner" v-if="shouldLoading(type)"></div>
            <div class="row">
                <div class="col-lg-8">
-                   <div class="singel-blog mt-30" v-for="(news, idx) in postsData.news.posts.data" :key="idx">
+                   <div class="singel-blog mt-10" v-for="(news, idx) in postsData.news.posts.data" :key="idx">
                        <div class="blog-thum" @click="getDetail('news', news)">
                            <img :src="`${baseUrl}${news.image}`" :alt="news.image">
                        </div>
@@ -17,25 +17,24 @@
                            <ul>
                             <li class="updated-date" :datetime="news.updated_at"><i class="fa fa-calendar"></i> {{news.post_updated}}</li>
                              <li>
-                                           <div class="thum avatar">
-                      <img
-                        v-if="shouldLoadingSingle(type)"
-                        :src="`${baseUrl}/assets/images/${s.website_logo}${s.fresh_version}`"
-                        class="avatar-image image-size50x50"
-                      >
-                      <img
-                        v-else-if="singlePostsData.news.data.author_image"
-                        :src="`${baseUrl}${singlePostsData.news.data.author_image}`"
-                        class="avatar-image image-size50x50"
-                      >
-                      <span class="author-caption">{{singlePostsData.news.data.author}}</span>
-                    </div>
                              </li>
                            </ul>
-                           <p v-html="$utils.sub($utils.strip(news.description), 180)"></p>
+                         <div class="blog-content">
+                             <p class="content" v-html="$utils.sub($utils.strip(news.description), 180)"></p>
+                         </div>
                        </div>
                    </div> <!-- singel blog -->
-                   <nav class="courses-pagination mt-50">
+                   <!-- Search form -->
+                                  <div class="col-lg-8" v-if="isNotFound()">
+                                    <div class="devsite-article mt-20">
+                                        <h1 class="devsite-page-title">
+                                            Search results for <span class="devsite-search-term"><span
+                                            class="devsite-search-term">{{ query }}</span></span>
+                                          </h1>
+                                    </div>
+                                    <div class="result-snippet">No Results</div>
+                                </div>
+                   <nav class="courses-pagination mt-10">
                         <ul class="pagination justify-content-lg-end justify-content-center">
                             <li class="page-item">
                                 <a :disabled="paginate.current_page===1" @click="prevPage(paginate.current_page - 1)"
@@ -53,23 +52,14 @@
                         </ul>
                     </nav>
                </div>
-               <div class="col-lg-8" v-if="isNotFound()">
-                                    <div class="devsite-article">
-                                        <h1 class="devsite-page-title">
-                                            Search results for <span class="devsite-search-term"><span
-                                            class="devsite-search-term">{{ query }}</span></span>
-                                        </h1>
-                                    </div>
-                                    <div class="result-snippet">No Results</div>
-                                </div>
                <div class="col-lg-4">
-                   <div class="saidbar">
+                     <div class="saidbar">
                        <div class="row">
                            <div class="col-lg-12 col-md-6">
                                 <PostsSearchForm v-model="query" @onSearchEnter="getItems('click')"/>
                            </div> <!-- categories -->
                            <div class="col-lg-12 col-md-6">
-                               <div class="saidbar-post mt-30 ">
+                               <div class="saidbar-post mt-10">
                                    <h4>Popular Posts</h4>
                                    <ul>
                                        <li v-for="(news, idx) in postsData.news.mostViews" :key="idx">
@@ -98,15 +88,9 @@
     <!--====== BLOG PART ENDS ======-->
 
     </div>
-</template>
-<style scoped>
-.saidbar .saidbar-post ul li a .singel-post .thum img{
-    width: 92px;
-    height: 62px;
-}
-</style>
+  </template>
 
-<script>
+  <script>
     import Base from '@com/Bases/GeneralBase.js'
 
     export default Base.extend({
@@ -119,4 +103,4 @@
             this.getItems();
         }
     });
-</script>
+  </script>

@@ -64,8 +64,8 @@
         },
         watch: {
             'authUserInfo': function (n, o) {
-                if (n.type === this.$utils.b64EncodeUnicode('user')) {
-                    this.$utils.Location('/users/me');
+                if (this.$route.name && !(this.$route.meta.allows && this.$route.meta.allows.includes(n.decodedType))) {
+                    this.$utils.Location(`/${String(n.decodedType).replace(/_/g, '-')}/me`);
                 }
             }
         },

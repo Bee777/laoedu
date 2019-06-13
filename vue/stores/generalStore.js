@@ -6,6 +6,7 @@ import {
     defaultMutations,
     defaultActions,
 } from '../initial/initializer';
+
 /**
  * @initialize
  */
@@ -23,28 +24,33 @@ export default new Vuex.Store({
         ...defaultStates,
         isSidebar: '',
         homeData: {
-            banners: [],
-            About: aboutInfo,
-            ContactInfo: contactInfo,
+            banners: banners,
+            latest_institutes: latest_institutes,
             latest_news: latest_news,
-            latest_scholarship: [],
-            latest_activity: [],
+            latest_scholarship: latest_scholarship,
+            latest_activity: latest_activity,
             mostViewScholarship: {},
+            instituteCategories: instituteCategories,
+            instituteCategoriesHome: instituteCategoriesHome,
+            files: files,
         },
         postsData: {
             news: news,//{posts: {}, mostViews: [], comingEvents: []},
             activities: activities,// {posts: {}, mostViews: [], comingEvents: []},
             scholarships: scholarships,//{posts: {}, mostViews: [], comingEvents: []},
+            institutes: institutes,
         },
         singlePostsData: {
             news: {data: {}, others: []},
             activities: {data: {}, others: []},
             scholarships: {data: {}, others: []},
+            institutes: {data: {}, others: []},
         },
         postsAllowed: {
             news: true,
             activities: true,
-            scholarships: true,
+            scholarships: true, 
+            institutes: true,
         },
         searchQuery: {text: '', filters: {}},
     },

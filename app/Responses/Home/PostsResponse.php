@@ -9,17 +9,19 @@
 namespace App\Responses\Home;
 
 
-use App\Banner;
-use App\Dictionary;
 use App\Http\Controllers\Helpers\Helpers;
-use App\Posts;
+use App\Models\InstituteCategory;
+use App\Models\InstituteParentCategory;
+use App\Models\Posts;
 use App\Traits\DefaultData;
+use App\Traits\UserRoleTrait;
+use App\User;
 use Illuminate\Contracts\Support\Responsable;
 use Illuminate\Support\Facades\DB;
 
 class PostsResponse implements Responsable
 {
-    use DefaultData;
+    use DefaultData, UserRoleTrait;
 
     protected $options = [];
     protected $type = '';
@@ -58,32 +60,14 @@ class PostsResponse implements Responsable
         $paginateLimit = Helpers::isNumber($paginateLimit) ? $paginateLimit : 6;
         $text = $request->get('q');
 
-        //@for dictionaries only
-        if ($type === 'dictionary') {
-            $fields = ['id', 'lao', 'japanese', 'description', 'updated_at'];
-            $request->request->add(['fields' => $fields]);
-            $data = Dictionary::select($fields);
-            /**@Query */
-            $data->where(function ($query) use ($request, $text) {
-                foreach ($request->fields as $k => $f) {
-                    if ($f === 'updated_at') {
-                        if (Helpers::isEngText($text)) {
-                            $query->orWhere($f, 'LIKE', "%{$text}%");
-                        } else {
-                            continue;
-                        }
-                    }
-                    $query->orWhere($f, 'LIKE', "%{$text}%");
-                }
-            });
-            /**@Query */
-            $data = $data->orderBy('id', 'desc')->paginate($paginateLimit);
-            $data->appends(['limit' => $paginateLimit, 'q' => $text]);
-            return ['posts' => $data, 'mostViews' => [], 'comingEvents' => []];
+        //@for institutes only
+        if ($type === 'institute') {
+            return $this->getInstitutes($request, $text, $paginateLimit);
         }
-        //@for dictionaries only
+        //@for institutes only
 
-        $fields = ['id', 'title', 'type', 'image', 'description', 'status', 'place', 'start_date', 'deadline', 'updated_at', 'user_id',];
+
+        $fields = ['id', 'title', 'type', 'image', 'place', 'scholarship_type', 'start_date', 'description', 'status', 'deadline', 'updated_at', 'user_id',];
         $request->request->add(['fields' => $fields]);
         $data = Posts::select($fields)->where('type', $type)->whereIn('status', ['open', 'close']);
         /**@Query */
@@ -107,21 +91,16 @@ class PostsResponse implements Responsable
         $mostViewsPosts = Posts::select($fields)->where('type', $type)->where('status', 'open')->limit(5)->orderBy('view', 'desc')->get();
         $this->mapPosts($mostViewsPosts);
         /**@mostViewsPosts */
-        /**@comingEvents */
-        $rawQuery = 'datediff(now(), start_date)';
-        $comingEvents = Posts::select($fields)->where('type', 'event')->where('status', 'open')->limit(4)
-            ->where(DB::raw($rawQuery), '<=', 0)
-            ->orderBy(DB::raw($rawQuery), 'desc')->get();
-        $this->mapPosts($comingEvents);
-        /**@comingEvents */
-        return ['posts' => $data, 'mostViews' => $mostViewsPosts, 'comingEvents' => $comingEvents];
+        return ['posts' => $data, 'total_count' => 0, 'mostViews' => $mostViewsPosts];
     }
 
     public function getPostsType($title)
     {
         $types = [
-            'activities' => 'activity', 'news' => 'news',
+            'activities' => 'activity',
+            'news' => 'news',
             'scholarships' => 'scholarship',
+            'institutes' => 'institute',
         ];
         return $types[$title] ?? '';
     }
@@ -138,13 +117,7 @@ class PostsResponse implements Responsable
             if ($d->type === 'activity') {
                 $d->formatted_start_date = Helpers::toFormatDateString($d->updated_at, 'H:i A, j M Y');
             }
-            // if ($d->type === 'event') {
-            //     $d->during_time = Helpers::toFormatDateString($d->start_date, 'H:i A') . ' - ';
-            //     $d->during_time .= Helpers::toFormatDateString($d->deadline, 'H:i A');
-            //     $d->formatted_start_date = Helpers::toFormatDateString($d->start_date, 'M d Y');
-            //     $d->formatted_deadline = Helpers::toFormatDateString($d->deadline, 'M d Y');
-            // }
-            
+
             if ($d->type === 'scholarship') {
                 $d->formatted_deadline = date('H:i A, M d Y', strtotime($d->deadline));
             }
@@ -155,5 +128,65 @@ class PostsResponse implements Responsable
             //remove relationship
             return $d;
         });
+    }
+
+    public function getInstitutes($request, $text, $paginateLimit): array
+    {
+        $category_id = $request->get('category_id');
+        $fields = ['users.id', 'user_profiles.institute_name', 'user_profiles.short_institute_name', 'user_profiles.public_email', 'user_profiles.updated_at', 'user_profiles.founded', 'user_profiles.phone_number'];
+        $request->request->add(['fields' => $fields]);
+        $data = User::select(array_merge(['users.image', 'user_profiles.institute_category_id', 'user_profiles.parent_institute_category_id'], $fields))->join('user_types', 'user_types.user_id', 'users.id')
+            ->join('user_profiles', 'user_profiles.user_id', 'users.id')
+            ->where('user_types.type_user_id', $this->getTypeUserId('institute'))
+            ->where('status', 'approved');
+        $total_institute_count = clone $data;
+        $total_institute_count = $total_institute_count->get()->count();
+
+        if (!empty($category_id)) {
+            $data->where('user_profiles.parent_institute_category_id', $category_id);
+            $data->orWhere('user_profiles.institute_category_id', $category_id);
+        }
+
+        /**@Query */
+        $data->where(function ($query) use ($request, $text) {
+            foreach ($request->fields as $k => $f) {
+                if ($f === 'users.updated_at') {
+                    if (Helpers::isEngText($text)) {
+                        $query->orWhere($f, 'LIKE', "%{$text}%");
+                    } else {
+                        continue;
+                    }
+                }
+                $query->orWhere($f, 'LIKE', "%{$text}%");
+            }
+            $query->orWhere(
+                DB::raw("CONCAT (user_profiles.institute_name, ' ', user_profiles.short_institute_name)"),
+                'LIKE',
+                "%{$text}%"
+            );
+        });
+        $data = $data->orderBy('users.updated_at', 'desc')->paginate($paginateLimit);
+        $data->map(function ($d) {
+            $category = $this->getInstituteCategory($d);
+            $d->category = $category ?? ['id' => '', 'name' => 'No data.'];
+            $d->image = "/assets/images/user_profiles/{$d->image}";
+            $d->formatted_founded = !empty($d->founded) ? Helpers::toFormatDateString($d->founded, 'M d Y') : 'N/A';
+            return $d;
+        });
+        /**@Query */
+        $data->appends(['limit' => $paginateLimit, 'q' => $text]);
+        return ['posts' => $data, 'total_count' => $total_institute_count, 'mostViews' => [], 'comingEvents' => []];
+    }
+
+    public function getInstituteCategory($user_profile)
+    {
+
+        if (isset($user_profile->parent_institute_category_id)) {
+            $category = InstituteCategory::find($user_profile->parent_institute_category_id);
+            return $category;
+        }
+
+        $category = InstituteCategory::find($user_profile->institute_category_id);
+        return $category;
     }
 }

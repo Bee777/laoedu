@@ -1,630 +1,292 @@
 <template>
-  <div>
-    <!--====== COURSES SINGEl PART START ======-->
-    <section id="corses-singel" class="pt-20 pb-40 gray-bg">
-      <div class="container">
-        <div class="row">
-          <div class="col-lg-8">
-            <div class="corses-singel-left mt-30">
-              <div class="title">
-                <h3>ສະຖາບັນການເງິນ-ການທະນາຄານ</h3>
-              </div>
-              <!-- title -->
-              <div class="course-terms">
-                <ul>
-                  <li>
-                    <div class="teacher-name">
-                      <div class="thum">
-                        <img
-                          :src="`${baseUrl}${baseRes}/assets/images/course/teacher/t-1.jpg`"
-                          alt="Teacher"
-                        >
-                      </div>
-                      <div class="name">
-                        <span>Teacher</span>
-                        <h6>Mark anthem</h6>
-                      </div>
+    <div>
+        <!--====== COURSES SINGEl PART START ======-->
+        <section id="corses-singel" class="pt-10 pb-20 gray-bg" style="min-height: 499px;">
+            <div class="container">
+                <div class="row">
+                    <div class="col-lg-8">
+                        <div class="corses-singel-left mt-30" style="min-height: 499px;">
+                            <div class="title">
+                                <h3 style="padding-bottom: 10px;">
+                                    {{singlePostsData.institutes.data.institute_name}}</h3>
+                            </div>
+                            <div class="sub-title">
+                                <h4 style="padding-bottom: 10px;">Short name - {{
+                                    singlePostsData.institutes.data.short_institute_name}}</h4>
+                            </div>
+                            <!-- title -->
+                            <div class="course-terms">
+                                <ul>
+                                    <li>
+                                        <div class="course-category">
+                                            <div class="name">
+                                                <span>Updated</span>
+                                                <h6>{{ singlePostsData.institutes.data.formatted_updated }}</h6>
+                                            </div>
+                                        </div>
+                                    </li>
+                                    <li>
+                                        <div class="course-category">
+                                            <span>ໝວດໝູ່ສະຖານການສຶກສາ</span>
+                                            <h6 v-if=" singlePostsData.institutes.data.category">{{
+                                                singlePostsData.institutes.data.category.name }} {{
+                                                singlePostsData.institutes.data.parent_category.name ? ' - ສັງກັດ ' +
+                                                singlePostsData.institutes.data.parent_category.name : '' }}</h6>
+                                        </div>
+                                    </li>
+                                    <li>
+                                        <div class="course-category">
+                                            <span>ວັນສ້າງຕັ້ງ</span>
+                                            <h6>{{ singlePostsData.institutes.data.formatted_founded }}</h6>
+                                        </div>
+                                    </li>
+                                </ul>
+                            </div>
+                            <!-- course terms -->
+                            <div class="corses-singel-image pt-50">
+                                <img v-if="singlePostsData.institutes.data.image"
+                                     :src="`${baseUrl}${singlePostsData.institutes.data.image }`" alt="Institute Image">
+                            </div>
+                            <!-- corses singel image -->
+                            <div class="corses-tab mt-30">
+                                <ul class="nav nav-justified" id="myTab" role="tablist">
+                                    <li class="nav-item institute">
+                                        <a
+                                            class="active"
+                                            id="overview-tab"
+                                            data-toggle="tab"
+                                            href="#overview"
+                                            role="tab"
+                                            aria-controls="overview"
+                                            aria-selected="true"
+                                        >ລາຍລະອຽດກ່ຽວກັບສະຖານການສຶກສາ</a>
+                                    </li>
+                                    <!-- <li class="nav-item">
+                                      <a
+                                        id="curriculam-tab"
+                                        data-toggle="tab"
+                                        href="#curriculam"
+                                        role="tab"
+                                        aria-controls="curriculam"
+                                        aria-selected="false"
+                                      >ຫຼັດສູດການສຶກສາ</a>
+                                    </li>
+                                    <li class="nav-item">
+                                      <a
+                                        id="instructor-tab"
+                                        data-toggle="tab"
+                                        href="#instructor"
+                                        role="tab"
+                                        aria-controls="instructor"
+                                        aria-selected="false"
+                                      >ຂໍ້ມູນຕິດຕໍ່</a>
+                                    </li>-->
+                                </ul>
+                                <div class="tab-content" id="myTabContent">
+                                    <div
+                                        class="tab-pane fade show active"
+                                        id="overview"
+                                        role="tabpanel"
+                                        aria-labelledby="overview-tab">
+                                        <div class="overview-description"
+                                             v-html="singlePostsData.institutes.data.about"></div>
+                                        <!-- overview description -->
+                                    </div>
+                                </div>
+                                <!-- tab content -->
+                            </div>
+                            <div>
+                                <ul class="share">
+                                    <li class="title">Share :</li>
+                                    <li>
+                                        <a target="_blank"
+                                           :href="link">
+                                            <i class="fab fa-facebook-f"></i>
+                                        </a>
+                                    </li>
+                                </ul>
+                            </div>
+                        </div>
+                        <!-- corses singel left -->
                     </div>
-                  </li>
-                  <li>
-                    <div class="course-category">
-                      <span>ໝວດໝູ່ສະຖານການສຶກສາ</span>
-                      <h6>ພາກລັດ</h6>
+                    <div class="col-lg-4">
+                        <div class="row">
+                            <div class="col-lg-12 col-md-6">
+                                <div class="course-features mt-30">
+                                    <h4>ຂໍ້ມູນຕິດຕໍ່</h4>
+                                    <ul>
+                                        <li>
+                                            <div class="icon">
+                                                <i class="fa fa-phone"></i>
+                                            </div>
+                                            <div class="cont">
+                                                <a style="color: #000000;" target="_blank"
+                                                   :href="`${singlePostsData.institutes.data.phone_number ? 'tel:'+singlePostsData.institutes.data.phone_number : '#'}`">
+                                                    {{ singlePostsData.institutes.data.phone_number || 'N/A' }}
+                                                </a>
+                                            </div>
+                                        </li>
+                                        <li>
+                                            <div class="icon">
+                                                <i class="far fa-envelope"></i>
+                                            </div>
+                                            <div class="cont">
+                                                <a style="color: #000000;" target="_blank"
+                                                   :href="`${singlePostsData.institutes.data.public_email ? 'mailto:'+singlePostsData.institutes.data.public_email : '#'}`">
+                                                    {{ singlePostsData.institutes.data.public_email || 'N/A' }}
+                                                </a>
+                                            </div>
+                                        </li>
+                                        <li>
+                                            <div class="icon">
+                                                <i class="fa fa-home"></i>
+                                            </div>
+                                            <div class="cont">
+                                                <p>{{ $utils.sub(singlePostsData.institutes.data.address, 400) || 'N/A'
+                                                    }}</p>
+                                            </div>
+                                        </li>
+                                        <li>
+                                            <div class="icon">
+                                                <i class="fas fa-globe"></i>
+                                            </div>
+                                            <div class="cont">
+                                                <a style="color: #000000;" target="_blank"
+                                                   :href="`${singlePostsData.institutes.data.website ? singlePostsData.institutes.data.website : '#'}`">
+                                                    {{ $utils.sub(singlePostsData.institutes.data.website, 30) || 'N/A'
+                                                    }}
+                                                </a>
+                                            </div>
+                                        </li>
+                                        <li></li>
+                                    </ul>
+                                    <div>
+                                        <ul class="share social">
+                                            <li class="title">Social :</li>
+                                            <li>
+                                                <a target="_blank"
+                                                   :href="`${singlePostsData.institutes.data.facebook ? singlePostsData.institutes.data.facebook : '#'}`">
+                                                    <i class="fab fa-facebook-f"></i>
+                                                </a>
+                                            </li>
+                                        </ul>
+                                    </div>
+                                </div>
+                                <!-- course features -->
+                            </div>
+                            <div class="col-lg-12 col-md-6">
+                                <div class="You-makelike mt-30">
+                                    <h4>ແຜນທີ່ສະຖານການສຶກສາ</h4>
+
+                                    <div class="gmap mt-10">
+                                        <iframe
+                                            :src="singlePostsData.institutes.data.googlemap"
+                                            frameborder="0"
+                                            scrolling="no"
+                                            marginheight="0"
+                                            marginwidth="0"
+                                            style="width: 100%;height: 228px;"></iframe>
+                                        <!-- Example link: https://maps.google.com/maps?width=100%&amp;height=400&amp;hl=en&amp;q=108Hill-Office & Residenceຸ&amp;ie=UTF8&amp;t=&amp;z=13&amp;iwloc=B&amp;output=embed-->
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
                     </div>
-                  </li>
-                </ul>
-              </div>
-              <!-- course terms -->
-
-              <div class="corses-singel-image pt-50">
-                <img :src="`${baseUrl}${baseRes}/assets/images/course/cu-1.jpg`" alt="Courses">
-              </div>
-              <!-- corses singel image -->
-
-              <div class="corses-tab mt-30">
-                <ul class="nav nav-justified" id="myTab" role="tablist">
-                  <li class="nav-item">
-                    <a
-                      class="active"
-                      id="overview-tab"
-                      data-toggle="tab"
-                      href="#overview"
-                      role="tab"
-                      aria-controls="overview"
-                      aria-selected="true"
-                    >ກ່ຽວກັບສະຖານການສຶກສາ</a>
-                  </li>
-                  <li class="nav-item">
-                    <a
-                      id="curriculam-tab"
-                      data-toggle="tab"
-                      href="#curriculam"
-                      role="tab"
-                      aria-controls="curriculam"
-                      aria-selected="false"
-                    >ຫຼັດສູດການສຶກສາ</a>
-                  </li>
-                  <li class="nav-item">
-                    <a
-                      id="instructor-tab"
-                      data-toggle="tab"
-                      href="#instructor"
-                      role="tab"
-                      aria-controls="instructor"
-                      aria-selected="false"
-                    >ຂໍ້ມູນຕິດຕໍ່</a>
-                  </li>
-                </ul>
-                <div class="tab-content" id="myTabContent">
-                  <div
-                    class="tab-pane fade show active"
-                    id="overview"
-                    role="tabpanel"
-                    aria-labelledby="overview-tab"
-                  >
-                    <div class="overview-description">
-                      <div class="singel-description pt-40">
-                        <h6>ກ່ຽວກັບສະຖາບັນ</h6>
-                        <p>Lorem ipsum gravida nibh vel velit auctor aliquetn sollicitudirem quibibendum auci elit cons equat ipsutis sem nibh id elit. Duis sed odio sit amet nibh vulputate cursus a sit amet mauris. Morbi accumsan ipsum velit. Nam nec tellus .</p>
-                      </div>
-                      <div class="singel-description pt-40">
-                        <h6>ຫຼັດສູດການສຶກສາ</h6>
-                        <p>Lorem ipsum gravida nibh vel velit auctor aliquetn sollicitudirem quibibendum auci elit cons equat ipsutis sem nibh id elit. Duis sed odio sit amet nibh vulputate cursus a sit amet mauris. Morbi accumsan ipsum velit. Nam nec tellus .</p>
-                      </div>
-                    </div>
-                    <!-- overview description -->
-                  </div>
-                  <div
-                    class="tab-pane fade"
-                    id="curriculam"
-                    role="tabpanel"
-                    aria-labelledby="curriculam-tab"
-                  >
-                    <div class="curriculam-cont">
-                      <div class="title">
-                        <h6>Learn basis javascirpt Lecture Started</h6>
-                      </div>
-                      <div class="accordion" id="accordionExample">
-                        <div class="card">
-                          <div class="card-header" id="headingOne">
-                            <a
-                              href="#"
-                              data-toggle="collapse"
-                              data-target="#collapseOne"
-                              aria-expanded="true"
-                              aria-controls="collapseOne"
-                            >
-                              <ul>
-                                <li>
-                                  <i class="fa fa-file-o"></i>
-                                </li>
-                                <li>
-                                  <span class="lecture">Lecture 1.1</span>
-                                </li>
-                                <li>
-                                  <span class="head">What is javascirpt</span>
-                                </li>
-                                <li>
-                                  <span class="time d-none d-md-block">
-                                    <i class="fa fa-clock-o"></i>
-                                    <span>00.30.00</span>
-                                  </span>
-                                </li>
-                              </ul>
-                            </a>
-                          </div>
-
-                          <div
-                            id="collapseOne"
-                            class="collapse show"
-                            aria-labelledby="headingOne"
-                            data-parent="#accordionExample"
-                          >
-                            <div class="card-body">
-                              <p>Ut quis scelerisque risus, et viverra nisi. Phasellus ultricies luctus augue, eget maximus felis laoreet quis. Maecenasbibendum tempor eros.</p>
-                            </div>
-                          </div>
-                        </div>
-
-                        <div class="card">
-                          <div class="card-header" id="headingTow">
-                            <a
-                              href="#"
-                              data-toggle="collapse"
-                              class="collapsed"
-                              data-target="#collapseTow"
-                              aria-expanded="true"
-                              aria-controls="collapseTow"
-                            >
-                              <ul>
-                                <li>
-                                  <i class="fa fa-file-o"></i>
-                                </li>
-                                <li>
-                                  <span class="lecture">Lecture 1.2</span>
-                                </li>
-                                <li>
-                                  <span class="head">What is javascirpt</span>
-                                </li>
-                                <li>
-                                  <span class="time d-none d-md-block">
-                                    <i class="fa fa-clock-o"></i>
-                                    <span>00.30.00</span>
-                                  </span>
-                                </li>
-                              </ul>
-                            </a>
-                          </div>
-
-                          <div
-                            id="collapseTow"
-                            class="collapse"
-                            aria-labelledby="headingTow"
-                            data-parent="#accordionExample"
-                          >
-                            <div class="card-body">
-                              <p>Ut quis scelerisque risus, et viverra nisi. Phasellus ultricies luctus augue, eget maximus felis laoreet quis. Maecenasbibendum tempor eros.</p>
-                            </div>
-                          </div>
-                        </div>
-
-                        <div class="card">
-                          <div class="card-header" id="headingThree">
-                            <a
-                              href="#"
-                              data-toggle="collapse"
-                              class="collapsed"
-                              data-target="#collapseThree"
-                              aria-expanded="false"
-                              aria-controls="collapseThree"
-                            >
-                              <ul>
-                                <li>
-                                  <i class="fa fa-file-o"></i>
-                                </li>
-                                <li>
-                                  <span class="lecture">Lecture 1.3</span>
-                                </li>
-                                <li>
-                                  <span class="head">What is javascirpt</span>
-                                </li>
-                                <li>
-                                  <span class="time d-none d-md-block">
-                                    <i class="fa fa-clock-o"></i>
-                                    <span>00.30.00</span>
-                                  </span>
-                                </li>
-                              </ul>
-                            </a>
-                          </div>
-                          <div
-                            id="collapseThree"
-                            class="collapse"
-                            aria-labelledby="headingThree"
-                            data-parent="#accordionExample"
-                          >
-                            <div class="card-body">
-                              <p>Ut quis scelerisque risus, et viverra nisi. Phasellus ultricies luctus augue, eget maximus felis laoreet quis. Maecenasbibendum tempor eros.</p>
-                            </div>
-                          </div>
-                        </div>
-
-                        <div class="card">
-                          <div class="card-header" id="headingFore">
-                            <a
-                              href="#"
-                              data-toggle="collapse"
-                              class="collapsed"
-                              data-target="#collapseFore"
-                              aria-expanded="false"
-                              aria-controls="collapseFore"
-                            >
-                              <ul>
-                                <li>
-                                  <i class="fa fa-file-o"></i>
-                                </li>
-                                <li>
-                                  <span class="lecture">Lecture 1.4</span>
-                                </li>
-                                <li>
-                                  <span class="head">What is javascirpt</span>
-                                </li>
-                                <li>
-                                  <span class="time d-none d-md-block">
-                                    <i class="fa fa-clock-o"></i>
-                                    <span>00.30.00</span>
-                                  </span>
-                                </li>
-                              </ul>
-                            </a>
-                          </div>
-                          <div
-                            id="collapseFore"
-                            class="collapse"
-                            aria-labelledby="headingFore"
-                            data-parent="#accordionExample"
-                          >
-                            <div class="card-body">
-                              <p>Ut quis scelerisque risus, et viverra nisi. Phasellus ultricies luctus augue, eget maximus felis laoreet quis. Maecenasbibendum tempor eros.</p>
-                            </div>
-                          </div>
-                        </div>
-
-                        <div class="card">
-                          <div class="card-header" id="headingFive">
-                            <a
-                              href="#"
-                              data-toggle="collapse"
-                              class="collapsed"
-                              data-target="#collapseFive"
-                              aria-expanded="false"
-                              aria-controls="collapseFive"
-                            >
-                              <ul>
-                                <li>
-                                  <i class="fa fa-file-o"></i>
-                                </li>
-                                <li>
-                                  <span class="lecture">Lecture 1.5</span>
-                                </li>
-                                <li>
-                                  <span class="head">What is javascirpt</span>
-                                </li>
-                                <li>
-                                  <span class="time d-none d-md-block">
-                                    <i class="fa fa-clock-o"></i>
-                                    <span>00.30.00</span>
-                                  </span>
-                                </li>
-                              </ul>
-                            </a>
-                          </div>
-                          <div
-                            id="collapseFive"
-                            class="collapse"
-                            aria-labelledby="headingFive"
-                            data-parent="#accordionExample"
-                          >
-                            <div class="card-body">
-                              <p>Ut quis scelerisque risus, et viverra nisi. Phasellus ultricies luctus augue, eget maximus felis laoreet quis. Maecenasbibendum tempor eros.</p>
-                            </div>
-                          </div>
-                        </div>
-
-                        <div class="card">
-                          <div class="card-header" id="headingSix">
-                            <a
-                              href="#"
-                              data-toggle="collapse"
-                              class="collapsed"
-                              data-target="#collapseSix"
-                              aria-expanded="false"
-                              aria-controls="collapseSix"
-                            >
-                              <ul>
-                                <li>
-                                  <i class="fa fa-file-o"></i>
-                                </li>
-                                <li>
-                                  <span class="lecture">Lecture 1.6</span>
-                                </li>
-                                <li>
-                                  <span class="head">What is javascirpt</span>
-                                </li>
-                                <li>
-                                  <span class="time d-none d-md-block">
-                                    <i class="fa fa-clock-o"></i>
-                                    <span>00.30.00</span>
-                                  </span>
-                                </li>
-                              </ul>
-                            </a>
-                          </div>
-                          <div
-                            id="collapseSix"
-                            class="collapse"
-                            aria-labelledby="headingSix"
-                            data-parent="#accordionExample"
-                          >
-                            <div class="card-body">
-                              <p>Ut quis scelerisque risus, et viverra nisi. Phasellus ultricies luctus augue, eget maximus felis laoreet quis. Maecenasbibendum tempor eros.</p>
-                            </div>
-                          </div>
-                        </div>
-
-                        <div class="card">
-                          <div class="card-header" id="headingSeven">
-                            <a
-                              href="#"
-                              data-toggle="collapse"
-                              class="collapsed"
-                              data-target="#collapseSeven"
-                              aria-expanded="false"
-                              aria-controls="collapseSeven"
-                            >
-                              <ul>
-                                <li>
-                                  <i class="fa fa-file-o"></i>
-                                </li>
-                                <li>
-                                  <span class="lecture">Lecture 1.7</span>
-                                </li>
-                                <li>
-                                  <span class="head">What is javascirpt</span>
-                                </li>
-                                <li>
-                                  <span class="time d-none d-md-block">
-                                    <i class="fa fa-clock-o"></i>
-                                    <span>00.30.00</span>
-                                  </span>
-                                </li>
-                              </ul>
-                            </a>
-                          </div>
-                          <div
-                            id="collapseSeven"
-                            class="collapse"
-                            aria-labelledby="headingSeven"
-                            data-parent="#accordionExample"
-                          >
-                            <div class="card-body">
-                              <p>Ut quis scelerisque risus, et viverra nisi. Phasellus ultricies luctus augue, eget maximus felis laoreet quis. Maecenasbibendum tempor eros.</p>
-                            </div>
-                          </div>
-                        </div>
-                      </div>
-                    </div>
-                    <!-- curriculam cont -->
-                  </div>
-                  <div
-                    class="tab-pane fade"
-                    id="instructor"
-                    role="tabpanel"
-                    aria-labelledby="instructor-tab"
-                  >
-                    <div class="instructor-cont">
-                      <div class="instructor-description pt-25">
-                        <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Delectus fuga ratione molestiae unde provident quibusdam sunt, doloremque. Error omnis mollitia, ex dolor sequi. Et, quibusdam excepturi. Animi assumenda, consequuntur dolorum odio sit inventore aliquid, optio fugiat alias. Veritatis minima, dicta quam repudiandae repellat non sit, distinctio, impedit, expedita tempora numquam?</p>
-                      </div>
-                    </div>
-                    <!-- instructor cont -->
-                  </div>
                 </div>
-                <!-- tab content -->
-              </div>
-              <div>
-                <ul class="share">
-                  <li class="title">Share :</li>
-                  <li>
-                    <a target="_blank" href="#">
-                      <i class="fab fa-facebook-f"></i>
-                    </a>
-                  </li>
-                  <li>
-                    <a target="_blank" href="#">
-                      <i class="fab fa-twitter"></i>
-                    </a>
-                  </li>
-                </ul>
-              </div>
+                <!-- row -->
+                <div class="row">
+                    <div class="col-lg-12">
+                        <div class="releted-courses pt-45">
+                            <div class="title">
+                                <h3>ສະຖານການສຶກສາອື່ນໆທີ່ກຽ່ວຂ້ອງ</h3>
+                            </div>
+                            <div class="row">
+                                <div class="col-lg-4 col-md-6" v-for="(item, idx) in singlePostsData.institutes.others"
+                                     :key="idx">
+                                    <div class="custom-card mt-10">
+                                        <a class="grid-card card">
+                                            <div class="media"
+                                                 @click="Route({name: 'institute-single', params: {id: item.id}})">
+                                                <img :src="`${baseUrl}${item.image}`" alt="Course">
+                                            </div>
+                                            <div class="card-body">
+                                                <div class="media-block">
+                                                    <div class="body">
+                                                        <h3 @click="Route({name: 'institute-single', params: {id: item.id}})"
+                                                            class="title">{{item.institute_name + ' ' + item.
+                                                            short_institute_name}}</h3>
+                                                        <p class="content">
+                                                            <i class="fas fa-calendar-check"></i>
+                                                            <span>{{ item.formatted_founded}}</span>
+                                                        </p>
+                                                        <p class="conent">
+                                                            <i class="fas fa-fw fa-envelope"></i>
+                                                            <span>{{ item.public_email || 'N/A'}}</span>
+                                                        </p>
+                                                        <p class="content">
+                                                            <i class="fas fa-fw fa-phone"></i>
+                                                            <span>{{ item.phone_number || 'N/A'}}</span>
+                                                        </p>
+                                                    </div>
+                                                </div>
+                                                <div class="actions">
+                                                    <div>
+                                                        <a @click="Route({name: 'institute', query: {category_id: item.category.id}})">
+                                                            <h6>
+                                                                <i class="fa fa-tags"></i> {{ item.category.name }}
+                                                            </h6>
+                                                        </a>
+                                                        <div @click="Route({name: 'institute-single', params: {id: item.id}})"
+                                                             class="button secondary border -full">View more
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </a>
+                                    </div>
+                                    <!-- singel course -->
+                                </div>
+                            </div>
+                            <!-- row -->
+                        </div>
+                        <!-- releted courses -->
+                    </div>
+                </div>
+                <!-- row -->
             </div>
-            <!-- corses singel left -->
-          </div>
-          <div class="col-lg-4">
-            <div class="row">
-              <div class="col-lg-12 col-md-6">
-                <div class="course-features mt-30">
-                  <h4>Institute Features</h4>
-                  <ul>
-                    <li>
-                      <i class="fa fa-clock-o"></i>ອາຈານທັງໝົດ :
-                      <span>50 ຄົນ</span>
-                    </li>
-                    <li>
-                      <i class="fa fa-clone"></i>ປອ :
-                      <span>09</span>
-                    </li>
-                    <li>
-                      <i class="fa fa-beer"></i>ປທ :
-                      <span>11</span>
-                    </li>
-                    <li>
-                      <i class="fa fa-beer"></i>ປຕ :
-                      <span>25</span>
-                    </li>
-                    <li>
-                      <i class="fa fa-beer"></i>ຊັ້ນກາງ :
-                      <span>05</span>
-                    </li>
-                    <li>
-                      <i class="fa fa-user-o"></i>ນັກສຶກສາທັງໝົດ :
-                      <span>1000</span>
-                    </li>
-                  </ul>
-                </div>
-                <!-- course features -->
-              </div>
-              <div class="col-lg-12 col-md-6">
-                <div class="You-makelike mt-30">
-                  <h4>ແຜນທີ່ສະຖານການສຶກສາ</h4>
-                  
-            <div class="gmap mt-10">
-              <iframe
-                src="https://www.google.com/maps/embed?pb=!1m14!1m8!1m3!1d15175.027535503485!2d102.6322612026245!3d18.03648292309852!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x31245d38b6cb9d2b%3A0xd933c8032521d049!2z4Lqh4Lqw4Lqr4Lqy4Lqn4Lq04LqX4Lqw4LqN4Lqy4LuE4Lql4LuB4Lqr4LuI4LqH4LqK4Lqy4LqU!5e0!3m2!1slo!2sla!4v1557239144195!5m2!1slo!2sla"
-                frameborder="0"
-                scrolling="no"
-                marginheight="0"
-                marginwidth="0"
-                style="width: 100%;
-                   height: 228px;"
-              ></iframe>
-            </div>
-              
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
-        <!-- row -->
-        <div class="row">
-          <div class="col-lg-12">
-            <div class="releted-courses pt-45">
-              <div class="title">
-                <h3>ສະຖານການສຶກສາອື່ນໆທີ່ກຽ່ວຂ້ອງ</h3>
-              </div>
-              <div class="row">
-                <div class="col-md-4">
-                  <div class="singel-course mt-30">
-                    <div class="thum">
-                      <div class="image">
-                        <img
-                          :src="`${baseUrl}${baseRes}/assets/images/course/cu-2.jpg`"
-                          alt="Course"
-                        >
-                      </div>
-                    </div>
-                    <div class="cont">
-                      <a href="courses-singel.html">
-                        <h4>ສະຖາບັນຂົງຈື້</h4>
-                      </a>
-                      <div class="course-teacher">
-                        <div class="name-course">
-                          <a href="#">
-                            <h6>
-                              <i class="fa fa-tags"></i> ມະຫາວິທະຍາໄລແຫ່ງຊາດ
-                            </h6>
-                          </a>
-                        </div>
-                        <div class="student">
-                          <ul>
-                            <li>
-                              <i class="fa fa-user"></i>
-                              <span>ອາຈານ 300</span>
-                            </li>
-                            <li>
-                              <i class="fa fa-heart"></i>
-                              <span>ນັກສຶກສາ 7000</span>
-                            </li>
-                          </ul>
-                        </div>
-                      </div>
-                    </div>
-                  </div>
-                  <!-- singel course -->
-                </div>
-                <div class="col-md-4">
-                  <div class="singel-course mt-30">
-                    <div class="thum">
-                      <div class="image">
-                        <img
-                          :src="`${baseUrl}${baseRes}/assets/images/course/cu-1.jpg`"
-                          alt="Course"
-                        >
-                      </div>
-                    </div>
-                    <div class="cont">
-                      <a href="courses-singel.html">
-                        <h4>ສະຖາບັນລາວ-ເກົາຫຼີ</h4>
-                      </a>
-                      <div class="course-teacher">
-                        <div class="name-course">
-                          <a href="#">
-                            <h6>
-                              <i class="fa fa-tags"></i> ມະຫາວິທະຍາໄລແຫ່ງຊາດ
-                            </h6>
-                          </a>
-                        </div>
-                        <div class="student">
-                          <ul>
-                            <li>
-                              <i class="fa fa-user"></i>
-                              <span>ອາຈານ 300</span>
-                            </li>
-                            <li>
-                              <i class="fa fa-heart"></i>
-                              <span>ນັກສຶກສາ 7000</span>
-                            </li>
-                          </ul>
-                        </div>
-                      </div>
-                    </div>
-                  </div>
-                  <!-- singel course -->
-                </div>
-                <div class="col-md-4">
-                  <div class="singel-course mt-30">
-                    <div class="thum">
-                      <div class="image">
-                        <img
-                          :src="`${baseUrl}${baseRes}/assets/images/course/cu-1.jpg`"
-                          alt="Course"
-                        >
-                      </div>
-                    </div>
-                    <div class="cont">
-                      <a href="courses-singel.html">
-                        <h4>ສະຖາບັນລາວ-ເກົາຫຼີ</h4>
-                      </a>
-                      <div class="course-teacher">
-                        <div class="name-course">
-                          <a href="#">
-                            <h6>
-                              <i class="fa fa-tags"></i> ມະຫາວິທະຍາໄລແຫ່ງຊາດ
-                            </h6>
-                          </a>
-                        </div>
-                        <div class="student">
-                          <ul>
-                            <li>
-                              <i class="fa fa-user"></i>
-                              <span>ອາຈານ 300</span>
-                            </li>
-                            <li>
-                              <i class="fa fa-heart"></i>
-                              <span>ນັກສຶກສາ 7000</span>
-                            </li>
-                          </ul>
-                        </div>
-                      </div>
-                    </div>
-                  </div>
-                  <!-- singel course -->
-                </div>
-              </div>
-              <!-- row -->
-            </div>
-            <!-- releted courses -->
-          </div>
-        </div>
-        <!-- row -->
-      </div>
-      <!-- container -->
-    </section>
-    <!--====== COURSES SINGEl PART ENDS ======-->
-  </div>
+            <!-- container -->
+        </section>
+        <!--====== COURSES SINGEl PART ENDS ======-->
+    </div>
 </template>
 <script>
-export default {
-  data: {}
-};
+    import Base from "@com/Bases/GeneralBase.js";
+
+    export default Base.extend({
+        data: () => ({
+            type: "institutes",
+            link: ""
+        }),
+        watch: {
+            "$route.params": function (n, o) {
+                this.$utils.scrollToY("html,body", 10);
+                this.singleId = n.id;
+                this.link = this.baseUrl + this.$route.fullPath;
+                this.fetchSinglePostsData({type: this.type, id: this.singleId});
+            }
+        },
+        methods: {
+            setItem(data) {
+                this.setPageTitle(`${data.data.institute_name} - ${data.data.short_institute_name}`);
+            }
+        },
+        created() {
+            this.link = this.baseUrl + this.$route.fullPath;
+            this.registerWatches();
+            this.setPageTitle("Institute");
+            this.singleId = this.$route.params.id;
+            this.fetchSinglePostsData({type: this.type, id: this.singleId});
+        }
+    });
 </script>
+

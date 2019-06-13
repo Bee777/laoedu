@@ -4,6 +4,53 @@ import store from '@store/adminStore';
 import VueRouter from 'vue-router';
 import routes from '@route/routesAdmin';
 
+import '@com/Admin/Assets/index.css'
+import {
+    Button,
+    CheckboxGroup,
+    Checkbox,
+    Radio,
+    Select,
+    Dropdown,
+    DropdownItem,
+    DropdownMenu,
+    Dialog,
+    Option,
+    Switch,
+    TabPane,
+    Message,
+    MessageBox,
+    Tooltip
+} from 'element-ui';
+
+import lang from 'element-ui/lib/locale/lang/en'
+import locale from 'element-ui/lib/locale'
+// configure language
+locale.use(lang);
+
+import iconfont from '@com/Admin/Assets/iconfont/iconfont.js'
+
+Vue.use(iconfont);
+import TextAreaPlugin from '@vue/plugin/textarea-plugin.js'
+Vue.use(TextAreaPlugin);
+Vue.use(CheckboxGroup)
+Vue.use(Checkbox)
+Vue.use(Radio)
+Vue.use(Button)
+Vue.use(Select)
+Vue.use(Dialog)
+Vue.use(Option)
+Vue.use(Switch)
+Vue.use(TabPane)
+Vue.use(TabPane)
+Vue.use(Dropdown)
+Vue.use(DropdownItem)
+Vue.use(DropdownMenu)
+Vue.use(Tooltip)
+
+Vue.prototype.$message = Message
+Vue.prototype.$confirm = MessageBox.confirm
+
 Vue.use(VueRouter);
 export const router = new VueRouter({
     mode: 'history',
