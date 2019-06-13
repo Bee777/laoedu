@@ -15,6 +15,7 @@
     var instituteCategoriesHome = {!! $instituteCategoriesHome !!};
 
     var institutes = {!! $institutes !!};
+
     var files = {!! $files !!};
 
 
