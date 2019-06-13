@@ -15,6 +15,7 @@ use App\Models\Posts;
 use App\Responses\Home\PostsResponse;
 use App\Models\Site;
 use Illuminate\Http\Request;
+use App\Models\File;
 
 trait DefaultData
 {
