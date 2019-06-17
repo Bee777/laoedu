@@ -15,7 +15,7 @@
                     >
                   </Router-link>
                 </div>
-                <p>ສູນປະກັນຄຸນນະພາບການສຶກສາ</p>
+                <p>ສູນປະກັນຄຸນນະພາບການສຶກສາລາວ</p>
                 <ul class="mt-20">
                   <li>
                     <a :href="s.facebook" target="_blank" >
@@ -64,6 +64,11 @@
                   </li> <li>
                    <router-link :to="{name:'activities'}">
                       <i class="fa fa-angle-right"></i>ກິດຈະກຳ
+                   </router-link>
+                  </li>
+                  <li>
+                   <router-link :to="{name:'document'}">
+                      <i class="fa fa-angle-right"></i>ເອກະສານ
                    </router-link>
                   </li>
                   <li>

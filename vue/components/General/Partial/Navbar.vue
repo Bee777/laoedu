@@ -2,7 +2,7 @@
     <div>
         <!--====== HEADER PART START ======-->
         <header id="header-part">
-            <!-- <div class="header-top d-none d-lg-block">
+<!--             <div class="header-top d-none d-lg-block">
               <div class="container">
                 <div class="row">
                   <div class="col-lg-6">
@@ -41,7 +41,7 @@
                                         :src="`${baseUrl}/assets/images/${s.website_logo}${s.fresh_version}`"
                                     >
                                 </router-link>
-                                <span class="site-title">ສູນປະກັນຄຸນນະພາບການສຶກສາ ສປປ ລາວ</span>
+                                <span class="site-title">ສູນປະກັນຄຸນນະພາບການສຶກສາລາວ</span>
                             </div>
                         </div>
                         <div class="col-lg-6 col-md-6">
@@ -133,6 +133,11 @@
                                         <li class="nav-item">
                                             <router-link :to="{name: 'activities'}" active-class="active" exact>
                                                 ກິດຈະກຳ
+                                            </router-link>
+                                        </li>
+                                                                                <li class="nav-item">
+                                            <router-link :to="{name: 'document'}" active-class="active" exact>
+                                                ເອກະສານ
                                             </router-link>
                                         </li>
                                         <li class="nav-item">

@@ -13,7 +13,7 @@
             <div class="details is-edit">
               <form @submit.prevent class="admin-form admin-template-form">
                 <div class="layout-align-space-around-start layout-row">
-                  <Editor id="about_jaol_editor" @editorMounted="(ed)=> editor = ed" v-model="about.description" :label="'About Jaol Description'"/>
+                  <Editor id="about_jaol_editor" @editorMounted="(ed)=> editor = ed" v-model="about.description" :label="'About Us Description'"/>
                 </div>
                 <div class="actions">
                   <div class="layout-align-end-center layout-row">

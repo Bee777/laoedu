@@ -11,6 +11,7 @@ use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Helpers\Helpers;
 use App\Models\Banner;
+use App\Models\File;
 use App\Models\Site;
 use App\Models\Posts;
 use Illuminate\Support\Str;
@@ -80,6 +81,7 @@ class HomeController extends Controller
         $data['instituteCategories'] = InstituteCategory::select('id', 'name', 'have_parent')->orderBy('id', 'desc')->get();
         $data['instituteCategoriesHome'] = InstituteCategory::select('id', 'name')->where('have_parent', 'no')->orderBy('id', 'desc')->get();
         $data['latest_institutes'] = Posts::getPosts('institute', 3);
+        $data['files'] = File::select('id','fileName','filePath')->orderBy('id','desc')->limit(20)->get();
 
         if ($data['mostViewScholarship']) {//set image
             $data['mostViewScholarship']->image = Posts::$uploadPath . $data['mostViewScholarship']->image;

@@ -17,6 +17,7 @@ import ActivitySingle from '@com/General/Default/Single/ActivitySingle.vue'
 import ScholarshipSingle from '@com/General/Default/Single/ScholarshipSingle.vue'
 import Institute from '@com/General/Default/Institute.vue'
 import InstituteSingle from '@com/General/Default/Single/InstituteSingle.vue'
+import Document from '@com/General/Default/Document.vue'
 
 const jv0ABI4_ch = 'jv0ABI4k2qmWQfLwSapBKfIQe7Lw0xTTVpa0xGG6';
 const FWSfbih_in = 'FWSfbih3KioEQAAOTinfTMME4HT5l8faZ9easpl7';
@@ -229,6 +230,16 @@ export default [
         path: '/contact',
         name: 'contact',
         component: Contact,
+        meta: {
+            ...metas.df({
+                hideNavFooter: false,
+            })
+        },
+    },
+        {
+        path: '/documents',
+        name: 'document',
+        component: Document,
         meta: {
             ...metas.df({
                 hideNavFooter: false,

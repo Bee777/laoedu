@@ -996,17 +996,18 @@ a.main-btn:hover, a.main-btn:not([href]):hover{
 .category-text{
 }
 .category-text h2{
-    font-size: 36px;
+    font-size: 22px;
     color: #fff;
-    padding: 0 50px;
+    padding: 10px 10px 20px 10px;
 }
 
 .singel-category {
 	padding: 20px 0;
 	border-radius: 5px;
 	display: block;
-	width: 190px;
-	margin-right: 4px;
+	width: 220px;
+    margin-right: 20px;
+    margin-left: 20px;
 }
 .singel-category .icon{
     display: inline-block;
@@ -2185,9 +2186,9 @@ img{
 }
 .happy-student .happy-title{}
 .happy-student .happy-title h3{
-    font-size: 36px;
+    font-size: 32px;
     color: #fff;
-    padding-bottom: 60px;
+    padding-bottom: 30px;
 }
 .happy-student .singel-student{
     position: relative;
@@ -4202,5 +4203,26 @@ img.avatar-image {
     height: 62px;
   }
 
+  .singel-document{
+    padding: 15px 0;
+    border-bottom: 1px solid #cecece;
 
+  }
+  .singel-document h4{  
+    color: #fff;
+    font-size: 18px;
+    font-weight: 500;
+    padding-right: 4px;
+    -webkit-transition: all 0.4s linear;
+    transition: all 0.4s linear;
+  }
+ .singel-document span {
+        font-size: 14px;
+    color: #fff;
+    margin-right: 20px;
+  }
+.icon-donwload{
+    margin-top: -22px;
+  float: right;
+}
 

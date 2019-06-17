@@ -203,6 +203,11 @@
 .category-text{
     text-align: center;
 }
+.category-text h2 {
+	font-size: 22px;
+	color: #fff;
+	padding: 0px 0px 15px 0px;
+}
 
 .apply-color-1 {
 	border-top-left-radius: 5px;
@@ -470,7 +475,11 @@
 .slider-cont h1 {
 	font-size: 46px;
 }
-
+.category-text h2 {
+    font-size: 22px;
+    color: #fff;
+    padding: 0px 0px 15px 0px;
+}
 .category-text{
     text-align: center;
 }
@@ -758,7 +767,11 @@
  
 /* Large Mobile :480px. */
 @media only screen and  (max-width: 575.98px) {
-
+	.category-text h2 {
+		font-size: 22px;
+		color: #fff;
+		padding: 0px 0px 15px 0px;
+	}
 .main-btn {
 	padding: 0 20px;
 	font-size: 14px;

@@ -71,6 +71,12 @@
                 <span>ກິດຈະກຳ</span>
               </router-link>
             </li>
+                        <li :class="isRoute('document')">
+              <router-link :to="{ name: 'document' }" @click.native.prevent="maskClick()">
+                <i class="sidebar-icon-md material-icons v-icon">cloud_download</i>
+                <span>ເອກະສານ</span>
+              </router-link>
+            </li>
             <!--<li :class="isRoute('forum')">-->
             <!--<router-link :to="{ name: 'forum' }" @click.native.prevent="maskClick()">-->
             <!--<i class="sidebar-icon-md material-icons">-->

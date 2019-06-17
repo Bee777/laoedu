@@ -32,6 +32,7 @@ export default new Vuex.Store({
             mostViewScholarship: {},
             instituteCategories: instituteCategories,
             instituteCategoriesHome: instituteCategoriesHome,
+            files: files,
         },
         postsData: {
             news: news,//{posts: {}, mostViews: [], comingEvents: []},
@@ -48,7 +49,7 @@ export default new Vuex.Store({
         postsAllowed: {
             news: true,
             activities: true,
-            scholarships: true,
+            scholarships: true, 
             institutes: true,
         },
         searchQuery: {text: '', filters: {}},
