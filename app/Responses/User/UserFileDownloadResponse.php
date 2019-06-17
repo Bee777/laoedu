@@ -37,7 +37,6 @@ class UserFileDownloadResponse implements Responsable
             $phpWord = $this->createFileMsWord($checkAssessment);
             $hash = md5(uniqid('assessment-uniq', true));
             $filename = public_path("assets/files/downloads/assessment-{$hash}.docx");
-            dump($filename);
             $objWriter = PhpWord\IOFactory::createWriter($phpWord);
             $objWriter->save($filename);
             return response()->download($filename);
