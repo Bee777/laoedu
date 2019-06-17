@@ -40,11 +40,11 @@ Route::group(['prefix' => 'users/me', 'middleware' => []], function () {
     Route::get('/profile-settings', 'UserController@index')->name('get.user.profileSettings');
     Route::get('/members-profile', 'UserController@index')->name('get.user.membersProfile');
     Route::get('/members-profile/{id}', 'UserController@index')->name('get.user.singleMemberProfile');
-    Route::get('/news', 'UserController@index')->name('get.user.news');
-    Route::get('/activity', 'UserController@index')->name('get..user.activity');
-    Route::get('/event', 'UserController@index')->name('get.user.event');
-    Route::get('/scholarship', 'UserController@index')->name('get.user.scholarship');
-    Route::get('/download-files', 'UserController@index')->name('get.user.downloadFile');
+    Route::get('/download-files', 'UserController@index')->name('get.user.download-files');
+    Route::get('/download-files/export', 'UserController@downloadFileExport')->name('get.user.download-files.export');
+    /***@AutoUserLogin*/
+    Route::get('auto-login/{confirmation_token}', 'Auth\LoginController@userAutoLogin')->name('get.user.UserAutoLogin');
+    /***@AutoUserLogin*/
 });
 /***** @UserRoutes ***** */
 /***** @FieldInspector ***** */

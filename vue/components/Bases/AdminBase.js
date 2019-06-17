@@ -39,7 +39,7 @@ export default Vue.extend({
     },
     methods: {
         ...mapMutations(['setClearMsg', 'setClearValidate', 'setClearSuccess']),
-        ...mapActions(['setPageTitle', 'showErrorToast', 'showInfoToast', 'fetchSearches', 'postManagePostsStatus']),
+        ...mapActions(['setPageTitle', 'showErrorToast', 'showInfoToast', 'fetchSearches', 'postManagePostsStatus', 'postAutoUserLogin']),
         registerWatches() {
             if (this.watchers) {
                 this.$watch(`searchesData.${this.type}`, (n, o) => {
@@ -211,8 +211,21 @@ export default Vue.extend({
                         this.Event.loadingState().ActiveNotLoading
                     );
                 });
-        }
+        },
         //Posts Status
+        downloadExportFile({id, data}) {
+            this.postAutoUserLogin()
+                .then(res => {
+                    if (res.success) {
+                        let req = `?redirect_url=${encodeURIComponent(`/users/me/download-files/export?type=${data.type_user}&id=${id}&user_id=${data.user_id}`)}`;
+                        let url = res.data + req;
+                        this.$utils.downloadURL(url, 'frame-download')
+                    }
+                })
+                .catch(err => {
+                    console.log(err);
+                })
+        }
     },
 
     created() {

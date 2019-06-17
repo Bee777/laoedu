@@ -3,7 +3,6 @@ let plugins = {};
 plugins.install = (Vue, options) => {
     // textarea
     Vue.prototype.$autoText = (event) => {
-
         let elem = event.target
         let height, minHeight, mMinHeight
         let padding

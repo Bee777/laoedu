@@ -311,6 +311,12 @@
                     id: this.$route.params.check_assessment_id,
                     check_assessment_sections: this.mSectionsAssessmentAnswer
                 }).then(res => {
+                    if (!res.success) {
+                        this.showInfoToast({
+                            msg: 'Cannot save maybe the checking assessment was closed or success!.',
+                            dt: 4500
+                        })
+                    }
                     this.setSaveTextState({});
                 }).catch(err => {
                     console.log(err);

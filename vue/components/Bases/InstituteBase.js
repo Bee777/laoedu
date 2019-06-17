@@ -62,7 +62,7 @@ export default Vue.extend({
     methods: {
         ...mapMutations(['setClearValidate', 'setClearSuccess']),
         ...mapActions(['setPageTitle', 'showErrorToast', 'showInfoToast', 'fetchSearches', 'fetchAuthUserInfo',
-            'fetchOptionProfileData', 'fetchDashboardData']),
+            'fetchOptionProfileData', 'fetchDashboardData', 'postAutoUserLogin']),
         registerWatches() {
             if (this.watchers) {
                 this.$watch(`searchesData.${this.type}`, (n, o) => {
@@ -224,8 +224,21 @@ export default Vue.extend({
                         this.Event.loadingState().ActiveNotLoading
                     );
                 });
-        }
+        },
         //Posts Status
+        downloadExportFile(id) {
+            this.postAutoUserLogin()
+                .then(res => {
+                    if (res.success) {
+                        let req = `?redirect_url=${encodeURIComponent(`/users/me/download-files/export?type=institute&id=${id}`)}`;
+                        let url = res.data + req;
+                        this.$utils.downloadURL(url, 'frame-download')
+                    }
+                })
+                .catch(err => {
+                    console.log(err);
+                })
+        }
     },
     created() {
         this.registerWatches();

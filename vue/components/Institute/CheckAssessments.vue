@@ -32,6 +32,7 @@
                                 </button>
 
                                 <button
+                                    @click="downloadExportFile(data.row.data.id)"
                                     class="v-md-button v-md-icon-button">
                                     <i class="material-icons v-icon">save_alt</i>
                                 </button>

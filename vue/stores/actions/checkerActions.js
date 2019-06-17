@@ -282,5 +282,20 @@ export const createActions = (utils) => {
             });
         },
         /***@GET_ASSESSMENT_FIELD_INSPECTOR**/
+        /***@AutoUserLogin */
+        postAutoUserLogin(c, i) {
+            return new Promise((r, n) => {
+                client.post(`${apiUrl}/users/auto-login`, {}, ajaxToken(c))
+                    .then(res => {
+                        c.commit('setClearMsg');
+                        r(res.data)
+                    })
+                    .catch(err => {
+                        c.dispatch('HandleError', err.response);
+                        n(err)
+                    })
+            });
+        },
+        /***@AutoUserLogin */
     }
 };

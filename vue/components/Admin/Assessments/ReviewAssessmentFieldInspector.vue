@@ -157,7 +157,7 @@
                     active: false,
                     type: 'info',
                     message: `Save as Microsoft Office Word File.`,
-                    action: {act: null, params: {}, text: 'Export'},
+                    action: {act: this.downloadExportFile, params: {}, text: 'Export'},
                     data: data
                 });
                 //add item menu status
@@ -192,6 +192,10 @@
                 let action = this.modal.action, dt = 3500, //dt is toasted show length in time
                     data = {...this.modal.data, ...action.params}; //set data from modal
                 if (action.act) {//@important action.act must non native functions
+                    if (!(action.act instanceof Promise)) {
+                        action.act({id: data.id, data});
+                        return;
+                    }
                     action.act({id: data.id, data})
                         .then(r => {
                             if (r.success) {
