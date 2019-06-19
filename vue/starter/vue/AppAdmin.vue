@@ -33,6 +33,9 @@
         <!--Spinner For Whole Page, If user is not logged in -->
         <SpinnerLoading v-if="!LoggedIn()"/>
         <!--Spinner For Whole Page, If user is not logged in -->
+        <!--Frame download-->
+        <iframe v-show="false" id="frame-download"></iframe>
+        <!--Frame download-->
     </div>
 </template>
 <script>

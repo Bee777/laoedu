@@ -31,7 +31,7 @@
                                                     </i></button>
                                                 </div>
                                                 <div>
-                                                    <a target="_blank"
+                                                    <a v-if="mRelatedAssessment" target="_blank"
                                                        :href="`/admin/me/review-assessment/${mRelatedAssessment.id}?user_id=${mRelatedAssessment.user_id}?type=institute`"
                                                        class="v-md-button v-md-icon-button theme-blue"><i
                                                         class="material-icons">

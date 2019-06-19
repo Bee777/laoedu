@@ -30,11 +30,13 @@
                                                         comment
                                                     </i></button>
                                                     <button
+                                                        v-if="!$utils.isEmptyVar(check_assessment_field_inspector.id)"
+                                                        @click="downloadExportFile(check_assessment_field_inspector.id)"
                                                         class="v-md-button v-md-icon-button theme-blue">
                                                         <i class="material-icons v-icon">save_alt</i>
                                                     </button>
                                                 </div>
-                                                <div v-if="!$utils.isEmptyVar(this.institute)">
+                                                <div v-if="!$utils.isEmptyVar(institute)">
                                                     <button @click="SaveCheckAssessment" class="v-md-button primary">{{
                                                         SaveText }}
                                                     </button>

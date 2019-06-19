@@ -97,6 +97,14 @@ class AnswerContentSchema
             'schema' => $this->schema
         ]);
     }
+    public function toArray()
+    {
+        return [
+            'question' => $this->question,
+            'access' => $this->access->toArray(),
+            'schema' => $this->schema
+        ];
+    }
 }
 
 class TextAnswerSchema

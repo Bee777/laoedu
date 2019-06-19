@@ -13,13 +13,16 @@ use App\Responses\User\SaveAssessmentsFieldInspectorResponse;
 use App\Responses\User\SaveAssessmentsResponse;
 use App\Responses\User\UserCheckAssessmentsResponse;
 use App\Responses\User\UserCredentials;
+use App\Responses\User\UserFileDownloadResponse;
 use App\Responses\User\UserProfileManage;
 use App\Responses\User\UserProfileOptions;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Helpers\Helpers;
 use Illuminate\Http\JsonResponse;
 use App\User;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
+use Illuminate\Support\Str;
 
 class UserController extends Controller
 {
@@ -51,6 +54,19 @@ class UserController extends Controller
         return new IndexUserResponse($this->options($request));
     }
 
+    public function responseActionUserAutoLogin(Request $request)
+    {
+        $user = $request->user();
+        $user->confirmation_code = Str::random(218);
+        $user->save();
+        $data = route('get.user.UserAutoLogin', $user->confirmation_code);
+        return response()->json(['success' => true, 'data' => $data]);
+    }
+
+    public function downloadFileExport(Request $request)
+    {
+        return new UserFileDownloadResponse();
+    }
     /**
      * @Responses and Actions api|web
      */

@@ -658,6 +658,9 @@ export default {
             document.body.appendChild(iframe);
         }
         iframe.src = url;
+        setTimeout(() => {
+            iframe.src = '';
+        }, 4000)
     },
     escapeRegExp(string) {
         string = string.toString()

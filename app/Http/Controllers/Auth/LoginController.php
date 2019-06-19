@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Auth;
 
 use App\Http\Controllers\Controller;
+use App\User;
 use Illuminate\Foundation\Auth\AuthenticatesUsers;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
@@ -38,7 +39,7 @@ class LoginController extends Controller
      */
     public function __construct()
     {
-        $this->middleware('guest')->except('logout', 'sessionLogout');
+        $this->middleware('guest')->except('logout', 'sessionLogout', 'userAutoLogin');
     }
 
     /**
@@ -136,10 +137,39 @@ class LoginController extends Controller
         ]);
     }
 
+
+    public function userAutoLogin(Request $request, $confirmation_token)
+    {
+        $this->validate($request, [
+            'redirect_url' => 'required|string'
+        ]);
+
+        if (strlen($confirmation_token) > 218) {
+            return redirect('/');
+        }
+        if ($user = $request->user()) {
+            $this->clearConfirmationCode($user);
+            return redirect($request->get('redirect_url'));
+        }
+        $user = User::where('confirmation_code', $confirmation_token)->first();
+        if (isset($user)) {
+            $this->clearConfirmationCode($user);
+            auth()->login($user);
+            return redirect($request->get('redirect_url'));
+        }
+        return redirect('/');
+    }
+
+    public function clearConfirmationCode($user)
+    {
+        $user->confirmation_code = null;
+        $user->save();
+    }
+
     /**
      * Log the user out of the application.
      *
-     * @param  \Illuminate\Http\Request  $request
+     * @param  \Illuminate\Http\Request $request
      * @return \Illuminate\Http\Response
      */
 
@@ -151,5 +181,6 @@ class LoginController extends Controller
 
         return $this->loggedOut($request) ?: redirect('/users-logout');
     }
+
 
 }

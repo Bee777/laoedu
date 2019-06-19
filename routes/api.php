@@ -174,6 +174,10 @@ Route::group(['prefix' => '/', 'middleware' => ['cors', 'parseToken', 'auth:api'
         Route::post('/assessment-field-inspector/check-assessment/save-answer/{id}', 'UserController@responseSaveCheckAessmentAnswerFieldInspector')->name('api.user.fetch.field-inspector.save-check-assessment');
         /**@CheckAssessmentFieldInspector */
 
+        /***@AutoUserLogin*/
+        Route::post('auto-login', 'UserController@responseActionUserAutoLogin')->name('api.users.post.UserAutoLogin');
+        /***@AutoUserLogin*/
+
     });
     /******************** @UserSection ****************** */
     /******************** @Institute ****************** */
