@@ -3866,8 +3866,8 @@ p.form-message.error {
     }
 }
 .logoImage{
-    width: 44px;
-    height: 48px;
+    margin-bottom: -40px;
+    margin-top: -20px;
 }
 .navbar-burger.burger{
     padding: 20px 0;
