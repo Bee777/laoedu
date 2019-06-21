@@ -41,7 +41,7 @@
                                         Search results for <span class="devsite-search-term"><span
                                         class="devsite-search-term">{{ query }}</span></span></h1>
                                 </div>
-                                <div class="result-snippet">{{ query==='' ? 'Results...' : 'No Results' }}</div>
+                                <div class="result-snippet">{{ paginate.data.length + ' Results.' }}</div>
                             </div>
                         </div>
                     </div>
