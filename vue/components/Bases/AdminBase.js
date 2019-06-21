@@ -129,11 +129,15 @@ export default Vue.extend({
         },
         toggleFormTop(t) {
             let ft = this.formTopState;
+            let formTop = this.models.formTop;
             ft.show = t;
             if (t) {
-                this.setClearValidate(this.models.formTop);
+                this.setClearValidate(formTop);
             } else {
                 this.models.formTop = {imageSrc: null};
+                Object.keys(formTop).forEach((k) => {
+                    this.models.formTop[k] = null;
+                })
             }
         },
         toggleFormRowContent(fireEvent, position, state) {

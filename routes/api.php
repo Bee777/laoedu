@@ -33,14 +33,10 @@ Route::group(['prefix' => '/home', 'middleware' => ['cors', 'parseToken:guest-be
     /****@ContactInfo */
     Route::post('/contact-info', 'HomeController@responsePostContactInfo')->name('api.post.contactInfo');
     /****@ContactInfo */
-    /***@MembersChartRange */
-    Route::get('/chart-ranges/{id}', 'HomeController@getChartRangeMembers');
-    /***@MembersChartRange */
 });
 /******************** @HomeSection ****************** */
 
 Route::group(['prefix' => '/', 'middleware' => ['cors', 'parseToken', 'auth:api']], function () {
-
     /**
      ***************** @AdminSection routes ************************
      */
