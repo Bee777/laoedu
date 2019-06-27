@@ -23,7 +23,8 @@ class CreateUserProfilesTable extends Migration
             $table->date('founded')->nullable()->default(null);
             $table->string('phone_number')->nullable();
             $table->string('facebook')->nullable();
-            $table->string('googlemap')->nullable();
+            $table->text('googlemap')->nullable();
+            //ALTER TABLE `user_profiles` CHANGE `googlemap` `googlemap` TEXT CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NULL DEFAULT NULL;
             $table->string('website')->nullable();
             $table->longText('about')->nullable();
 

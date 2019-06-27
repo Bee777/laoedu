@@ -10,10 +10,9 @@ namespace App\Responses\User;
 
 
 use App\Http\Controllers\Helpers\Helpers;
-use App\Organize;
+use App\Models\UserProfile;
 use App\User;
 use Illuminate\Contracts\Support\Responsable;
-use App\UserProfile;
 use Image, File;
 
 class UserProfileManage implements Responsable

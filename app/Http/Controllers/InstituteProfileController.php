@@ -63,6 +63,8 @@ class InstituteProfileController extends Controller
             'short_institute_name' => 'required|string|max:191',
             'profile_image' => 'max:3000|mimes:jpeg,png,jpg,gif,svg',
             'phone_number' => 'max:191',
+            'facebook' => 'max:191',
+            'website' => 'max:191',
             'institute_category' => 'required|string|max:191'
         ]);
         $public_email = $request->get('public_email');

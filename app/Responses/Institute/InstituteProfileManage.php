@@ -55,6 +55,10 @@ class InstituteProfileManage implements Responsable
                     $hasProfile = false;
                 }
                 //Address Information & Description
+
+                $userProfile->institute_name = $request->get('institute_name');
+                $userProfile->short_institute_name = $request->get('short_institute_name');
+
                 $userProfile->about = $request->get('about') ?? '';
 
                 $userProfile->facebook = $request->get('facebook') ?? '';
