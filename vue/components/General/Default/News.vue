@@ -25,15 +25,15 @@
                        </div>
                    </div> <!-- singel blog -->
                    <!-- Search form -->
-                                  <div class="col-lg-8" v-if="isNotFound()">
-                                    <div class="devsite-article mt-20">
-                                        <h1 class="devsite-page-title">
-                                            Search results for <span class="devsite-search-term"><span
-                                            class="devsite-search-term">{{ query }}</span></span>
-                                          </h1>
-                                    </div>
-                                    <div class="result-snippet">No Results</div>
-                                </div>
+                   <div class="col-lg-8" v-if="isNotFound()">
+                       <div class="devsite-article mt-20">
+                           <h1 class="devsite-page-title">
+                               Search results for <span class="devsite-search-term"><span
+                               class="devsite-search-term">{{ query }}</span></span>
+                           </h1>
+                       </div>
+                       <div class="result-snippet">No Results</div>
+                   </div>
                    <nav class="courses-pagination mt-10">
                         <ul class="pagination justify-content-lg-end justify-content-center">
                             <li class="page-item">
