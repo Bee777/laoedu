@@ -40,8 +40,8 @@ class CreateInstituteParentCategoriesTable extends Migration
     public function down()
     {
         Schema::table('institute_parent_categories', function ($table) {
-            $table->dropForeign('child_id');
-            $table->dropForeign('parent_id');
+            $table->dropForeign(['child_id']);
+            $table->dropForeign(['parent_id']);
         });
         Schema::dropIfExists('institute_parent_categories');
     }

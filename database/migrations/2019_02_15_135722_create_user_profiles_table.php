@@ -51,7 +51,7 @@ class CreateUserProfilesTable extends Migration
     public function down()
     {
         Schema::table('user_profiles', function ($table) {
-            $table->dropForeign('user_id');
+            $table->dropForeign(['user_id']);
         });
         Schema::dropIfExists('user_profiles');
     }

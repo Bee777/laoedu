@@ -32,7 +32,7 @@ class CreateAssessmentCommentsTable extends Migration
     public function down()
     {
         Schema::table('assessment_comments', function ($table) {
-            $table->dropForeign('user_id');
+            $table->dropForeign(['user_id']);
         });
         Schema::dropIfExists('assessment_comments');
     }

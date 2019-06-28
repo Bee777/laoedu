@@ -42,8 +42,8 @@ class CreateCheckAssessmentsTable extends Migration
     {
 
         Schema::table('check_assessments', function ($table) {
-            $table->dropForeign('assessment_id');
-            $table->dropForeign('user_id');
+            $table->dropForeign(['assessment_id']);
+            $table->dropForeign(['user_id']);
         });
         Schema::dropIfExists('check_assessments');
     }

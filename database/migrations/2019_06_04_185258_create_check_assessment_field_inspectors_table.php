@@ -43,9 +43,9 @@ class CreateCheckAssessmentFieldInspectorsTable extends Migration
     public function down()
     {
         Schema::table('check_assessment_field_inspectors', function ($table) {
-            $table->dropForeign('check_assessment_id');
-            $table->dropForeign('check_user_id');
-            $table->dropForeign('field_inspector_id');
+            $table->dropForeign(['check_assessment_id']);
+            $table->dropForeign(['check_user_id']);
+            $table->dropForeign(['field_inspector_id']);
         });
         Schema::dropIfExists('check_assessment_field_inspectors');
     }

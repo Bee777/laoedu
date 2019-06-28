@@ -36,7 +36,7 @@ class CreateAssessmentSectionsTable extends Migration
     public function down()
     {
         Schema::table('assessment_sections', function ($table) {
-            $table->dropForeign('assessment_id');
+            $table->dropForeign(['assessment_id']);
         });
         Schema::dropIfExists('assessment_sections');
     }

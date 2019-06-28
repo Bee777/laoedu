@@ -35,7 +35,7 @@ class CreateSectionQuestionsTable extends Migration
     public function down()
     {
         Schema::table('section_questions', function ($table) {
-            $table->dropForeign('section_id');
+            $table->dropForeign(['section_id']);
         });
         Schema::dropIfExists('section_questions');
     }

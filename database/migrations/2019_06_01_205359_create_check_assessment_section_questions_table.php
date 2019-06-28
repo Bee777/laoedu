@@ -34,7 +34,7 @@ class CreateCheckAssessmentSectionQuestionsTable extends Migration
     public function down()
     {
         Schema::table('check_assessment_section_questions', function ($table) {
-            $table->dropForeign('section_id');
+            $table->dropForeign(['section_id']);
         });
         Schema::dropIfExists('check_assessment_section_questions');
     }

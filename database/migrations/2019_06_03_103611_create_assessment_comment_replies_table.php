@@ -32,8 +32,8 @@ class CreateAssessmentCommentRepliesTable extends Migration
     public function down()
     {
         Schema::table('assessment_comment_replies', function ($table) {
-            $table->dropForeign('assessment_comment_id');
-            $table->dropForeign('user_id');
+            $table->dropForeign(['assessment_comment_id']);
+            $table->dropForeign(['user_id']);
         });
         Schema::dropIfExists('assessment_comment_replies');
     }
