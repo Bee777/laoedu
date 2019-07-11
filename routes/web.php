@@ -19,7 +19,7 @@ Route::get('/jv0ABI4k2qmWQfLwSapBKfIQe7Lw0xTTVpa0xGG6', 'HomeController@index')-
 Route::get('/FWSfbih3KioEQAAOTinfTMME4HT5l8faZ9easpl7', 'HomeController@index')->name('get.home.register.institute');
 
 Route::get('/register-successfully', 'HomeController@index')->name('get.home.register-successfully');
-
+Route::get('/documents', 'HomeController@index')->name('get.home.document');
 Route::get('/about', 'HomeController@index')->name('get.home.about');
 Route::get('/contact', 'HomeController@index')->name('get.home.contact');
 /**@Posts */

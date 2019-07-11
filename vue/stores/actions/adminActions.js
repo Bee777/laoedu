@@ -15,7 +15,7 @@ export const createActions = (utils) => {
             let options_request = '';
             for (let o in i.options) {
                 if (i.options.hasOwnProperty(o)) {
-                    options_request += `&${o}=${i.options[o] | ''}`;
+                    options_request += `&${o}=${i.options[o] || ''}`;
                 }
             }
             let request = `limit=${i.limit}&page=${i.page}&q=${i.q}${options_request}`;
