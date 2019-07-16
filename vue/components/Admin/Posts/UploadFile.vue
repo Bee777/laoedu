@@ -306,7 +306,8 @@
             },
             downloadFile(data) {
                 let file = data.modal.data , url = `${this.baseUrl}${file.folderPath}${file.realfilePath}`;
-                this.$utils.downloadURL(url, 'file_download');
+                //this.$utils.downloadURL(url, 'file_download');
+                window.open(url);
             }
         },
         created() {

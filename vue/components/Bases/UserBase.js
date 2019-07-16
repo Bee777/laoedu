@@ -143,7 +143,7 @@ export default Vue.extend({
             if (t) {
                 this.setClearValidate(formTop);
             } else {
-                this.models.formTop = {imageSrc: null};
+                this.models.formTop.imageSrc = null;
                 Object.keys(formTop).forEach((k) => {
                     this.models.formTop[k] = null;
                 })

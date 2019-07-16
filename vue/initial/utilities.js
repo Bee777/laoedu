@@ -470,6 +470,16 @@ export default {
             '(:[0-9]+)?(\/[^\\s]*)?$'
         ].join(''), 'i').test(str);
     },
+    httpOrHttps(url, gen = false) {
+        let regex = /(http(s?)):\/\//gi;
+        if (gen) {
+            if (!regex.test(url)) {
+                return `http://${url}`;
+            }
+            return url;
+        }
+        return regex.test(url);
+    },
     accessObjectLevels(obj, level) {
         level = String(level).split(".");
         let cObj = obj;
@@ -1243,6 +1253,8 @@ export default {
         var field = document.createElement('input');
         field.setAttribute('type', 'text');
         field.style.opacity = '0';
+        field.style.width = '0';
+        field.style.height = '0';
         field.style.position = 'absolute';
         field.setAttribute('id', 'util-hidden-keyboard-trigger');
         el.parentNode.insertBefore(field, el);

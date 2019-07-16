@@ -150,7 +150,7 @@
                                         <!--Checker Card-->
                                         <CounterCard :isLoading="validated().loading_dashboard_data"
                                                      @onCardClick="goTo('checker')"
-                                                     title="Institute"
+                                                     title="Checker"
                                                      :count="{text: 'Member(s)', value: dashboardData.members.checker_count }"
                                                      icon="group"/>
                                         <!--Checker Card-->

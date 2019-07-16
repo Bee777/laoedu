@@ -19,5 +19,5 @@
     <script src="{{ asset('/js') }}/vue-datetime.min.js{{$s["fresh_version"]}}" type="text/javascript"></script>
 
     <script type="text/javascript"
-            src="{{url('/bundles/generated/institute')}}/institute.6bf76c1755af147420fa.bundle.js"></script>
+            src="{{url('/bundles/generated/institute')}}/institute.bc7508e249ca97e2789e.bundle.js"></script>
 @endsection

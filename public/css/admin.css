@@ -25,6 +25,14 @@ body, input, select, textarea {
     font-family: 'Roboto', 'noto-regular', 'Google Sans', arial, serif, sans-serif !important;
 }
 
+.multiselect__content-wrapper * {
+    position: relative;
+    z-index: 9999;
+}
+.multiselect--active {
+    z-index: 9999;
+}
+
 /**
 *@flex hack sticky header and content scrollable
  */
@@ -4127,6 +4135,7 @@ button.navbar-alert-menu-button-bell {
     color: #78909c;
     margin-right: 8px;
 }
+
 .admin-settings-cameo .cameo-button-abs {
     position: absolute;
     right: 15px;

@@ -45,8 +45,8 @@
                             </div>
                         </div>
                     </div>
-                    <div class="row">
-                        <div class="col-lg-4 col-md-6" v-for="(item, idx) in postsData.institutes.posts.data"
+                    <div class="row list-container">
+                        <div v-show="paginate.data.length > 0" class="col-lg-4 col-md-6" v-for="(item, idx) in postsData.institutes.posts.data"
                              :key="idx">
                             <div class="custom-card mt-10">
                                 <a class="grid-card card">
@@ -213,6 +213,9 @@
         background: 0;
         border: 0;
         color: #212121;
+    }
+    .list-container {
+        min-height: 524px;
     }
 
 </style>

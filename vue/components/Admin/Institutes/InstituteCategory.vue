@@ -43,7 +43,6 @@
                                                     @onInputEnter="addItem">
                                         </AdminInput>
                                     </div>
-
                                     <div v-if="models.formTop.have_parent"
                                          class="layout-align-space-around-start layout-row"
                                          style="padding-bottom: 32px;">
@@ -117,14 +116,17 @@
 
                                 <div v-if="rowContent.data.have_parent"
                                      style="padding-bottom: 32px;">
-                                    <div class="form-multi-select-container flex dense provider-edit-inset-content" full >
+                                    <div class="form-multi-select-container flex dense provider-edit-inset-content"
+                                         full>
                                         <label>Parent Category</label>
                                         <multiselect class="select-multiple"
+                                                     @open="prepareFormLayout(true)"
+                                                     @close="prepareFormLayout(false)"
                                                      v-model="rowContent.data.parent_categories"
                                                      label="name" track-by="id"
                                                      placeholder="Select parent categories"
                                                      open-direction="bottom"
-                                                     :options="parentCategories.filter((i)=> {return i.id !== rowContent.data.id})"
+                                                     :options="getEditParentCategories(rowContent.data)"
                                                      :limit="10"
                                                      :limit-text="limitText"
                                                      :multiple="true"
@@ -149,7 +151,6 @@
 
                                     </div>
                                 </div>
-
 
 
                                 <div class="user-form-action provider-list-actions layout-align-end-center layout-row">
@@ -323,6 +324,23 @@
                             return i.have_parent === 'no';
                         })
                     });
+            },
+            getEditParentCategories(data) {
+                return this.parentCategories.filter((i) => {
+                    return i.id !== data.id
+                });
+            },
+            prepareFormLayout(t) {
+                let el = this.jq('.table-cell-wrapper.admin-table-detail-content-wrapper');
+                if (el.length) {
+                    if (t) {
+                        el.css('overflow', 'visible');
+                        el.css('z-index', '8');
+                    } else {
+                        el.css('overflow', 'hidden');
+                        el.css('z-index', '3');
+                    }
+                }
             }
         },
         created() {

@@ -100,7 +100,7 @@
                                     <li class="title">Share :</li>
                                     <li>
                                         <a target="_blank"
-                                           :href="link">
+                                           :href="sharer('fb',type , singlePostsData.institutes.data, link)">
                                             <i class="fab fa-facebook-f"></i>
                                         </a>
                                     </li>
@@ -152,7 +152,7 @@
                                             </div>
                                             <div class="cont">
                                                 <a style="color: #000000;" target="_blank"
-                                                   :href="`${singlePostsData.institutes.data.website ? singlePostsData.institutes.data.website : '#'}`">
+                                                   :href="`${singlePostsData.institutes.data.website ? $utils.httpOrHttps(singlePostsData.institutes.data.website, true) : '#'}`">
                                                     {{ $utils.sub(singlePostsData.institutes.data.website, 30) || 'N/A'
                                                     }}
                                                 </a>
@@ -165,7 +165,7 @@
                                             <li class="title">Social :</li>
                                             <li>
                                                 <a target="_blank"
-                                                   :href="`${singlePostsData.institutes.data.facebook ? singlePostsData.institutes.data.facebook : '#'}`">
+                                                   :href="`${singlePostsData.institutes.data.facebook ? $utils.httpOrHttps( singlePostsData.institutes.data.facebook, true) : '#'}`">
                                                     <i class="fab fa-facebook-f"></i>
                                                 </a>
                                             </li>
@@ -236,8 +236,9 @@
                                                                 <i class="fa fa-tags"></i> {{ item.category.name }}
                                                             </h6>
                                                         </a>
-                                                        <div @click="Route({name: 'institute-single', params: {id: item.id}})"
-                                                             class="button secondary border -full">View more
+                                                        <div
+                                                            @click="Route({name: 'institute-single', params: {id: item.id}})"
+                                                            class="button secondary border -full">View more
                                                         </div>
                                                     </div>
                                                 </div>
