@@ -159,7 +159,7 @@ class UserController extends Controller
             $data = (new CheckAssessmentsFieldInspectorResponse('get', ['text' => $text, 'limit' => $paginateLimit]))->get($request);
         }
         if (count($data) > 0) {
-            $data->appends(['limit' => $request->exists('limit'), 'q' => $request->get('q')]);
+            $data->appends(['limit' => $request->get('limit'), 'q' => $request->get('q')]);
         }
         return response()->json(['data' => $data]);
     }
