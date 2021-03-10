@@ -88,6 +88,6 @@
         "webpack-dev-server": "^2.4.5",
         "webpack-hot-middleware": "~2.24",
         "webpack-merge": "~4.2",
-        "yarn": "^1.7.0"
+        "yarn": "^1.22.0"
     }
 }
